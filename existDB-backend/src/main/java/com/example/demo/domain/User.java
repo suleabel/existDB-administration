@@ -1,6 +1,5 @@
 package com.example.demo.domain;
 
-import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -43,7 +42,7 @@ public class User{
     private String email;
 
     @NotBlank
-    @Size(min=6, max = 100)
+    @Size(min=4, max = 100)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -55,7 +54,7 @@ public class User{
     public User() {
     }
 
-    public User(@NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(min = 3, max = 50) String firstName, @NotBlank @Size(min = 3, max = 50) String lastName, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(min = 6, max = 100) String password) {
+    public User(@NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(min = 3, max = 50) String firstName, @NotBlank @Size(min = 3, max = 50) String lastName, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(min = 4, max = 100) String password) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;

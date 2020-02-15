@@ -13,7 +13,7 @@ const httpOptions = {
 })
 export class UserService {
   private selectedUser: UsersListModel = null;
-  private baseUrl = 'http://localhost:8080/userManager/';
+  private baseUrl = 'http://localhost:8085/userManager/';
 
   constructor(private http: HttpClient) {
   }

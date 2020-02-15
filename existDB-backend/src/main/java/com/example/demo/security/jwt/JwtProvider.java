@@ -24,7 +24,7 @@ public class JwtProvider {
 
     public String generateJwtToken(Authentication authentication) {
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
-        System.out.println("Lejárati idő: " + new Date((new Date()).getTime() + jwtExpiration*10000));
+        //System.out.println("Lejárati idő: " + new Date((new Date()).getTime() + jwtExpiration*10000));
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())

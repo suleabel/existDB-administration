@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {stringify} from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TargyakService {
 
-  private baseUrl = 'http://localhost:8080/rest/';
+  private baseUrl = 'http://localhost:8085/rest/';
 
   constructor(private http: HttpClient) {
   }

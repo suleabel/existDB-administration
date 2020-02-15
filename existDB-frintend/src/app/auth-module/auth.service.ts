@@ -20,8 +20,8 @@ export class AuthService {
   private userIsAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private userIsPm: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private loginUrl = 'http://localhost:8080/api/auth/signin';
-  private signupUrl = 'http://localhost:8080/api/auth/signup';
+  private loginUrl = 'http://localhost:8085/api/auth/signin';
+  private signupUrl = 'http://localhost:8085/api/auth/signup';
 
   constructor(
     private http: HttpClient,

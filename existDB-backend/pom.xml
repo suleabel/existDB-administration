@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>spring-angular-demo</artifactId>
+	<artifactId>existDB-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>spring-angular-demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>existDB-backend</name>
+	<description>existDB-backend</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -74,6 +74,26 @@
             <artifactId>spring-security-core</artifactId>
             <version>5.1.2.RELEASE</version>
         </dependency>
+
+		<!--existDb-->
+		<dependency>
+			<groupId>xmldb</groupId>
+			<artifactId>xmldb-api</artifactId>
+			<version>20021118</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.exist-db/exist-core -->
+		<dependency>
+			<groupId>org.exist-db</groupId>
+			<artifactId>exist-core</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0-b170201.1204</version>
+		</dependency>
 
 		<!--Deploy-hoz kellenek a csávó szerint az interneten-->
 		<dependency>

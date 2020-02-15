@@ -35,6 +35,8 @@ public class AuthenticationService {
 
     private JwtProvider jwtProvider;
 
+    private ExistDbMainService existDbMainService;
+
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -54,10 +56,14 @@ public class AuthenticationService {
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-
     @Autowired
     public void setJwtProvider(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
+    }
+
+    @Autowired
+    public void setExistDbMainService(ExistDbMainService existDbMainService){
+        this.existDbMainService = existDbMainService;
     }
 
     public ResponseEntity<?> signUpUser(SignUpForm signUpRequest) {
@@ -87,6 +93,11 @@ public class AuthenticationService {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        if(!existDbMainService.isAdmin(loginRequest.getUsername(), loginRequest.getPassword())){
+            return new ResponseEntity<>(new ResponseMessage("ExistDb ERROR"),
+                    HttpStatus.BAD_REQUEST);
+        }
 
         String jwt = jwtProvider.generateJwtToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
