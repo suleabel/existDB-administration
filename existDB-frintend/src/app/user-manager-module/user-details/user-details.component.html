@@ -1,0 +1,76 @@
+<div class="user-detail-list container">
+  <div class="user-details-list" *ngIf="!userDetailsEdit">
+    <div class="card">
+      <div class="card-header font-weight-bold">
+        User detail
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">Username: {{selectedUser.username}}</li>
+          <li class="list-group-item">First Name: {{selectedUser.firstName}}</li>
+          <li class="list-group-item">Last Name: {{selectedUser.lastName}}</li>
+          <li class="list-group-item">Email: {{selectedUser.email}}</li>
+          <li class="list-group-item">Roles:
+            <ul>
+              <li *ngFor="let role of selectedUser.roles">{{role}}</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="user-details-edit" *ngIf="userDetailsEdit">
+    <div class="card">
+      <div class="card-header font-weight-bold">
+        User detail
+      </div>
+      <div class="card-body">
+        <form>
+          <form #userForm="ngForm">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" required [(ngModel)]="selectedUser.username"
+                     name="name" #username="ngModel">
+            </div>
+
+            <div class="form-group">
+              <label for="firstName">FirstName</label>
+              <input type="text" class="form-control" id="firstName" required [(ngModel)]="selectedUser.firstName"
+                     name="firstName" #firstName="ngModel">
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">LastName</label>
+              <input type="text" class="form-control" id="lastName" required [(ngModel)]="selectedUser.lastName"
+                     name="lastName" #lastName="ngModel">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" id="email" required [(ngModel)]="selectedUser.email" name="email"
+                     #email="ngModel">
+            </div>
+
+            <div class="form-group">
+              <label for="userRoles">Select role</label>
+              <select class="form-control" id="userRoles" [(ngModel)]="selectedRole" name="userRoles">
+                <option *ngFor="let item of userRoles" [ngValue]="item.id">{{item.id}}</option>
+              </select>
+            </div>
+
+          </form>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div>
+    <br>
+    <button class="btn btn-success user-details-buttons" [routerLink]="'/user-manager-module'">Back</button>
+    <button class="btn btn-success user-details-buttons" (click)="userDetailsEdit = true" *ngIf="!userDetailsEdit">
+      Edit
+    </button>
+    <button class="btn btn-success user-details-buttons" (click)="userDetailsEdit = false; save()"
+            *ngIf="userDetailsEdit">Save
+    </button>
+  </div>
+</div>

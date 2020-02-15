@@ -1,0 +1,33 @@
+<div *ngIf="isLoggedIn$ | async as isLoggedIn">
+  <h1>Angular learning</h1>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" mat-button [routerLink]="'/home'"><h2>Home</h2></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" mat-button [routerLink]="'/targyak-module'"><h2>Tantárgyak</h2></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" mat-button [routerLink]="'/data-table'"><h2>Data table</h2></a>
+        </li>
+        <li class="nav-item active" *ngIf="isAdmin$ | async as isAdmin">
+          <a class="nav-link" mat-button [routerLink]="'/user-manager-module'"><h2>User Manager</h2></a>
+        </li>
+        <li class="nav-item active" *ngIf="isPm$ | async as isPm">
+          <a class="nav-link" mat-button [routerLink]="'/pm'"><h2>Project Manager</h2></a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <!--        <a class="nav-link" mat-button [routerLink]="'/register'"><h2>Registration</h2></a>-->
+        <!--        <a class="nav-link" mat-button [routerLink]="'/login'"><h2>Login</h2></a>-->
+        <a class="nav-link" mat-button (click)="onLogout()" *ngIf="isLoggedIn"><h2>Logout</h2></a>
+      </form>
+    </div>
+  </nav>
+</div>
+
+
+
+

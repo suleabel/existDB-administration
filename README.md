@@ -1,2 +1,1 @@
-# existDB-administration
- 
+Szakmai gyakorlat projekt

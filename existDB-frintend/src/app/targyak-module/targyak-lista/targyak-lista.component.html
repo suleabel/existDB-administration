@@ -1,0 +1,72 @@
+<mat-card>
+  <div class="alert alert-info text-center">
+    <h1>Targyak listája</h1>
+  </div>
+  <div class="mat-elevation-z8">
+    <mat-table class="table-bordered table-responsive" [dataSource]="MyDataSource" matSort>
+      <!-- Targykod -->
+      <ng-container matColumnDef="targykod">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Tárgykód</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.targykod}} </mat-cell>
+      </ng-container>
+
+      <!-- felev -->
+      <ng-container matColumnDef="felev">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Félév</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.felev}} </mat-cell>
+      </ng-container>
+
+      <!-- targynev -->
+      <ng-container matColumnDef="targynev">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Tárgy Neve</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.targynev}} </mat-cell>
+      </ng-container>
+
+      <!-- targy_angol_neve -->
+      <ng-container matColumnDef="targy_angol_neve">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Tárgy angol neve</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.targy_angol_neve}} </mat-cell>
+      </ng-container>
+
+      <!-- Ea -->
+      <ng-container matColumnDef="Ea">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Előadsok</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.ea}} </mat-cell>
+      </ng-container>
+
+      <!-- Gy -->
+      <ng-container matColumnDef="Gy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Gyakorlatok</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.gy}} </mat-cell>
+      </ng-container>
+
+      <!-- Kov -->
+      <ng-container matColumnDef="Kov">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Követelmény</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.kov}} </mat-cell>
+      </ng-container>
+
+      <!-- Kr -->
+      <ng-container matColumnDef="Kr">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kredit</mat-header-cell>
+        <mat-cell *matCellDef="let post" [ngStyle]="{'background-color': post.kr === 5 ? 'green' : 'red'}" > {{post.kr}} </mat-cell>
+      </ng-container>
+
+      <!-- ETF -->
+      <ng-container matColumnDef="ETF">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Előfeltétel</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.etf}} </mat-cell>
+      </ng-container>
+
+      <!-- helyettesitotargy_kodja -->
+      <ng-container matColumnDef="helyettesitotargy_kodja">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Helyettesítő tárgy kódja</mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.helyettesitotargy_kodja}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+</mat-card>

@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+  height: 300px;
+}
+
+.left {
+  width: 25%;
+}
+
+.right {
+  width: 75%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*# sourceMappingURL=user-manager-module-sidenemu.component.css.map */
