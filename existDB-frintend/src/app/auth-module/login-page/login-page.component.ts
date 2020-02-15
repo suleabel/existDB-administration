@@ -39,7 +39,6 @@ export class LoginPageComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-
   submit() {
     console.log(this.loginForm.value);
     if (this.loginForm.invalid) {

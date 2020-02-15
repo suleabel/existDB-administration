@@ -7,7 +7,16 @@
       <strong>Roles:</strong> {{info.authorities}}<br />
       <strong>Token:</strong> {{info.token}}.
     </p>
-    <button class="btn btn-secondary" (click)="logout()">Logout</button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Connect to existDB server:</div>
+    <div class="card-body">
+          <label for="URL" class="control-label"></label>
+          <input matInput id="URL" type="text" class="form-control" placeholder="URL"
+                 formControlName="URL">
+          <button (click)="connectToDb()">Connect</button>
+    </div>
   </div>
 
   <ng-template #loggedOut>

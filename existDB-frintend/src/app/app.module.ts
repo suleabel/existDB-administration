@@ -34,6 +34,7 @@ import { PmMainComponent } from './pm_functions-module/pm-main/pm-main.component
 import { UserManagerSidenemuComponent } from './user-manager-module/user-manager-sidenemu/user-manager-sidenemu.component';
 import { MainNavComponent } from './forComponentTesting/main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     ErrorComponent,
     PmMainComponent,
     UserManagerSidenemuComponent,
-    MainNavComponent
+    MainNavComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

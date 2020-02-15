@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort} from '@angular/material';
 import {TokenStorageService} from '../../auth-module/token-storage.service';
-import * as JWT from 'jwt-decode';
 
 @Component({
   selector: 'app-home-page',
@@ -37,6 +36,9 @@ export class HomePageComponent implements OnInit {
     window.location.reload();
   }
 
+  connectToDb() {
+    alert('connectToDB');
+  }
 
 }
 
