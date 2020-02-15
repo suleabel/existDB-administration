@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.ExistDBUsers;
 import com.example.demo.domain.ExistDetails;
 import com.example.demo.util.Util;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.XMLDBException;
+
+import java.util.Scanner;
 
 @Component
 public class ExistDbUserManagerServices {
@@ -64,23 +67,61 @@ public class ExistDbUserManagerServices {
 
     }
 
-    public String listUsers(ExistDetails details) throws Exception {
-        Collection old = collection;
-        util.closeCollection(collection);
-        String result;
-        try {
-            collection = DatabaseManager.getCollection(details.getUrl() + DB);
+    public String listUsers(ExistDetails details){
             String query = "xquery version \"3.1\";\n" +
                     "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                    "if(xmldb:login(\"/db\",\"" + details.getPassword() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
+                    "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
                     "    sm:list-users()\n" +
                     "else\n" +
                     "\tfalse()";
-            result = util.execXQuery(query, collection);
-        } catch (NullPointerException e) {
-            return "null";
-        } finally {
+        return stringResultQuery(details,query);
+    }
+
+    public String getUserGroups(ExistDetails details, String user){
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
+                "    sm:get-user-groups(\"" + user + "\")\n" +
+                "else\n" +
+                "false()";
+        return stringResultQuery(details,query);
+    }
+
+    public String getUserUmask(ExistDetails details, String user) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
+                "    sm:get-umask(\"" + user + "\")\n" +
+                "else\n" +
+                "false()";
+        return stringResultQuery(details, query);
+    }
+
+    public String getUserPrimaryGroup(ExistDetails details, String user) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
+                "    sm:get-user-primary-group(\"" + user + "\")\n" +
+                "else\n" +
+                "false()";
+        return stringResultQuery(details, query);
+    }
+
+    private String stringResultQuery(ExistDetails details, String query){
+        Collection old = collection;
+        String result = null;
+        try {
             util.closeCollection(collection);
+            collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
+            result = util.execXQuery(query, collection);
+        } catch (Exception e){
+            System.out.println("Collection exception: " + e.getMessage());
+        } finally {
+            try {
+                util.closeCollection(collection);
+            }catch (Exception ee){
+                System.out.println("Collection exception: " + ee.getMessage());
+            }
             collection = old;
         }
         return result;

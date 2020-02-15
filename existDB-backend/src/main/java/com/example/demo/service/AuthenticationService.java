@@ -93,8 +93,7 @@ public class AuthenticationService {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        if(!existDbMainService.isAdmin(loginRequest.getUsername(), loginRequest.getPassword())){
+        if(!existDbMainService.isAdmin(loginRequest.getUsername(), loginRequest.getPassword(),loginRequest.getUrl())){
             return new ResponseEntity<>(new ResponseMessage("ExistDb ERROR"),
                     HttpStatus.BAD_REQUEST);
         }

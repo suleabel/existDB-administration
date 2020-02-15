@@ -20,6 +20,18 @@
 
           <div class="form-group">
             <mat-form-field>
+              <label for="url" class="control-label"></label>
+              <input matInput id="url" type="text" class="form-control" placeholder="url"
+                     formControlName="url">
+              <mat-error *ngIf="url.invalid && url.touched">
+                Username is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <label>xmldb:exist://192.168.1.168:8080/exist/xmlrpc</label>
+
+          <div class="form-group">
+            <mat-form-field>
               <label for="password" class="control-label"></label>
               <input matInput id="password" type="password" class="form-control" placeholder="password"
                      formControlName="password">

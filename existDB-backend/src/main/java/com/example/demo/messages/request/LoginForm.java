@@ -12,6 +12,17 @@ public class LoginForm {
     @Size(min = 4, max = 100)
     private String password;
 
+    @NotBlank
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -33,6 +44,7 @@ public class LoginForm {
         return "LoginForm{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

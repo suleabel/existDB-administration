@@ -23,10 +23,13 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', [
-        Validators.required
+          Validators.required
       ]],
       password: ['', [
-        Validators.required
+          Validators.required
+      ]],
+      url: ['', [
+          Validators.required
       ]]
     });
   }
@@ -37,6 +40,10 @@ export class LoginPageComponent implements OnInit {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  get url() {
+    return this.loginForm.get('url');
   }
 
   submit() {
