@@ -11,6 +11,8 @@ import javax.xml.transform.OutputKeys;
 @Component
 public class Util {
 
+    private Collection collection = null;
+
     public void initDatabaseDriver(String driver){
         try{
             Class aClass = Class.forName(driver);
@@ -27,6 +29,46 @@ public class Util {
         }catch (XMLDBException e){
             System.out.println("XMLDBException: " + e.getMessage());
         }
+    }
+
+    public String stringResultQuery(ExistDetails details, String query){
+        Collection old = collection;
+        String result = null;
+        try {
+            closeCollection(collection);
+            collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
+            result = execXQuery(query, collection);
+        } catch (Exception e){
+            System.out.println("Collection exception: " + e.getMessage());
+        } finally {
+            try {
+                closeCollection(collection);
+            }catch (Exception ee){
+                System.out.println("Collection exception: " + ee.getMessage());
+            }
+            collection = old;
+        }
+        return result;
+    }
+
+    public boolean booleanResultQuery(ExistDetails details, String query) {
+        Collection old = collection;
+        boolean result = false;
+        try {
+            collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection(), details.getUsername(), details.getPassword());
+            System.out.println("asdasdasdasdasd" + execXQuery(query,collection));
+            result = true;
+        } catch (XMLDBException e) {
+            System.out.println("User delete Exception: " + e.getMessage());
+        } finally {
+            try {
+                closeCollection(collection);
+            }catch (Exception ee){
+                System.out.println("Collection exception: " + ee.getMessage());
+            }
+            collection = old;
+        }
+        return result;
     }
 
     public void closeCollection(Collection collection) throws Exception {

@@ -6,7 +6,6 @@ import com.example.demo.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,25 +14,19 @@ import java.util.List;
 @Service
 public class ExistDbMainService {
 
+    @Autowired
     private Util util;
+
+    @Autowired
     private ExistDbUserManagerServices existDbUserManagerServices;
 
     @Autowired
-    public void setUtil(Util util){
-        this.util = util;
-    }
-
-    @Autowired
-    public void setExistDbUserManagerServices(ExistDbUserManagerServices existDbUserManagerServices){
-        this.existDbUserManagerServices = existDbUserManagerServices;
-    }
+    private ExistDbCollectionManagerService existDbCollectionManagerService;
 
     public ArrayList<ExistDBUsers> listUsers() {
         ExistDetails details = new ExistDetails();
         List<String> users = new ArrayList<>();
         ArrayList<ExistDBUsers> existDBUsers = new ArrayList<>();
-
-        String result = null;
 
         //csak teszt miatt kell-------------------------------//
         util.initDatabaseDriver(details.getDriver());
@@ -41,14 +34,11 @@ public class ExistDbMainService {
         details.setPassword("admin1234");
         //----------------------------------------------------//
 
-        System.out.println(details.toString());
         try{
-            result = existDbUserManagerServices.listUsers(details);
-            users = Arrays.asList(result.split("\n"));
+            users = Arrays.asList(existDbUserManagerServices.listUsers(details).split("\n"));
         }catch (Exception e){
             e.printStackTrace();
         }
-
         for (String user: users) {
             System.out.println(user);
             ExistDBUsers existDBUser = new ExistDBUsers();
@@ -58,10 +48,19 @@ public class ExistDbMainService {
             existDBUser.setPrimaryGroup(existDbUserManagerServices.getUserPrimaryGroup(details, user));
             existDBUsers.add(existDBUser);
         }
-
-        System.out.println(existDBUsers.toString());
-
         return existDBUsers;
+    }
+
+    public boolean deleteUser(String username){
+        ExistDetails details = new ExistDetails();
+
+        //csak teszt miatt kell-------------------------------//
+        util.initDatabaseDriver(details.getDriver());
+        details.setUsername("admin");
+        details.setPassword("admin1234");
+        //----------------------------------------------------//
+
+        return existDbUserManagerServices.deleteUser(details, username);
     }
 
     public boolean isAdmin (String username, String password, String url){
@@ -73,4 +72,15 @@ public class ExistDbMainService {
         return existDbUserManagerServices.isAndminAccess(details);
     }
 
+    public List<String> getCollection() {
+        ExistDetails details = new ExistDetails();
+
+        //csak teszt miatt kell-------------------------------//
+        util.initDatabaseDriver(details.getDriver());
+        details.setUsername("admin");
+        details.setPassword("admin1234");
+        //----------------------------------------------------//
+
+        return Arrays.asList(existDbCollectionManagerService.getCollectionContent(details, "").split("\n"));
+    }
 }

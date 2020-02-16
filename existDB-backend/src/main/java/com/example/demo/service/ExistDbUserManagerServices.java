@@ -1,22 +1,18 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.ExistDBUsers;
 import com.example.demo.domain.ExistDetails;
 import com.example.demo.util.Util;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.XMLDBException;
-
-import java.util.Scanner;
 
 @Component
 public class ExistDbUserManagerServices {
 
-    private static final String DB = "/db/";//root collection
     private Collection collection = null;
     private static Util util = new Util();
 
+    /*
     public boolean createUser(ExistDetails details, String user, String pass, String group) throws Exception {
         Collection old = collection;//save previos context
         util.closeCollection(collection);
@@ -66,7 +62,7 @@ public class ExistDbUserManagerServices {
         return userIsDeleted;
 
     }
-
+*/
     public String listUsers(ExistDetails details){
             String query = "xquery version \"3.1\";\n" +
                     "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -74,7 +70,20 @@ public class ExistDbUserManagerServices {
                     "    sm:list-users()\n" +
                     "else\n" +
                     "\tfalse()";
-        return stringResultQuery(details,query);
+        return util.stringResultQuery(details,query);
+    }
+
+    public boolean deleteUser(ExistDetails details, String username){
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    sm:remove-account(\"" + username + "\")\n" +
+                "else\n" +
+                "false()";
+        if(userExists(username)){
+            util.stringResultQuery(details, query);
+        }
+        return !userExists(username);
     }
 
     public String getUserGroups(ExistDetails details, String user){
@@ -84,7 +93,7 @@ public class ExistDbUserManagerServices {
                 "    sm:get-user-groups(\"" + user + "\")\n" +
                 "else\n" +
                 "false()";
-        return stringResultQuery(details,query);
+        return util.stringResultQuery(details,query);
     }
 
     public String getUserUmask(ExistDetails details, String user) {
@@ -94,7 +103,7 @@ public class ExistDbUserManagerServices {
                 "    sm:get-umask(\"" + user + "\")\n" +
                 "else\n" +
                 "false()";
-        return stringResultQuery(details, query);
+        return util.stringResultQuery(details, query);
     }
 
     public String getUserPrimaryGroup(ExistDetails details, String user) {
@@ -104,27 +113,7 @@ public class ExistDbUserManagerServices {
                 "    sm:get-user-primary-group(\"" + user + "\")\n" +
                 "else\n" +
                 "false()";
-        return stringResultQuery(details, query);
-    }
-
-    private String stringResultQuery(ExistDetails details, String query){
-        Collection old = collection;
-        String result = null;
-        try {
-            util.closeCollection(collection);
-            collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
-            result = util.execXQuery(query, collection);
-        } catch (Exception e){
-            System.out.println("Collection exception: " + e.getMessage());
-        } finally {
-            try {
-                util.closeCollection(collection);
-            }catch (Exception ee){
-                System.out.println("Collection exception: " + ee.getMessage());
-            }
-            collection = old;
-        }
-        return result;
+        return util.stringResultQuery(details, query);
     }
 
     private boolean userExists(String user) {
@@ -145,7 +134,7 @@ public class ExistDbUserManagerServices {
         boolean result = false;
         try{
             util.closeCollection(collection);
-            collection = DatabaseManager.getCollection(details.getUrl() + DB);
+            collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
             String querry = "xquery version \"3.1\";\n" +
                     "import module namespace xmldb=\"http://exist-db.org/xquery/xmldb\" at \"java:org.exist.xquery.functions.xmldb.XMLDBModule\";\n" +
                     "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ))then\n" +
