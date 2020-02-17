@@ -1,1 +1,1 @@
-Szakmai gyakorlat projekt
+Szakdolgozat
