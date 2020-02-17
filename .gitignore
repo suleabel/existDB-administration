@@ -26,6 +26,10 @@ https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 .idea/**/gradle.xml
 .idea/**/libraries
 
+#Target folder
+*/target/*
+*/target/**
+
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module 
 files,
@@ -82,7 +86,7 @@ fabric.properties
 *.dll.config
 *.cache
 *.suo
-# Include dlls if they’re in the NuGet packages directory
+# Include dlls if theyâ€™re in the NuGet packages directory
 !/packages/*/lib/*.dll
 !/packages/*/lib/*/*.dll
 # Include dlls if they're in the CommonReferences directory
@@ -110,7 +114,7 @@ TestResults/
 ############
 # Packages #
 ############
-# it’s better to unpack these files and commit the raw source
+# itâ€™s better to unpack these files and commit the raw source
 # git has its own built in compression methods
 *.7z
 *.dmg
