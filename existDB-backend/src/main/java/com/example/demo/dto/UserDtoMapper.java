@@ -1,7 +1,7 @@
 package com.example.demo.dto;
 
-import com.example.demo.domain.Role;
-import com.example.demo.domain.User;
+import com.example.demo.model.Role;
+import com.example.demo.model.User;
 import com.example.demo.dto.model.UserDto;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.RoleConverter;

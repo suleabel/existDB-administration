@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.ExistDetails;
+import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
@@ -77,7 +77,10 @@ public class ExistDbUserManagerServices {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
-                "    sm:remove-account(\"" + username + "\")\n" +
+                "("+
+                "sm:remove-account(\"" + username + "\"),\n"+
+                "true()\n" +
+                ")" +
                 "else\n" +
                 "false()";
         if(userExists(username)){
@@ -91,6 +94,19 @@ public class ExistDbUserManagerServices {
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
                 "    sm:get-user-groups(\"" + user + "\")\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details,query);
+    }
+
+    public String changeUserPass(ExistDetails details, String username, String password) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "(\n" +
+                "sm:passwd(\"" + username + "\", \"" + password + "\"),\n" +
+                "true()\n" +
+                ")\n" +
                 "else\n" +
                 "false()";
         return util.stringResultQuery(details,query);

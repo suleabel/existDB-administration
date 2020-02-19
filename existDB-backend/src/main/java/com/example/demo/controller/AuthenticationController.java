@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.messages.request.LoginForm;
-import com.example.demo.messages.request.SignUpForm;
+import com.example.demo.security.messages.request.LoginForm;
+import com.example.demo.security.messages.request.SignUpForm;
 import com.example.demo.service.AuthenticationService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

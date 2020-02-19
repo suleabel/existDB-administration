@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.ExistDetails;
+import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

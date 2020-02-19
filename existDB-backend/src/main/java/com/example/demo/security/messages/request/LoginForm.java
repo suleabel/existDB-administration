@@ -1,4 +1,4 @@
-package com.example.demo.messages.request;
+package com.example.demo.security.messages.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

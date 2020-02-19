@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.ExistDBUsers;
+import com.example.demo.model.ExistDBUsers;
 import com.example.demo.service.ExistDbMainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.Role;
-import com.example.demo.domain.RoleName;
+import com.example.demo.model.Role;
+import com.example.demo.model.RoleName;
 import com.example.demo.repository.RoleRepository;
 import java.util.HashSet;
 import java.util.Set;

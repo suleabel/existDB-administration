@@ -1,9 +1,9 @@
-package com.example.demo.domain;
+package com.example.demo.model;
 
 public class ExistDetails {
     private String username = "default";
     private String password = "default";
-    private String url = "xmldb:exist://192.168.1.127:8080/exist/xmlrpc";
+    private String url = "xmldb:exist://192.168.1.104:8088/exist/xmlrpc";
     private String collection = "/db/";
     private final String driver = "org.exist.xmldb.DatabaseImpl";
 

@@ -1,6 +1,6 @@
 package com.example.demo.util;
 
-import com.example.demo.domain.ExistDetails;
+import com.example.demo.model.ExistDetails;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;

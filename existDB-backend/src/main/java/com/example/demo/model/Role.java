@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.example.demo.model;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -16,9 +16,15 @@ public class Role {
     @Column(length = 60)
     private RoleName name;
 
+
     public Role() {}
 
     public Role(RoleName name) {
+        this.name = name;
+    }
+
+    public Role(Long id, RoleName name) {
+        this.id = id;
         this.name = name;
     }
 

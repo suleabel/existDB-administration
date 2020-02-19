@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.example.demo.model;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -60,6 +60,16 @@ public class User{
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    public User(Long id, @NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(min = 3, max = 50) String firstName, @NotBlank @Size(min = 3, max = 50) String lastName, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(min = 4, max = 100) String password, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
     public Long getId() {

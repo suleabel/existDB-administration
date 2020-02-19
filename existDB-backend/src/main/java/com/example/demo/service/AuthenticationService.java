@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.User;
+import com.example.demo.model.User;
 
-import com.example.demo.messages.request.LoginForm;
-import com.example.demo.messages.request.SignUpForm;
-import com.example.demo.messages.response.JwtResponse;
-import com.example.demo.messages.response.ResponseMessage;
+import com.example.demo.security.messages.request.LoginForm;
+import com.example.demo.security.messages.request.SignUpForm;
+import com.example.demo.security.messages.response.JwtResponse;
+import com.example.demo.security.messages.response.ResponseMessage;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.jwt.JwtProvider;
 import java.util.Set;

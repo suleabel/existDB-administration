@@ -1,0 +1,1 @@
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `username`) VALUES (11, 'test@gmail.com', 'test', 'user', 'admin1234', 'admin');

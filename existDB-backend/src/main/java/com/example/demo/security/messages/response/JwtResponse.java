@@ -1,4 +1,4 @@
-package com.example.demo.messages.response;
+package com.example.demo.security.messages.response;
 
 import org.springframework.security.core.GrantedAuthority;
 
