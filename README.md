@@ -1,1 +1,2 @@
-Szakmai gyakorlat projekt
+Szakdolgozat
+Thesis
