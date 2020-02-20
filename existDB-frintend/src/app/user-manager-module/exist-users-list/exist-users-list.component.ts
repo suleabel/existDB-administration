@@ -16,7 +16,7 @@ export class ExistUsersListComponent implements OnInit {
     umask,
     primaryGroup,
     desc,
-      default
+    default
   };
   displayedColumns = ['username', 'fullName', 'umask', 'primaryGroup', 'desc', 'default', 'details', 'delete'];
   constructor(public userService: UserService, private router: Router) { }

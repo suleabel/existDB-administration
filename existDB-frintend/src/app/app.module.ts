@@ -36,6 +36,7 @@ import { MainNavComponent } from './forComponentTesting/main-nav/main-nav.compon
 import { LayoutModule } from '@angular/cdk/layout';
 import { ExistUsersListComponent } from './user-manager-module/exist-users-list/exist-users-list.component';
 import { ExistUsersEditDetailsComponent } from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
+import { ExistGroupListComponent } from './exist-group-list/exist-group-list.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,9 @@ import { ExistUsersEditDetailsComponent } from './user-manager-module/exist-user
     UserManagerSidenemuComponent,
     MainNavComponent,
     ExistUsersListComponent,
-    ExistUsersEditDetailsComponent
+    ExistUsersEditDetailsComponent,
+    ExistGroupListComponent,
+    ExistGroupListComponent
   ],
   imports: [
     BrowserModule,

@@ -15,8 +15,7 @@ public class ExistDbUserManagerServices {
 
     private Collection collection = null;
 
-    @Autowired
-    private static Util util;
+    private static Util util = new Util();
 
     public String createUser(ExistDetails details, String username, String password, String primaryGroup, ArrayList<String> groups, String fullname, String desc) throws Exception {
         String query = "xquery version \"3.1\";\n" +

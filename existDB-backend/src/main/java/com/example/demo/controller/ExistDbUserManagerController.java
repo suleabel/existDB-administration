@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ExistDBGroup;
 import com.example.demo.model.ExistDBUsers;
 import com.example.demo.service.ExistDbMainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +39,5 @@ public class ExistDBUserManagerController {
         return existDbMainService.getCollection();
     }
 
-    @RequestMapping("/getGroups")
-    public ArrayList<ExistDBGroup> getGroups() {
-        return existDbMainService.listGroups();
-    }
 
 }

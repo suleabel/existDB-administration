@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExistDbGroupManagerServices {
 
-    @Autowired
-    private static Util util;
+    private static Util util = new Util();
 
 
     public String getGroups(ExistDetails details){
@@ -19,6 +18,7 @@ public class ExistDbGroupManagerServices {
                 "    sm:list-groups()\n" +
                 "else\n" +
                 "\tfalse()";
+        System.out.println(details);
         return util.stringResultQuery(details, query);
     }
 

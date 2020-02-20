@@ -1,0 +1,44 @@
+<div class="user-list-table">
+    <mat-table class="table-bordered table-responsive" [dataSource]="GroupsData" matSort>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>name</mat-header-cell>
+            <mat-cell  *matCellDef="let post"> {{post.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="manager">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>manager</mat-header-cell>
+            <mat-cell *matCellDef="let post"> {{post.manager}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="desc">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>desc</mat-header-cell>
+            <mat-cell *matCellDef="let post"> {{post.desc}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="members">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>members</mat-header-cell>
+            <mat-cell *matCellDef="let post"> {{post.members}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="details">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
+            <mat-cell *matCellDef="let post">
+                <button class="btn btn-success" (click)="details(post.name)">Detail
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Delete</mat-header-cell>
+            <mat-cell *matCellDef="let post">
+                <button class="btn btn-danger" (click)="delete(post.name)" >Delete</button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]"></mat-paginator>
+</div>

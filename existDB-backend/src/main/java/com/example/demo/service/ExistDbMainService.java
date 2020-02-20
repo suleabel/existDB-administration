@@ -27,13 +27,13 @@ public class ExistDbMainService {
     @Autowired
     private ExistDbGroupManagerServices existDbGroupManagerServices;
 
+    private ExistDetails details = new ExistDetails();
+
     public void initDatabaseDriver() {
-        ExistDetails details = new ExistDetails();
-        //csak teszt miatt kell-------------------------------//
-        util.initDatabaseDriver(details.getDriver());
         details.setUsername("admin");
         details.setPassword("admin1234");
-        //----------------------------------------------------//
+        util.initDatabaseDriver(details.getDriver());
+
     }
 
     public ArrayList<ExistDBUsers> listUsers() {
@@ -65,7 +65,7 @@ public class ExistDbMainService {
     }
 
     public ArrayList<ExistDBGroup> listGroups(){
-        ExistDetails details = new ExistDetails();
+
         List<String> groups;
         ArrayList<ExistDBGroup> dbGroups = new ArrayList<>();
         groups = Arrays.asList(existDbGroupManagerServices.getGroups(details).split("\n"));
@@ -105,7 +105,6 @@ public class ExistDbMainService {
     }
 
     public List<String> getCollection() {
-        ExistDetails details = new ExistDetails();
 
         //csak teszt miatt kell-------------------------------//
         util.initDatabaseDriver(details.getDriver());
