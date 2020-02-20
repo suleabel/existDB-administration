@@ -34,7 +34,8 @@ import { PmMainComponent } from './pm_functions-module/pm-main/pm-main.component
 import { UserManagerSidenemuComponent } from './user-manager-module/user-manager-sidenemu/user-manager-sidenemu.component';
 import { MainNavComponent } from './forComponentTesting/main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { FooterComponent } from './footer/footer.component';
+import { ExistUsersListComponent } from './user-manager-module/exist-users-list/exist-users-list.component';
+import { ExistUsersEditDetailsComponent } from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { FooterComponent } from './footer/footer.component';
     PmMainComponent,
     UserManagerSidenemuComponent,
     MainNavComponent,
-    FooterComponent
+    ExistUsersListComponent,
+    ExistUsersEditDetailsComponent
   ],
   imports: [
     BrowserModule,

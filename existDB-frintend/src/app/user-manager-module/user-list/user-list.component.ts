@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
-import {UsersListModel} from '../model/users-list.model';
 
 @Component({
   selector: 'app-user-list',
@@ -34,18 +33,18 @@ export class UserListComponent implements OnInit {
 
   RenderUsersList() {
     this.userService.getAllUser()
-      .subscribe(
-        res => {
-          this.UsersData = new MatTableDataSource();
-          this.UsersData.data = res;
-          this.UsersData.sort = this.sort;
-          this.UsersData.paginator = this.paginator;
-          console.log(this.UsersData.data);
-        },
-        error => {
-          console.log('Error');
-        }
-      );
+        .subscribe(
+            res => {
+              this.UsersData = new MatTableDataSource();
+              this.UsersData.data = res;
+              this.UsersData.sort = this.sort;
+              this.UsersData.paginator = this.paginator;
+              console.log(this.UsersData.data);
+            },
+            error => {
+              console.log('Error');
+            }
+        );
   }
 
   details(id) {

@@ -1,0 +1,37 @@
+<div class="user-detail-list container">
+    <div class="user-details-list" *ngIf="!userDetailsEdit">
+        <div class="card">
+            <div class="card-header font-weight-bold">
+                User detail
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Username: {{selectedUser.username}}</li>
+                    <li class="list-group-item">Full Name: {{selectedUser.fullName}}</li>
+                    <li class="list-group-item">Umask: {{selectedUser.umask}}</li>
+                    <li class="list-group-item">Primary group: {{selectedUser.primaryGroup}}</li>
+                    <li class="list-group-item">Description: {{selectedUser.desc}}</li>
+                    <li class="list-group-item">Roles:
+                        <ul>
+                            <li *ngFor="let groups of selectedUser.groups">{{groups}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-details-edit" *ngIf="userDetailsEdit">
+    </div>
+
+    <div>
+        <br>
+        <button class="btn btn-success user-details-buttons" [routerLink]="'/user-manager-module'">Back</button>
+        <button class="btn btn-success user-details-buttons" (click)="userDetailsEdit = true" *ngIf="!userDetailsEdit">
+            Edit
+        </button>
+        <button class="btn btn-success user-details-buttons" (click)="userDetailsEdit = false; save()"
+                *ngIf="userDetailsEdit">Save
+        </button>
+    </div>
+</div>

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UsersListModel} from '../model/users-list.model';
 import {Observable} from 'rxjs';
-import {Router} from '@angular/router';
+import {ExistUserModel} from '../model/existUser.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -13,6 +13,7 @@ const httpOptions = {
 })
 export class UserService {
   private selectedUser: UsersListModel = null;
+  private selectedExistUser: ExistUserModel = null;
   private baseUrl = 'http://localhost:8085/userManager/';
 
   constructor(private http: HttpClient) {
@@ -20,6 +21,10 @@ export class UserService {
 
   public getAllUser(): Observable<any> {
     return this.http.get(this.baseUrl + 'getAllUser');
+  }
+
+  public getExistUsers(): Observable<any> {
+    return this.http.get('http://localhost:8085/exist/getusers');
   }
 
   public getUserById(id): Observable<any> {
@@ -32,6 +37,14 @@ export class UserService {
 
   public getSelectedUser() {
     return this.selectedUser;
+  }
+
+  public getSelectedExistUser() {
+    return this.selectedExistUser;
+  }
+
+  public setSelectedExistUser(user) {
+    this.selectedExistUser = user;
   }
 
   public setSelectedUser(user) {

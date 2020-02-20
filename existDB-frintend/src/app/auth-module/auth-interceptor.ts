@@ -45,9 +45,9 @@ export class AuthInterceptor implements HttpInterceptor {
             this.token.signOut();
             location.href = '/login';
           }
-        } else if (err.status === 0) {
-          console.log('ERR_CONNECTION_REFUSED');
-          location.href = '/error';
+        // } else if (err.status === 0) {
+        //   console.log('ERR_CONNECTION_REFUSED');
+        //   location.href = '/error';
         } else if (err.status === 200) {
           console.log(err.error.text);
         }

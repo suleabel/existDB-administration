@@ -8,6 +8,8 @@ public class ExistDBUsers {
     private List<String> groups;
     private String umask;
     private String primaryGroup;
+    private String fullName;
+    private String Desc;
 
     public String getUsername() {
         return username;
@@ -41,6 +43,22 @@ public class ExistDBUsers {
         this.primaryGroup = primaryGroup;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getDesc() {
+        return Desc;
+    }
+
+    public void setDesc(String desc) {
+        Desc = desc;
+    }
+
     @Override
     public String toString() {
         return "ExistDBUsers{" +
@@ -48,6 +66,8 @@ public class ExistDBUsers {
                 ", groups=" + groups +
                 ", umask='" + umask + '\'' +
                 ", primaryGroup='" + primaryGroup + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", Desc='" + Desc + '\'' +
                 '}';
     }
 }

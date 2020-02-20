@@ -6,63 +6,34 @@ import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Component
 public class ExistDbUserManagerServices {
 
     private Collection collection = null;
     private static Util util = new Util();
 
-    /*
-    public boolean createUser(ExistDetails details, String user, String pass, String group) throws Exception {
-        Collection old = collection;//save previos context
-        util.closeCollection(collection);
-        boolean result = false;
-        try {
-            collection = DatabaseManager.getCollection(details.getUrl() + DB);
-            if (userExists(user))//first: is user already existing?
-                return true;
-            String query = "xquery version \"3.1\";\n" +
-                    "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                    "\n" +
-                    "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
-                    "    sm:create-account(\"" + user + "\", \"" + pass + "\", \"" + group + "\", \"" + "" + "\")\n" +
-                    "else\n" +
-                    "\tfalse()";
-            result = !util.execXQuery(query,collection).equals("false");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            util.closeCollection(collection);//'logout'
-            collection = old;
-        }
-        return result;
+    public String createUser(ExistDetails details, String username, String password, String primaryGroup, ArrayList<String> groups, String fullname, String desc) throws Exception {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"/db\",\"admin\",\"admin1234\")) then\n" +
+                "    (\n" +
+                "        sm:create-account(\"username\", \"password\", \"dba\", (\"dba\"), \"test user\", \"this is a test user\"),\n" +
+                "        true()\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
     }
 
-    public boolean deleteUser(ExistDetails details, String deletedUser) throws Exception {
-        Collection old = collection;
-        util.closeCollection(collection);
-        boolean userIsDeleted = false;
-        try {
-            collection = DatabaseManager.getCollection(details.getUrl() + DB);
-            String query = "xquery version \"3.1\";\n" +
-                    "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                    "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
-                    "    sm:remove-account(\"" + deletedUser + "\")\n" +
-                    "else\n" +
-                    "\tfalse()";
-            System.out.println(util.execXQuery(query,collection));
-            userIsDeleted = true;
-        } catch (XMLDBException e) {
-            System.out.println("User delete Exception: " + e.getMessage());
-        } finally {
-            util.closeCollection(collection);
-            collection = old;
-        }
 
-        return userIsDeleted;
-
+    public String enableDisableAccount(){
+        String query = "sm:set-account-enabled($username as xs:string, $enabled as xs:boolean)";
+        return "";
     }
-*/
+
     public String listUsers(ExistDetails details){
             String query = "xquery version \"3.1\";\n" +
                     "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -122,6 +93,28 @@ public class ExistDbUserManagerServices {
         return util.stringResultQuery(details, query);
     }
 
+    public String getUserFullname(ExistDetails details, String user) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
+                "sm:get-account-metadata(\"" + user + "\", $METADATA_FULLNAME_KEY)\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
+    }
+
+    public String getUserDesc(ExistDetails details, String user) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI(\"http://exist-db.org/security/description\");" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
+                "sm:get-account-metadata(\"" + user + "\", $METADATA_DESCRIPTION_KEY)\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
+    }
+
     public String getUserPrimaryGroup(ExistDetails details, String user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -150,6 +143,7 @@ public class ExistDbUserManagerServices {
         boolean result = false;
         try{
             util.closeCollection(collection);
+            System.out.println("isAdminAccess: " + details.toString());
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
             String querry = "xquery version \"3.1\";\n" +
                     "import module namespace xmldb=\"http://exist-db.org/xquery/xmldb\" at \"java:org.exist.xquery.functions.xmldb.XMLDBModule\";\n" +

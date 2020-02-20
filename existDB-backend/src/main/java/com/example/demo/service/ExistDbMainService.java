@@ -23,6 +23,15 @@ public class ExistDbMainService {
     @Autowired
     private ExistDbCollectionManagerService existDbCollectionManagerService;
 
+    public void initDatabaseDriver() {
+        ExistDetails details = new ExistDetails();
+        //csak teszt miatt kell-------------------------------//
+        util.initDatabaseDriver(details.getDriver());
+        details.setUsername("admin");
+        details.setPassword("admin1234");
+        //----------------------------------------------------//
+    }
+
     public ArrayList<ExistDBUsers> listUsers() {
         ExistDetails details = new ExistDetails();
         List<String> users = new ArrayList<>();
@@ -46,6 +55,8 @@ public class ExistDbMainService {
             existDBUser.setGroups(Arrays.asList(existDbUserManagerServices.getUserGroups(details, user).split("\n")));
             existDBUser.setUmask(existDbUserManagerServices.getUserUmask(details, user));
             existDBUser.setPrimaryGroup(existDbUserManagerServices.getUserPrimaryGroup(details, user));
+            existDBUser.setFullName(existDbUserManagerServices.getUserFullname(details, user));
+            existDBUser.setDesc(existDbUserManagerServices.getUserDesc(details,user));
             existDBUsers.add(existDBUser);
         }
         return existDBUsers;
@@ -69,6 +80,7 @@ public class ExistDbMainService {
         details.setUrl(url);
         details.setUsername(username);
         details.setPassword(password);
+        System.out.println(details.toString());
         return existDbUserManagerServices.isAndminAccess(details);
     }
 
