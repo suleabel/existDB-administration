@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.ExistDBGroup;
 import com.example.demo.model.ExistDBUsers;
 import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
@@ -23,6 +24,9 @@ public class ExistDbMainService {
     @Autowired
     private ExistDbCollectionManagerService existDbCollectionManagerService;
 
+    @Autowired
+    private ExistDbGroupManagerServices existDbGroupManagerServices;
+
     public void initDatabaseDriver() {
         ExistDetails details = new ExistDetails();
         //csak teszt miatt kell-------------------------------//
@@ -34,7 +38,7 @@ public class ExistDbMainService {
 
     public ArrayList<ExistDBUsers> listUsers() {
         ExistDetails details = new ExistDetails();
-        List<String> users = new ArrayList<>();
+        List<String> users;
         ArrayList<ExistDBUsers> existDBUsers = new ArrayList<>();
 
         //csak teszt miatt kell-------------------------------//
@@ -43,11 +47,8 @@ public class ExistDbMainService {
         details.setPassword("admin1234");
         //----------------------------------------------------//
 
-        try{
-            users = Arrays.asList(existDbUserManagerServices.listUsers(details).split("\n"));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        users = Arrays.asList(existDbUserManagerServices.listUsers(details).split("\n"));
+
         for (String user: users) {
             System.out.println(user);
             ExistDBUsers existDBUser = new ExistDBUsers();
@@ -57,9 +58,28 @@ public class ExistDbMainService {
             existDBUser.setPrimaryGroup(existDbUserManagerServices.getUserPrimaryGroup(details, user));
             existDBUser.setFullName(existDbUserManagerServices.getUserFullname(details, user));
             existDBUser.setDesc(existDbUserManagerServices.getUserDesc(details,user));
+            existDBUser.setDefault(existDbUserManagerServices.isDeaultUser(user));
             existDBUsers.add(existDBUser);
         }
         return existDBUsers;
+    }
+
+    public ArrayList<ExistDBGroup> listGroups(){
+        ExistDetails details = new ExistDetails();
+        List<String> groups;
+        ArrayList<ExistDBGroup> dbGroups = new ArrayList<>();
+        groups = Arrays.asList(existDbGroupManagerServices.getGroups(details).split("\n"));
+
+        for (String group: groups) {
+            System.out.println(group);
+            ExistDBGroup group1 = new ExistDBGroup();
+            group1.setName(group);
+            group1.setManager(existDbGroupManagerServices.getGroupManager(details, group));
+            group1.setDesc(existDbGroupManagerServices.getGroupDesc(details, group));
+            group1.setMembers(Arrays.asList(existDbGroupManagerServices.getGroupMembers(details, group).split("\n")));
+            dbGroups.add(group1);
+        }
+        return dbGroups;
     }
 
     public boolean deleteUser(String username){

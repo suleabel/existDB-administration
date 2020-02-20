@@ -10,6 +10,7 @@ public class ExistDBUsers {
     private String primaryGroup;
     private String fullName;
     private String Desc;
+    private boolean Default;
 
     public String getUsername() {
         return username;
@@ -59,6 +60,14 @@ public class ExistDBUsers {
         Desc = desc;
     }
 
+    public boolean isDefault() {
+        return Default;
+    }
+
+    public void setDefault(boolean aDefault) {
+        Default = aDefault;
+    }
+
     @Override
     public String toString() {
         return "ExistDBUsers{" +
@@ -68,6 +77,7 @@ public class ExistDBUsers {
                 ", primaryGroup='" + primaryGroup + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", Desc='" + Desc + '\'' +
+                ", Default=" + Default +
                 '}';
     }
 }

@@ -15,9 +15,10 @@ export class ExistUsersListComponent implements OnInit {
     fullName,
     umask,
     primaryGroup,
-    desc
+    desc,
+      default
   };
-  displayedColumns = ['username', 'fullName', 'umask', 'primaryGroup', 'desc', 'details', 'delete'];
+  displayedColumns = ['username', 'fullName', 'umask', 'primaryGroup', 'desc', 'default', 'details', 'delete'];
   constructor(public userService: UserService, private router: Router) { }
 
   // @ts-ignore

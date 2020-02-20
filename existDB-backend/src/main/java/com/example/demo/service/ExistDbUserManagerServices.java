@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
@@ -13,7 +14,9 @@ import java.util.Arrays;
 public class ExistDbUserManagerServices {
 
     private Collection collection = null;
-    private static Util util = new Util();
+
+    @Autowired
+    private static Util util;
 
     public String createUser(ExistDetails details, String username, String password, String primaryGroup, ArrayList<String> groups, String fullname, String desc) throws Exception {
         String query = "xquery version \"3.1\";\n" +
@@ -166,4 +169,10 @@ public class ExistDbUserManagerServices {
     }
 
 
+    public boolean isDeaultUser(String user) {
+        if(user.equals("SYSTEM") || user.equals("admin") ||user.equals("eXide") ||user.equals("guest") ||user.equals("monex") ||user.equals("nobody") ||user.equals("packageservice")){
+            return true;
+        }
+        return false;
+    }
 }

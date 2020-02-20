@@ -26,6 +26,11 @@
             <mat-cell *matCellDef="let post"> {{post.desc}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="default">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Default user</mat-header-cell>
+            <mat-cell *matCellDef="let post" > {{post.default}} </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="details">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
             <mat-cell *matCellDef="let post">
@@ -37,7 +42,7 @@
         <ng-container matColumnDef="delete">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Delete</mat-header-cell>
             <mat-cell *matCellDef="let post">
-                <button class="btn btn-danger" (click)="delete(post.username)">Delete</button>
+                <button class="btn btn-danger" (click)="delete(post.username)" *ngIf="!post.default">Delete</button>
             </mat-cell>
         </ng-container>
 
