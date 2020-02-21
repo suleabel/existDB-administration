@@ -3,7 +3,6 @@ package com.example.demo.security;
 import com.example.demo.security.jwt.JwtAuthEntryPoint;
 import com.example.demo.security.jwt.JwtAuthTokenFilter;
 import com.example.demo.security.jwt.RestAccessDeniedHandler;
-import com.example.demo.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         prePostEnabled = true
 )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private JwtAuthEntryPoint unauthorizedHandler;
@@ -43,11 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new RestAccessDeniedHandler();
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -56,10 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) {
         //authenticationManagerBuilder.inMemoryAuthentication().withUser("admin").password("admin1234").roles("ROLE_ADMIN");
         //authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        authenticationManagerBuilder.parentAuthenticationManager(customAuthenticationProvider);
+        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider);
     }
 
     @Override

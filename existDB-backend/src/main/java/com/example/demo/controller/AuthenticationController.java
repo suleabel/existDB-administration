@@ -28,9 +28,4 @@ public class AuthenticationController {
         return authenticationService.signInUser(loginRequest);
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
-        System.out.println(signUpRequest.toString());
-        return authenticationService.signUpUser(signUpRequest);
-    }
 }

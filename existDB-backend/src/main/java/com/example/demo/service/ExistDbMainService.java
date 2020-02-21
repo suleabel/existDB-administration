@@ -27,7 +27,7 @@ public class ExistDbMainService {
     @Autowired
     private ExistDbGroupManagerServices existDbGroupManagerServices;
 
-    private ExistDetails details = new ExistDetails();
+    private static ExistDetails details = new ExistDetails();
 
     public void initDatabaseDriver() {
         details.setUsername("admin");
@@ -113,5 +113,13 @@ public class ExistDbMainService {
         //----------------------------------------------------//
 
         return Arrays.asList(existDbCollectionManagerService.getCollectionContent(details, "").split("\n"));
+    }
+
+    public static String getDetailsUsername() {
+        return details.getUsername();
+    }
+
+    public static String getDetailsPass() {
+        return details.getPassword();
     }
 }

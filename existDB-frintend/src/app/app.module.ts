@@ -19,7 +19,6 @@ import {
   MatTableModule,
   MatToolbarModule, MatIconModule,
 } from '@angular/material';
-import { DataTableComponent } from './data-table-module/data-table/data-table.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxEditorModule } from 'ngx-editor';
 import { TargyakListaComponent } from './targyak-module/targyak-lista/targyak-lista.component';
@@ -30,9 +29,7 @@ import { UserListComponent } from './user-manager-module/user-list/user-list.com
 import { AddUserComponent } from './user-manager-module/add-user/add-user.component';
 import { UserDetailsComponent } from './user-manager-module/user-details/user-details.component';
 import { ErrorComponent } from './errors-module/error/error.component';
-import { PmMainComponent } from './pm_functions-module/pm-main/pm-main.component';
 import { UserManagerSidenemuComponent } from './user-manager-module/user-manager-sidenemu/user-manager-sidenemu.component';
-import { MainNavComponent } from './forComponentTesting/main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ExistUsersListComponent } from './user-manager-module/exist-users-list/exist-users-list.component';
 import { ExistUsersEditDetailsComponent } from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
@@ -45,16 +42,13 @@ import { ExistGroupListComponent } from './exist-group-list/exist-group-list.com
     LoginPageComponent,
     TopBarComponent,
     RegistrationPageComponent,
-    DataTableComponent,
     TargyakListaComponent,
     UserManagerComponent,
     UserListComponent,
     AddUserComponent,
     UserDetailsComponent,
     ErrorComponent,
-    PmMainComponent,
     UserManagerSidenemuComponent,
-    MainNavComponent,
     ExistUsersListComponent,
     ExistUsersEditDetailsComponent,
     ExistGroupListComponent,

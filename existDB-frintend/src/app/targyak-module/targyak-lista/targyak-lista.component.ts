@@ -21,7 +21,7 @@ export class TargyakListaComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.RenderTargyakTable();
+    // this.RenderTargyakTable();
   }
 
   RenderTargyakTable() {

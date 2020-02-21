@@ -1,7 +1,0 @@
-<form [formGroup]="musicForm" (ngSubmit)="submit()">
-  <label formArrayName="musicPreferences" *ngFor="let genre of musicPreferences; let i = index">
-    <input type="checkbox" [formControlName]="i">
-    {{musicPreferences[i].genre}}
-  </label>
-  <button>submit</button>
-</form>

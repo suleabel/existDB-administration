@@ -1,13 +1,12 @@
 package com.example.demo.security.jwt;
 
-import com.example.demo.security.service.UserDetailsServiceImpl;
+import com.example.demo.service.ExistDbMainService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -21,25 +20,18 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtProvider tokenProvider;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-
             String jwt = getJwt(request);
             if (jwt != null && tokenProvider.validateJwtToken(jwt, request)) {
                 String username = tokenProvider.getUserNameFromJwtToken(jwt);
-
-                //elszalad és megnézi hogy létezik e a user az adatbázisban és eggyeznek-e a jelszavak//
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                System.out.println(username);
+                //UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null);
+                Authentication authentication = new UsernamePasswordAuthenticationToken(username, ExistDbMainService.getDetailsPass());
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
