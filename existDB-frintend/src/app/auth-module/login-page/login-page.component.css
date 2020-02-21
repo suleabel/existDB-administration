@@ -7,4 +7,8 @@ mat-form-field {
   min-width: 200px;
 }
 
+h1 {
+  text-align: center;
+}
+
 /*# sourceMappingURL=login-page.component.css.map */

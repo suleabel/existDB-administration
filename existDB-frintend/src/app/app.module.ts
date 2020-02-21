@@ -7,17 +7,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HomePageComponent} from './home-page-module/home-page/home-page.component';
 import {LoginPageComponent} from './auth-module/login-page/login-page.component';
 import {TopBarComponent} from './top-bar-module/top-bar.component';
-import {RegistrationPageComponent} from './auth-module/registration-page/registration-page.component';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {
-  _MatMenuDirectivesModule, MatButtonModule,
-  MatCardModule, MatCheckboxModule,
-  MatInputModule, MatListModule, MatMenuModule,
-  MatPaginatorModule, MatSidenavModule,
-  MatSortModule,
-  MatTableModule,
-  MatToolbarModule, MatIconModule,
+    _MatMenuDirectivesModule, MatButtonModule,
+    MatCardModule, MatCheckboxModule,
+    MatInputModule, MatListModule, MatMenuModule,
+    MatPaginatorModule, MatSidenavModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule, MatIconModule, MatSelectModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxEditorModule } from 'ngx-editor';
@@ -34,6 +33,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ExistUsersListComponent } from './user-manager-module/exist-users-list/exist-users-list.component';
 import { ExistUsersEditDetailsComponent } from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
 import { ExistGroupListComponent } from './exist-group-list/exist-group-list.component';
+import { ExistAddUserComponent } from './user-manager-module/exist-add-user/exist-add-user.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,6 @@ import { ExistGroupListComponent } from './exist-group-list/exist-group-list.com
     HomePageComponent,
     LoginPageComponent,
     TopBarComponent,
-    RegistrationPageComponent,
     TargyakListaComponent,
     UserManagerComponent,
     UserListComponent,
@@ -52,32 +51,34 @@ import { ExistGroupListComponent } from './exist-group-list/exist-group-list.com
     ExistUsersListComponent,
     ExistUsersEditDetailsComponent,
     ExistGroupListComponent,
-    ExistGroupListComponent
+    ExistGroupListComponent,
+    ExistAddUserComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    CommonModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatCardModule,
-    BrowserAnimationsModule,
-    MatListModule,
-    FormsModule,
-    NgxEditorModule,
-    _MatMenuDirectivesModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatSidenavModule,
-    LayoutModule,
-    MatIconModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        CommonModule,
+        MatToolbarModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatCardModule,
+        BrowserAnimationsModule,
+        MatListModule,
+        FormsModule,
+        NgxEditorModule,
+        _MatMenuDirectivesModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatSidenavModule,
+        LayoutModule,
+        MatIconModule,
+        MatSelectModule
+    ],
   providers: [httpInterceptorProvider, AuthGuardService],
   bootstrap: [AppComponent]
 })

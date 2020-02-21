@@ -8,6 +8,7 @@ public class ExistDBGroup {
     private String manager;
     private String desc;
     private List<String> members;
+    private boolean Default;
 
     public String getName() {
         return name;
@@ -41,6 +42,14 @@ public class ExistDBGroup {
         this.members = members;
     }
 
+    public boolean isDefault() {
+        return Default;
+    }
+
+    public void setDefault(boolean aDefault) {
+        Default = aDefault;
+    }
+
     @Override
     public String toString() {
         return "ExistDBGroup{" +
@@ -48,6 +57,7 @@ public class ExistDBGroup {
                 ", manager='" + manager + '\'' +
                 ", desc='" + desc + '\'' +
                 ", members=" + members +
+                ", Default=" + Default +
                 '}';
     }
 }

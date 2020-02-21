@@ -56,6 +56,7 @@ export class ExistUsersListComponent implements OnInit {
   }
 
   delete(username) {
-      console.log('user deleted: ' + username);
+      console.log(username);
+      this.userService.deleteUser(username);
   }
 }

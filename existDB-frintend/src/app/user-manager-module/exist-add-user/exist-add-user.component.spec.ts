@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrationPageComponent } from './registration-page.component';
+import { ExistAddUserComponent } from './exist-add-user.component';
 
-describe('RegistrationPageComponent', () => {
-  let component: RegistrationPageComponent;
-  let fixture: ComponentFixture<RegistrationPageComponent>;
+describe('ExistAddUserComponent', () => {
+  let component: ExistAddUserComponent;
+  let fixture: ComponentFixture<ExistAddUserComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegistrationPageComponent ]
+      declarations: [ ExistAddUserComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegistrationPageComponent);
+    fixture = TestBed.createComponent(ExistAddUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

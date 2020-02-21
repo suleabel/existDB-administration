@@ -10,6 +10,7 @@ import {
 } from '@angular/common/http';
 import {TokenStorageService} from './token-storage.service';
 import {tap} from 'rxjs/operators';
+import {matDialogAnimations} from '@angular/material';
 
 
 const TOKEN_HEADER_KEY = 'Authorization';
@@ -45,11 +46,12 @@ export class AuthInterceptor implements HttpInterceptor {
             this.token.signOut();
             location.href = '/login';
           }
-        // } else if (err.status === 0) {
-        //   console.log('ERR_CONNECTION_REFUSED');
-        //   location.href = '/error';
+        } else if (err.status === 0) {
+          console.log('ERR_CONNECTION_REFUSED');
+          // location.href = '/error';
         } else if (err.status === 200) {
           console.log(err.error.text);
+          alert(err.error.text);
         }
         // if (err.status === 400) {
         //   // location.href = '/register';

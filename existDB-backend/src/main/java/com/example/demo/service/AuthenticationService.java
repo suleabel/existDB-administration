@@ -51,16 +51,8 @@ public class AuthenticationService {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        existDbMainService.initDatabaseDriver(loginRequest.getUsername(), loginRequest.getPassword(), loginRequest.getUrl());
 
-        //temporary--------------------------------------------------------------------//
-        existDbMainService.initDatabaseDriver();
-/*
-        if(!existDbMainService.isAdmin(loginRequest.getUsername(), loginRequest.getPassword(),loginRequest.getUrl())){
-            return new ResponseEntity<>(new ResponseMessage("ExistDb ERROR"),
-                    HttpStatus.BAD_REQUEST);
-        }
-*/
-        //-----------------------------------------------------------------------------//
         String jwt = jwtProvider.generateJwtToken(authentication);
         return ResponseEntity.ok(new JwtResponse(jwt, (String) authentication.getPrincipal()));
     }

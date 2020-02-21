@@ -1,5 +1,6 @@
 <div class="container p-3">
   <div class="offset-3 col-6">
+    <h1>eXist-DB Administration</h1>
     <div class="card">
       <div class="card-header  font-weight-bold">
         Login Form
@@ -20,18 +21,6 @@
 
           <div class="form-group">
             <mat-form-field>
-              <label for="url" class="control-label"></label>
-              <input matInput id="url" type="text" class="form-control" placeholder="url"
-                     formControlName="url">
-              <mat-error *ngIf="url.invalid && url.touched">
-                Username is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <label>xmldb:exist://192.168.1.168:8080/exist/xmlrpc</label>
-
-          <div class="form-group">
-            <mat-form-field>
               <label for="password" class="control-label"></label>
               <input matInput id="password" type="password" class="form-control" placeholder="password"
                      formControlName="password">
@@ -41,16 +30,24 @@
             </mat-form-field>
           </div>
 
+          <div class="form-group">
+            <mat-form-field>
+              <label for="url" class="control-label"></label>
+              <input matInput id="url" type="text" class="form-control" placeholder="url"
+                     formControlName="url">
+              <mat-error *ngIf="url.invalid && url.touched">
+                Username is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <label>yolozsefa.asuscomm.com:8088</label>
+
           <div class="errorMessage">
             <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
           </div>
 
           <div>
             <button class="btn btn-primary font-weight-bold" [disabled]="loginForm.invalid">Login</button>
-          </div>
-          <span>OR</span>
-          <div>
-            <button class="btn btn-primary font-weight-bold" [routerLink]="'/register'">Register</button>
           </div>
         </form>
       </div>

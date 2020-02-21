@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.ExistDBUserForCreate;
 import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,23 @@ public class ExistDbUserManagerServices {
 
     private static Util util = new Util();
 
-    public String createUser(ExistDetails details, String username, String password, String primaryGroup, ArrayList<String> groups, String fullname, String desc) throws Exception {
+    public String createUser(ExistDetails details, ExistDBUserForCreate user){
+        System.out.println(user.toString());
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "if(xmldb:login(\"/db\",\"admin\",\"admin1234\")) then\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        sm:create-account(\"username\", \"password\", \"dba\", (\"dba\"), \"test user\", \"this is a test user\"),\n" +
+                "        sm:create-account(\"" + user.getUsername() + "\", \"" + user.getPassword() + "\", \"" + user.getPrimaryGroup() + "\", (\""+ user.getGroupsAsString() +"\"), \"" + user.getFullName() + "\", \"" + user.getDesc() + "\"),\n" +
                 "        true()\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details, query);
+        if(userExists(user.getUsername())){
+            return "User is exist";
+
+        }
+        util.stringResultQuery(details, query);
+        return "User created";
     }
 
 
@@ -46,7 +53,7 @@ public class ExistDbUserManagerServices {
         return util.stringResultQuery(details,query);
     }
 
-    public boolean deleteUser(ExistDetails details, String username){
+    public String deleteUser(ExistDetails details, String username){
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -58,8 +65,9 @@ public class ExistDbUserManagerServices {
                 "false()";
         if(userExists(username)){
             util.stringResultQuery(details, query);
+            return "User is deleted";
         }
-        return !userExists(username);
+        return "User is not exist";
     }
 
     public String getUserGroups(ExistDetails details, String user){
@@ -173,5 +181,13 @@ public class ExistDbUserManagerServices {
             return true;
         }
         return false;
+    }
+
+    public boolean isDefaultGroup(String group) {
+        if(group.equals("dba") || group.equals("eXide") || group.equals("guest") || group.equals("monex") || group.equals("nogroup") || group.equals("packageservice")) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }

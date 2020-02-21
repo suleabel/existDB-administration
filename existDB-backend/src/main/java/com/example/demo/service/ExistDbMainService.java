@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ExistDBGroup;
+import com.example.demo.model.ExistDBUserForCreate;
 import com.example.demo.model.ExistDBUsers;
 import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
@@ -29,23 +30,17 @@ public class ExistDbMainService {
 
     private static ExistDetails details = new ExistDetails();
 
-    public void initDatabaseDriver() {
-        details.setUsername("admin");
-        details.setPassword("admin1234");
+    public void initDatabaseDriver(String username, String password, String url) {
+        details.setUsername(username);
+        details.setPassword(password);
+        details.setUrl("xmldb:exist://" + url + "/exist/xmlrpc");
         util.initDatabaseDriver(details.getDriver());
 
     }
 
     public ArrayList<ExistDBUsers> listUsers() {
-        ExistDetails details = new ExistDetails();
         List<String> users;
         ArrayList<ExistDBUsers> existDBUsers = new ArrayList<>();
-
-        //csak teszt miatt kell-------------------------------//
-        util.initDatabaseDriver(details.getDriver());
-        details.setUsername("admin");
-        details.setPassword("admin1234");
-        //----------------------------------------------------//
 
         users = Arrays.asList(existDbUserManagerServices.listUsers(details).split("\n"));
 
@@ -82,15 +77,9 @@ public class ExistDbMainService {
         return dbGroups;
     }
 
-    public boolean deleteUser(String username){
-        ExistDetails details = new ExistDetails();
+    public String createUser(ExistDBUserForCreate user){ return existDbUserManagerServices.createUser(details, user); }
 
-        //csak teszt miatt kell-------------------------------//
-        util.initDatabaseDriver(details.getDriver());
-        details.setUsername("admin");
-        details.setPassword("admin1234");
-        //----------------------------------------------------//
-
+    public String deleteUser(String username){
         return existDbUserManagerServices.deleteUser(details, username);
     }
 
@@ -105,13 +94,6 @@ public class ExistDbMainService {
     }
 
     public List<String> getCollection() {
-
-        //csak teszt miatt kell-------------------------------//
-        util.initDatabaseDriver(details.getDriver());
-        details.setUsername("admin");
-        details.setPassword("admin1234");
-        //----------------------------------------------------//
-
         return Arrays.asList(existDbCollectionManagerService.getCollectionContent(details, "").split("\n"));
     }
 
@@ -119,7 +101,22 @@ public class ExistDbMainService {
         return details.getUsername();
     }
 
+    public List<String> listGroupsName() {
+        return Arrays.asList(existDbGroupManagerServices.getGroups(details).split("\n"));
+    }
+
+
+
+
+
+
+
+
+
+
     public static String getDetailsPass() {
         return details.getPassword();
     }
+
+
 }

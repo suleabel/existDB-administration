@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LoginPageComponent} from './auth-module/login-page/login-page.component';
 import {HomePageComponent} from './home-page-module/home-page/home-page.component';
-import {RegistrationPageComponent} from './auth-module/registration-page/registration-page.component';
 import {TargyakListaComponent} from './targyak-module/targyak-lista/targyak-lista.component';
 import {UserManagerComponent} from './user-manager-module/user-manager.component';
 import {AuthGuardService} from './auth-module/auth-guard.service';
@@ -15,7 +14,6 @@ import {ExistUsersEditDetailsComponent} from './user-manager-module/exist-users-
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
   {path: 'home', component: HomePageComponent, canActivate: [AuthGuardService]},
-  {path: 'register', component: RegistrationPageComponent},
   {path: 'targyak-module', component: TargyakListaComponent, canActivate: [AuthGuardService]},
   {path: 'user-manager-module', component: UserManagerComponent, canActivate: [AuthGuardService]},
   {path: 'user-detail-list', component: UserDetailsComponent, canActivate: [AuthGuardService]},

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.ExistDBUserForCreate;
 import com.example.demo.model.ExistDBUsers;
 import com.example.demo.service.ExistDbMainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +25,21 @@ public class ExistDBUserManagerController {
         return existDbMainService.listUsers();
     }
 
-    @RequestMapping("/createuser")
-    public String createUser(){
-        return "";
-    }
-
     @RequestMapping("/deleteuser")
-    public boolean deleteUser(@RequestBody String username){
-        return existDbMainService.deleteUser(username);
+    public void deleteUser(@RequestBody String username){
+        //return existDbMainService.deleteUser(username);
+        System.out.println("deletedUser: " + username);
+
     }
 
     @RequestMapping("/getrootcollection")
     public List<String> getRootCollection(){
         return existDbMainService.getCollection();
+    }
+
+    @RequestMapping("/createUser")
+    public String createUser(@RequestBody ExistDBUserForCreate user){
+        return existDbMainService.createUser(user);
     }
 
 
