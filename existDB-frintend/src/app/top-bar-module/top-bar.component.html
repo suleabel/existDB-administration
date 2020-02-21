@@ -12,10 +12,10 @@
         <li class="nav-item active">
           <a class="nav-link" mat-button [routerLink]="'/data-table'"><h2>Data table</h2></a>
         </li>
-        <li class="nav-item active" *ngIf="isAdmin$ | async as isAdmin">
+        <li class="nav-item active">
         <a class="nav-link" mat-button [routerLink]="'/user-manager-module'"><h2>User Manager</h2></a>
       </li>
-        <li class="nav-item active" *ngIf="isPm$ | async as isPm">
+        <li class="nav-item active">
           <a class="nav-link" mat-button [routerLink]="'/pm'"><h2>Project Manager</h2></a>
         </li>
       </ul>

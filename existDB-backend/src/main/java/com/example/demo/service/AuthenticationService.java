@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.User;
 
+import com.example.demo.security.CustomAuthenticationProvider;
 import com.example.demo.security.messages.request.LoginForm;
 import com.example.demo.security.messages.request.SignUpForm;
 import com.example.demo.security.messages.response.JwtResponse;
@@ -31,7 +32,7 @@ public class AuthenticationService {
 
     private PasswordEncoder encoder;
 
-    private AuthenticationManager authenticationManager;
+    private CustomAuthenticationProvider authenticationManager;
 
     private JwtProvider jwtProvider;
 
@@ -53,7 +54,7 @@ public class AuthenticationService {
     }
 
     @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+    public void setAuthenticationManager(CustomAuthenticationProvider authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
     @Autowired
@@ -104,8 +105,7 @@ public class AuthenticationService {
 */
         //-----------------------------------------------------------------------------//
         String jwt = jwtProvider.generateJwtToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt, (String) authentication.getPrincipal()));
     }
 
 

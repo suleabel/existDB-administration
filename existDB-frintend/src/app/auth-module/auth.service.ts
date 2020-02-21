@@ -17,8 +17,6 @@ const httpOptions = {
 export class AuthService {
 
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private userIsAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private userIsPm: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private loginUrl = 'http://localhost:8085/api/auth/signin';
   private signupUrl = 'http://localhost:8085/api/auth/signup';
@@ -38,38 +36,17 @@ export class AuthService {
   }
 
   get isLoggedIn() {
-
     // ha a token létezik
     const token = this.token.getToken();
     if (token !== null) {
       this.loggedIn.next(true);
     }
-
-    // ha a user role-ja admin vagy pm
-    this.token.getAuthorities().forEach((role) => {
-      if (role === 'ROLE_ADMIN') {
-        this.userIsAdmin.next(true);
-      }
-      if (role === 'ROLE_PM') {
-        this.userIsPm.next(true);
-      }
-    });
     return this.loggedIn.asObservable();
   }
 
   public logout() {
     this.loggedIn.next(false);
-    this.userIsAdmin.next(false);
-    this.userIsPm.next(false);
     this.token.signOut();
     this.router.navigate(['/login']);
-  }
-
-  get isAdmin(): Observable<boolean> {
-    return this.userIsAdmin;
-  }
-
-  get isPm(): Observable<boolean> {
-    return this.userIsPm;
   }
 }

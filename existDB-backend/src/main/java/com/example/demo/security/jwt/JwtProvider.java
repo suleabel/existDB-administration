@@ -23,10 +23,10 @@ public class JwtProvider {
     private int jwtExpiration;
 
     public String generateJwtToken(Authentication authentication) {
-        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+        //UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
         //System.out.println("Lejárati idő: " + new Date((new Date()).getTime() + jwtExpiration*10000));
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject((String) authentication.getPrincipal())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpiration*10000))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

@@ -11,8 +11,7 @@ export class HomePageComponent implements OnInit {
 
   info: {
     token: string,
-    username: string,
-    authorities: any
+    username: string
   };
 
   // @ts-ignore
@@ -26,9 +25,9 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.info = {
       token: this.token.getToken(),
-      username: this.token.getUsername(),
-      authorities: this.token.getAuthorities()
+      username: this.token.getUsername()
     };
+    console.log(this.info);
   }
 
   logout() {

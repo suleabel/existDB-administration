@@ -1,23 +1,22 @@
 <h1>Home page</h1>
 <div class="home_page">
-  <div *ngIf="info.token; else loggedOut">
+  <div>
     <h5 class="text-primary">Your Information</h5>
     <p>
       <strong>Username:</strong> {{info.username}}<br/>
-      <strong>Roles:</strong> {{info.authorities}}<br />
-      <strong>Token:</strong> {{info.token}}.
+      <strong>Token:</strong> {{info.token}}
     </p>
   </div>
 
-  <div class="card">
-    <div class="card-header">Connect to existDB server:</div>
-    <div class="card-body">
-          <label for="URL" class="control-label"></label>
-          <input matInput id="URL" type="text" class="form-control" placeholder="URL"
-                 formControlName="URL">
-          <button (click)="connectToDb()">Connect</button>
-    </div>
-  </div>
+<!--  <div class="card">-->
+<!--    <div class="card-header">Connect to existDB server:</div>-->
+<!--    <div class="card-body">-->
+<!--          <label for="URL" class="control-label"></label>-->
+<!--          <input matInput id="URL" type="text" class="form-control" placeholder="URL"-->
+<!--                 formControlName="URL">-->
+<!--          <button (click)="connectToDb()">Connect</button>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <ng-template #loggedOut>
     Please login.
