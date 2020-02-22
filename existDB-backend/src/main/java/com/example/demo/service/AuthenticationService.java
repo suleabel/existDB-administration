@@ -4,6 +4,8 @@ import com.example.demo.security.CustomAuthenticationProvider;
 import com.example.demo.security.messages.request.LoginForm;
 import com.example.demo.security.messages.response.JwtResponse;
 import com.example.demo.security.jwt.JwtProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +25,8 @@ public class AuthenticationService {
 
     private ExistDbMainService existDbMainService;
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
+
     @Autowired
     public void setAuthenticationManager(CustomAuthenticationProvider authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -38,12 +42,12 @@ public class AuthenticationService {
     }
 
     public ResponseEntity<?> signInUser(LoginForm loginRequest) {
+        logger.info("Login request: " + loginRequest.toString());
+        existDbMainService.initDatabaseDriver(loginRequest.getUsername(), loginRequest.getPassword(), loginRequest.getUrl());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        existDbMainService.initDatabaseDriver(loginRequest.getUsername(), loginRequest.getPassword(), loginRequest.getUrl());
-
         String jwt = jwtProvider.generateJwtToken(authentication);
         return ResponseEntity.ok(new JwtResponse(jwt, (String) authentication.getPrincipal()));
     }

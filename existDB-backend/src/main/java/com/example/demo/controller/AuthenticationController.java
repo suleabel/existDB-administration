@@ -24,7 +24,6 @@ public class AuthenticationController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-        System.out.println(loginRequest.toString());
         return authenticationService.signInUser(loginRequest);
     }
 

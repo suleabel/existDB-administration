@@ -8,11 +8,12 @@
         </li>
         <li class="nav-item active">
         <a class="nav-link" mat-button [routerLink]="'/user-manager-module'"><h2>User Manager</h2></a>
-      </li>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" mat-button [routerLink]="'/exist-group-manager'"><h2>Group Manager</h2></a>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <!--        <a class="nav-link" mat-button [routerLink]="'/register'"><h2>Registration</h2></a>-->
-        <!--        <a class="nav-link" mat-button [routerLink]="'/login'"><h2>Login</h2></a>-->
         <a class="nav-link" mat-button (click)="onLogout()" *ngIf="isLoggedIn"><h2>Logout</h2></a>
       </form>
     </div>

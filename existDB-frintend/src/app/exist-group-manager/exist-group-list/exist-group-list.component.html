@@ -33,7 +33,8 @@
         <ng-container matColumnDef="delete">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Delete</mat-header-cell>
             <mat-cell *matCellDef="let post">
-                <button class="btn btn-danger" (click)="delete(post.name)" >Delete</button>
+                <button class="btn btn-danger" (click)="delete(post.name)" *ngIf="!post.default">Delete</button>
+                <label *ngIf="post.default">DEFAULT</label>
             </mat-cell>
         </ng-container>
 

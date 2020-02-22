@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {GroupsService} from './service/groups.service';
+import {GroupsService} from '../service/groups.service';
 
 @Component({
   selector: 'app-exist-group-list',
@@ -14,9 +14,10 @@ export class ExistGroupListComponent implements OnInit {
     name,
     manager,
     desc,
-    members
+    members,
+    default
   };
-  displayedColumns = ['name', 'manager', 'desc', 'members', 'details', 'delete'];
+  displayedColumns = ['name', 'manager', 'desc', 'details', 'delete'];
   constructor(public groupsServices: GroupsService, private router: Router) { }
 
   // @ts-ignore
@@ -49,6 +50,16 @@ export class ExistGroupListComponent implements OnInit {
   }
 
   delete(groupName) {
+      this.groupsServices.deleteGroup(groupName)
+          .subscribe(
+              res => {
+                    console.log('Response: ' + res);
+              },
+              error => {
+                    console.log('Error: ' + error);
+              }
+          );
+      location.reload();
 
   }
 

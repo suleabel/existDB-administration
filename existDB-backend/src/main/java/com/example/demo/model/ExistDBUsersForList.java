@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
-public class ExistDBUsers {
+public class ExistDBUsersForList {
 
     private String username;
     private List<String> groups;
@@ -70,7 +70,7 @@ public class ExistDBUsers {
 
     @Override
     public String toString() {
-        return "ExistDBUsers{" +
+        return "ExistDBUsersForList{" +
                 "username='" + username + '\'' +
                 ", groups=" + groups +
                 ", umask='" + umask + '\'' +

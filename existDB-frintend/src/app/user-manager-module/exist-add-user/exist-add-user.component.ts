@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AddExistUserModel} from '../model/add-existUser.model';
 import {UserService} from '../service/user.service';
-import {stringify} from 'querystring';
 
 @Component({
   selector: 'app-exist-add-user',
@@ -11,7 +10,6 @@ import {stringify} from 'querystring';
 })
 export class ExistAddUserComponent implements OnInit {
   public addUsrForm: FormGroup;
-  public errorMessage = '';
   public addUserData: AddExistUserModel;
   public existGroups: [];
 
@@ -74,8 +72,7 @@ export class ExistAddUserComponent implements OnInit {
           this.addUsrForm.reset();
         },
         error => {
-          this.errorMessage = error.error.message;
-          console.log('Error: ' + this.errorMessage);
+          console.log('Error: ' + error.error.message);
         }
     );
     location.reload();

@@ -56,7 +56,6 @@ export class ExistUsersListComponent implements OnInit {
   }
 
   delete(username) {
-      console.log(username);
       this.userService.deleteUser(username).subscribe(
           res => {
               console.log('Response: ' + res);

@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ExistDBUserForCreate;
-import com.example.demo.model.ExistDBUsers;
+import com.example.demo.model.ExistDBUsersForList;
 import com.example.demo.service.ExistDbMainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,27 +12,23 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/exist/")
-public class ExistDBUserManagerController {
-
-    private ExistDbMainService existDbMainService;
+public class ExistDbUserManagerController {
 
     @Autowired
-    public void setExistAuthenticationService(ExistDbMainService existDbMainService){
-        this.existDbMainService = existDbMainService;
-    }
-    @RequestMapping(value = "/getusers", method = RequestMethod.GET)
-    public ArrayList<ExistDBUsers> GetUsers(){
+    private ExistDbMainService existDbMainService;
+
+    @RequestMapping("/getUsers")
+    public ArrayList<ExistDBUsersForList> GetUsers(){
         return existDbMainService.listUsers();
     }
 
-    @RequestMapping("/deleteuser")
-    public String deleteUser(@RequestBody String username){
-        System.out.println("deletedUser: " + username);
-        return existDbMainService.deleteUser(username);
+    @RequestMapping("getUsersNames")
+    public List<String> getUsersNames() {return existDbMainService.getUsersNames();}
 
+    @RequestMapping("/deleteUser")
+    public String deleteUser(@RequestBody String username){ return existDbMainService.deleteUser(username); }
 
-    }
-
+    //collection managerbe kell majd
     @RequestMapping("/getrootcollection")
     public List<String> getRootCollection(){
         return existDbMainService.getCollection();

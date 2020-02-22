@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
-public class ExistDBGroup {
+public class ExistDBGroupForList  {
 
     private String name;
     private String manager;
@@ -52,7 +52,7 @@ public class ExistDBGroup {
 
     @Override
     public String toString() {
-        return "ExistDBGroup{" +
+        return "ExistDBGroupForList{" +
                 "name='" + name + '\'' +
                 ", manager='" + manager + '\'' +
                 ", desc='" + desc + '\'' +

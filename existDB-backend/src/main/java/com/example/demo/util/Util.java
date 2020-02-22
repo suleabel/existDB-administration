@@ -1,6 +1,9 @@
 package com.example.demo.util;
 
 import com.example.demo.model.ExistDetails;
+import com.example.demo.service.ExistDbMainService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;
@@ -13,6 +16,8 @@ public class Util {
 
     private Collection collection = null;
 
+    private static final Logger logger = LoggerFactory.getLogger(Util.class);
+
     public void initDatabaseDriver(String driver){
         try{
             Class aClass = Class.forName(driver);
@@ -21,13 +26,13 @@ public class Util {
             database.setProperty("create-database", "true");
             DatabaseManager.registerDatabase(database);
         }catch (ClassNotFoundException e){
-            System.out.println("DriverClassNotFoundException: " + e.getMessage());
+            logger.error("DriverClassNotFoundException: " + e.getMessage());
         }catch (InstantiationException e){
-            System.out.println("InstantiationException: " + e.getMessage());
+            logger.error("InstantiationException: " + e.getMessage());
         }catch (IllegalAccessException e){
-            System.out.println("IllegalAccessException: " + e.getMessage());
+            logger.error("IllegalAccessException: " + e.getMessage());
         }catch (XMLDBException e){
-            System.out.println("XMLDBException: " + e.getMessage());
+            logger.error("XMLDBException: " + e.getMessage());
         }
     }
 
@@ -39,12 +44,12 @@ public class Util {
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
             result = execXQuery(query, collection);
         } catch (Exception e){
-            System.out.println("Collection exception: " + e.getMessage());
+            logger.error("Execute Query exception: " + e.getMessage());
         } finally {
             try {
                 closeCollection(collection);
             }catch (Exception ee){
-                System.out.println("Collection exception: " + ee.getMessage());
+                logger.error("Close collection exception: " + ee.getMessage());
             }
             collection = old;
         }

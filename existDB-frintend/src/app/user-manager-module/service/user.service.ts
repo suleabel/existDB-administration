@@ -27,7 +27,7 @@ export class UserService {
 
   // exist
   public getExistUsers(): Observable<any> {
-    return this.http.get(this.baseUrlForExist + 'getusers');
+    return this.http.get(this.baseUrlForExist + 'getUsers');
   }
 
   public getGroupsNames(): Observable<any> {
@@ -49,7 +49,7 @@ export class UserService {
 
   // exist
   public deleteUser(username: string): Observable<any> {
-    return this.http.post<any>(this.baseUrlForExist + 'deleteuser', username, httpOptions);
+    return this.http.post<any>(this.baseUrlForExist + 'deleteUser', username, httpOptions);
   }
 
   // exist

@@ -18,6 +18,8 @@ import {
     MatTableModule,
     MatToolbarModule, MatIconModule, MatSelectModule,
 } from '@angular/material';
+
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxEditorModule } from 'ngx-editor';
 import { TargyakListaComponent } from './targyak-module/targyak-lista/targyak-lista.component';
@@ -32,8 +34,10 @@ import { UserManagerSidenemuComponent } from './user-manager-module/user-manager
 import { LayoutModule } from '@angular/cdk/layout';
 import { ExistUsersListComponent } from './user-manager-module/exist-users-list/exist-users-list.component';
 import { ExistUsersEditDetailsComponent } from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
-import { ExistGroupListComponent } from './exist-group-list/exist-group-list.component';
+import { ExistGroupListComponent } from './exist-group-manager/exist-group-list/exist-group-list.component';
 import { ExistAddUserComponent } from './user-manager-module/exist-add-user/exist-add-user.component';
+import { ExistGroupManagerComponent } from './exist-group-manager/exist-group-manager.component';
+import { ExistAddGroupComponent } from './exist-group-manager/exist-add-group/exist-add-group.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,9 @@ import { ExistAddUserComponent } from './user-manager-module/exist-add-user/exis
     ExistUsersEditDetailsComponent,
     ExistGroupListComponent,
     ExistGroupListComponent,
-    ExistAddUserComponent
+    ExistAddUserComponent,
+    ExistGroupManagerComponent,
+    ExistAddGroupComponent
   ],
     imports: [
         BrowserModule,
