@@ -17,20 +17,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService {
 
-
-    private PasswordEncoder encoder;
-
     private CustomAuthenticationProvider authenticationManager;
 
     private JwtProvider jwtProvider;
 
     private ExistDbMainService existDbMainService;
-
-
-    @Autowired
-    public void setEncoder(PasswordEncoder encoder) {
-        this.encoder = encoder;
-    }
 
     @Autowired
     public void setAuthenticationManager(CustomAuthenticationProvider authenticationManager) {

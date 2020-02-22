@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AddExistUserModel} from '../model/add-existUser.model';
 import {UserService} from '../service/user.service';
+import {stringify} from 'querystring';
 
 @Component({
   selector: 'app-exist-add-user',
@@ -63,11 +64,10 @@ export class ExistAddUserComponent implements OnInit {
 
   submit() {
     this.addUserData = this.addUsrForm.value;
-    const groups: string[] = [];
-    groups.push(this.addUserData.primaryGroup);
-    this.addUserData.groups = groups;
+    if (!this.addUserData.groups.includes(this.addUserData.primaryGroup)) {
+      this.addUserData.groups.push(this.addUserData.primaryGroup);
+    }
     console.log(this.addUserData);
-
     this.userService.addUserToExist(this.addUserData).subscribe(
         data => {
           console.log('success: ' + data);
@@ -75,9 +75,10 @@ export class ExistAddUserComponent implements OnInit {
         },
         error => {
           this.errorMessage = error.error.message;
-          console.log(this.errorMessage);
+          console.log('Error: ' + this.errorMessage);
         }
     );
+    location.reload();
   }
 
 }

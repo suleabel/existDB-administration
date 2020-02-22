@@ -48,8 +48,8 @@ export class UserService {
   }
 
   // exist
-  public deleteUser(username: string): Observable<string> {
-    return this.http.post<string>(this.baseUrlForExist + 'deleteuser', username, httpOptions);
+  public deleteUser(username: string): Observable<any> {
+    return this.http.post<any>(this.baseUrlForExist + 'deleteuser', username, httpOptions);
   }
 
   // exist

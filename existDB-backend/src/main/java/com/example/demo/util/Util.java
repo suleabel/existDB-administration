@@ -56,7 +56,6 @@ public class Util {
         boolean result = false;
         try {
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection(), details.getUsername(), details.getPassword());
-            System.out.println("asdasdasdasdasd" + execXQuery(query,collection));
             result = true;
         } catch (XMLDBException e) {
             System.out.println("User delete Exception: " + e.getMessage());

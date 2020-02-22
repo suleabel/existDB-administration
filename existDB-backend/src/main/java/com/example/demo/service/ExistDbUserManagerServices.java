@@ -29,7 +29,7 @@ public class ExistDbUserManagerServices {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        if(userExists(user.getUsername())){
+        if(userExists(details, user.getUsername()).equals("true")){
             return "User is exist";
 
         }
@@ -63,7 +63,8 @@ public class ExistDbUserManagerServices {
                 ")" +
                 "else\n" +
                 "false()";
-        if(userExists(username)){
+        if(userExists(details, username).equals("true")){
+            System.out.println("User is exist, execute delete");
             util.stringResultQuery(details, query);
             return "User is deleted";
         }
@@ -135,17 +136,27 @@ public class ExistDbUserManagerServices {
         return util.stringResultQuery(details, query);
     }
 
-    private boolean userExists(String user) {
-        boolean result = false;
-        try {
-            String query = "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\"; \n" +
-                    "sm:user-exists(\"" + user + "\")";
-            result = util.execXQuery(query,collection).equals("true");
+//    private boolean userExists(String user) {
+//        boolean result = false;
+//        try {
+//            String query = "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\"; \n" +
+//                    "sm:user-exists(\"" + user + "\")";
+//            result = util.execXQuery(query,collection).equals("true");
+//
+//        } catch (Exception ignored) {
+//
+//        }
+//        return result;
+//    }
 
-        } catch (Exception ignored) {
-
-        }
-        return result;
+    private String userExists(ExistDetails details, String user) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
+                "sm:user-exists(\"" + user + "\")\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
     }
 
     public boolean isAndminAccess(ExistDetails details){

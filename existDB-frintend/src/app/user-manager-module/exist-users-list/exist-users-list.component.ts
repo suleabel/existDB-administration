@@ -19,7 +19,7 @@ export class ExistUsersListComponent implements OnInit {
     default
   };
   displayedColumns = ['username', 'fullName', 'umask', 'primaryGroup', 'desc', 'default', 'details', 'delete'];
-  constructor(public userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,7 +41,7 @@ export class ExistUsersListComponent implements OnInit {
               console.log(this.UsersData.data);
             },
             error => {
-              console.log('Error');
+              console.log('Error:' + error);
             }
         );
   }
@@ -57,6 +57,14 @@ export class ExistUsersListComponent implements OnInit {
 
   delete(username) {
       console.log(username);
-      this.userService.deleteUser(username);
+      this.userService.deleteUser(username).subscribe(
+          res => {
+              console.log('Response: ' + res);
+          },
+              error => {
+              console.log('Error: ' + error);
+      }
+      );
+      location.reload();
   }
 }

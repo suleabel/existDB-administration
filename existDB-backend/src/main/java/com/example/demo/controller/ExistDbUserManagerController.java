@@ -26,9 +26,10 @@ public class ExistDBUserManagerController {
     }
 
     @RequestMapping("/deleteuser")
-    public void deleteUser(@RequestBody String username){
-        //return existDbMainService.deleteUser(username);
+    public String deleteUser(@RequestBody String username){
         System.out.println("deletedUser: " + username);
+        return existDbMainService.deleteUser(username);
+
 
     }
 
