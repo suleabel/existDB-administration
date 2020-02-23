@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ExistDBGroupForCreate;
-import com.example.demo.model.ExistDBGroupForList;
+import com.example.demo.model.ExistDBGroup;
 import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
 import org.slf4j.Logger;
@@ -14,18 +13,18 @@ public class ExistDbGroupManagerServices {
     private static Util util = new Util();
     private static final Logger logger = LoggerFactory.getLogger(ExistDbGroupManagerServices.class);
 
-    public String createGroup(ExistDetails details, ExistDBGroupForCreate group){
+    public String createGroup(ExistDetails details, ExistDBGroup group){
         logger.info("try to create group, data: " + group.toString());
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        sm:create-group(\"" + group.getGroupName() + "\", \"" + group.getGroupManager() + "\", \"" + group.getDesc() + "\"),\n" +
+                "        sm:create-group(\"" + group.getName() + "\", \"" + group.getManager() + "\", \"" + group.getDesc() + "\"),\n" +
                 "        true()\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
-        if(groupExists(details, group.getGroupName()).equals("true")){
+        if(groupExists(details, group.getName()).equals("true")){
             return "Group is exist!";
         }
         util.stringResultQuery(details, query);

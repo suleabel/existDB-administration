@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AddExistGroupModel} from '../../user-manager-module/model/add-existGroup.model';
 import {GroupsService} from '../service/groups.service';
+import {ExistGroupModel} from '../model/existGroup.model';
 
 @Component({
   selector: 'app-exist-add-group',
@@ -10,7 +10,7 @@ import {GroupsService} from '../service/groups.service';
 })
 export class ExistAddGroupComponent implements OnInit {
   public addGroupForm: FormGroup;
-  public addGroupData: AddExistGroupModel;
+  public addGroupData: ExistGroupModel;
   public existUsers: [];
 
   constructor(
@@ -30,7 +30,8 @@ export class ExistAddGroupComponent implements OnInit {
 
       this.addGroupForm = this.formBuilder.group({
         groupName: [null, Validators.required],
-        groupManager: [null, Validators.required],
+        groupManager: [null],
+        groupMembers: [null, Validators.required],
         desc: []
   });
       console.log(this.addGroupForm);
@@ -44,6 +45,9 @@ export class ExistAddGroupComponent implements OnInit {
   }
   get desc() {
     return this.addGroupForm.get('desc');
+  }
+  get groupMembers() {
+      return this.addGroupForm.get('groupMembers');
   }
 
   submit() {

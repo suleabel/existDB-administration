@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ExistDBGroupForCreate;
-import com.example.demo.model.ExistDBGroupForList;
+import com.example.demo.model.ExistDBGroup;
 import com.example.demo.service.ExistDbMainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +20,7 @@ public class ExistDBGroupManagerController {
     private ExistDbMainService existDbMainService;
 
     @RequestMapping("/getGroups")
-    public ArrayList<ExistDBGroupForList> getGroups() {
+    public ArrayList<ExistDBGroup> getGroups() {
         return existDbMainService.listGroups();
     }
 
@@ -31,7 +30,7 @@ public class ExistDBGroupManagerController {
     }
 
     @RequestMapping("/createGroup")
-    public String createGroup(@RequestBody ExistDBGroupForCreate group) { return existDbMainService.createGroup(group);}
+    public String createGroup(@RequestBody ExistDBGroup group) { return existDbMainService.createGroup(group);}
 
     @RequestMapping("/deleteGroup")
     public String deleteGroup(@RequestBody String groupName) {return existDbMainService.deleteGroup(groupName);}

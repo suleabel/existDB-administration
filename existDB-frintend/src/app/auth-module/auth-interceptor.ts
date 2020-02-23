@@ -10,14 +10,14 @@ import {
 } from '@angular/common/http';
 import {TokenStorageService} from './token-storage.service';
 import {tap} from 'rxjs/operators';
-import {matDialogAnimations} from '@angular/material';
 
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private token: TokenStorageService) {
+  constructor(
+      private token: TokenStorageService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -51,7 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
           // location.href = '/error';
         } else if (err.status === 200) {
           console.log(err.error.text);
-          alert(err.error.text);
+          this.ShowAlter(err.error.text);
         }
         // if (err.status === 400) {
         //   // location.href = '/register';
@@ -59,6 +59,9 @@ export class AuthInterceptor implements HttpInterceptor {
         // }
       }
     }));
+  }
+  ShowAlter(message) {
+    console.log('message: ' + message);
   }
 }
 

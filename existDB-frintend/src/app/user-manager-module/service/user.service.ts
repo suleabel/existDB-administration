@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UsersListModel} from '../model/users-list.model';
 import {Observable} from 'rxjs';
 import {ExistUserModel} from '../model/existUser.model';
-import {AddExistUserModel} from '../model/add-existUser.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -43,8 +42,13 @@ export class UserService {
   }
 
   // exist
-  public addUserToExist(user: AddExistUserModel): Observable<any> {
+  public addUserToExist(user: ExistUserModel): Observable<any> {
     return this.http.post<any>(this.baseUrlForExist + 'createUser', user, httpOptions);
+  }
+
+  // exist
+  public editUser(user: ExistUserModel): Observable<any> {
+    return this.http.post<any>(this.baseUrlForExist + 'editUser', user, httpOptions);
   }
 
   // exist
@@ -67,14 +71,6 @@ export class UserService {
   }
 
   public setSelectedUser(user) {
-    // console.log('userService -> setSelectedUser' + id);
-    // this.getUserById(id)
-    //   .subscribe(
-    //     res => {
-    //       this.selectedUser = res;
-    //       console.log('selectedUser: ' + JSON.stringify(this.selectedUser));
-    //     }
-    //   );
     this.selectedUser = user;
   }
 }

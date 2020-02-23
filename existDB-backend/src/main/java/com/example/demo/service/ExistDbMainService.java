@@ -40,34 +40,37 @@ public class ExistDbMainService {
 
     }
 
-    public ArrayList<ExistDBUsersForList> listUsers() {
+    public ArrayList<ExistDBUsers> listUsers() {
+
         List<String> users;
-        ArrayList<ExistDBUsersForList> existDBUserForCreates = new ArrayList<>();
+        ArrayList<ExistDBUsers> existDBUserForCreates = new ArrayList<>();
 
         users = Arrays.asList(existDbUserManagerServices.getUsers(details).split("\n"));
 
         for (String user: users) {
-            ExistDBUsersForList existDBUser = new ExistDBUsersForList();
+            ExistDBUsers existDBUser = new ExistDBUsers();
             existDBUser.setUsername(user);
             existDBUser.setGroups(Arrays.asList(existDbUserManagerServices.getUserGroups(details, user).split("\n")));
             existDBUser.setUmask(existDbUserManagerServices.getUserUmask(details, user));
             existDBUser.setPrimaryGroup(existDbUserManagerServices.getUserPrimaryGroup(details, user));
             existDBUser.setFullName(existDbUserManagerServices.getUserFullname(details, user));
-            existDBUser.setDesc(existDbUserManagerServices.getUserDesc(details,user));
+            existDBUser.setDesc(existDbUserManagerServices.getUserDesc(details, user));
             existDBUser.setDefault(existDbUserManagerServices.isDefaultUser(user));
+            existDBUser.setEnabled(existDbUserManagerServices.isAccountEnabled(details, user));
             existDBUserForCreates.add(existDBUser);
         }
+        logger.info("list users: " + existDBUserForCreates.toString());
         return existDBUserForCreates;
     }
 
-    public ArrayList<ExistDBGroupForList> listGroups(){
+    public ArrayList<ExistDBGroup> listGroups(){
 
         List<String> groups;
-        ArrayList<ExistDBGroupForList> dbGroups = new ArrayList<>();
+        ArrayList<ExistDBGroup> dbGroups = new ArrayList<>();
         groups = Arrays.asList(existDbGroupManagerServices.getGroups(details).split("\n"));
 
         for (String group: groups) {
-            ExistDBGroupForList group1 = new ExistDBGroupForList();
+            ExistDBGroup group1 = new ExistDBGroup();
             group1.setName(group);
             group1.setManager(existDbGroupManagerServices.getGroupManager(details, group));
             group1.setDesc(existDbGroupManagerServices.getGroupDesc(details, group));
@@ -78,16 +81,20 @@ public class ExistDbMainService {
         return dbGroups;
     }
 
-    public String createUser(ExistDBUserForCreate user){ return existDbUserManagerServices.createUser(details, user); }
+    public String createUser(ExistDBUsers user){
+        logger.info("try to create user:" + user.toString());
+        return existDbUserManagerServices.createUser(details, user);
+    }
 
     public String deleteUser(String username){
         return existDbUserManagerServices.deleteUser(details, username);
     }
 
-    public String createGroup(ExistDBGroupForCreate group) { return existDbGroupManagerServices.createGroup(details, group); }
+    public String createGroup(ExistDBGroup group) { return existDbGroupManagerServices.createGroup(details, group); }
 
     public String deleteGroup(String group) { return existDbGroupManagerServices.deleteGroup(details, group); }
 
+    public String editUser(ExistDBUsers user) { return existDbUserManagerServices.editUser(details, user); }
 
     public boolean isAdmin (){
         return existDbUserManagerServices.isAndminAccess(details);
@@ -113,9 +120,9 @@ public class ExistDbMainService {
 
 
 
-
     public static String getDetailsPass() {
         return details.getPassword();
     }
+
 
 }

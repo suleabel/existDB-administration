@@ -38,6 +38,7 @@ import { ExistGroupListComponent } from './exist-group-manager/exist-group-list/
 import { ExistAddUserComponent } from './user-manager-module/exist-add-user/exist-add-user.component';
 import { ExistGroupManagerComponent } from './exist-group-manager/exist-group-manager.component';
 import { ExistAddGroupComponent } from './exist-group-manager/exist-add-group/exist-add-group.component';
+import { ExistGroupDetailsComponent } from './exist-group-manager/exist-group-details/exist-group-details.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ExistAddGroupComponent } from './exist-group-manager/exist-add-group/ex
     ExistGroupListComponent,
     ExistAddUserComponent,
     ExistGroupManagerComponent,
-    ExistAddGroupComponent
+    ExistAddGroupComponent,
+    ExistGroupDetailsComponent
   ],
     imports: [
         BrowserModule,

@@ -1,18 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ExistDBUserForCreate;
+import com.example.demo.model.ExistDBUsers;
 import com.example.demo.model.ExistDetails;
-import com.example.demo.security.CustomAuthenticationProvider;
 import com.example.demo.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Component
 public class ExistDbUserManagerServices {
@@ -23,8 +18,7 @@ public class ExistDbUserManagerServices {
 
     private static Util util = new Util();
 
-    public String createUser(ExistDetails details, ExistDBUserForCreate user){
-        logger.info("try to create user");
+    public String createUser(ExistDetails details, ExistDBUsers user){
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -42,10 +36,80 @@ public class ExistDbUserManagerServices {
         return "User created!";
     }
 
+    public String editUser(ExistDetails details, ExistDBUsers user) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
+                "declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI(\"http://exist-db.org/security/description\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        let $user := \"" + user.getUsername() + "\",\n" +
+                "        $fullName := \"" + user.getFullName() + "\",\n" +
+                "        $description := \"" + user.getDesc() + "\",\n" +
+                "        $password := \"" + user.getPassword() + "\",\n" +
+                "        $disabled := \"" + user.isEnabled() + "\",\n" +
+                "        $umask := \"" + user.getUmask() + "\",\n" +
+                "        $groups := [\"" + user.getGroupsAsString() + "\"]\n" +
+                "                return (\n" +
+                "            if(secman:get-account-metadata($user, $METADATA_FULLNAME_KEY) = $fullName)then\n" +
+                "                    ()\n" +
+                "                else secman:set-account-metadata($user, $METADATA_FULLNAME_KEY, $fullName)\n" +
+                "                ,\n" +
+                "            if(secman:get-account-metadata($user, $METADATA_DESCRIPTION_KEY) = $description)then\n" +
+                "                    ()\n" +
+                "                else secman:set-account-metadata($user, $METADATA_DESCRIPTION_KEY, $description)\n" +
+                "                ,\n" +
+                "            if(secman:is-account-enabled($user) eq $disabled)then\n" +
+                "                    secman:set-account-enabled($user, $disabled)\n" +
+                "                else(),\n" +
+                "            if(secman:get-umask($user) ne $umask)then\n" +
+                "                    secman:set-umask($user, $umask)\n" +
+                "                else(),\n" +
+                "                for $group in secman:get-user-groups($user) return secman:remove-group-member($group, $user),\n" +
+                "                for $group in $groups return if(secman:group-exists($group)) then secman:add-group-member($group, $user) else (),\n" +
+                "                if($password) then secman:passwd($user, $password) else (),\n" +
+                "\n" +
+                "                true()\n" +
+                "            )" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        System.out.println("query: " + query);
+        System.out.println(util.stringResultQuery(details, query));
+        return "test";
+    }
+
 
     public String enableDisableAccount(){
         String query = "sm:set-account-enabled($username as xs:string, $enabled as xs:boolean)";
-        return "";
+        return "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
+                "declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI(\"http://exist-db.org/security/description\");\n" +
+                "if(xmldb:login(\"/db\",\"admin\",\"admin1234\")) then\n" +
+                "    (\n" +
+                "        let $user := \"\",\n" +
+                "        $fullName := \"\",\n" +
+                "        $description := \"\",\n" +
+                "        $password := \"\",\n" +
+                "        $disabled := false,\n" +
+                "        $umask := \"\",\n" +
+                "        $groups := [][@type eq \"array\"]/item/string(text())\n" +
+                "        return (\"$user\",\"$fullName\",\"$description\",\"$password\",\"$disabled\",\"$umask\",\"$groups\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+    }
+
+    public boolean isAccountEnabled(ExistDetails details, String username){
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
+                "sm:is-account-enabled(\"" + username + "\")\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query).equals("true");
+
     }
 
     public String getUsers(ExistDetails details){

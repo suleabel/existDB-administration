@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AddExistUserModel} from '../model/add-existUser.model';
+import {ExistUserModel} from '../model/existUser.model';
 import {UserService} from '../service/user.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {UserService} from '../service/user.service';
 })
 export class ExistAddUserComponent implements OnInit {
   public addUsrForm: FormGroup;
-  public addUserData: AddExistUserModel;
+  public addUserData: ExistUserModel;
   public existGroups: [];
 
   constructor(

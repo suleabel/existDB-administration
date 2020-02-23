@@ -22,6 +22,88 @@
     </div>
 
     <div class="user-details-edit" *ngIf="userDetailsEdit">
+        <div class="card">
+            <div class="card-header font-weight-bold">
+                User detail
+            </div>
+            <div class="card-body">
+                <form [formGroup]="editUsrForm" >
+                <div class="form-group">
+                    <mat-form-field>
+                        <label for="username" class="control-label">Username</label>
+                        <input matInput id="username" type="text" class="form-control" formControlName="username">
+                    </mat-form-field>
+                    <mat-error *ngIf="username.invalid && username.touched">
+                        Username is required
+                    </mat-error>
+                </div>
+
+                <div class="form-group">
+                    <mat-form-field>
+                        <label for="primaryGroup" class="control-label">Primary Group</label>
+                        <mat-select id="primaryGroup" class="form-control" formControlName="primaryGroup">
+                            <mat-option *ngFor="let group of existGroups" [value]="group">
+                                {{group}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="primaryGroup.invalid && primaryGroup.touched">
+                        Primary Group name is required
+                    </mat-error>
+                </div>
+
+                <div class="form-group">
+                    <mat-form-field>
+                        <label for="groups" class="control-label">groups</label>
+                        <mat-select id="groups" class="form-control" formControlName="groups"  multiple>
+                            <mat-option *ngFor="let group of existGroups" [value]="group">
+                                {{group}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="primaryGroup.invalid && primaryGroup.touched">
+                        One group is required
+                    </mat-error>
+                </div>
+
+                <div class="form-group">
+                    <mat-form-field>
+                        <label for="fullName" class="control-label">Full Name</label>
+                        <input matInput id="fullName" type="text" class="form-control" formControlName="fullName">
+                    </mat-form-field>
+                    <mat-error *ngIf="fullName.invalid && fullName.touched">
+                        Full Name is required
+                    </mat-error>
+                </div>
+
+                <div class="form-group">
+                    <mat-form-field>
+                        <label for="desc" class="control-label">Description</label>
+                        <input matInput id="desc" type="desc" class="form-control" formControlName="desc">
+                    </mat-form-field>
+                    <mat-error *ngIf="desc.invalid && desc.touched">
+                        Description is required
+                    </mat-error>
+                </div>
+
+                    <div class="form-group">
+                        <mat-form-field>
+                            <label for="umask" class="control-label">umask</label>
+                            <input matInput id="umask" type="umask" class="form-control" formControlName="umask">
+                        </mat-form-field>
+                        <mat-error *ngIf="umask.invalid && umask.touched">
+                            umask is required
+                        </mat-error>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field>
+                            <label for="password" class="control-label">Password</label>
+                            <input matInput id="password" type="password" class="form-control" formControlName="password">
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div>

@@ -2,14 +2,33 @@ package com.example.demo.model;
 
 import java.util.List;
 
-public class ExistDBUserForCreate {
+public class ExistDBUsers {
 
     private String username;
     private List<String> groups;
-    private String password;
+    private String umask;
     private String primaryGroup;
     private String fullName;
     private String Desc;
+    private String password;
+    private boolean Default;
+    private boolean enabled = true;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;
@@ -27,12 +46,12 @@ public class ExistDBUserForCreate {
         this.groups = groups;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUmask() {
+        return umask;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUmask(String umask) {
+        this.umask = umask;
     }
 
     public String getPrimaryGroup() {
@@ -59,19 +78,33 @@ public class ExistDBUserForCreate {
         Desc = desc;
     }
 
+    public boolean isDefault() {
+        return Default;
+    }
+
+    public void setDefault(boolean aDefault) {
+        Default = aDefault;
+    }
+
     public String getGroupsAsString(){
-        return String.join(",", this.groups);
+        return String.join("\", \"", this.groups);
+    }
+
+    public String getGroupsAsString2(){
+        return String.join(", ", this.groups);
     }
 
     @Override
     public String toString() {
-        return "ExistDBUserForCreate{" +
+        return "ExistDBUsers{" +
                 "username='" + username + '\'' +
                 ", groups=" + groups +
-                ", password='" + password + '\'' +
+                ", umask='" + umask + '\'' +
                 ", primaryGroup='" + primaryGroup + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", Desc='" + Desc + '\'' +
+                ", password='" + password + '\'' +
+                ", Default=" + Default +
                 '}';
     }
 }

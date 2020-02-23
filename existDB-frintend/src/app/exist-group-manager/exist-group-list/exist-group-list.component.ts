@@ -46,7 +46,12 @@ export class ExistGroupListComponent implements OnInit {
   }
 
   details(groupName) {
-
+      this.GroupsData.data.forEach((row) => {
+          if (row.name === groupName) {
+              this.groupsServices.setSelectedGroup(row);
+          }
+      });
+      this.router.navigateByUrl('/exist-group-edit-details');
   }
 
   delete(groupName) {

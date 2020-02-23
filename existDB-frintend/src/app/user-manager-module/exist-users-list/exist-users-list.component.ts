@@ -49,7 +49,6 @@ export class ExistUsersListComponent implements OnInit {
       this.UsersData.data.forEach((row) => {
           if (row.username === username) {
               this.userService.setSelectedExistUser(row);
-              console.log('selectedUser: ' + row.username);
           }
       });
       this.router.navigateByUrl('/exist-user-edit-details');
