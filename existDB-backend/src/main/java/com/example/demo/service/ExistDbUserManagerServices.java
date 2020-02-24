@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 
+import java.util.ArrayList;
+
 @Component
 public class ExistDbUserManagerServices {
 
@@ -37,6 +39,7 @@ public class ExistDbUserManagerServices {
     }
 
     public String editUser(ExistDetails details, ExistDBUsers user) {
+        editUserGroups(details, user);
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
@@ -47,59 +50,42 @@ public class ExistDbUserManagerServices {
                 "        $fullName := \"" + user.getFullName() + "\",\n" +
                 "        $description := \"" + user.getDesc() + "\",\n" +
                 "        $password := \"" + user.getPassword() + "\",\n" +
-                "        $disabled := \"" + user.isEnabled() + "\",\n" +
-                "        $umask := \"" + user.getUmask() + "\",\n" +
-                "        $groups := [\"" + user.getGroupsAsString() + "\"]\n" +
-                "                return (\n" +
-                "            if(secman:get-account-metadata($user, $METADATA_FULLNAME_KEY) = $fullName)then\n" +
-                "                    ()\n" +
-                "                else secman:set-account-metadata($user, $METADATA_FULLNAME_KEY, $fullName)\n" +
-                "                ,\n" +
-                "            if(secman:get-account-metadata($user, $METADATA_DESCRIPTION_KEY) = $description)then\n" +
-                "                    ()\n" +
-                "                else secman:set-account-metadata($user, $METADATA_DESCRIPTION_KEY, $description)\n" +
-                "                ,\n" +
-                "            if(secman:is-account-enabled($user) eq $disabled)then\n" +
-                "                    secman:set-account-enabled($user, $disabled)\n" +
-                "                else(),\n" +
-                "            if(secman:get-umask($user) ne $umask)then\n" +
-                "                    secman:set-umask($user, $umask)\n" +
-                "                else(),\n" +
-                "                for $group in secman:get-user-groups($user) return secman:remove-group-member($group, $user),\n" +
-                "                for $group in $groups return if(secman:group-exists($group)) then secman:add-group-member($group, $user) else (),\n" +
-                "                if($password) then secman:passwd($user, $password) else (),\n" +
-                "\n" +
-                "                true()\n" +
-                "            )" +
+                "        $primaryGroup := \"" + user.getPrimaryGroup() + "\",\n" +
+                "        $disabled := xs:boolean(\"" + user.isEnabled() + "\"),\n" +
+                "        $umask := xs:integer(" + user.getUmask() + ")\n" +
+                "        return (\n" +
+                "            if(sm:get-account-metadata($user, $METADATA_FULLNAME_KEY) = $fullName)then\n" +
+                "        ()else \n" +
+                "            sm:set-account-metadata($user, $METADATA_FULLNAME_KEY, $fullName),\n" +
+                "        if(sm:get-account-metadata($user, $METADATA_DESCRIPTION_KEY) = $description)then\n" +
+                "        ()else \n" +
+                "            sm:set-account-metadata($user, $METADATA_DESCRIPTION_KEY, $description),\n" +
+                "        if(sm:is-account-enabled($user) eq $disabled)then\n" +
+                "            sm:set-account-enabled($user, $disabled)\n" +
+                "        else(),\n" +
+                "        if(sm:get-user-primary-group($user) ne $primaryGroup)then\n" +
+                "            sm:set-user-primary-group($user, $primaryGroup)\n" +
+                "        else(),\n" +
+                "        if(sm:get-umask($user) ne $umask)then\n" +
+                "            sm:set-umask($user, $umask)\n" +
+                "        else(),\n" +
+                "        if($password ne \"null\") then sm:passwd($user, $password) else (),\n" +
+                "            true()\n" +
+                "        )\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println("query: " + query);
-        System.out.println(util.stringResultQuery(details, query));
-        return "test";
+        System.out.println(query);
+        return util.stringResultQuery(details, query);
     }
 
-
-    public String enableDisableAccount(){
-        String query = "sm:set-account-enabled($username as xs:string, $enabled as xs:boolean)";
-        return "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
-                "declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI(\"http://exist-db.org/security/description\");\n" +
-                "if(xmldb:login(\"/db\",\"admin\",\"admin1234\")) then\n" +
-                "    (\n" +
-                "        let $user := \"\",\n" +
-                "        $fullName := \"\",\n" +
-                "        $description := \"\",\n" +
-                "        $password := \"\",\n" +
-                "        $disabled := false,\n" +
-                "        $umask := \"\",\n" +
-                "        $groups := [][@type eq \"array\"]/item/string(text())\n" +
-                "        return (\"$user\",\"$fullName\",\"$description\",\"$password\",\"$disabled\",\"$umask\",\"$groups\")\n" +
-                "    )\n" +
-                "else\n" +
-                "false()";
+    public String editUserGroups(ExistDetails details, ExistDBUsers user) {
+        user.getGroups().remove(user.getPrimaryGroup());
+        System.out.println("user groups after remove pg: " + user.getGroups());
+        String query = "";
+        return "";
     }
+
 
     public boolean isAccountEnabled(ExistDetails details, String username){
         String query = "xquery version \"3.1\";\n" +
