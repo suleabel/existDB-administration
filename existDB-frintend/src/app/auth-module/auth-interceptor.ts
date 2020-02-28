@@ -51,7 +51,6 @@ export class AuthInterceptor implements HttpInterceptor {
           // location.href = '/error';
         } else if (err.status === 200) {
           console.log(err.error.text);
-          this.ShowAlter(err.error.text);
         }
         // if (err.status === 400) {
         //   // location.href = '/register';
@@ -59,9 +58,6 @@ export class AuthInterceptor implements HttpInterceptor {
         // }
       }
     }));
-  }
-  ShowAlter(message) {
-    console.log('message: ' + message);
   }
 }
 

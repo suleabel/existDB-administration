@@ -456,14 +456,19 @@
                     cancelDelayedTooltipShowing();
                 }));
                 if (this.triggers) {
-                    /** @type {?} */
-                    var triggers = utils.parseTriggers(this.triggers);
-                    this._tooltipCancelShowFn = this._renderer.listen(this._elementRef.nativeElement, triggers[0].close, (/**
+                    utils.parseTriggers(this.triggers)
+                        .forEach((/**
+                     * @param {?} trigger
                      * @return {?}
                      */
-                    function () {
-                        _timer_1.unsubscribe();
-                        cancelDelayedTooltipShowing();
+                    function (trigger) {
+                        _this._tooltipCancelShowFn = _this._renderer.listen(_this._elementRef.nativeElement, trigger.close, (/**
+                         * @return {?}
+                         */
+                        function () {
+                            _timer_1.unsubscribe();
+                            cancelDelayedTooltipShowing();
+                        }));
                     }));
                 }
             }

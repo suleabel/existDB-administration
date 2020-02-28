@@ -100,8 +100,27 @@ public class ExistDbMainService {
         return existDbUserManagerServices.isAndminAccess(details);
     }
 
-    public List<String> getCollection() {
-        return Arrays.asList(existDbCollectionManagerService.getCollectionContent(details, "").split("\n"));
+    public List<String> getCollection(String collection) {
+        return Arrays.asList(existDbCollectionManagerService.getCollectionContent(details, collection).split("\n"));
+    }
+
+    public ArrayList<ExistFileManagerModel> getFileManagerContentByCollection(String collection) {
+        ArrayList<ExistFileManagerModel> existFileManagerModels = new ArrayList<>();
+        String[] collections = existDbCollectionManagerService.getCollectionContent(details, collection).split("\n");
+        String[] resources = existDbCollectionManagerService.getCollectionResources(details, collection).split("\n");
+        if(!collections[0].equals("")){
+            for (String col: collections) {
+                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(col,false);
+                existFileManagerModels.add(existFileManagerModel);
+            }
+        }
+        if(!resources[0].equals("")){
+            for (String res: resources){
+                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(res, true);
+                existFileManagerModels.add(existFileManagerModel);
+            }
+        }
+        return existFileManagerModels;
     }
 
     public List<String> getGroupsName() {
@@ -110,6 +129,10 @@ public class ExistDbMainService {
 
     public List<String> getUsersNames() {
         return Arrays.asList(existDbUserManagerServices.getUsers(details).split("\n"));
+    }
+
+    public String storeResource(ForStoreResource storeResource){
+        return existDbCollectionManagerService.saveResource(details, storeResource);
     }
 
 

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort} from '@angular/material';
 import {TokenStorageService} from '../../auth-module/token-storage.service';
+import {XmlToXsdService} from '../../xml-to-xsd/service/xml-to-xsd.service';
 
 @Component({
   selector: 'app-home-page',
@@ -33,10 +34,6 @@ export class HomePageComponent implements OnInit {
   logout() {
     this.token.signOut();
     window.location.reload();
-  }
-
-  connectToDb() {
-    alert('connectToDB');
   }
 
 }

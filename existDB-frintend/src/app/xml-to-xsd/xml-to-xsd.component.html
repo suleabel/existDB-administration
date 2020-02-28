@@ -1,0 +1,46 @@
+<h4 style="text-align: center">Generate XSD from XML Instance</h4>
+<div class="container">
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header  font-weight-bold">
+                Insert XML text here:
+            </div>
+            <div class="card-body">
+                <textarea ref-textarea [(ngModel)]="textValue" rows="4"></textarea>
+                <button [disabled]="(textValue == '') ? 'disabled' : ''" class="btn btn-primary font-weight-bold" (click)="sendText(textarea.value)">Generate XSD</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header  font-weight-bold">
+                Generated XSD:
+            </div>
+            <div class="card-body">
+                <pre>
+                    <code [highlight]="generatedXSD" [lineNumbers]="true"></code>
+                </pre>
+                <button [disabled]="(generatedXSD == '') ? 'disabled' : ''" class="btn btn-primary font-weight-bold" (click)="saveXsdToDB()">Save XSD to eXist-DB</button>
+                <button [disabled]="(generatedXSD == '') ? 'disabled' : ''" class="btn btn-primary font-weight-bold" (click)="downloadXsd()"><a [href]="fileUrl" download="file.xsd">Download generated XSD</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+Teszt céllal van itt:
+<ol>
+    <li>
+        <mat-form-field>
+            <mat-label>What's your name?</mat-label>
+            <label>
+                <input matInput [(ngModel)]="name">
+            </label>
+        </mat-form-field>
+    </li>
+    <li>
+        <button mat-raised-button (click)="openDialog()">Pick one</button>
+    </li>
+    <li *ngIf="animal">
+        You chose: <i>{{animal}}</i>
+    </li>
+</ol>

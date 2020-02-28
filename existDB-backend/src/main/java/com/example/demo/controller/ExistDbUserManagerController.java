@@ -27,12 +27,6 @@ public class ExistDbUserManagerController {
     @RequestMapping("/deleteUser")
     public String deleteUser(@RequestBody String username){ return existDbMainService.deleteUser(username); }
 
-    //collection managerbe kell majd
-    @RequestMapping("/getrootcollection")
-    public List<String> getRootCollection(){
-        return existDbMainService.getCollection();
-    }
-
     @RequestMapping("/createUser")
     public String createUser(@RequestBody ExistDBUsers user){
         return existDbMainService.createUser(user);

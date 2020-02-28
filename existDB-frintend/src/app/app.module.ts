@@ -8,6 +8,7 @@ import {HomePageComponent} from './home-page-module/home-page/home-page.componen
 import {LoginPageComponent} from './auth-module/login-page/login-page.component';
 import {TopBarComponent} from './top-bar-module/top-bar.component';
 import {HttpClientModule} from '@angular/common/http';
+import {HighlightModule} from 'ngx-highlightjs';
 import {CommonModule} from '@angular/common';
 import {
     _MatMenuDirectivesModule, MatButtonModule,
@@ -16,7 +17,7 @@ import {
     MatPaginatorModule, MatSidenavModule,
     MatSortModule,
     MatTableModule,
-    MatToolbarModule, MatIconModule, MatSelectModule,
+    MatToolbarModule, MatIconModule, MatSelectModule, MatDialogModule,
 } from '@angular/material';
 
 
@@ -39,7 +40,9 @@ import { ExistAddUserComponent } from './user-manager-module/exist-add-user/exis
 import { ExistGroupManagerComponent } from './exist-group-manager/exist-group-manager.component';
 import { ExistAddGroupComponent } from './exist-group-manager/exist-add-group/exist-add-group.component';
 import { ExistGroupDetailsComponent } from './exist-group-manager/exist-group-details/exist-group-details.component';
-
+import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
+import { DialogPanelComponent } from './xml-to-xsd/dialog-panel/dialog-panel.component';
+import { FileExplorerComponent } from './file-explorer/file-explorer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,10 @@ import { ExistGroupDetailsComponent } from './exist-group-manager/exist-group-de
     ExistAddUserComponent,
     ExistGroupManagerComponent,
     ExistAddGroupComponent,
-    ExistGroupDetailsComponent
+    ExistGroupDetailsComponent,
+      XmlToXsdComponent,
+      DialogPanelComponent,
+      FileExplorerComponent,
   ],
     imports: [
         BrowserModule,
@@ -85,7 +91,9 @@ import { ExistGroupDetailsComponent } from './exist-group-manager/exist-group-de
         MatSidenavModule,
         LayoutModule,
         MatIconModule,
-        MatSelectModule
+        MatSelectModule,
+        HighlightModule,
+        MatDialogModule
     ],
   providers: [httpInterceptorProvider, AuthGuardService],
   bootstrap: [AppComponent]

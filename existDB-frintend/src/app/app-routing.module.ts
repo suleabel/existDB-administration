@@ -12,6 +12,8 @@ import {UserManagerSidenemuComponent} from './user-manager-module/user-manager-s
 import {ExistUsersEditDetailsComponent} from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
 import {ExistGroupManagerComponent} from './exist-group-manager/exist-group-manager.component';
 import {ExistGroupDetailsComponent} from './exist-group-manager/exist-group-details/exist-group-details.component';
+import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
+import {FileExplorerComponent} from './file-explorer/file-explorer.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -24,6 +26,8 @@ const routes: Routes = [
   {path: 'exist-group-edit-details', component: ExistGroupDetailsComponent, canActivate: [AuthGuardService]},
   {path: 'error', component: ErrorComponent},
   {path: 'userManagerTestMenu', component: UserManagerSidenemuComponent, canActivate: [AuthGuardService]},
+  {path: 'xml2xsd', component: XmlToXsdComponent, canActivate: [AuthGuardService]},
+  {path: 'file-explorer', component: FileExplorerComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];
