@@ -19,12 +19,12 @@ public class ExistDbGroupManagerServices {
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        sm:create-group(\"" + group.getName() + "\", \"" + group.getManager() + "\", \"" + group.getDesc() + "\"),\n" +
+                "        sm:create-group(\"" + group.getGroupName() + "\", \"" + group.getGroupManager() + "\", \"" + group.getDesc() + "\"),\n" +
                 "        true()\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
-        if(groupExists(details, group.getName()).equals("true")){
+        if(groupExists(details, group.getGroupName()).equals("true")){
             return "Group is exist!";
         }
         util.stringResultQuery(details, query);

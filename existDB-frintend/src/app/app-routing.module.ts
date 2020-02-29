@@ -14,6 +14,7 @@ import {ExistGroupManagerComponent} from './exist-group-manager/exist-group-mana
 import {ExistGroupDetailsComponent} from './exist-group-manager/exist-group-details/exist-group-details.component';
 import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
 import {FileExplorerComponent} from './file-explorer/file-explorer.component';
+import {CreateFileComponent} from './file-explorer/create-file/create-file.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'userManagerTestMenu', component: UserManagerSidenemuComponent, canActivate: [AuthGuardService]},
   {path: 'xml2xsd', component: XmlToXsdComponent, canActivate: [AuthGuardService]},
   {path: 'file-explorer', component: FileExplorerComponent, canActivate: [AuthGuardService]},
+  {path: 'create-file', component: CreateFileComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];

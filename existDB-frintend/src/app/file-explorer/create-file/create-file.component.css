@@ -13,8 +13,8 @@ a {
   color: white;
 }
 
-mat-form-field {
-  width: 50%;
+button {
+  margin: 10px;
 }
 
-/*# sourceMappingURL=xml-to-xsd.component.css.map */
+/*# sourceMappingURL=create-file.component.css.map */

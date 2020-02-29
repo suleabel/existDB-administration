@@ -12,7 +12,7 @@
 	<artifactId>existDB-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>existDB-backend</name>
+	<groupName>existDB-backend</groupName>
 	<description>existDB-backend</description>
 
 	<properties>

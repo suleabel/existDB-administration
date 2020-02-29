@@ -30,7 +30,9 @@ public class ExistDBGroupManagerController {
     }
 
     @RequestMapping("/createGroup")
-    public String createGroup(@RequestBody ExistDBGroup group) { return existDbMainService.createGroup(group);}
+    public String createGroup(@RequestBody ExistDBGroup group) {
+        System.out.println("create grous:" + group);
+        return existDbMainService.createGroup(group);}
 
     @RequestMapping("/deleteGroup")
     public String deleteGroup(@RequestBody String groupName) {return existDbMainService.deleteGroup(groupName);}

@@ -20,7 +20,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-//        String username = authentication.getName();
+//        String username = authentication.getGroupName();
 //        String password = authentication.getCredentials().toString();
         if(existDbMainService.isAdmin()){
 

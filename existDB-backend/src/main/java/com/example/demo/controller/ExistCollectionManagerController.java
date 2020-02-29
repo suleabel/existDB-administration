@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ExistFileManagerModel;
+import com.example.demo.model.ForStoreResource;
 import com.example.demo.service.ExistDbMainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +30,15 @@ public class ExistCollectionManagerController {
     @RequestMapping("/getAllContentByCollection")
     public ArrayList<ExistFileManagerModel> getCollection(HttpEntity<String> httpEntity){
         return existDbMainService.getFileManagerContentByCollection(httpEntity.getBody());
+    }
+
+    @RequestMapping("/getBinResContent")
+    public String getBinResContent(HttpEntity<String> httpEntity){
+        return existDbMainService.readBinaryFile(httpEntity.getBody());
+    }
+
+    @RequestMapping("/store")
+    public String saveXsd(@RequestBody ForStoreResource storeResource){
+        return existDbMainService.storeResource(storeResource);
     }
 }

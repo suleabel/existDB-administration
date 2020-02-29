@@ -43,6 +43,7 @@ import { ExistGroupDetailsComponent } from './exist-group-manager/exist-group-de
 import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
 import { DialogPanelComponent } from './xml-to-xsd/dialog-panel/dialog-panel.component';
 import { FileExplorerComponent } from './file-explorer/file-explorer.component';
+import { CreateFileComponent } from './file-explorer/create-file/create-file.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +68,7 @@ import { FileExplorerComponent } from './file-explorer/file-explorer.component';
       XmlToXsdComponent,
       DialogPanelComponent,
       FileExplorerComponent,
+      CreateFileComponent,
   ],
     imports: [
         BrowserModule,

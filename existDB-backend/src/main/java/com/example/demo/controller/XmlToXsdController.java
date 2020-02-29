@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.model.ForStoreResource;
 import com.example.demo.xsdGenerator.XMLtoXSDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,9 +25,8 @@ public class XmlToXsdController {
     }
 
     @RequestMapping("/saveXsd")
-    public String saveXsd(HttpEntity<String> httpEntity){
-        System.out.println(httpEntity.getBody());
-        return xmLtoXSDService.saveXsd(httpEntity.getBody());
+    public String saveXsd(@RequestBody ForStoreResource storeResource){
+        return xmLtoXSDService.saveXsd(storeResource);
     }
 
 }

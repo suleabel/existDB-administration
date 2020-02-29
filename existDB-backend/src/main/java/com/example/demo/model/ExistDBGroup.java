@@ -4,26 +4,26 @@ import java.util.List;
 
 public class ExistDBGroup {
 
-    private String name;
-    private String manager;
+    private String groupName;
+    private String groupManager;
     private String desc;
-    private List<String> members;
+    private List<String> groupMembers;
     private boolean Default;
 
-    public String getName() {
-        return name;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
-    public String getManager() {
-        return manager;
+    public String getGroupManager() {
+        return groupManager;
     }
 
-    public void setManager(String manager) {
-        this.manager = manager;
+    public void setGroupManager(String groupManager) {
+        this.groupManager = groupManager;
     }
 
     public String getDesc() {
@@ -34,12 +34,12 @@ public class ExistDBGroup {
         this.desc = desc;
     }
 
-    public List<String> getMembers() {
-        return members;
+    public List<String> getGroupMembers() {
+        return groupMembers;
     }
 
-    public void setMembers(List<String> members) {
-        this.members = members;
+    public void setGroupMembers(List<String> groupMembers) {
+        this.groupMembers = groupMembers;
     }
 
     public boolean isDefault() {
@@ -53,10 +53,10 @@ public class ExistDBGroup {
     @Override
     public String toString() {
         return "ExistDBGroup{" +
-                "name='" + name + '\'' +
-                ", manager='" + manager + '\'' +
+                "groupName='" + groupName + '\'' +
+                ", groupManager='" + groupManager + '\'' +
                 ", desc='" + desc + '\'' +
-                ", members=" + members +
+                ", groupMembers=" + groupMembers +
                 ", Default=" + Default +
                 '}';
     }

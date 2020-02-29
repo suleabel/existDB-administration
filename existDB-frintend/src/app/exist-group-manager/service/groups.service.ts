@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ExistGroupModel} from '../model/existGroup.model';
+import {stringify} from 'querystring';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -20,8 +21,9 @@ export class GroupsService {
     return this.http.get(this.baseURL + 'getGroups');
   }
 
-  public addGroupToExist(user: ExistGroupModel): Observable<any> {
-    return this.http.post<any>(this.baseURL + 'createGroup', user, httpOptions);
+  public addGroupToExist(groupModel: ExistGroupModel): Observable<any> {
+    console.log(stringify(groupModel));
+    return this.http.post<any>(this.baseURL + 'createGroup', groupModel, httpOptions);
   }
 
   public deleteGroup(group: string): Observable<any> {

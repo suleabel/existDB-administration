@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {GroupsService} from '../service/groups.service';
+import {stringify} from 'querystring';
 
 @Component({
   selector: 'app-exist-group-list',
@@ -11,13 +12,13 @@ import {GroupsService} from '../service/groups.service';
 export class ExistGroupListComponent implements OnInit {
   GroupsData: any;
   post: {
-    name,
-    manager,
+    groupName,
+    groupManager,
     desc,
-    members,
+    groupMembers,
     default
   };
-  displayedColumns = ['name', 'manager', 'desc', 'details', 'delete'];
+  displayedColumns = ['groupName', 'groupManager', 'desc', 'details', 'delete'];
   constructor(public groupsServices: GroupsService, private router: Router) { }
 
   // @ts-ignore
@@ -46,8 +47,9 @@ export class ExistGroupListComponent implements OnInit {
   }
 
   details(groupName) {
+      console.log(groupName);
       this.GroupsData.data.forEach((row) => {
-          if (row.name === groupName) {
+          if (row.groupName === groupName) {
               this.groupsServices.setSelectedGroup(row);
           }
       });

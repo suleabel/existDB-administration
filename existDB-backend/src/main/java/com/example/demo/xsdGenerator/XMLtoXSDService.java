@@ -78,9 +78,8 @@ public class XMLtoXSDService {
         return true;
     }
 
-    public String saveXsd(String body) {
-        ForStoreResource forStoreResource = new ForStoreResource("/db/generated-xml-schemas","test.xsd",body);
-        return existDbMainService.storeResource(forStoreResource);
+    public String saveXsd(ForStoreResource storeResource) {
+        return existDbMainService.storeResource(storeResource);
     }
 
 }

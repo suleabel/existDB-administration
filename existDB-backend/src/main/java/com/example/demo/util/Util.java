@@ -21,7 +21,7 @@ public class Util {
     public void initDatabaseDriver(String driver){
         try{
             Class aClass = Class.forName(driver);
-            System.out.println("aClass.getName() = " + aClass.getName());
+            System.out.println("aClass.getGroupName() = " + aClass.getName());
             Database database = (Database) aClass.newInstance();
             database.setProperty("create-database", "true");
             DatabaseManager.registerDatabase(database);

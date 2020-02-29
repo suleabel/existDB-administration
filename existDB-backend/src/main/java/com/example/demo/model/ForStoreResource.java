@@ -1,30 +1,30 @@
 package com.example.demo.model;
 
 public class ForStoreResource {
-    private String collectionPath;
-    private String resourceName;
+    private String url;
+    private String fileName;
     private String content;
 
-    public ForStoreResource(String collectionPath, String resourceName, String content) {
-        this.collectionPath = collectionPath;
-        this.resourceName = resourceName;
+    public ForStoreResource(String url, String fileName, String content) {
+        this.url = url;
+        this.fileName = fileName;
         this.content = content;
     }
 
-    public String getCollectionPath() {
-        return collectionPath;
+    public String getUrl() {
+        return url;
     }
 
-    public void setCollectionPath(String collectionPath) {
-        this.collectionPath = collectionPath;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getResourceName() {
-        return resourceName;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getContent() {
@@ -38,8 +38,8 @@ public class ForStoreResource {
     @Override
     public String toString() {
         return "ForStoreResource{" +
-                "collectionPath='" + collectionPath + '\'' +
-                ", resourceName='" + resourceName + '\'' +
+                "url='" + url + '\'' +
+                ", fileName='" + fileName + '\'' +
                 ", content='" + content + '\'' +
                 '}';
     }

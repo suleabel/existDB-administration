@@ -71,10 +71,10 @@ public class ExistDbMainService {
 
         for (String group: groups) {
             ExistDBGroup group1 = new ExistDBGroup();
-            group1.setName(group);
-            group1.setManager(existDbGroupManagerServices.getGroupManager(details, group));
+            group1.setGroupName(group);
+            group1.setGroupManager(existDbGroupManagerServices.getGroupManager(details, group));
             group1.setDesc(existDbGroupManagerServices.getGroupDesc(details, group));
-            group1.setMembers(Arrays.asList(existDbGroupManagerServices.getGroupMembers(details, group).split("\n")));
+            group1.setGroupMembers(Arrays.asList(existDbGroupManagerServices.getGroupMembers(details, group).split("\n")));
             group1.setDefault(existDbGroupManagerServices.isDefaultGroup(group));
             dbGroups.add(group1);
         }
@@ -110,13 +110,16 @@ public class ExistDbMainService {
         String[] resources = existDbCollectionManagerService.getCollectionResources(details, collection).split("\n");
         if(!collections[0].equals("")){
             for (String col: collections) {
-                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(col,false);
+                String[] ResData = existDbCollectionManagerService.getResourceData(details, collection, col).split("\n");
+                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(col, ResData[0],ResData[1],ResData[2].equals("true"),ResData[3],"",false);
                 existFileManagerModels.add(existFileManagerModel);
             }
         }
         if(!resources[0].equals("")){
             for (String res: resources){
-                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(res, true);
+                String[] ResData = existDbCollectionManagerService.getResourceData(details, collection, res).split("\n");
+                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(res, ResData[0],ResData[1],ResData[2].equals("true"),ResData[3],ResData[4],true);
+                System.out.println(existFileManagerModel.toString());
                 existFileManagerModels.add(existFileManagerModel);
             }
         }
@@ -133,6 +136,27 @@ public class ExistDbMainService {
 
     public String storeResource(ForStoreResource storeResource){
         return existDbCollectionManagerService.saveResource(details, storeResource);
+    }
+
+    public String readBinaryFile(String resUrl){
+        return existDbCollectionManagerService.readBinaryFile(details, resUrl);
+    }
+
+    public List<String> getCollectionFree(String collection){
+        List<String> collectionTree = new ArrayList<>();
+        collectionTree.add(collection);
+        for (String col: getCollectionChilds(collection)) {
+            collectionTree.addAll(getCollectionFree(col));
+        }
+        return collectionTree;
+    }
+
+    public List<String> getCollectionChilds(String col) {
+        List<String> result = new ArrayList<>();
+        for (String child: Arrays.asList(existDbCollectionManagerService.getCollectionContent(details, col).split("\n"))) {
+            result.add(col+ "/" + child);
+        }
+        return result;
     }
 
 

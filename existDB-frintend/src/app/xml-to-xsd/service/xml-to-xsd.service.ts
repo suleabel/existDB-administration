@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {SaveModel} from '../model/SaveXSDModel';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -18,7 +19,7 @@ export class XmlToXsdService {
         return this.http.post(this.baseURL + 'createXsd', xmlString, {responseType: 'text'});
   }
 
-    public saveXsd(xsdString: string): Observable<any> {
+    public saveXsd(xsdString: SaveModel): Observable<any> {
         return this.http.post(this.baseURL + 'saveXsd', xsdString, {responseType: 'text'});
     }
 

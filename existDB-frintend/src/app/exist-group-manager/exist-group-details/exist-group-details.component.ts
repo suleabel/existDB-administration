@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {GroupsService} from '../service/groups.service';
 import {ExistGroupModel} from '../model/existGroup.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {stringify} from 'querystring';
 
 @Component({
   selector: 'app-exist-group-details',
@@ -22,23 +23,24 @@ export class ExistGroupDetailsComponent implements OnInit {
       private router: Router) { }
 
   ngOnInit() {
+    console.log('selectedGroup:' + stringify(this.groupService.getSelectedGroup()));
     this.selectedGroup = this.groupService.getSelectedGroup();
     if (this.selectedGroup === null) {
       this.router.navigateByUrl('/exist-group-manager');
     }
     this.getAllExistUser();
     this.editGroupForm = this.formBuilder.group({
-      name: [this.selectedGroup.name, Validators.required],
-      manager: [this.selectedGroup.manager],
+      name: [this.selectedGroup.groupName, Validators.required],
+      manager: [this.selectedGroup.groupManager],
       desc: [this.selectedGroup.desc],
-      members: [this.selectedGroup.members, Validators.required]
+      members: [this.selectedGroup.groupMembers, Validators.required]
     });
   }
 
   save() {
     this.editGroupsData = this.editGroupForm.value;
-    if (!this.editGroupsData.members.includes(this.editGroupsData.manager)) {
-      this.editGroupsData.members.push(this.editGroupsData.manager);
+    if (!this.editGroupsData.groupMembers.includes(this.editGroupsData.groupManager)) {
+      this.editGroupsData.groupMembers.push(this.editGroupsData.groupManager);
     }
     console.log(this.editGroupsData);
   }

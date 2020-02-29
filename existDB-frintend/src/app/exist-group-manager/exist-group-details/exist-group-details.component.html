@@ -6,12 +6,12 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    <li class="list-group-item">Group name: {{selectedGroup.name}}</li>
-                    <li class="list-group-item">Group manager: {{selectedGroup.manager}}</li>
+                    <li class="list-group-item">Group name: {{selectedGroup.groupName}}</li>
+                    <li class="list-group-item">Group manager: {{selectedGroup.groupManager}}</li>
                     <li class="list-group-item">Group desc: {{selectedGroup.desc}}</li>
                     <li class="list-group-item">Members:
                         <ul>
-                            <li *ngFor="let groups of selectedGroup.members">{{groups}}</li>
+                            <li *ngFor="let groups of selectedGroup.groupMembers">{{groups}}</li>
                         </ul>
                     </li>
                 </ul>

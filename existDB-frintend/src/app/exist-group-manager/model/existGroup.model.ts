@@ -1,14 +1,13 @@
 export class ExistGroupModel {
-    name: string;
-    manager: string;
+    groupName: string;
+    groupManager: string;
     desc: string;
-    members: string[];
+    groupMembers: string[];
 
-
-    constructor(name: string, manager: string, desc: string, members: string[]) {
-        this.name = name;
-        this.manager = manager;
+    constructor(groupName: string, groupManager: string, desc: string, groupMembers: string[]) {
+        this.groupName = groupName;
+        this.groupManager = groupManager;
         this.desc = desc;
-        this.members = members;
+        this.groupMembers = groupMembers;
     }
 }
