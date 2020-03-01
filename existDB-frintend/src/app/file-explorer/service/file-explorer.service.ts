@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {SaveModel} from '../../xml-to-xsd/model/SaveXSDModel';
 import {Credentials} from '../model/Credentials';
-import {stringify} from 'querystring';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -33,8 +32,13 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'store', xsdString, {responseType: 'text'});
     }
 
-    public deleteResource(resUrl: Credentials): Observable<any> {
-        return this.http.post(this.baseUrl + 'deleteRes', resUrl, httpOptions);
+    public deleteResource(cred: Credentials): Observable<any> {
+        return this.http.post(this.baseUrl + 'deleteRes', cred, {responseType: 'text'});
+    }
+
+    public editFileCredentials(cred: Credentials): Observable<any> {
+        console.log(cred);
+        return this.http.post(this.baseUrl + 'editResCred', cred, {responseType: 'text'});
     }
 
     public setSaveContentHere(url: string) {

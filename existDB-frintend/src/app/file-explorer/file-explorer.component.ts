@@ -44,7 +44,8 @@ export class FileExplorerComponent implements OnInit {
                     console.log(this.collections);
                 },
                 error => {
-                    console.log(error);
+                    console.log(error.status);
+                    this.backToRoot();
                 });
     }
 

@@ -46,4 +46,10 @@ public class CollectionManagerController {
     public String deleteRes(@RequestBody ExistFileManagerModel existFileManagerModel){
         return existDbMainService.deleteFile(existFileManagerModel);
     }
+
+    @RequestMapping("/editResCred")
+    public String editResCred(@RequestBody ExistFileManagerModel existFileManagerModel){
+        System.out.println(existFileManagerModel.toString());
+        return existDbMainService.editResCred(existFileManagerModel);
+    }
 }

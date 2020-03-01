@@ -149,6 +149,10 @@ public class ExistDbMainService {
         return existDbCollectionManagerQueries.deleteResource(details, existFileManagerModel);
     }
 
+    public String editResCred(ExistFileManagerModel existFileManagerModel) {
+        return existDbCollectionManagerQueries.editResCred(details, existFileManagerModel);
+    }
+
     public String readBinaryFile(String resUrl){
         return existDbCollectionManagerQueries.readBinaryFile(details, resUrl);
     }
@@ -183,6 +187,7 @@ public class ExistDbMainService {
     public static String getDetailsPass() {
         return details.getPassword();
     }
+
 
 
 }

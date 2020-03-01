@@ -86,4 +86,10 @@ public class ExistDbCollectionManagerQueries {
         System.out.println(query);
         return "dummy success";
     }
+
+    public String editResCred(ExistDetails details, ExistFileManagerModel existFileManagerModel) {
+        String query = "";
+        System.out.println(existFileManagerModel.toString());
+        return "dummy success";
+    }
 }

@@ -94,7 +94,7 @@
           <entry key="Dockerfile" value="1" />
           <entry key="class" value="23" />
           <entry key="gitignore" value="1" />
-          <entry key="java" value="350" />
+          <entry key="java" value="352" />
           <entry key="properties" value="5" />
           <entry key="sql" value="1" />
           <entry key="xml" value="7" />
@@ -104,7 +104,7 @@
         <counts>
           <entry key="CLASS" value="23" />
           <entry key="Dockerfile" value="1" />
-          <entry key="JAVA" value="350" />
+          <entry key="JAVA" value="352" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Properties" value="5" />
           <entry key="SQL" value="1" />
@@ -115,7 +115,7 @@
         <counts>
           <entry key="Dockerfile" value="88" />
           <entry key="dummy" value="109" />
-          <entry key="java" value="19614" />
+          <entry key="java" value="19946" />
           <entry key="properties" value="80" />
           <entry key="sql" value="82" />
           <entry key="xml" value="74" />
@@ -124,7 +124,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Dockerfile" value="88" />
-          <entry key="JAVA" value="19614" />
+          <entry key="JAVA" value="19946" />
           <entry key="PLAIN_TEXT" value="109" />
           <entry key="Properties" value="80" />
           <entry key="SQL" value="82" />
@@ -135,32 +135,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbCollectionManagerQueries.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="75" column="5" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbMainService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="148" column="54" selection-start-line="148" selection-start-column="54" selection-end-line="148" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/CollectionManagerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="46" column="59" selection-start-line="46" selection-start-column="59" selection-end-line="46" selection-end-column="59" />
+            <state relative-caret-position="519">
+              <caret line="52" column="69" lean-forward="true" selection-start-line="52" selection-start-column="69" selection-end-line="52" selection-end-column="69" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbCollectionManagerQueries.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="91" column="59" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -235,9 +226,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/controller/UserManagerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbGroupManagerQueries.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/controller/GroupManagerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistFileManagerModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbMainService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbCollectionManagerQueries.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistFileManagerModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/controller/CollectionManagerController.java" />
       </list>
     </option>
@@ -377,7 +368,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1583079085831" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1583086483222" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Git/eXistDBtest" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -456,15 +447,15 @@
       <workItem from="1582926063938" duration="3000" />
       <workItem from="1582989115182" duration="10118000" />
       <workItem from="1583007902848" duration="101000" />
-      <workItem from="1583071685425" duration="6364000" />
+      <workItem from="1583071685425" duration="7660000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114073000" />
+    <option name="totallyTimeSpent" value="115369000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="2576" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22734499" />
@@ -811,20 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbMainService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="148" column="54" selection-start-line="148" selection-start-column="54" selection-end-line="148" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbCollectionManagerQueries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="75" column="5" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/security/jwt/JwtAuthTokenFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -839,10 +816,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbCollectionManagerQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="91" column="59" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbMainService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="151" column="18" selection-start-line="151" selection-start-column="18" selection-end-line="151" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/CollectionManagerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="46" column="59" selection-start-line="46" selection-start-column="59" selection-end-line="46" selection-end-column="59" />
+        <state relative-caret-position="519">
+          <caret line="52" column="69" lean-forward="true" selection-start-line="52" selection-start-column="69" selection-end-line="52" selection-end-column="69" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
