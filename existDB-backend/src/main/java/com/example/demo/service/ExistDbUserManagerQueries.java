@@ -9,28 +9,26 @@ import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 
-import java.util.ArrayList;
-
 @Component
-public class ExistDbUserManagerServices {
+public class ExistDbUserManagerQueries {
 
     private Collection collection = null;
 
-    private static final Logger logger = LoggerFactory.getLogger(ExistDbUserManagerServices.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExistDbUserManagerQueries.class);
 
     private static Util util = new Util();
 
-    public String createUser(ExistDetails details, ExistDBUsers user){
+    public String createUser(ExistDetails details, ExistDBUsers user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        sm:create-account(\"" + user.getUsername() + "\", \"" + user.getPassword() + "\", \"" + user.getPrimaryGroup() + "\", (\""+ user.getGroupsAsString() +"\"), \"" + user.getFullName() + "\", \"" + user.getDesc() + "\"),\n" +
+                "        sm:create-account(\"" + user.getUsername() + "\", \"" + user.getPassword() + "\", \"" + user.getPrimaryGroup() + "\", (\"" + user.getGroupsAsString() + "\"), \"" + user.getFullName() + "\", \"" + user.getDesc() + "\"),\n" +
                 "        true()\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
-        if(userExists(details, user.getUsername()).equals("true")){
+        if (userExists(details, user.getUsername()).equals("true")) {
             return "User is exist!";
 
         }
@@ -39,7 +37,6 @@ public class ExistDbUserManagerServices {
     }
 
     public String editUser(ExistDetails details, ExistDBUsers user) {
-        editUserGroups(details, user);
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
@@ -75,19 +72,19 @@ public class ExistDbUserManagerServices {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
+        editUserGroups(details, user);
         return util.stringResultQuery(details, query);
     }
 
     public String editUserGroups(ExistDetails details, ExistDBUsers user) {
         user.getGroups().remove(user.getPrimaryGroup());
-        System.out.println("user groups after remove pg: " + user.getGroups());
+        System.out.println("NOT FINISHED FUNCTION, user groups after remove pg: " + user.getGroups());
         String query = "";
         return "";
     }
 
 
-    public boolean isAccountEnabled(ExistDetails details, String username){
+    public boolean isAccountEnabled(ExistDetails details, String username) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
@@ -98,43 +95,43 @@ public class ExistDbUserManagerServices {
 
     }
 
-    public String getUsers(ExistDetails details){
+    public String getUsers(ExistDetails details) {
         logger.info("getAllUsers");
-            String query = "xquery version \"3.1\";\n" +
-                    "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                    "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
-                    "    sm:list-users()\n" +
-                    "else\n" +
-                    "\tfalse()";
-        return util.stringResultQuery(details,query);
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
+                "    sm:list-users()\n" +
+                "else\n" +
+                "\tfalse()";
+        return util.stringResultQuery(details, query);
     }
 
-    public String deleteUser(ExistDetails details, String username){
+    public String deleteUser(ExistDetails details, String username) {
         logger.info("Try to create user: " + username);
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
-                "("+
-                "sm:remove-account(\"" + username + "\"),\n"+
+                "(" +
+                "sm:remove-account(\"" + username + "\"),\n" +
                 "true()\n" +
                 ")" +
                 "else\n" +
                 "false()";
-        if(userExists(details, username).equals("true")){
+        if (userExists(details, username).equals("true")) {
             util.stringResultQuery(details, query);
             return "User is deleted!";
         }
         return "User is not exist!";
     }
 
-    public String getUserGroups(ExistDetails details, String user){
+    public String getUserGroups(ExistDetails details, String user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
                 "    sm:get-user-groups(\"" + user + "\")\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details,query);
+        return util.stringResultQuery(details, query);
     }
 
     public String changeUserPass(ExistDetails details, String username, String password) {
@@ -147,7 +144,7 @@ public class ExistDbUserManagerServices {
                 ")\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details,query);
+        return util.stringResultQuery(details, query);
     }
 
     public String getUserUmask(ExistDetails details, String user) {
@@ -203,26 +200,26 @@ public class ExistDbUserManagerServices {
         return util.stringResultQuery(details, query);
     }
 
-    public boolean isAndminAccess(ExistDetails details){
+    public boolean isAndminAccess(ExistDetails details) {
 
         logger.info("check admin access");
 
         Collection old = collection;
         boolean result = false;
-        try{
+        try {
             util.closeCollection(collection);
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
             String querry = "xquery version \"3.1\";\n" +
                     "import module namespace xmldb=\"http://exist-db.org/xquery/xmldb\" at \"java:org.exist.xquery.functions.xmldb.XMLDBModule\";\n" +
                     "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ))then\n" +
-                    "sm:is-dba(\""+ details.getUsername() +"\")\n" +
+                    "sm:is-dba(\"" + details.getUsername() + "\")\n" +
                     "else\n" +
                     "false()";
-            result = !util.execXQuery(querry,collection).equals("false");
-        }catch (Exception e){
+            result = !util.execXQuery(querry, collection).equals("false");
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            try{
+        } finally {
+            try {
                 util.closeCollection(collection);
             } catch (Exception e) {
                 logger.error("IsAdminAccess, coolection exception: " + e.getMessage());
@@ -230,11 +227,11 @@ public class ExistDbUserManagerServices {
             collection = old;
         }
         logger.info("isAdminAccess: " + result);
-        return result;        
+        return result;
     }
 
 
     public boolean isDefaultUser(String user) {
-        return (user.equals("SYSTEM") || user.equals("admin") ||user.equals("eXide") ||user.equals("guest") ||user.equals("monex") ||user.equals("nobody") ||user.equals("packageservice"));
+        return (user.equals("SYSTEM") || user.equals("admin") || user.equals("eXide") || user.equals("guest") || user.equals("monex") || user.equals("nobody") || user.equals("packageservice"));
     }
 }

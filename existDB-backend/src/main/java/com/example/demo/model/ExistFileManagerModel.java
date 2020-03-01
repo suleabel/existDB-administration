@@ -2,26 +2,39 @@ package com.example.demo.model;
 
 public class ExistFileManagerModel {
     private String name;
+    private String path;
     private String owner;
     private String group;
-    private boolean isWriteable;
+    private boolean writable;
     private String mode;
     private String date;
-    private boolean isResource;
+    private boolean resource;
 
-    public ExistFileManagerModel(String name, boolean isResource) {
-        this.name = name;
-        this.isResource = isResource;
+    public ExistFileManagerModel() {
     }
 
-    public ExistFileManagerModel(String name, String owner, String group, boolean isWriteable, String mode, String date, boolean isResource) {
+    public ExistFileManagerModel(String name, boolean resource) {
         this.name = name;
+        this.resource = resource;
+    }
+
+    public ExistFileManagerModel(String name, String path, String owner, String group, boolean writable, String mode, String date, boolean resource) {
+        this.name = name;
+        this.path = path;
         this.owner = owner;
         this.group = group;
-        this.isWriteable = isWriteable;
+        this.writable = writable;
         this.mode = mode;
         this.date = date;
-        this.isResource = isResource;
+        this.resource = resource;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getName() {
@@ -48,12 +61,12 @@ public class ExistFileManagerModel {
         this.group = group;
     }
 
-    public boolean isWriteable() {
-        return isWriteable;
+    public boolean isWritable() {
+        return writable;
     }
 
-    public void setWriteable(boolean writeable) {
-        isWriteable = writeable;
+    public void setWritable(boolean writable) {
+        this.writable = writable;
     }
 
     public String getMode() {
@@ -73,23 +86,24 @@ public class ExistFileManagerModel {
     }
 
     public boolean isResource() {
-        return isResource;
+        return resource;
     }
 
     public void setResource(boolean resource) {
-        isResource = resource;
+        this.resource = resource;
     }
 
     @Override
     public String toString() {
         return "ExistFileManagerModel{" +
                 "name='" + name + '\'' +
+                ", path='" + path + '\'' +
                 ", owner='" + owner + '\'' +
                 ", group='" + group + '\'' +
-                ", isWriteable=" + isWriteable +
+                ", writable=" + writable +
                 ", mode='" + mode + '\'' +
                 ", date='" + date + '\'' +
-                ", isResource=" + isResource +
+                ", resource=" + resource +
                 '}';
     }
 }

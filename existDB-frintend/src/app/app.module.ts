@@ -20,6 +20,8 @@ import {
     MatToolbarModule, MatIconModule, MatSelectModule, MatDialogModule,
 } from '@angular/material';
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxEditorModule } from 'ngx-editor';
@@ -27,11 +29,7 @@ import { TargyakListaComponent } from './targyak-module/targyak-lista/targyak-li
 import { UserManagerComponent } from './user-manager-module/user-manager.component';
 import {httpInterceptorProvider} from './auth-module/auth-interceptor';
 import {AuthGuardService} from './auth-module/auth-guard.service';
-import { UserListComponent } from './user-manager-module/user-list/user-list.component';
-import { AddUserComponent } from './user-manager-module/add-user/add-user.component';
-import { UserDetailsComponent } from './user-manager-module/user-details/user-details.component';
 import { ErrorComponent } from './errors-module/error/error.component';
-import { UserManagerSidenemuComponent } from './user-manager-module/user-manager-sidenemu/user-manager-sidenemu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ExistUsersListComponent } from './user-manager-module/exist-users-list/exist-users-list.component';
 import { ExistUsersEditDetailsComponent } from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
@@ -44,6 +42,7 @@ import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
 import { DialogPanelComponent } from './xml-to-xsd/dialog-panel/dialog-panel.component';
 import { FileExplorerComponent } from './file-explorer/file-explorer.component';
 import { CreateFileComponent } from './file-explorer/create-file/create-file.component';
+import { FileCredentialsComponent } from './file-explorer/file-credentials/file-credentials.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,11 +51,7 @@ import { CreateFileComponent } from './file-explorer/create-file/create-file.com
     TopBarComponent,
     TargyakListaComponent,
     UserManagerComponent,
-    UserListComponent,
-    AddUserComponent,
-    UserDetailsComponent,
     ErrorComponent,
-    UserManagerSidenemuComponent,
     ExistUsersListComponent,
     ExistUsersEditDetailsComponent,
     ExistGroupListComponent,
@@ -69,6 +64,7 @@ import { CreateFileComponent } from './file-explorer/create-file/create-file.com
       DialogPanelComponent,
       FileExplorerComponent,
       CreateFileComponent,
+      FileCredentialsComponent,
   ],
     imports: [
         BrowserModule,
@@ -95,7 +91,8 @@ import { CreateFileComponent } from './file-explorer/create-file/create-file.com
         MatIconModule,
         MatSelectModule,
         HighlightModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
     ],
   providers: [httpInterceptorProvider, AuthGuardService],
   bootstrap: [AppComponent]

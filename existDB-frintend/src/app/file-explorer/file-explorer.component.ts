@@ -1,16 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FileExplorerService} from './service/file-explorer.service';
 import {Router} from '@angular/router';
-
-export interface Content {
-    name: string;
-    owner: string;
-    groups: string;
-    mode: string;
-    date: string;
-    writeable: boolean;
-    isResource: boolean;
-}
+import {Credentials} from './model/Credentials';
+import {stringify} from 'querystring';
 
 @Component({
     selector: 'app-file-explorer',
@@ -22,8 +14,9 @@ export class FileExplorerComponent implements OnInit {
     public viewResult: string;
     public openedFile: string;
     public fileIsOpen = false;
-    public collections: Content[];
-    public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date', 'writeable', 'delete', 'view'];
+    public collections: Credentials[];
+    public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date', 'writable', 'delete', 'view',
+        'editCredentials'];
 
     constructor(private fileExplorerService: FileExplorerService, private router: Router) {
     }
@@ -38,16 +31,16 @@ export class FileExplorerComponent implements OnInit {
                 res => {
                     const backElement = {
                         name: '..',
+                        path: '',
                         owner: '',
-                        groups: '',
+                        group: '',
                         mode: '',
                         date: '',
-                        writeable: false,
-                        isResource: false
+                        writable: false,
+                        resource: false
                     };
                     this.collections = res;
                     this.collections.unshift(backElement);
-                    // this.collections.push(backElement);
                     console.log(this.collections);
                 },
                 error => {
@@ -78,8 +71,20 @@ export class FileExplorerComponent implements OnInit {
         this.loadData(this.selectedDirectory);
     }
 
-    delete(resName: string) {
-        console.log('selectedDor: ' + this.selectedDirectory + ' selected resource: ' + resName);
+    delete(res) {
+        console.log(res);
+        this.fileExplorerService.deleteResource(res)
+            .subscribe(data => {
+                console.log(data);
+            }, error => {
+                console.log(error);
+                }
+            );
+    }
+
+    editCredentials(selectedRsourceCredentials) {
+        this.fileExplorerService.setEditedFileCredentials(selectedRsourceCredentials);
+        this.router.navigateByUrl('/file-credentials');
     }
 
     createFileHere(currentDir: string) {

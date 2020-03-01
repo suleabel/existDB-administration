@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/existCollection/")
-public class ExistCollectionManagerController {
+public class CollectionManagerController {
 
     @Autowired
     private ExistDbMainService existDbMainService;
@@ -40,5 +40,10 @@ public class ExistCollectionManagerController {
     @RequestMapping("/store")
     public String saveXsd(@RequestBody ForStoreResource storeResource){
         return existDbMainService.storeResource(storeResource);
+    }
+
+    @RequestMapping("/deleteRes")
+    public String deleteRes(@RequestBody ExistFileManagerModel existFileManagerModel){
+        return existDbMainService.deleteFile(existFileManagerModel);
     }
 }

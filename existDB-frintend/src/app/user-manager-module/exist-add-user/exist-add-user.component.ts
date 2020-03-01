@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ExistUserModel} from '../model/existUser.model';
 import {UserService} from '../service/user.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-exist-add-user',
@@ -15,7 +16,8 @@ export class ExistAddUserComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
-      private userService: UserService) {}
+      private userService: UserService,
+      private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.userService.getGroupsNames()
@@ -40,6 +42,31 @@ export class ExistAddUserComponent implements OnInit {
     console.log(this.addUsrForm);
   }
 
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'back', {
+      duration: 2000,
+    });
+  }
+
+  submit() {
+    this.addUserData = this.addUsrForm.value;
+    if (!this.addUserData.groups.includes(this.addUserData.primaryGroup)) {
+      this.addUserData.groups.push(this.addUserData.primaryGroup);
+    }
+    console.log(this.addUserData);
+    this.userService.addUserToExist(this.addUserData).subscribe(
+        data => {
+          console.log('success: ' + data);
+          this.openSnackBar(data);
+          this.addUsrForm.reset();
+        },
+        error => {
+          console.log('Error: ' + error.error.message);
+        }
+    );
+    location.reload();
+  }
+
   get username() {
     return this.addUsrForm.get('username');
   }
@@ -58,24 +85,6 @@ export class ExistAddUserComponent implements OnInit {
 
   get desc() {
     return this.addUsrForm.get('desc');
-  }
-
-  submit() {
-    this.addUserData = this.addUsrForm.value;
-    if (!this.addUserData.groups.includes(this.addUserData.primaryGroup)) {
-      this.addUserData.groups.push(this.addUserData.primaryGroup);
-    }
-    console.log(this.addUserData);
-    this.userService.addUserToExist(this.addUserData).subscribe(
-        data => {
-          console.log('success: ' + data);
-          this.addUsrForm.reset();
-        },
-        error => {
-          console.log('Error: ' + error.error.message);
-        }
-    );
-    location.reload();
   }
 
 }

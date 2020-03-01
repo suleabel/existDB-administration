@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/exist/")
-public class ExistDbUserManagerController {
+public class UserManagerController {
 
     @Autowired
     private ExistDbMainService existDbMainService;

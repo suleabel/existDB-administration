@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <mat-form-field>
                         <label for="username" class="control-label">Username</label>
-                        <input matInput id="username" type="text" class="form-control" formControlName="username">
+                        <input matInput id="username" type="text" class="form-control" formControlName="username" [readonly]="true">
                     </mat-form-field>
                     <mat-error *ngIf="username.invalid && username.touched">
                         Username is required

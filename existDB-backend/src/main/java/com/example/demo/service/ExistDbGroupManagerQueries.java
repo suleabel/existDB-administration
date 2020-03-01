@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ExistDBGroup;
+import com.example.demo.model.ExistDBUsers;
 import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
 import org.slf4j.Logger;
@@ -8,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExistDbGroupManagerServices {
+public class ExistDbGroupManagerQueries {
 
     private static Util util = new Util();
-    private static final Logger logger = LoggerFactory.getLogger(ExistDbGroupManagerServices.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExistDbGroupManagerQueries.class);
 
     public String createGroup(ExistDetails details, ExistDBGroup group){
         logger.info("try to create group, data: " + group.toString());
@@ -101,6 +102,12 @@ public class ExistDbGroupManagerServices {
                 "false()";
         return util.stringResultQuery(details, query);
     }
+
+    public String editGroup(ExistDetails details, ExistDBGroup group) {
+        System.out.println(group);
+        return "";
+    }
+
 
     public boolean isDefaultGroup(String group) {
         return (group.equals("dba") || group.equals("eXide") || group.equals("guest") || group.equals("monex") || group.equals("nogroup") || group.equals("packageservice"));

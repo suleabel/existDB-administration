@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/exist/")
-public class ExistDBGroupManagerController {
+public class GroupManagerController {
 
     @Autowired
     private ExistDbMainService existDbMainService;
@@ -31,9 +31,13 @@ public class ExistDBGroupManagerController {
 
     @RequestMapping("/createGroup")
     public String createGroup(@RequestBody ExistDBGroup group) {
-        System.out.println("create grous:" + group);
         return existDbMainService.createGroup(group);}
 
     @RequestMapping("/deleteGroup")
     public String deleteGroup(@RequestBody String groupName) {return existDbMainService.deleteGroup(groupName);}
+
+    @RequestMapping("/editGroup")
+    public String editGroup(@RequestBody ExistDBGroup group){
+        return existDbMainService.editGroup(group);
+    }
 }

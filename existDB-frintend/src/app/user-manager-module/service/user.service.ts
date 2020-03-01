@@ -20,40 +20,29 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  public getAllUser(): Observable<any> {
-    return this.http.get(this.baseUrl + 'getAllUser');
-  }
-
   // exist
   public getExistUsers(): Observable<any> {
     return this.http.get(this.baseUrlForExist + 'getUsers');
   }
 
+  // exist
   public getGroupsNames(): Observable<any> {
     return this.http.get(this.baseUrlForExist + 'getGroupsNames');
   }
 
-  public getUserById(id): Observable<any> {
-    return this.http.get<UsersListModel>(this.baseUrl + 'getUserById/?id=' + id);
-  }
-
-  public saveUser(user: UsersListModel): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'saveUser', user, httpOptions);
-  }
-
   // exist
   public addUserToExist(user: ExistUserModel): Observable<any> {
-    return this.http.post<any>(this.baseUrlForExist + 'createUser', user, httpOptions);
+    return this.http.post(this.baseUrlForExist + 'createUser', user, {responseType: 'text'});
   }
 
   // exist
   public editUser(user: ExistUserModel): Observable<any> {
-    return this.http.post<any>(this.baseUrlForExist + 'editUser', user, httpOptions);
+    return this.http.post(this.baseUrlForExist + 'editUser', user, {responseType: 'text'});
   }
 
   // exist
   public deleteUser(username: string): Observable<any> {
-    return this.http.post<any>(this.baseUrlForExist + 'deleteUser', username, httpOptions);
+    return this.http.post(this.baseUrlForExist + 'deleteUser', username, {responseType: 'text'});
   }
 
   // exist
@@ -64,13 +53,5 @@ export class UserService {
   // exist
   public setSelectedExistUser(user) {
     this.selectedExistUser = user;
-  }
-
-  public getSelectedUser() {
-    return this.selectedUser;
-  }
-
-  public setSelectedUser(user) {
-    this.selectedUser = user;
   }
 }

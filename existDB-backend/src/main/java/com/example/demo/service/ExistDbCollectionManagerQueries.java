@@ -1,13 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ExistDetails;
+import com.example.demo.model.ExistFileManagerModel;
 import com.example.demo.model.ForStoreResource;
 import com.example.demo.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExistDbCollectionManagerService {
+public class ExistDbCollectionManagerQueries {
 
     @Autowired
     private Util util;
@@ -74,5 +75,15 @@ public class ExistDbCollectionManagerService {
         return util.stringResultQuery(details, query);
     }
 
-
+    public String deleteResource(ExistDetails details, ExistFileManagerModel existFileManagerModel) {
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        xmldb:remove(\"" + existFileManagerModel.getPath() + "\",\"" + existFileManagerModel.getName() + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        System.out.println(query);
+        return "dummy success";
+    }
 }

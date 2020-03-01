@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-exist-users-list',
@@ -19,7 +19,7 @@ export class ExistUsersListComponent implements OnInit {
     default
   };
   displayedColumns = ['username', 'fullName', 'umask', 'primaryGroup', 'desc', 'default', 'details', 'delete'];
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) { }
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -58,6 +58,7 @@ export class ExistUsersListComponent implements OnInit {
       this.userService.deleteUser(username).subscribe(
           res => {
               console.log('Response: ' + res);
+              this.openSnackBar(res);
           },
               error => {
               console.log('Error: ' + error);
@@ -65,4 +66,10 @@ export class ExistUsersListComponent implements OnInit {
       );
       location.reload();
   }
+
+    openSnackBar(message: string) {
+        this.snackBar.open(message, 'back', {
+            duration: 2000,
+        });
+    }
 }
