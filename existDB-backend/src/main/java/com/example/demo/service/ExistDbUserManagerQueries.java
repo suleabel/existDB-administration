@@ -200,32 +200,23 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public boolean isAndminAccess(ExistDetails details) {
+    public boolean isAndminAccess(ExistDetails details) throws Exception {
 
         logger.info("check admin access");
 
         Collection old = collection;
         boolean result = false;
-        try {
-            util.closeCollection(collection);
-            collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
-            String querry = "xquery version \"3.1\";\n" +
-                    "import module namespace xmldb=\"http://exist-db.org/xquery/xmldb\" at \"java:org.exist.xquery.functions.xmldb.XMLDBModule\";\n" +
-                    "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ))then\n" +
-                    "sm:is-dba(\"" + details.getUsername() + "\")\n" +
-                    "else\n" +
-                    "false()";
-            result = !util.execXQuery(querry, collection).equals("false");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                util.closeCollection(collection);
-            } catch (Exception e) {
-                logger.error("IsAdminAccess, coolection exception: " + e.getMessage());
-            }
-            collection = old;
-        }
+        util.closeCollection(collection);
+        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
+        String querry = "xquery version \"3.1\";\n" +
+                "import module namespace xmldb=\"http://exist-db.org/xquery/xmldb\" at \"java:org.exist.xquery.functions.xmldb.XMLDBModule\";\n" +
+                "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ))then\n" +
+                "sm:is-dba(\"" + details.getUsername() + "\")\n" +
+                "else\n" +
+                "false()";
+        result = !util.execXQuery(querry, collection).equals("false");
+        util.closeCollection(collection);
+        collection = old;
         logger.info("isAdminAccess: " + result);
         return result;
     }

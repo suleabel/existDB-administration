@@ -1,9 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.security.jwt.JwtAuthEntryPoint;
-import com.example.demo.service.ExistDbMainService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.demo.service.UserManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,18 +13,20 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private ExistDbMainService existDbMainService;
+    private UserManagerService UserManagerService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-//        String username = authentication.getGroupName();
-//        String password = authentication.getCredentials().toString();
-        if(existDbMainService.isAdmin()){
+        try{
+            if(UserManagerService.isAdmin()){
 
-            return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials().toString());
-        } else {
-            throw new
-                    BadCredentialsException("Authentication failed");
+                return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials().toString());
+            } else {
+                throw new
+                        BadCredentialsException("Authentication failed!!");
+            }
+        }catch (Exception e){
+            throw new BadCredentialsException("Authentication failed!!");
         }
     }
 

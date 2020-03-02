@@ -1,6 +1,6 @@
 package com.example.demo.security.jwt;
 
-import com.example.demo.service.ExistDbMainService;
+import com.example.demo.service.ExistDbCredentialsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             if (jwt != null && tokenProvider.validateJwtToken(jwt, request)) {
                 String username = tokenProvider.getUserNameFromJwtToken(jwt);
                 //UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(username, ExistDbMainService.getDetailsPass());
+                Authentication authentication = new UsernamePasswordAuthenticationToken(username, ExistDbCredentialsService.getDetailsPass());
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

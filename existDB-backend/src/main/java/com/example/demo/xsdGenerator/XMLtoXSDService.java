@@ -1,6 +1,6 @@
 package com.example.demo.xsdGenerator;
 import com.example.demo.model.ForStoreResource;
-import com.example.demo.service.ExistDbMainService;
+import com.example.demo.service.CollectionService;
 import org.exolab.castor.xml.schema.Schema;
 import org.exolab.castor.xml.schema.util.XMLInstance2Schema;
 import org.jdom2.Document;
@@ -27,7 +27,7 @@ public class XMLtoXSDService {
     private static final Logger logger = LoggerFactory.getLogger(XMLtoXSDService.class);
 
     @Autowired
-    private ExistDbMainService existDbMainService;
+    private CollectionService collectionService;
 
     public String convert(String xml) {
 
@@ -79,7 +79,7 @@ public class XMLtoXSDService {
     }
 
     public String saveXsd(ForStoreResource storeResource) {
-        return existDbMainService.storeResource(storeResource);
+        return collectionService.storeResource(storeResource);
     }
 
 }

@@ -7,11 +7,11 @@ import com.example.demo.security.jwt.JwtProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class AuthenticationService {
 
     private JwtProvider jwtProvider;
 
-    private ExistDbMainService existDbMainService;
+    private ExistDbCredentialsService existDbCredentialsService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
@@ -37,13 +37,16 @@ public class AuthenticationService {
     }
 
     @Autowired
-    public void setExistDbMainService(ExistDbMainService existDbMainService){
-        this.existDbMainService = existDbMainService;
+    public void setExistDbCredentialsService(ExistDbCredentialsService existDbCredentialsService){
+        this.existDbCredentialsService = existDbCredentialsService;
     }
 
     public ResponseEntity<?> signInUser(LoginForm loginRequest) {
         logger.info("Login request: " + loginRequest.toString());
-        existDbMainService.initDatabaseDriver(loginRequest.getUsername(), loginRequest.getPassword(), loginRequest.getUrl());
+        String InitDatabaseResponse = existDbCredentialsService.initDatabaseDriver(loginRequest.getUsername(), loginRequest.getPassword(), loginRequest.getUrl());
+        if(!InitDatabaseResponse.equals("OK")){
+            return new ResponseEntity<>(InitDatabaseResponse, HttpStatus.FORBIDDEN);
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 

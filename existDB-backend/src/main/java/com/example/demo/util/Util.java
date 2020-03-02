@@ -1,7 +1,6 @@
 package com.example.demo.util;
 
 import com.example.demo.model.ExistDetails;
-import com.example.demo.service.ExistDbMainService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,22 +17,12 @@ public class Util {
 
     private static final Logger logger = LoggerFactory.getLogger(Util.class);
 
-    public void initDatabaseDriver(String driver){
-        try{
+    public void initDatabaseDriver(String driver) throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException{
             Class aClass = Class.forName(driver);
             System.out.println("aClass.getGroupName() = " + aClass.getName());
             Database database = (Database) aClass.newInstance();
             database.setProperty("create-database", "true");
             DatabaseManager.registerDatabase(database);
-        }catch (ClassNotFoundException e){
-            logger.error("DriverClassNotFoundException: " + e.getMessage());
-        }catch (InstantiationException e){
-            logger.error("InstantiationException: " + e.getMessage());
-        }catch (IllegalAccessException e){
-            logger.error("IllegalAccessException: " + e.getMessage());
-        }catch (XMLDBException e){
-            logger.error("XMLDBException: " + e.getMessage());
-        }
     }
 
     public String stringResultQuery(ExistDetails details, String query){

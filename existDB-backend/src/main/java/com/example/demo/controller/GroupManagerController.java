@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ExistDBGroup;
-import com.example.demo.service.ExistDbMainService;
+import com.example.demo.service.GroupManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,27 +17,27 @@ import java.util.List;
 public class GroupManagerController {
 
     @Autowired
-    private ExistDbMainService existDbMainService;
+    private GroupManagerService groupManagerService;
 
     @RequestMapping("/getGroups")
     public ArrayList<ExistDBGroup> getGroups() {
-        return existDbMainService.listGroups();
+        return groupManagerService.listGroups();
     }
 
     @RequestMapping("/getGroupsNames")
     public List<String> getGroupsName() {
-        return existDbMainService.getGroupsName();
+        return groupManagerService.getGroupsName();
     }
 
     @RequestMapping("/createGroup")
     public String createGroup(@RequestBody ExistDBGroup group) {
-        return existDbMainService.createGroup(group);}
+        return groupManagerService.createGroup(group);}
 
     @RequestMapping("/deleteGroup")
-    public String deleteGroup(@RequestBody String groupName) {return existDbMainService.deleteGroup(groupName);}
+    public String deleteGroup(@RequestBody String groupName) {return groupManagerService.deleteGroup(groupName);}
 
     @RequestMapping("/editGroup")
     public String editGroup(@RequestBody ExistDBGroup group){
-        return existDbMainService.editGroup(group);
+        return groupManagerService.editGroup(group);
     }
 }

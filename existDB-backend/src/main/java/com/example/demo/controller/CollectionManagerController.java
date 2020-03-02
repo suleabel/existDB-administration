@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ExistFileManagerModel;
 import com.example.demo.model.ForStoreResource;
-import com.example.demo.service.ExistDbMainService;
+import com.example.demo.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -19,37 +18,37 @@ import java.util.List;
 public class CollectionManagerController {
 
     @Autowired
-    private ExistDbMainService existDbMainService;
+    private CollectionService collectionService;
 
 
-    @RequestMapping("/getCollectionContent")
-    public List<String> getRootCollection(HttpEntity<String> httpEntity){
-        return existDbMainService.getCollection(httpEntity.getBody());
+    @RequestMapping("/getAllCollection")
+    public ArrayList<ExistFileManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity){
+        return collectionService.getCollectionContainedCollexctions(httpEntity.getBody());
     }
 
     @RequestMapping("/getAllContentByCollection")
-    public ArrayList<ExistFileManagerModel> getCollection(HttpEntity<String> httpEntity){
-        return existDbMainService.getFileManagerContentByCollection(httpEntity.getBody());
+    public ArrayList<ExistFileManagerModel> getCollectionContent(HttpEntity<String> httpEntity){
+        return collectionService.getFileManagerContentByCollection(httpEntity.getBody());
     }
 
     @RequestMapping("/getBinResContent")
     public String getBinResContent(HttpEntity<String> httpEntity){
-        return existDbMainService.readBinaryFile(httpEntity.getBody());
+        return collectionService.readBinaryFile(httpEntity.getBody());
     }
 
     @RequestMapping("/store")
     public String saveXsd(@RequestBody ForStoreResource storeResource){
-        return existDbMainService.storeResource(storeResource);
+        return collectionService.storeResource(storeResource);
     }
 
     @RequestMapping("/deleteRes")
     public String deleteRes(@RequestBody ExistFileManagerModel existFileManagerModel){
-        return existDbMainService.deleteFile(existFileManagerModel);
+        return collectionService.deleteFile(existFileManagerModel);
     }
 
     @RequestMapping("/editResCred")
     public String editResCred(@RequestBody ExistFileManagerModel existFileManagerModel){
         System.out.println(existFileManagerModel.toString());
-        return existDbMainService.editResCred(existFileManagerModel);
+        return collectionService.editResCred(existFileManagerModel);
     }
 }
