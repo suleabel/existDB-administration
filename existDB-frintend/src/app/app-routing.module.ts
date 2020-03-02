@@ -14,6 +14,7 @@ import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
 import {FileExplorerComponent} from './file-explorer/file-explorer.component';
 import {CreateFileComponent} from './file-explorer/create-file/create-file.component';
 import {FileCredentialsComponent} from './file-explorer/file-credentials/file-credentials.component';
+import {TriggersManagerComponent} from './triggers-manager/triggers-manager.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'file-explorer', component: FileExplorerComponent, canActivate: [AuthGuardService]},
   {path: 'create-file', component: CreateFileComponent, canActivate: [AuthGuardService]},
   {path: 'file-credentials', component: FileCredentialsComponent, canActivate: [AuthGuardService]},
+  {path: 'trigger-manager', component: TriggersManagerComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];

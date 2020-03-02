@@ -43,6 +43,8 @@ import { DialogPanelComponent } from './xml-to-xsd/dialog-panel/dialog-panel.com
 import { FileExplorerComponent } from './file-explorer/file-explorer.component';
 import { CreateFileComponent } from './file-explorer/create-file/create-file.component';
 import { FileCredentialsComponent } from './file-explorer/file-credentials/file-credentials.component';
+import { TriggersManagerComponent } from './triggers-manager/triggers-manager.component';
+import { CollectionsDialogComponent } from './triggers-manager/collections-dialog/collections-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +67,8 @@ import { FileCredentialsComponent } from './file-explorer/file-credentials/file-
       FileExplorerComponent,
       CreateFileComponent,
       FileCredentialsComponent,
+      TriggersManagerComponent,
+      CollectionsDialogComponent,
   ],
     imports: [
         BrowserModule,
@@ -95,7 +99,8 @@ import { FileCredentialsComponent } from './file-explorer/file-credentials/file-
         MatSnackBarModule
     ],
   providers: [httpInterceptorProvider, AuthGuardService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+    entryComponents: [CollectionsDialogComponent]
 })
 export class AppModule {
 }

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FileExplorerService} from './service/file-explorer.service';
 import {Router} from '@angular/router';
 import {Credentials} from './model/Credentials';
-import {stringify} from 'querystring';
 
 @Component({
     selector: 'app-file-explorer',

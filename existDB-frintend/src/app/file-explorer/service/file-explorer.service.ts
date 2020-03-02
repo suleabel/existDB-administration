@@ -24,6 +24,10 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'getAllContentByCollection', collection);
     }
 
+    public getOnlyCollections(collection: string): Observable<any> {
+        return this.http.post(this.baseUrl + 'getOnlyCollections', collection);
+    }
+
     public getBinResContent(resUrl: string): Observable<any> {
         return this.http.post(this.baseUrl + 'getBinResContent', resUrl, {responseType: 'text'});
     }

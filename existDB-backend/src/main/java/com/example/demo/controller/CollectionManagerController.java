@@ -21,7 +21,7 @@ public class CollectionManagerController {
     private CollectionService collectionService;
 
 
-    @RequestMapping("/getAllCollection")
+    @RequestMapping("/getOnlyCollections")
     public ArrayList<ExistFileManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity){
         return collectionService.getCollectionContainedCollexctions(httpEntity.getBody());
     }
