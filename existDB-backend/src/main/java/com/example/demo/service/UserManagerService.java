@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ExistDBUsers;
+import com.example.demo.queries.ExistDbUserManagerQueries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

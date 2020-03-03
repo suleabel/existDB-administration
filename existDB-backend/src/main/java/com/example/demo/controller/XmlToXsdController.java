@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.model.ForStoreResource;
+import com.example.demo.model.ForStoreResourceAndColl;
 import com.example.demo.xsdGenerator.XMLtoXSDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -25,7 +25,7 @@ public class XmlToXsdController {
     }
 
     @RequestMapping("/saveXsd")
-    public String saveXsd(@RequestBody ForStoreResource storeResource){
+    public String saveXsd(@RequestBody ForStoreResourceAndColl storeResource){
         return xmLtoXSDService.saveXsd(storeResource);
     }
 

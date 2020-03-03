@@ -1,3 +1,9 @@
+table {
+  width: 100%;
+}
 
+.rootButton {
+  margin: 20px;
+}
 
 /*# sourceMappingURL=triggers-manager.component.css.map */

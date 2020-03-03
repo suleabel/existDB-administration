@@ -45,6 +45,8 @@ import { CreateFileComponent } from './file-explorer/create-file/create-file.com
 import { FileCredentialsComponent } from './file-explorer/file-credentials/file-credentials.component';
 import { TriggersManagerComponent } from './triggers-manager/triggers-manager.component';
 import { CollectionsDialogComponent } from './triggers-manager/collections-dialog/collections-dialog.component';
+import { CreateDirDialogComponent } from './file-explorer/create-dir-dialog/create-dir-dialog.component';
+import { FileViewerDialogComponent } from './file-explorer/file-viewer-dialog/file-viewer-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +71,8 @@ import { CollectionsDialogComponent } from './triggers-manager/collections-dialo
       FileCredentialsComponent,
       TriggersManagerComponent,
       CollectionsDialogComponent,
+      CreateDirDialogComponent,
+      FileViewerDialogComponent,
   ],
     imports: [
         BrowserModule,
@@ -100,7 +104,10 @@ import { CollectionsDialogComponent } from './triggers-manager/collections-dialo
     ],
   providers: [httpInterceptorProvider, AuthGuardService],
   bootstrap: [AppComponent],
-    entryComponents: [CollectionsDialogComponent]
+    entryComponents: [
+        CollectionsDialogComponent,
+        CreateDirDialogComponent,
+        FileViewerDialogComponent]
 })
 export class AppModule {
 }

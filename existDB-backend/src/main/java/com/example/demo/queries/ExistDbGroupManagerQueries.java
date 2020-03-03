@@ -1,7 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.queries;
 
 import com.example.demo.model.ExistDBGroup;
-import com.example.demo.model.ExistDBUsers;
 import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
 import org.slf4j.Logger;

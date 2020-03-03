@@ -5,10 +5,11 @@ public class ExistFileManagerModel {
     private String path;
     private String owner;
     private String group;
-    private boolean writable;
+    private boolean writable = false;
     private String mode;
     private String date;
     private boolean resource;
+    private boolean triggerConfigAvailable = false;
 
     public ExistFileManagerModel() {
     }
@@ -18,7 +19,7 @@ public class ExistFileManagerModel {
         this.resource = resource;
     }
 
-    public ExistFileManagerModel(String name, String path, String owner, String group, boolean writable, String mode, String date, boolean resource) {
+    public ExistFileManagerModel(String name, String path, String owner, String group, boolean writable, String mode, String date, boolean resource, boolean triggerConfigAvailable) {
         this.name = name;
         this.path = path;
         this.owner = owner;
@@ -27,14 +28,7 @@ public class ExistFileManagerModel {
         this.mode = mode;
         this.date = date;
         this.resource = resource;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
+        this.triggerConfigAvailable = triggerConfigAvailable;
     }
 
     public String getName() {
@@ -43,6 +37,14 @@ public class ExistFileManagerModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getOwner() {
@@ -93,6 +95,14 @@ public class ExistFileManagerModel {
         this.resource = resource;
     }
 
+    public boolean isTriggerConfigAvailable() {
+        return triggerConfigAvailable;
+    }
+
+    public void setTriggerConfigAvailable(boolean triggerConfigAvailable) {
+        this.triggerConfigAvailable = triggerConfigAvailable;
+    }
+
     @Override
     public String toString() {
         return "ExistFileManagerModel{" +
@@ -104,6 +114,7 @@ public class ExistFileManagerModel {
                 ", mode='" + mode + '\'' +
                 ", date='" + date + '\'' +
                 ", resource=" + resource +
+                ", triggerConfigAvaliable=" + triggerConfigAvailable +
                 '}';
     }
 }

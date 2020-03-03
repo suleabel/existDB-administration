@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ExistFileManagerModel;
-import com.example.demo.model.ForStoreResource;
+import com.example.demo.model.ForStoreResourceAndColl;
+import com.example.demo.queries.ExistDbCollectionManagerQueries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,7 @@ public class CollectionService {
 
     private static final Logger logger = LoggerFactory.getLogger(CollectionService.class);
 
-    public ArrayList<ExistFileManagerModel> getCollectionContainedCollexctions(String collection) {
-
+    public ArrayList<ExistFileManagerModel> getCollectionContainedCollections(String collection) {
         String[] collections = existDbCollectionManagerQueries.getCollectionContent(ExistDbCredentialsService.getDetails(), collection).split("\n");
         return getCollections(collection, collections);
     }
@@ -38,7 +38,7 @@ public class CollectionService {
         if (!resources[0].equals("")) {
             for (String res : resources) {
                 String[] ResData = existDbCollectionManagerQueries.getResourceData(ExistDbCredentialsService.getDetails(), collection, res).split("\n");
-                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(res, collection, ResData[0], ResData[1], ResData[2].equals("true"), ResData[3], ResData[4], true);
+                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(res, collection, ResData[0], ResData[1], ResData[2].equals("true"), ResData[3], ResData[4], true, false);
                 System.out.println(existFileManagerModel.toString());
                 existFileManagerModels.add(existFileManagerModel);
             }
@@ -51,19 +51,27 @@ public class CollectionService {
         if (!collections[0].equals("")) {
             for (String col : collections) {
                 String[] ResData = existDbCollectionManagerQueries.getResourceData(ExistDbCredentialsService.getDetails(), collection, col).split("\n");
-                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(col, collection, ResData[0], ResData[1], ResData[2].equals("true"), ResData[3], "", false);
+                ExistFileManagerModel existFileManagerModel = new ExistFileManagerModel(col, collection, ResData[0], ResData[1], ResData[2].equals("true"), ResData[3], "", false, false);
                 existFileManagerModels.add(existFileManagerModel);
             }
         }
         return existFileManagerModels;
     }
 
-    public String storeResource(ForStoreResource storeResource) {
+    public String createDir(ForStoreResourceAndColl storeResource) {
+        return existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), storeResource);
+    }
+
+    public String storeResource(ForStoreResourceAndColl storeResource) {
         return existDbCollectionManagerQueries.saveResource(ExistDbCredentialsService.getDetails(), storeResource);
     }
 
     public String deleteFile(ExistFileManagerModel existFileManagerModel) {
         return existDbCollectionManagerQueries.deleteResource(ExistDbCredentialsService.getDetails(), existFileManagerModel);
+    }
+
+    public String deleteCollection(ExistFileManagerModel existFileManagerModel){
+        return existDbCollectionManagerQueries.removeCollection(ExistDbCredentialsService.getDetails(), existFileManagerModel);
     }
 
     public String editResCred(ExistFileManagerModel existFileManagerModel) {
@@ -73,7 +81,6 @@ public class CollectionService {
     public String readBinaryFile(String resUrl) {
         return existDbCollectionManagerQueries.readBinaryFile(ExistDbCredentialsService.getDetails(), resUrl);
     }
-
 
     public List<String> getCollectionFree(String collection) {
         List<String> collectionTree = new ArrayList<>();

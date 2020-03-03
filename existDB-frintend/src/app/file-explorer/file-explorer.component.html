@@ -10,6 +10,8 @@
 
                     <button class="btn btn-success rootButton" (click)="createFileHere(selectedDirectory)">Create file in this directory</button>
 
+                    <button class="btn btn-success rootButton" (click)="createDir(selectedDirectory)">Create dir</button>
+
                     <table mat-table [dataSource]="collections" class="mat-elevation-z8">
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -79,7 +81,10 @@
                         <ng-container matColumnDef="delete">
                             <th mat-header-cell *matHeaderCellDef>Delete</th>
                             <td mat-cell *matCellDef="let element">
-                                <button class="btn btn-danger" *ngIf="element.resource" (click)="delete(element)">
+                                <button class="btn btn-danger" *ngIf="element.resource" (click)="deleteRes(element)">
+                                    Delete
+                                </button>
+                                <button class="btn btn-danger" *ngIf="!element.resource && element.name !== '..'" (click)="deleteColl(element)">
                                     Delete
                                 </button>
                             </td>
@@ -97,22 +102,6 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-deck" *ngIf="fileIsOpen">
-        <div class=" col-12">
-            <div class="card">
-                <div class="card-header  font-weight-bold">
-                    Selected file content:
-                </div>
-                <div class="card-body">
-                    <label>{{openedFile}}</label>
-                <pre>
-                    <code [highlight]="viewResult" [lineNumbers]="true"></code>
-                </pre>
                 </div>
             </div>
         </div>

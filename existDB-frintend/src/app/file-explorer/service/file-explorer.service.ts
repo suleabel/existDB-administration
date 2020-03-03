@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {SaveModel} from '../../xml-to-xsd/model/SaveXSDModel';
 import {Credentials} from '../model/Credentials';
+import {stringify} from 'querystring';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -14,7 +15,9 @@ const httpOptions = {
 export class FileExplorerService {
     private baseUrl = 'http://localhost:8085/existCollection/';
     private saveContentHere: string;
+    private CreatedCollectionName: string;
     private selectedResourceCredentials: Credentials;
+    private OpenedFile: string;
 
     constructor(private http: HttpClient) {
 
@@ -32,12 +35,22 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'getBinResContent', resUrl, {responseType: 'text'});
     }
 
-    public saveResource(xsdString: SaveModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'store', xsdString, {responseType: 'text'});
+    public saveResource(res: SaveModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'store', res, {responseType: 'text'});
+    }
+
+    public createDir(): Observable<any> {
+        const col: SaveModel = {url: this.getSaveContentHere(), fileName: this.createdCollectionName, content: null};
+        return this.http.post(this.baseUrl + 'createDir', col, {responseType: 'text'});
     }
 
     public deleteResource(cred: Credentials): Observable<any> {
         return this.http.post(this.baseUrl + 'deleteRes', cred, {responseType: 'text'});
+    }
+
+    public deleteCollection(cred: Credentials): Observable<any> {
+        console.log(stringify(cred));
+        return this.http.post(this.baseUrl + 'deleteColl', cred, {responseType: 'text'});
     }
 
     public editFileCredentials(cred: Credentials): Observable<any> {
@@ -61,5 +74,23 @@ export class FileExplorerService {
 
     public getEditedFileCredentials(): Credentials {
         return this.selectedResourceCredentials;
+    }
+
+
+    get createdCollectionName(): string {
+        return this.CreatedCollectionName;
+    }
+
+    set createdCollectionName(value: string) {
+        this.CreatedCollectionName = value;
+    }
+
+
+    get openedFile(): string {
+        return this.OpenedFile;
+    }
+
+    set openedFile(value: string) {
+        this.OpenedFile = value;
     }
 }

@@ -56,7 +56,8 @@ export class CollectionsDialogComponent implements OnInit {
                         mode: '',
                         date: '',
                         writable: false,
-                        resource: false
+                        resource: false,
+                        triggerConfigAvailable: false
                     };
                     this.collections = data;
                     this.collections.unshift(backElement);
@@ -69,6 +70,14 @@ export class CollectionsDialogComponent implements OnInit {
 
     createTriggerHere() {
         this.triggerService.selectedCollection = this.selectedDirectory;
+        this.triggerService.initializeTriggerConfig()
+            .subscribe(
+            data => {
+                console.log(data);
+            }, error => {
+                console.log(error);
+                }
+        );
         this.dialogRef.close();
     }
     onClose() {

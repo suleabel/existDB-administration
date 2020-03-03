@@ -61,7 +61,7 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                    <button class="btn btn-success" (click)="createTriggerHere()">Create trigger to this collection</button>
+                    <button class="btn btn-success" (click)="createTriggerHere()">Initialize trigger config to {{selectedDirectory}}</button>
                     <button class="btn btn-success" (click)="onClose()">Close</button>
                 </div>
             </div>

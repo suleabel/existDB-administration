@@ -1,5 +1,5 @@
 package com.example.demo.xsdGenerator;
-import com.example.demo.model.ForStoreResource;
+import com.example.demo.model.ForStoreResourceAndColl;
 import com.example.demo.service.CollectionService;
 import org.exolab.castor.xml.schema.Schema;
 import org.exolab.castor.xml.schema.util.XMLInstance2Schema;
@@ -78,7 +78,7 @@ public class XMLtoXSDService {
         return true;
     }
 
-    public String saveXsd(ForStoreResource storeResource) {
+    public String saveXsd(ForStoreResourceAndColl storeResource) {
         return collectionService.storeResource(storeResource);
     }
 

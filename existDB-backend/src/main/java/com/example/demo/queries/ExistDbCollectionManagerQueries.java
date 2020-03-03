@@ -1,8 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.queries;
 
 import com.example.demo.model.ExistDetails;
 import com.example.demo.model.ExistFileManagerModel;
-import com.example.demo.model.ForStoreResource;
+import com.example.demo.model.ForStoreResourceAndColl;
 import com.example.demo.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,7 +51,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String saveResource(ExistDetails details, ForStoreResource storeResource){
+    public String saveResource(ExistDetails details, ForStoreResourceAndColl storeResource){
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -60,6 +60,29 @@ public class ExistDbCollectionManagerQueries {
                 "else\n" +
                 "false()";
         System.out.println(query);
+        return util.stringResultQuery(details, query);
+    }
+
+    public String createCollection(ExistDetails details, ForStoreResourceAndColl storeResource){
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        xmldb:create-collection(\"" + storeResource.getUrl() + "\",\"" + storeResource.getFileName() + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        System.out.println(query);
+        return util.stringResultQuery(details, query);
+    }
+
+    public String removeCollection(ExistDetails details, ExistFileManagerModel existFileManagerModel){
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection()+ "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        xmldb:remove(\"" + existFileManagerModel.getPath() + "/" + existFileManagerModel.getName() + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
         return util.stringResultQuery(details, query);
     }
 

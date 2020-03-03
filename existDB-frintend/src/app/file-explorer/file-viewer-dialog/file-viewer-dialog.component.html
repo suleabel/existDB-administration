@@ -1,0 +1,16 @@
+<div class="card-deck">
+    <div class=" col-12">
+        <div class="card">
+            <div class="card-header  font-weight-bold">
+                Selected file content:
+            </div>
+            <div class="card-body">
+                <label>{{openedFile}}</label>
+                <pre>
+                    <code [highlight]="viewResult" [lineNumbers]="true"></code>
+                </pre>
+                <button class="btn btn-success" (click)="onClose()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

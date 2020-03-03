@@ -1,11 +1,11 @@
 package com.example.demo.model;
 
-public class ForStoreResource {
+public class ForStoreResourceAndColl {
     private String url;
     private String fileName;
     private String content;
 
-    public ForStoreResource(String url, String fileName, String content) {
+    public ForStoreResourceAndColl(String url, String fileName, String content) {
         this.url = url;
         this.fileName = fileName;
         this.content = content;
@@ -37,7 +37,7 @@ public class ForStoreResource {
 
     @Override
     public String toString() {
-        return "ForStoreResource{" +
+        return "ForStoreResourceAndColl{" +
                 "url='" + url + '\'' +
                 ", fileName='" + fileName + '\'' +
                 ", content='" + content + '\'' +
