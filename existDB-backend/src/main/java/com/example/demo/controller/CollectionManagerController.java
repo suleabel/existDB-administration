@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/existCollection/")
+@RequestMapping("/collection/")
 public class CollectionManagerController {
 
     @Autowired
@@ -40,6 +40,12 @@ public class CollectionManagerController {
     @RequestMapping("/getBinResContent")
     public String getBinResContent(HttpEntity<String> httpEntity){
         return collectionService.readBinaryFile(httpEntity.getBody());
+    }
+
+    @RequestMapping("/getXmlResContent")
+    public String getXmlResContent(HttpEntity<String> httpEntity) {
+        return collectionService.readXmlFile(httpEntity.getBody());
+
     }
 
     @RequestMapping("/store")

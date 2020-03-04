@@ -98,6 +98,17 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
+    public String readXmlFile(ExistDetails details, String confUrl){
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
+                "    (\n" +
+                "       doc(\"" + confUrl + "\")\n" +
+                "    )\n" +
+                "    else\n" +
+                "    false()\n";
+        return util.stringResultQuery(details, query);
+    }
+
     public String deleteResource(ExistDetails details, ExistFileManagerModel existFileManagerModel) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +

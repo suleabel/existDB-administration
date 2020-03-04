@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ExistUserModel} from '../model/existUser.model';
 import {UserService} from '../service/user.service';
 import {MatSnackBar} from '@angular/material';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
   selector: 'app-exist-add-user',
@@ -17,7 +18,8 @@ export class ExistAddUserComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private userService: UserService,
-      private snackBar: MatSnackBar) {}
+      private snackBar: MatSnackBar,
+      private notificationService: NotificationService) {}
 
   ngOnInit() {
     this.userService.getGroupsNames()
@@ -39,13 +41,6 @@ export class ExistAddUserComponent implements OnInit {
       fullName: [],
       desc: []
     });
-    console.log(this.addUsrForm);
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message, 'back', {
-      duration: 2000,
-    });
   }
 
   submit() {
@@ -56,12 +51,11 @@ export class ExistAddUserComponent implements OnInit {
     console.log(this.addUserData);
     this.userService.addUserToExist(this.addUserData).subscribe(
         data => {
-          console.log('success: ' + data);
-          this.openSnackBar(data);
+          this.notificationService.success('User created');
           this.addUsrForm.reset();
         },
         error => {
-          console.log('Error: ' + error.error.message);
+          this.notificationService.warn('Error: ' + error);
         }
     );
     location.reload();

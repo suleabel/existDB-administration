@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {GroupsService} from '../service/groups.service';
 import {stringify} from 'querystring';
+import {DialogService} from '../../error-dialog/service/dialog.service';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-exist-group-list',
@@ -20,7 +22,10 @@ export class ExistGroupListComponent implements OnInit {
     };
     displayedColumns = ['groupName', 'groupManager', 'desc', 'details', 'delete'];
 
-    constructor(public groupsServices: GroupsService, private router: Router) {
+    constructor(public groupsServices: GroupsService,
+                private router: Router,
+                private dialogService: DialogService,
+                private notificationService: NotificationService) {
     }
 
     // @ts-ignore
@@ -54,16 +59,23 @@ export class ExistGroupListComponent implements OnInit {
     }
 
     delete(groupName) {
-        this.groupsServices.deleteGroup(groupName)
-            .subscribe(
-                res => {
-                    console.log('Response: ' + res);
-                },
-                error => {
-                    console.log('Error: ' + error);
+        this.dialogService.openConfirmDialog('Are you sure to delete this record ?')
+            .afterClosed().subscribe( res => {
+                if (res) {
+                    this.groupsServices.deleteGroup(groupName)
+                        .subscribe(
+                            data => {
+                                console.log('Response: ' + data);
+                                this.notificationService.success('Success');
+                                location.reload();
+                            },
+                            error => {
+                                console.log('Error: ' + error);
+                                this.notificationService.warn('Error: ' + error);
+                            }
+                        );
                 }
-            );
-        location.reload();
+        });
 
     }
 

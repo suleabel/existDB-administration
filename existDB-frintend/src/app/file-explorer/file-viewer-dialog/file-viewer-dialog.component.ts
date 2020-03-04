@@ -16,15 +16,27 @@ export class FileViewerDialogComponent implements OnInit {
 
   ngOnInit() {
     this.openedFile = this.fileExplorerService.openedFile;
-    this.fileExplorerService.getBinResContent(this.fileExplorerService.openedFile)
-        .subscribe(
-            data => {
-              this.viewResult = data;
-            },
-            error => {
-              console.log(error);
-            }
-        );
+    if (this.openedFile.includes('.xml') || this.openedFile.includes('.xconf')) {
+        this.fileExplorerService.getXmlResContent(this.fileExplorerService.openedFile)
+            .subscribe(
+                data => {
+                    this.viewResult = data;
+                },
+                error => {
+                    console.log(error);
+                }
+            );
+    } else {
+        this.fileExplorerService.getBinResContent(this.fileExplorerService.openedFile)
+            .subscribe(
+                data => {
+                    this.viewResult = data;
+                },
+                error => {
+                    console.log(error);
+                }
+            );
+    }
   }
 
   onClose() {

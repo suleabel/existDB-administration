@@ -18,7 +18,9 @@
                                     <a (click)="aClick(element.name)">{{element.name}}</a>
                                 </label>
                                 <ng-template #elseBlock>
-                                    <label>{{element.name}}</label>
+                                    <label>
+                                        <a (click)="view(element)">{{element.name}}</a>
+                                    </label>
                                 </ng-template>
                             </td>
                         </ng-container>

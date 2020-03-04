@@ -3,6 +3,8 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {CollectionsDialogComponent} from './collections-dialog/collections-dialog.component';
 import {TriggersService} from './service/triggers.service';
 import {Credentials} from '../file-explorer/model/Credentials';
+import {FileExplorerService} from '../file-explorer/service/file-explorer.service';
+import {XmlFileViewerComponent} from './xml-file-viewer/xml-file-viewer.component';
 
 @Component({
     selector: 'app-triggers-manager',
@@ -16,7 +18,8 @@ export class TriggersManagerComponent implements OnInit {
 
     constructor(
         private dialog: MatDialog,
-        private triggerService: TriggersService) {
+        private triggerService: TriggersService,
+        private fileExplorerService: FileExplorerService) {
     }
 
     ngOnInit() {
@@ -65,6 +68,16 @@ export class TriggersManagerComponent implements OnInit {
             this.triggersRootConfigurationLocation = separatedString.join('/');
             this.loadData(this.triggersRootConfigurationLocation);
         }
+    }
+
+    view(resName: Credentials) {
+        console.log(resName);
+        this.fileExplorerService.openedFile = resName;
+        const dialogDirNameConfig = new MatDialogConfig();
+        dialogDirNameConfig.disableClose = true;
+        dialogDirNameConfig.autoFocus = true;
+        dialogDirNameConfig.width = '60%';
+        this.dialog.open(XmlFileViewerComponent, dialogDirNameConfig);
     }
 
     backToRoot() {

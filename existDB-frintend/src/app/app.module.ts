@@ -47,6 +47,9 @@ import { TriggersManagerComponent } from './triggers-manager/triggers-manager.co
 import { CollectionsDialogComponent } from './triggers-manager/collections-dialog/collections-dialog.component';
 import { CreateDirDialogComponent } from './file-explorer/create-dir-dialog/create-dir-dialog.component';
 import { FileViewerDialogComponent } from './file-explorer/file-viewer-dialog/file-viewer-dialog.component';
+import { ConfirmDialogComponent } from './error-dialog/confirm-dialog.component';
+import { XmlFileViewerComponent } from './triggers-manager/xml-file-viewer/xml-file-viewer.component';
+import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +76,9 @@ import { FileViewerDialogComponent } from './file-explorer/file-viewer-dialog/fi
       CollectionsDialogComponent,
       CreateDirDialogComponent,
       FileViewerDialogComponent,
+      ConfirmDialogComponent,
+      XmlFileViewerComponent,
+      AddTriggerComponent,
   ],
     imports: [
         BrowserModule,
@@ -107,7 +113,10 @@ import { FileViewerDialogComponent } from './file-explorer/file-viewer-dialog/fi
     entryComponents: [
         CollectionsDialogComponent,
         CreateDirDialogComponent,
-        FileViewerDialogComponent]
+        FileViewerDialogComponent,
+        ConfirmDialogComponent,
+        XmlFileViewerComponent,
+        AddTriggerComponent]
 })
 export class AppModule {
 }

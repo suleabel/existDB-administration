@@ -82,6 +82,12 @@ public class CollectionService {
         return existDbCollectionManagerQueries.readBinaryFile(ExistDbCredentialsService.getDetails(), resUrl);
     }
 
+    public String readXmlFile(String url) {
+        return existDbCollectionManagerQueries.readXmlFile(ExistDbCredentialsService.getDetails(), url);
+    }
+
+
+
     public List<String> getCollectionFree(String collection) {
         List<String> collectionTree = new ArrayList<>();
         collectionTree.add(collection);

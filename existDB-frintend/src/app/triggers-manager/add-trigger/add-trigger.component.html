@@ -1,0 +1,67 @@
+
+<div class="container-fluid">
+    <div class="card-deck">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header  font-weight-bold">
+                    Add User
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="triggerForm" (submit)="onSave()" class="text-center border border-light">
+                        <h4>Add Trigger</h4>
+                        <div class="form-group">
+                            <mat-form-field>
+                                <label for="event" class="control-label">event</label>
+                                <mat-select id="event" class="form-control" formControlName="event"  multiple>
+                                    <mat-option *ngFor="let event of triggerEvents" [value]="event">
+                                        {{event}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="event.invalid && event.touched">
+                                Event parameter is required
+                            </mat-error>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field>
+                                <label for="tClass" class="control-label">tClass</label>
+                                <input matInput id="tClass" type="text" class="form-control" formControlName="tClass" [readonly]="true">
+                            </mat-form-field>
+                            <mat-error *ngIf="tClass.invalid && tClass.touched">
+                                Class is required
+                            </mat-error>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field>
+                                <label for="name" class="control-label">name</label>
+                                <mat-select id="name" class="form-control" formControlName="name"  multiple>
+                                    <mat-option *ngFor="let name of triggerName" [value]="name">
+                                        {{name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="name.invalid && name.touched">
+                                Name parameter is required
+                            </mat-error>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field>
+                                <label for="value" class="control-label">value</label>
+                                <input matInput id="value" type="text" class="form-control" formControlName="value">
+                            </mat-form-field>
+                            <mat-error *ngIf="value.invalid && value.touched">
+                                Value is required
+                            </mat-error>
+                        </div>
+
+                    </form>
+                    <button class="btn btn-success" (click)="onSave()">Save</button>
+                    <button class="btn btn-success" (click)="onClose()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

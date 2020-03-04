@@ -13,7 +13,6 @@ import {FileViewerDialogComponent} from './file-viewer-dialog/file-viewer-dialog
 })
 export class FileExplorerComponent implements OnInit {
     public selectedDirectory = '/db';
-    public viewResult: string;
     public openedFile: string;
     public collections: Credentials[];
     public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date', 'writable', 'delete', 'view',

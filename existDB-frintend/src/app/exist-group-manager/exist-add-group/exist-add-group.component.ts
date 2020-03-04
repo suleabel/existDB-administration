@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../service/groups.service';
 import {ExistGroupModel} from '../model/existGroup.model';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-exist-add-group',
@@ -15,7 +16,8 @@ export class ExistAddGroupComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private groupService: GroupsService) {
+        private groupService: GroupsService,
+        private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -60,11 +62,11 @@ export class ExistAddGroupComponent implements OnInit {
         console.log(this.addGroupData);
         this.groupService.addGroupToExist(this.addGroupData).subscribe(
             data => {
-                console.log('success: ' + data);
+                this.notificationService.success('Success');
                 this.addGroupForm.reset();
             },
             error => {
-                console.log('Error: ' + error.error.message);
+                this.notificationService.warn('Error: ' + error);
             }
         );
         location.reload();

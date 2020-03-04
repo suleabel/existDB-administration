@@ -13,11 +13,11 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class FileExplorerService {
-    private baseUrl = 'http://localhost:8085/existCollection/';
+    private baseUrl = 'http://localhost:8085/collection/';
     private saveContentHere: string;
     private CreatedCollectionName: string;
     private selectedResourceCredentials: Credentials;
-    private OpenedFile: string;
+    private OpenedFile: Credentials;
 
     constructor(private http: HttpClient) {
 
@@ -33,6 +33,10 @@ export class FileExplorerService {
 
     public getBinResContent(resUrl: string): Observable<any> {
         return this.http.post(this.baseUrl + 'getBinResContent', resUrl, {responseType: 'text'});
+    }
+
+    public getXmlResContent(resUrl: string): Observable<any> {
+        return this.http.post(this.baseUrl + 'getXmlResContent', resUrl, {responseType: 'text'});
     }
 
     public saveResource(res: SaveModel): Observable<any> {
@@ -86,11 +90,11 @@ export class FileExplorerService {
     }
 
 
-    get openedFile(): string {
+    get openedFile(): Credentials {
         return this.OpenedFile;
     }
 
-    set openedFile(value: string) {
+    set openedFile(value: Credentials) {
         this.OpenedFile = value;
     }
 }

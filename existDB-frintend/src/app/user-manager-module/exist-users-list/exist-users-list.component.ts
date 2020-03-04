@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
 import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
+import {DialogService} from '../../error-dialog/service/dialog.service';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
   selector: 'app-exist-users-list',
@@ -19,7 +21,11 @@ export class ExistUsersListComponent implements OnInit {
     default
   };
   displayedColumns = ['username', 'fullName', 'umask', 'primaryGroup', 'desc', 'default', 'details', 'delete'];
-  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private userService: UserService,
+              private router: Router,
+              private snackBar: MatSnackBar,
+              private dialogService: DialogService,
+              private notificationService: NotificationService) { }
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -55,21 +61,21 @@ export class ExistUsersListComponent implements OnInit {
   }
 
   delete(username) {
-      this.userService.deleteUser(username).subscribe(
-          res => {
-              console.log('Response: ' + res);
-              this.openSnackBar(res);
-          },
-              error => {
-              console.log('Error: ' + error);
-      }
-      );
-      location.reload();
+      this.dialogService.openConfirmDialog('Are you sure to delete this record ?')
+          .afterClosed().subscribe( res => {
+              if (res) {
+                  this.userService.deleteUser(username).subscribe(
+                      data => {
+                          console.log('Response: ' + res);
+                          this.notificationService.success('Success');
+                          location.reload();
+                      },
+                      error => {
+                          console.log('Error: ' + error);
+                          this.notificationService.warn('Error: ' + error);
+                      }
+                  );
+              }
+      });
   }
-
-    openSnackBar(message: string) {
-        this.snackBar.open(message, 'back', {
-            duration: 2000,
-        });
-    }
 }

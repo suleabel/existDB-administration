@@ -1,0 +1,17 @@
+<div class="card-deck">
+    <div class=" col-12">
+        <div class="card">
+            <div class="card-header  font-weight-bold">
+                Selected trigger content:
+            </div>
+            <div class="card-body">
+                <label>{{openedFile.path + '/' + openedFile.name}}</label>
+                <pre>
+                    <code [highlight]="viewResult" [lineNumbers]="true"></code>
+                </pre>
+                <button class="btn btn-success" (click)="onAddTrigger()">Add trigger</button>
+                <button class="btn btn-success" (click)="onClose()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
