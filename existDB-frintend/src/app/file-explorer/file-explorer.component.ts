@@ -115,8 +115,8 @@ export class FileExplorerComponent implements OnInit {
         this.dialog.open(CreateDirDialogComponent, dialogDirNameConfig);
     }
 
-    view(resName: string) {
-        this.fileExplorerService.openedFile = this.selectedDirectory + '/' + resName;
+    view(resCred: Credentials) {
+        this.fileExplorerService.openedFile = resCred;
         const dialogDirNameConfig = new MatDialogConfig();
         dialogDirNameConfig.disableClose = true;
         dialogDirNameConfig.autoFocus = true;

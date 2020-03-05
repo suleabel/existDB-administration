@@ -17,7 +17,53 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-users-edit-details/exist-users-edit-details.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="47" column="25" lean-forward="true" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="236">
+              <caret line="39" column="91" lean-forward="true" selection-start-line="39" selection-start-column="91" selection-end-line="39" selection-end-column="91" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="28" column="140" lean-forward="true" selection-start-line="28" selection-start-column="140" selection-end-line="28" selection-end-column="140" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="417">
+              <caret line="118" column="54" selection-start-line="118" selection-start-column="54" selection-end-line="118" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#48#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -74,9 +120,6 @@
         <option value="$PROJECT_DIR$/src/app/user-manager-module/exist-users-list/exist-users-list.component.ts" />
         <option value="$PROJECT_DIR$/src/app/exist-group-manager/exist-add-group/exist-add-group.component.ts" />
         <option value="$PROJECT_DIR$/src/app/exist-group-manager/exist-group-list/exist-group-list.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.html" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.html" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.ts" />
         <option value="$PROJECT_DIR$/src/app/app.module.ts" />
@@ -90,6 +133,9 @@
         <option value="$PROJECT_DIR$/src/app/triggers-manager/add-trigger/add-trigger.component.sass" />
         <option value="$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.sass" />
         <option value="$PROJECT_DIR$/src/app/user-manager-module/exist-add-user/exist-add-user.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.html" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.ts" />
       </list>
     </option>
   </component>
@@ -154,23 +200,7 @@
               <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="file-explorer" type="462c0819:PsiDirectoryNode" />
-              <item name="create-dir-dialog" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="existDB-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="user-manager-module" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="existDB-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="user-manager-module" type="462c0819:PsiDirectoryNode" />
-              <item name="exist-add-user" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -281,11 +311,12 @@
       <workItem from="1583169080414" duration="5513000" />
       <workItem from="1583248774359" duration="10738000" />
       <workItem from="1583343552744" duration="7191000" />
+      <workItem from="1583417344036" duration="612000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133268000" />
+    <option name="totallyTimeSpent" value="133880000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -298,6 +329,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18676123" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -305,7 +337,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2751896" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2751896" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -314,7 +346,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
       <window_info anchor="bottom" id="TypeScript" order="9" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -350,22 +382,6 @@
     </ignored-roots>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/collections-dialog/collections-dialog.component.sass">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.spec.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/xml-to-xsd/model/SaveXSDModel.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -494,33 +510,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="23" column="92" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/app.module.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -561,16 +550,6 @@
           <caret line="79" column="10" selection-start-line="79" selection-start-column="10" selection-end-line="79" selection-end-column="10" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/service/file-explorer.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="69" column="41" lean-forward="true" selection-start-line="69" selection-start-column="41" selection-end-line="69" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -729,6 +708,60 @@
           <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-users-edit-details/exist-users-edit-details.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="47" column="25" lean-forward="true" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="39" column="91" lean-forward="true" selection-start-line="39" selection-start-column="91" selection-end-line="39" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/service/file-explorer.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="140" lean-forward="true" selection-start-line="28" selection-start-column="140" selection-end-line="28" selection-end-column="140" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="76" column="110" selection-start-line="76" selection-start-column="110" selection-end-line="76" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="118" column="54" selection-start-line="118" selection-start-column="54" selection-end-line="118" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
           </folding>
         </state>
       </provider>

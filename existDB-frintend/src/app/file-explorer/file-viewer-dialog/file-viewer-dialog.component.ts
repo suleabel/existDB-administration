@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {FileExplorerService} from '../service/file-explorer.service';
+import {Credentials} from '../model/Credentials';
 
 @Component({
   selector: 'app-file-viewer-dialog',
@@ -9,15 +10,13 @@ import {FileExplorerService} from '../service/file-explorer.service';
 })
 export class FileViewerDialogComponent implements OnInit {
   private viewResult: string;
-  private openedFile: string;
 
   constructor(public dialogRef: MatDialogRef<FileViewerDialogComponent>,
               private fileExplorerService: FileExplorerService) { }
 
   ngOnInit() {
-    this.openedFile = this.fileExplorerService.openedFile;
-    if (this.openedFile.includes('.xml') || this.openedFile.includes('.xconf')) {
-        this.fileExplorerService.getXmlResContent(this.fileExplorerService.openedFile)
+    if (this.fileExplorerService.openedFile.name.includes('.xml') || this.fileExplorerService.openedFile.name.includes('.xconf')) {
+        this.fileExplorerService.getXmlResContent(this.fileExplorerService.openedFile.path + '/' + this.fileExplorerService.openedFile.name)
             .subscribe(
                 data => {
                     this.viewResult = data;
@@ -27,7 +26,7 @@ export class FileViewerDialogComponent implements OnInit {
                 }
             );
     } else {
-        this.fileExplorerService.getBinResContent(this.fileExplorerService.openedFile)
+        this.fileExplorerService.getBinResContent(this.fileExplorerService.openedFile.path + '/' + this.fileExplorerService.openedFile.name)
             .subscribe(
                 data => {
                     this.viewResult = data;

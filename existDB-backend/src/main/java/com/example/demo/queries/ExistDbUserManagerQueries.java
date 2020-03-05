@@ -1,6 +1,6 @@
 package com.example.demo.queries;
 
-import com.example.demo.model.ExistDBUsers;
+import com.example.demo.model.ExistDBUser;
 import com.example.demo.model.ExistDetails;
 import com.example.demo.util.Util;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public class ExistDbUserManagerQueries {
 
     private static Util util = new Util();
 
-    public String createUser(ExistDetails details, ExistDBUsers user) {
+    public String createUser(ExistDetails details, ExistDBUser user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -36,7 +36,8 @@ public class ExistDbUserManagerQueries {
         return "User created!";
     }
 
-    public String editUser(ExistDetails details, ExistDBUsers user) {
+    public String editUser(ExistDetails details, ExistDBUser user) {
+        editUserGroups(details, user);
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
@@ -72,18 +73,60 @@ public class ExistDbUserManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        editUserGroups(details, user);
         return util.stringResultQuery(details, query);
     }
 
-    public String editUserGroups(ExistDetails details, ExistDBUsers user) {
-        user.getGroups().remove(user.getPrimaryGroup());
-        System.out.println("NOT FINISHED FUNCTION, user groups after remove pg: " + user.getGroups());
-        String query = "";
+
+    private String editUserGroups(ExistDetails details, ExistDBUser user) {
+//        ExistDBUser originalUserData =
+//        String userOriginalGroupsQuery = "xquery version \"3.1\";\n" +
+//                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword()+ "\")) then\n" +
+//                "    (\n" +
+//                "        sm:get-user-groups('" + user.getUsername() + "')\n" +
+//                "    )\n" +
+//                "else\n" +
+//                "false()";
+//        List<String> userOriginalGroups = Arrays.asList(util.stringResultQuery(details, userOriginalGroupsQuery).split("\n"));
+//        for (String group: userOriginalGroups) {
+//            System.out.println("group: " + group);
+//        }
+//        user.getGroups().remove(user.getPrimaryGroup());
+//        System.out.println("NOT FINISHED FUNCTION, user groups after remove pg: " + user.getGroups());
+//        String query = "";
         return "";
     }
 
+    public String getUsersData(ExistDetails details){
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
+                "declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI(\"http://exist-db.org/security/description\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        <users>\n" +
+                "            {for $user in sm:list-users()return\n" +
+                "                (\n" +
+                "                <user>\n" +
+                "                    <username>{$user}</username>\n" +
+                "                    <primaryGroups>{sm:get-user-primary-group($user)}</primaryGroups>\n" +
+                "                    <fullName>{sm:get-account-metadata($user, $METADATA_FULLNAME_KEY)}</fullName>\n" +
+                "                        {for $group in sm:get-user-groups($user) return(<group>{$group}</group>)}\n" +
+                "                    <umask>{sm:get-umask($user)}</umask>\n" +
+                "                    <desc>{sm:get-account-metadata($user, $METADATA_DESCRIPTION_KEY)}</desc>\n" +
+                "                    <isEnabled>{sm:is-account-enabled($user)}</isEnabled>\n" +
+                "                </user>\n" +
+                "                )\n" +
+                "            }\n" +
+                "        </users>\n" +
+                "    )\n" +
+                "else\n" +
+                "false()\n";
+        return util.stringResultQuery(details, query);
+    }
 
+
+    //leváltva
     public boolean isAccountEnabled(ExistDetails details, String username) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -124,6 +167,7 @@ public class ExistDbUserManagerQueries {
         return "User is not exist!";
     }
 
+    //leváltva
     public String getUserGroups(ExistDetails details, String user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -147,6 +191,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
+    //leváltva
     public String getUserUmask(ExistDetails details, String user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -156,7 +201,7 @@ public class ExistDbUserManagerQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
-
+    //leváltva
     public String getUserFullname(ExistDetails details, String user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -167,7 +212,7 @@ public class ExistDbUserManagerQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
-
+    //leváltva
     public String getUserDesc(ExistDetails details, String user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -179,6 +224,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
+    //leváltva
     public String getUserPrimaryGroup(ExistDetails details, String user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -200,7 +246,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public boolean isAndminAccess(ExistDetails details) throws Exception {
+    public boolean isAdminAccess(ExistDetails details) throws Exception {
 
         logger.info("check admin access");
 

@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ExistDBUsers;
+import com.example.demo.model.ExistDBUser;
 import com.example.demo.service.UserManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class UserManagerController {
     private UserManagerService userManagerService;
 
     @RequestMapping("/getUsers")
-    public ArrayList<ExistDBUsers> GetUsers(){
+    public ArrayList<ExistDBUser> GetUsers(){
         return userManagerService.listUsers();
     }
 
@@ -28,11 +28,11 @@ public class UserManagerController {
     public String deleteUser(@RequestBody String username){ return userManagerService.deleteUser(username); }
 
     @RequestMapping("/createUser")
-    public String createUser(@RequestBody ExistDBUsers user){
+    public String createUser(@RequestBody ExistDBUser user){
         return userManagerService.createUser(user);
     }
 
     @RequestMapping("/editUser")
-    public String editUser(@RequestBody ExistDBUsers user) { return userManagerService.editUser(user); }
+    public String editUser(@RequestBody ExistDBUser user) { return userManagerService.editUser(user); }
 
 }
