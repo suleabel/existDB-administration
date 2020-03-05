@@ -62,8 +62,12 @@ public class CollectionService {
         return existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), storeResource);
     }
 
-    public String storeResource(ForStoreResourceAndColl storeResource) {
-        return existDbCollectionManagerQueries.saveResource(ExistDbCredentialsService.getDetails(), storeResource);
+    public String storeResourceBin(ForStoreResourceAndColl storeResource) {
+        return existDbCollectionManagerQueries.saveResourceBin(ExistDbCredentialsService.getDetails(), storeResource);
+    }
+
+    public String storeResourceXml(ForStoreResourceAndColl storeResource) {
+        return existDbCollectionManagerQueries.saveResourceXml(ExistDbCredentialsService.getDetails(), storeResource);
     }
 
     public String deleteFile(ExistFileManagerModel existFileManagerModel) {

@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.EditTriggerModel;
 import com.example.demo.model.ExistFileManagerModel;
 import com.example.demo.service.TriggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +28,12 @@ public class TriggerController {
     @RequestMapping("initTriggerConfig")
     public String initTriggerConfig(HttpEntity<String> httpEntity){
         return triggerService.initTriggerConfig(httpEntity.getBody());
+    }
+
+    @RequestMapping("editTrigger")
+    public String editTrigger(@RequestBody EditTriggerModel editTriggerModel){
+        triggerService.addTriggerToConfiguration(editTriggerModel);
+        return "success";
     }
 
     @RequestMapping("getTriggersConfig")

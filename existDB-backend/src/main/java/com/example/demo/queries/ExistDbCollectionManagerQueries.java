@@ -51,7 +51,19 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String saveResource(ExistDetails details, ForStoreResourceAndColl storeResource){
+    public String saveResourceBin(ExistDetails details, ForStoreResourceAndColl storeResource){
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        xmldb:store-as-binary(\"" + storeResource.getUrl() + "\",\"" + storeResource.getFileName() + "\", util:string-to-binary(\"" + storeResource.getContent().replaceAll("\"","'") + "\"))\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        System.out.println(query);
+        return util.stringResultQuery(details, query);
+    }
+
+    public String saveResourceXml(ExistDetails details, ForStoreResourceAndColl storeResource){
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +

@@ -1,15 +1,15 @@
-import {Credentials} from '../../file-explorer/model/Credentials';
-
 export class EditTriggerModel {
-    credentials: Credentials;
+    path: string;
+    fName: string;
     event: string;
     tClass: string;
     name: string;
     value: string;
 
 
-    constructor(credentials: Credentials, event: string, tClass: string, name: string, value: string) {
-        this.credentials = credentials;
+    constructor(path: string, fName: string, event: string, tClass: string, name: string, value: string) {
+        this.path = path;
+        this.fName = fName;
         this.event = event;
         this.tClass = tClass;
         this.name = name;

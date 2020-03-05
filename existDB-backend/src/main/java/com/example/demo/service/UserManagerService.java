@@ -1,17 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ExistDBUser;
-import com.example.demo.model.ExistDBUsers;
 import com.example.demo.queries.ExistDbUserManagerQueries;
+import com.example.demo.util.JaxbUnmarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,10 +17,13 @@ public class UserManagerService {
     @Autowired
     private ExistDbUserManagerQueries existDbUserManagerQueries;
 
+    @Autowired
+    private JaxbUnmarshaller jaxbUnmarshaller;
+
     private static final Logger logger = LoggerFactory.getLogger(ExistDbCredentialsService.class);
 
     public ArrayList<ExistDBUser> listUsers() {
-        ArrayList<ExistDBUser> existDBUsers = getUsersAndDetails();
+        ArrayList<ExistDBUser> existDBUsers = jaxbUnmarshaller.unmarshallUsersAndDetails(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
         for (ExistDBUser existDBUser: existDBUsers) {
             existDBUser.setDefault(existDbUserManagerQueries.isDefaultUser(existDBUser.getUsername()));
         }
@@ -56,7 +54,10 @@ public class UserManagerService {
         return existDbUserManagerQueries.deleteUser(ExistDbCredentialsService.getDetails(), username);
     }
 
-    public String editUser(ExistDBUser user) { return existDbUserManagerQueries.editUser(ExistDbCredentialsService.getDetails(), user); }
+    public String editUser(ExistDBUser user) {
+        editUserGroups(user);
+        return existDbUserManagerQueries.editUser(ExistDbCredentialsService.getDetails(), user);
+    }
 
     public boolean isAdmin() throws Exception{
         return existDbUserManagerQueries.isAdminAccess(ExistDbCredentialsService.getDetails());
@@ -66,18 +67,22 @@ public class UserManagerService {
         return Arrays.asList(existDbUserManagerQueries.getUsers(ExistDbCredentialsService.getDetails()).split("\n"));
     }
 
-    private ArrayList<ExistDBUser> getUsersAndDetails() {
-        System.out.println(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
-        ArrayList<ExistDBUser> existDBUserss = new ArrayList<>();
-        JAXBContext jaxbContext;
-        try{
-            jaxbContext = JAXBContext.newInstance(ExistDBUsers.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            ExistDBUsers existDBUsers = (ExistDBUsers) jaxbUnmarshaller.unmarshal(new StringReader(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails())));
-            existDBUserss.addAll(existDBUsers.getExistDBUserList());
-        } catch(JAXBException jaxbe) {
-            logger.error("JAXBException: " + jaxbe);
+    private void editUserGroups(ExistDBUser user){
+        ArrayList<ExistDBUser> existDBUsers = jaxbUnmarshaller.unmarshallUsersAndDetails(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
+        for (ExistDBUser existDBUser: existDBUsers) {
+            if(existDBUser.getUsername().equals(user.getUsername())){
+                List<String> oldGroups = existDBUser.getGroups();
+                oldGroups.remove(existDBUser.getPrimaryGroup());
+                List<String> newGroups = user.getGroups();
+                newGroups.remove(user.getPrimaryGroup());
+                for (String group: oldGroups) {
+                    existDbUserManagerQueries.removeUserFromGroup(ExistDbCredentialsService.getDetails(), existDBUser.getUsername(), group);
+                }
+                for (String group: newGroups) {
+                    existDbUserManagerQueries.addUserToGroup(ExistDbCredentialsService.getDetails(), existDBUser.getUsername(), group);
+                }
+            }
         }
-        return existDBUserss;
     }
+
 }

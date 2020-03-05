@@ -32,7 +32,7 @@ export class CreateFileComponent implements OnInit {
         if (this.saveData.content === '') {
             alert('File content is empty');
         }
-        this.fileExplorerService.saveResource(this.saveData)
+        this.fileExplorerService.saveResourceBin(this.saveData)
             .subscribe(
                 data => {
                 console.log(data);

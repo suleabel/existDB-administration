@@ -1,11 +1,12 @@
 package com.example.demo.model;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.List;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ExistDBUser {
+public class ExistDBUser implements Serializable {
 
     @XmlElement(name="username")
     private String username;

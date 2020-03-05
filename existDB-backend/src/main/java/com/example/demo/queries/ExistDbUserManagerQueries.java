@@ -37,7 +37,6 @@ public class ExistDbUserManagerQueries {
     }
 
     public String editUser(ExistDetails details, ExistDBUser user) {
-        editUserGroups(details, user);
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
@@ -77,24 +76,28 @@ public class ExistDbUserManagerQueries {
     }
 
 
-    private String editUserGroups(ExistDetails details, ExistDBUser user) {
-//        ExistDBUser originalUserData =
-//        String userOriginalGroupsQuery = "xquery version \"3.1\";\n" +
-//                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword()+ "\")) then\n" +
-//                "    (\n" +
-//                "        sm:get-user-groups('" + user.getUsername() + "')\n" +
-//                "    )\n" +
-//                "else\n" +
-//                "false()";
-//        List<String> userOriginalGroups = Arrays.asList(util.stringResultQuery(details, userOriginalGroupsQuery).split("\n"));
-//        for (String group: userOriginalGroups) {
-//            System.out.println("group: " + group);
-//        }
-//        user.getGroups().remove(user.getPrimaryGroup());
-//        System.out.println("NOT FINISHED FUNCTION, user groups after remove pg: " + user.getGroups());
-//        String query = "";
-        return "";
+    public String removeUserFromGroup(ExistDetails details, String user, String group) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        sm:remove-group-member(\"" + group + "\", \"" + user + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
+    }
+
+    public String addUserToGroup(ExistDetails details, String user, String group) {
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        sm:add-group-member(\"" + group + "\", \"" + user + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
     }
 
     public String getUsersData(ExistDetails details){

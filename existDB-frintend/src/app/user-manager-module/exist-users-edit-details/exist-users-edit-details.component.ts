@@ -48,6 +48,7 @@ export class ExistUsersEditDetailsComponent implements OnInit {
     this.userService.editUser(this.editUserData)
         .subscribe( data => {
           console.log('edit user data return value: ' + data);
+          this.router.navigateByUrl('/user-manager-module');
         },
         error => {
           console.log('edit user data error: ' + error);

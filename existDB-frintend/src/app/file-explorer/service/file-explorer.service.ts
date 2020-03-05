@@ -39,8 +39,12 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'getXmlResContent', resUrl, {responseType: 'text'});
     }
 
-    public saveResource(res: SaveModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'store', res, {responseType: 'text'});
+    public saveResourceBin(res: SaveModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'storeBin', res, {responseType: 'text'});
+    }
+
+    public saveResourceXml(res: SaveModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'storeXml', res, {responseType: 'text'});
     }
 
     public createDir(): Observable<any> {

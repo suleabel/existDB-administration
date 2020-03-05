@@ -1,4 +1,5 @@
 package com.example.demo.service;
+import com.example.demo.model.EditTriggerModel;
 import com.example.demo.model.ExistFileManagerModel;
 import com.example.demo.model.ForStoreResourceAndColl;
 import com.example.demo.queries.ExistDBTriggerQueries;
@@ -50,8 +51,18 @@ public class TriggerService {
         return existDBTriggerQueries.initTriggerConfig(ExistDbCredentialsService.getDetails(), path);
     }
 
+    public String addTriggerToConfiguration(EditTriggerModel editTriggerModel){
+        String trigger =
+                "<trigger event=\"" + editTriggerModel.getEventByComma() + "\" class=\"" + editTriggerModel.gettClass() + "\">\n" +
+                "\t\t\t<parameter name=\"" + editTriggerModel.getName() + "\" value=\"xmldb:exist://" + editTriggerModel.getValue() + "\"/>\n" +
+                "\t\t</trigger>";
+        System.out.println(trigger);
+        String triggerConfigurationFile = existDbCollectionManagerQueries.readXmlFile(ExistDbCredentialsService.getDetails(), editTriggerModel.getPath() + "/" + editTriggerModel.getfName());
+        System.out.println(triggerConfigurationFile);
+        return "";
+    }
+
     public ArrayList<ExistFileManagerModel> getTriggerConfiguration(String rootTriggerConfigs){
-        // rootTriggerConfigs = "/db/system/config";
         return collectionService.getFileManagerContentByCollection(rootTriggerConfigs);
     }
 

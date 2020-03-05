@@ -79,7 +79,7 @@ public class XMLtoXSDService {
     }
 
     public String saveXsd(ForStoreResourceAndColl storeResource) {
-        return collectionService.storeResource(storeResource);
+        return collectionService.storeResourceBin(storeResource);
     }
 
 }

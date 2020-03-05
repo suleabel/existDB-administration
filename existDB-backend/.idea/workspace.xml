@@ -79,7 +79,7 @@
     <session id="2064413458">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="34" />
+          <entry key="project.closed" value="35" />
           <entry key="project.open.time.1" value="4" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.3" value="1" />
@@ -97,7 +97,7 @@
           <entry key="class" value="23" />
           <entry key="cmd" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="java" value="403" />
+          <entry key="java" value="426" />
           <entry key="properties" value="5" />
           <entry key="sql" value="1" />
           <entry key="xml" value="8" />
@@ -107,7 +107,7 @@
         <counts>
           <entry key="CLASS" value="23" />
           <entry key="Dockerfile" value="1" />
-          <entry key="JAVA" value="403" />
+          <entry key="JAVA" value="426" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="Properties" value="5" />
           <entry key="SQL" value="1" />
@@ -117,8 +117,8 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Dockerfile" value="88" />
-          <entry key="dummy" value="121" />
-          <entry key="java" value="25179" />
+          <entry key="dummy" value="125" />
+          <entry key="java" value="27370" />
           <entry key="properties" value="80" />
           <entry key="sql" value="82" />
           <entry key="xml" value="74" />
@@ -127,8 +127,8 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Dockerfile" value="88" />
-          <entry key="JAVA" value="25179" />
-          <entry key="PLAIN_TEXT" value="121" />
+          <entry key="JAVA" value="27370" />
+          <entry key="PLAIN_TEXT" value="125" />
           <entry key="Properties" value="80" />
           <entry key="SQL" value="82" />
           <entry key="XML" value="74" />
@@ -138,11 +138,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbUserManagerQueries.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbCollectionManagerQueries.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="99" column="26" selection-start-line="99" selection-start-column="26" selection-end-line="99" selection-end-column="26" />
+            <state relative-caret-position="197">
+              <caret line="112" column="66" selection-start-line="112" selection-start-column="59" selection-end-line="112" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/TriggerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="45" column="95" lean-forward="true" selection-start-line="45" selection-start-column="95" selection-end-line="45" selection-end-column="95" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/TriggerController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="40" column="39" lean-forward="true" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -161,6 +185,7 @@
     <findStrings>
       <find>system</find>
       <find>System</find>
+      <find>store</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -170,9 +195,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBGroupForList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBGroupForCreate.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/controller/AuthenticationController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/security/jwt/JwtAuthTokenFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBUserForCreate.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbGroupManagerServices.java" />
@@ -209,18 +231,21 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ForStoreResourceAndColl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDbCollectionManagerQueries.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/ExistDBTriggerQueries.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistFileManagerModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBUsers.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/Groups.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/util/JAXBUnmarshallers.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBUser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/util/JaxbUnmarshaller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbUserManagerQueries.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/UserManagerService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbCollectionManagerQueries.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/CollectionService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/controller/CollectionManagerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/EditTriggerModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/controller/TriggerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDBTriggerQueries.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/TriggerService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistFileManagerModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/CollectionService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbCollectionManagerQueries.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/controller/CollectionManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBUsers.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/Groups.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBUser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/service/UserManagerService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbUserManagerQueries.java" />
       </list>
     </option>
   </component>
@@ -264,8 +289,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="320" />
-    <option name="y" value="-8" />
+    <option name="x" value="704" />
+    <option name="y" value="-30" />
     <option name="width" value="1649" />
     <option name="height" value="1011" />
   </component>
@@ -355,6 +380,15 @@
               <item name="demo" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="spring-angular-demo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="existDB-backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -368,7 +402,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1583425572227" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1583432845540" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Git/eXistDBtest" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -453,18 +487,17 @@
       <workItem from="1583169086456" duration="3372000" />
       <workItem from="1583248780326" duration="9152000" />
       <workItem from="1583343562931" duration="2910000" />
-      <workItem from="1583417350230" duration="6461000" />
+      <workItem from="1583417350230" duration="13862000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138091000" />
+    <option name="totallyTimeSpent" value="145492000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23807631" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23807631" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -474,7 +507,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.30585682" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.30585682" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -546,14 +579,6 @@
     </ignored-roots>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="62" selection-start-line="6" selection-start-column="62" selection-end-line="6" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/User.java" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -767,60 +792,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistFileManagerModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbCollectionManagerQueries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1751">
-          <caret line="108" column="52" selection-start-line="108" selection-start-column="52" selection-end-line="108" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDBTriggerQueries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="39" column="71" selection-start-line="39" selection-start-column="71" selection-end-line="39" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/TriggerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="43" column="63" selection-start-line="43" selection-start-column="63" selection-end-line="43" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/CollectionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="22" column="37" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/TriggerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="26" column="67" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1465">
@@ -831,39 +802,8 @@
     <entry file="file://$PROJECT_DIR$/mvnw.cmd">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/UserManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="35" column="90" lean-forward="true" selection-start-line="35" selection-start-column="90" selection-end-line="35" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/Groups.java">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/CollectionManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="29" column="42" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#711#712#0" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#788#789#0" expanded="true" />
-            <element signature="e#826#827#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBUsers.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -879,20 +819,146 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistFileManagerModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbUserManagerQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="90" column="27" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/UserManagerService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="76" column="68" lean-forward="true" selection-start-line="76" selection-start-column="68" selection-end-line="76" selection-end-column="68" />
+        <state relative-caret-position="252">
+          <caret line="70" column="169" lean-forward="true" selection-start-line="70" selection-start-column="169" selection-end-line="70" selection-end-column="169" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbUserManagerQueries.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/util/JaxbUnmarshaller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="99" column="26" selection-start-line="99" selection-start-column="26" selection-end-line="99" selection-end-column="26" />
+        <state relative-caret-position="456">
+          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/CollectionManagerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="57" column="65" lean-forward="true" selection-start-line="57" selection-start-column="65" selection-end-line="57" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/UserManagerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/ExistDBUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="108" column="50" lean-forward="true" selection-start-line="108" selection-start-column="15" selection-end-line="108" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/model/EditTriggerModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="44" column="33" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="33" />
+          <folding>
+            <element signature="e#574#575#0" expanded="true" />
+            <element signature="e#601#602#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#775#776#0" expanded="true" />
+            <element signature="e#809#810#0" expanded="true" />
+            <element signature="e#841#842#0" expanded="true" />
+            <element signature="e#869#870#0" expanded="true" />
+            <element signature="e#970#971#0" expanded="true" />
+            <element signature="e#1022#1023#0" expanded="true" />
+            <element signature="e#911#912#0" expanded="true" />
+            <element signature="e#945#946#0" expanded="true" />
+            <element signature="e#978#979#0" expanded="true" />
+            <element signature="e#1007#1008#0" expanded="true" />
+            <element signature="e#1051#1052#0" expanded="true" />
+            <element signature="e#1087#1088#0" expanded="true" />
+            <element signature="e#1118#1119#0" expanded="true" />
+            <element signature="e#1145#1146#0" expanded="true" />
+            <element signature="e#1185#1186#0" expanded="true" />
+            <element signature="e#1217#1218#0" expanded="true" />
+            <element signature="e#1249#1250#0" expanded="true" />
+            <element signature="e#1277#1278#0" expanded="true" />
+            <element signature="e#1319#1320#0" expanded="true" />
+            <element signature="e#1353#1354#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/CollectionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="31" column="30" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDBTriggerQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/TriggerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="40" column="39" lean-forward="true" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/queries/ExistDbCollectionManagerQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="112" column="66" selection-start-line="112" selection-start-column="59" selection-end-line="112" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/service/TriggerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="45" column="95" lean-forward="true" selection-start-line="45" selection-start-column="95" selection-end-line="45" selection-end-column="95" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

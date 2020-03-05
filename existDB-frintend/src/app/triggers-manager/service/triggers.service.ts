@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {EditTriggerModel} from '../model/EditTriggerModel';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -18,6 +19,11 @@ export class TriggersService {
 
     public getTriggerConfigs(collection: string): Observable<any> {
         return this.http.post(this.baseUrl + 'getTriggersConfig', collection, httpOptions);
+    }
+
+    public addTrigger(data: EditTriggerModel): Observable<any> {
+        console.log(data);
+        return this.http.post(this.baseUrl + 'editTrigger', data, {responseType: 'text'});
     }
 
     public initializeTriggerConfig(): Observable<any> {

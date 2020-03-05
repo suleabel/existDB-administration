@@ -48,9 +48,14 @@ public class CollectionManagerController {
 
     }
 
-    @RequestMapping("/store")
-    public String saveXsd(@RequestBody ForStoreResourceAndColl storeResource){
-        return collectionService.storeResource(storeResource);
+    @RequestMapping("/storeBin")
+    public String storeBin(@RequestBody ForStoreResourceAndColl storeResource){
+        return collectionService.storeResourceBin(storeResource);
+    }
+
+    @RequestMapping("/storeXml")
+    public String storeXml(@RequestBody ForStoreResourceAndColl storeResource) {
+        return collectionService.storeResourceXml(storeResource);
     }
 
     @RequestMapping("/deleteRes")
