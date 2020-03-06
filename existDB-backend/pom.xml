@@ -8,11 +8,10 @@
 		<version>2.1.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>hu.sule.administration</groupId>
 	<artifactId>existDB-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<groupName>existDB-backend</groupName>
 	<description>existDB-backend</description>
 
 	<properties>
