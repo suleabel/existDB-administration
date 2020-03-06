@@ -12,7 +12,7 @@
 	<artifactId>existDB-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<description>existDB-backend</description>
+	<description>existDB-Administration</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -110,8 +110,27 @@
 		<finalName>existDB-backend</finalName>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.1</version>
+				<configuration>
+					<useSystemClassLoader>false</useSystemClassLoader>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<server>tomcat-server</server>
+					<url>http://yolozsefa.asuscomm.com:8080/manager/text</url>
+					<path>/existDB-Administration</path>
+					<!--mvn install tomcat7:deploy-->
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
