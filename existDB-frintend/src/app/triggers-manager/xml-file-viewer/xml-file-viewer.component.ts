@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 import {FileExplorerService} from '../../file-explorer/service/file-explorer.service';
 import {Credentials} from '../../file-explorer/model/Credentials';
-import {EditTriggerModel} from '../model/EditTriggerModel';
 import {DialogService} from '../../error-dialog/service/dialog.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {AddTriggerComponent} from '../add-trigger/add-trigger.component';
@@ -25,7 +24,7 @@ export class XmlFileViewerComponent implements OnInit {
 
     ngOnInit() {
         this.openedFile = this.fileExplorerService.openedFile;
-        this.fileExplorerService.getXmlResContent(this.openedFile.path + '/' + this.openedFile.name)
+        this.fileExplorerService.getResContent(this.openedFile.path + '/' + this.openedFile.name)
             .subscribe(
                 data => {
                     this.viewResult = data;

@@ -98,26 +98,45 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String readBinaryFile(ExistDetails details, String resUrl){
+//    public String readBinaryFile(ExistDetails details, String resUrl){
+//        String query = "xquery version \"3.1\";\n" +
+//                "import module namespace util=\"http://exist-db.org/xquery/util\" at \"java:org.exist.xquery.functions.util.UtilModule\";\n" +
+//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+//                "    (\n" +
+//                "       util:binary-to-string(util:binary-doc(\"" + resUrl + "\"))\n" +
+//                "    )\n" +
+//                "else\n" +
+//                "false()\n";
+//        return util.stringResultQuery(details, query);
+//    }
+//
+//    public String readXmlFile(ExistDetails details, String confUrl){
+//        String query = "xquery version \"3.1\";\n" +
+//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
+//                "    (\n" +
+//                "       doc(\"" + confUrl + "\")\n" +
+//                "    )\n" +
+//                "    else\n" +
+//                "    false()\n";
+//        return util.stringResultQuery(details, query);
+//    }
+
+    public String readFile(ExistDetails details, String resUrl) {
         String query = "xquery version \"3.1\";\n" +
-                "import module namespace util=\"http://exist-db.org/xquery/util\" at \"java:org.exist.xquery.functions.util.UtilModule\";\n" +
+                "declare variable $file := xs:string(\"" + resUrl + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "       util:binary-to-string(util:binary-doc(\"" + resUrl + "\"))\n" +
+                "        if(util:is-binary-doc($file)) then\n" +
+                "            (\n" +
+                "                 util:binary-to-string(util:binary-doc($file))\n" +
+                "            )\n" +
+                "            else\n" +
+                "            (\n" +
+                "                doc($file)\n" +
+                "            )\n" +
                 "    )\n" +
                 "else\n" +
-                "false()\n";
-        return util.stringResultQuery(details, query);
-    }
-
-    public String readXmlFile(ExistDetails details, String confUrl){
-        String query = "xquery version \"3.1\";\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
-                "    (\n" +
-                "       doc(\"" + confUrl + "\")\n" +
-                "    )\n" +
-                "    else\n" +
-                "    false()\n";
+                "false()";
         return util.stringResultQuery(details, query);
     }
 

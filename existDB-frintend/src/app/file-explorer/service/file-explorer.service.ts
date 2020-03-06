@@ -31,12 +31,8 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'getOnlyCollections', collection);
     }
 
-    public getBinResContent(resUrl: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'getBinResContent', resUrl, {responseType: 'text'});
-    }
-
-    public getXmlResContent(resUrl: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'getXmlResContent', resUrl, {responseType: 'text'});
+    public getResContent(resUrl: string): Observable<any> {
+        return this.http.post(this.baseUrl + 'getFileContent', resUrl, {responseType: 'text'});
     }
 
     public saveResourceBin(res: SaveModel): Observable<any> {

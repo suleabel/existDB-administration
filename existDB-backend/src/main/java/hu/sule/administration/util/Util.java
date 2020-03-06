@@ -50,7 +50,7 @@ public class Util {
         boolean result = false;
         try {
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection(), details.getUsername(), details.getPassword());
-            result = true;
+            result = !execXQuery(query, collection).equals("false");
         } catch (XMLDBException e) {
             System.out.println("User delete Exception: " + e.getMessage());
         } finally {

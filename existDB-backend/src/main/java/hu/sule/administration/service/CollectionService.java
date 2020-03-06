@@ -82,12 +82,8 @@ public class CollectionService {
         return existDbCollectionManagerQueries.editResCred(ExistDbCredentialsService.getDetails(), existFileManagerModel);
     }
 
-    public String readBinaryFile(String resUrl) {
-        return existDbCollectionManagerQueries.readBinaryFile(ExistDbCredentialsService.getDetails(), resUrl);
-    }
-
-    public String readXmlFile(String url) {
-        return existDbCollectionManagerQueries.readXmlFile(ExistDbCredentialsService.getDetails(), url);
+    public String readFile(String url) {
+        return existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url);
     }
 
 

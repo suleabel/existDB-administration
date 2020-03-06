@@ -250,9 +250,7 @@ public class ExistDbUserManagerQueries {
     }
 
     public boolean isAdminAccess(ExistDetails details) throws Exception {
-
         logger.info("check admin access");
-
         Collection old = collection;
         boolean result = false;
         util.closeCollection(collection);

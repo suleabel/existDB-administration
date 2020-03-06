@@ -57,7 +57,7 @@ public class TriggerService {
                 "\t\t\t<parameter name=\"" + editTriggerModel.getName() + "\" value=\"xmldb:exist://" + editTriggerModel.getValue() + "\"/>\n" +
                 "\t\t</trigger>";
         System.out.println(trigger);
-        String triggerConfigurationFile = existDbCollectionManagerQueries.readXmlFile(ExistDbCredentialsService.getDetails(), editTriggerModel.getPath() + "/" + editTriggerModel.getfName());
+        String triggerConfigurationFile = existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), editTriggerModel.getPath() + "/" + editTriggerModel.getfName());
         System.out.println(triggerConfigurationFile);
         return "";
     }

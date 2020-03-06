@@ -37,15 +37,9 @@ public class CollectionManagerController {
         return collectionService.createDir(storeCollection);
     }
 
-    @RequestMapping("/getBinResContent")
-    public String getBinResContent(HttpEntity<String> httpEntity){
-        return collectionService.readBinaryFile(httpEntity.getBody());
-    }
-
-    @RequestMapping("/getXmlResContent")
-    public String getXmlResContent(HttpEntity<String> httpEntity) {
-        return collectionService.readXmlFile(httpEntity.getBody());
-
+    @RequestMapping("/getFileContent")
+    public String getFileContent(HttpEntity<String> httpEntity){
+        return collectionService.readFile(httpEntity.getBody());
     }
 
     @RequestMapping("/storeBin")
