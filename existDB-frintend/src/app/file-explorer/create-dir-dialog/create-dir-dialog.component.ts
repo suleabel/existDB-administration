@@ -8,7 +8,7 @@ import {MatDialogRef} from '@angular/material';
   styleUrls: ['./create-dir-dialog.component.sass']
 })
 export class CreateDirDialogComponent implements OnInit {
-  private dirName = '';
+  public dirName = '';
 
   constructor(public dialogRef: MatDialogRef<CreateDirDialogComponent>,
               private fileExplorerService: FileExplorerService) { }

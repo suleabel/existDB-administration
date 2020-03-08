@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {SaveModel} from '../../xml-to-xsd/model/SaveXSDModel';
+import {StoreResourceModel} from '../model/StoreResourceModel';
 import {Credentials} from '../model/Credentials';
 import {stringify} from 'querystring';
 
@@ -13,7 +13,9 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class FileExplorerService {
-    private baseUrl = 'http://localhost:8085/collection/';
+    /* tslint:disable:no-string-literal */
+    private baseUrl = window['cfgApiBaseUrl'] + '/collection/';
+    /* tslint:enable:no-string-literal */
     private saveContentHere: string;
     private CreatedCollectionName: string;
     private selectedResourceCredentials: Credentials;
@@ -32,19 +34,19 @@ export class FileExplorerService {
     }
 
     public getResContent(resUrl: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'getFileContent', resUrl, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'getFileContent', resUrl, httpOptions);
     }
 
-    public saveResourceBin(res: SaveModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'storeBin', res, {responseType: 'text'});
+    public saveResource(res: StoreResourceModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'store', res, {responseType: 'text'});
     }
 
-    public saveResourceXml(res: SaveModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'storeXml', res, {responseType: 'text'});
+    public editResource(res: StoreResourceModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'saveEdit', res, {responseType: 'text'});
     }
 
     public createDir(): Observable<any> {
-        const col: SaveModel = {url: this.getSaveContentHere(), fileName: this.createdCollectionName, content: null};
+        const col: StoreResourceModel = {url: this.getSaveContentHere(), fileName: this.createdCollectionName, content: null, isBinary: false};
         return this.http.post(this.baseUrl + 'createDir', col, {responseType: 'text'});
     }
 
@@ -61,6 +63,10 @@ export class FileExplorerService {
         console.log(cred);
         return this.http.post(this.baseUrl + 'editResCred', cred, {responseType: 'text'});
     }
+
+
+
+
 
     public setSaveContentHere(url: string) {
         this.saveContentHere = url;

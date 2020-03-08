@@ -1,5 +1,6 @@
 package hu.sule.administration.queries;
 
+import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistDetails;
 import hu.sule.administration.util.Util;
 import org.slf4j.Logger;
@@ -38,5 +39,17 @@ public class ExistDBTriggerQueries {
                 "else\n" +
                 "false()";
         return util.stringResultQuery(details, query).contains("true");
+    }
+
+    public String saveEditedTrigger(ExistDetails details, EditTriggerModel editTriggerModel, String conf){
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        xmldb:remove(\"" + editTriggerModel.getPath() + "\",\"" + editTriggerModel.getfName() + "\"),\n" +
+                "        xmldb:store(\"" + editTriggerModel.getPath() + "\",\"" + editTriggerModel.getfName() + "\",\"" + conf + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
     }
 }

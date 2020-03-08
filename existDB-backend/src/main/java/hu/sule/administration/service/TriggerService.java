@@ -4,13 +4,22 @@ import hu.sule.administration.model.ExistFileManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.queries.ExistDBTriggerQueries;
 import hu.sule.administration.queries.ExistDbCollectionManagerQueries;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.xml.sax.InputSource;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class TriggerService {
@@ -52,14 +61,33 @@ public class TriggerService {
     }
 
     public String addTriggerToConfiguration(EditTriggerModel editTriggerModel){
-        String trigger =
-                "<trigger event=\"" + editTriggerModel.getEventByComma() + "\" class=\"" + editTriggerModel.gettClass() + "\">\n" +
-                "\t\t\t<parameter name=\"" + editTriggerModel.getName() + "\" value=\"xmldb:exist://" + editTriggerModel.getValue() + "\"/>\n" +
-                "\t\t</trigger>";
-        System.out.println(trigger);
-        String triggerConfigurationFile = existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), editTriggerModel.getPath() + "/" + editTriggerModel.getfName());
-        System.out.println(triggerConfigurationFile);
-        return "";
+        SAXBuilder saxBuilder = new SAXBuilder();
+        Document doc = null;
+        try {
+            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(editTriggerModel.getPath() + "/" + editTriggerModel.getfName()).getContent())));
+        } catch (JDOMException | IOException e){
+            logger.error("SAXBuilder exception: " + e.getMessage()) ;
+        }
+        if(doc != null) {
+
+            Element collection = doc.getRootElement();
+            List<Element> triggers = collection.getChildren().get(0).getChildren();
+            Element parameter = new Element("parameter").setAttribute("name",editTriggerModel.getName()).setAttribute("value", editTriggerModel.getValue());
+            Element triggerE = new Element("trigger").addContent(parameter).setAttribute("event", editTriggerModel.getEventByComma()).setAttribute("class", editTriggerModel.gettClass());
+            triggers.add(triggerE);
+            String newConfig = new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
+            String[] old = newConfig.split("\n");
+            List<String> fixedConfig = new ArrayList<>();
+            for (int i = 0; i<old.length; i++){
+                if(i != 0){
+                    fixedConfig.add(old[i]);
+                }
+            }
+            return existDBTriggerQueries.saveEditedTrigger(ExistDbCredentialsService.getDetails(), editTriggerModel, String.join("\n", fixedConfig).replaceAll("\"","'"));
+        }
+        else {
+            return "Failure!";
+        }
     }
 
     public ArrayList<ExistFileManagerModel> getTriggerConfiguration(String rootTriggerConfigs){

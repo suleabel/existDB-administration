@@ -2,6 +2,7 @@ package hu.sule.administration.controller;
 
 import hu.sule.administration.model.ExistFileManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
+import hu.sule.administration.model.ResourceReadModel;
 import hu.sule.administration.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -13,13 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/collection/")
 public class CollectionManagerController {
 
     @Autowired
     private CollectionService collectionService;
-
 
     @RequestMapping("/getOnlyCollections")
     public ArrayList<ExistFileManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity){
@@ -33,23 +33,22 @@ public class CollectionManagerController {
 
     @RequestMapping("/createDir")
     public String createDir(@RequestBody ForStoreResourceAndColl storeCollection) {
-        System.out.println("createDir" + storeCollection.toString());
         return collectionService.createDir(storeCollection);
     }
 
     @RequestMapping("/getFileContent")
-    public String getFileContent(HttpEntity<String> httpEntity){
+    public ResourceReadModel getFileContent(HttpEntity<String> httpEntity){
         return collectionService.readFile(httpEntity.getBody());
     }
 
-    @RequestMapping("/storeBin")
-    public String storeBin(@RequestBody ForStoreResourceAndColl storeResource){
-        return collectionService.storeResourceBin(storeResource);
+    @RequestMapping("/store")
+    public String store(@RequestBody ForStoreResourceAndColl storeResource){
+        return collectionService.Store(storeResource);
     }
 
-    @RequestMapping("/storeXml")
-    public String storeXml(@RequestBody ForStoreResourceAndColl storeResource) {
-        return collectionService.storeResourceXml(storeResource);
+    @RequestMapping("/saveEdit")
+    public String saveEdit(@RequestBody ForStoreResourceAndColl storeResource){
+        return collectionService.saveEditedRes(storeResource);
     }
 
     @RequestMapping("/deleteRes")
@@ -62,10 +61,8 @@ public class CollectionManagerController {
         return collectionService.deleteCollection(existFileManagerModel);
     }
 
-
     @RequestMapping("/editResCred")
     public String editResCred(@RequestBody ExistFileManagerModel existFileManagerModel){
-        System.out.println(existFileManagerModel.toString());
         return collectionService.editResCred(existFileManagerModel);
     }
 }

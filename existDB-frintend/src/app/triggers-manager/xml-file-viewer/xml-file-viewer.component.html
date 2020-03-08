@@ -4,13 +4,22 @@
             <div class="card-header  font-weight-bold">
                 Selected trigger content:
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="!isEdit">
                 <label>{{openedFile.path + '/' + openedFile.name}}</label>
                 <pre>
                     <code [highlight]="viewResult" [lineNumbers]="true"></code>
                 </pre>
                 <button class="btn btn-success" (click)="onAddTrigger()">Add trigger</button>
+                <button class="btn btn-success" (click)="onEdit()">Edit</button>
                 <button class="btn btn-success" (click)="onClose()">Close</button>
+            </div>
+
+            <div class="card-body" *ngIf="isEdit">
+                <label>{{openedFile.name}}</label>
+                <label>isBinary: {{isBinary}}</label>
+                <textarea [(ngModel)]="editedContent" rows="4"></textarea>
+                <button class="btn btn-success" (click)="onClose()">Close</button>
+                <button class="btn btn-success" (click)="onSave()">Save</button>
             </div>
         </div>
     </div>

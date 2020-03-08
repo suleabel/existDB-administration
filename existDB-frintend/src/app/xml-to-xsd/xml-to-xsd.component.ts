@@ -4,7 +4,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogPanelComponent} from './dialog-panel/dialog-panel.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SaveModel} from './model/SaveXSDModel';
+import {StoreResourceModel} from '../file-explorer/model/StoreResourceModel';
 
 @Component({
     selector: 'app-xml-to-xsd',
@@ -12,11 +12,11 @@ import {SaveModel} from './model/SaveXSDModel';
     styleUrls: ['./xml-to-xsd.component.sass']
 })
 export class XmlToXsdComponent implements OnInit {
-    private saveForm: FormGroup;
-    private saveData: SaveModel;
-    private generatedXSD = '';
-    private textValue = '';
-    private fileUrl;
+    public saveForm: FormGroup;
+    public saveData: StoreResourceModel;
+    public generatedXSD = '';
+    public textValue = '';
+    public fileUrl;
 
     animal: string;
     name: string;

@@ -4,11 +4,30 @@ public class ForStoreResourceAndColl {
     private String url;
     private String fileName;
     private String content;
+    private boolean isBinary = true;
+
+    public ForStoreResourceAndColl() {
+    }
 
     public ForStoreResourceAndColl(String url, String fileName, String content) {
         this.url = url;
         this.fileName = fileName;
         this.content = content;
+    }
+
+    public ForStoreResourceAndColl(String url, String fileName, String content, boolean isBinary) {
+        this.url = url;
+        this.fileName = fileName;
+        this.content = content;
+        this.isBinary = isBinary;
+    }
+
+    public boolean isBinary() {
+        return isBinary;
+    }
+
+    public void setBinary(boolean binary) {
+        isBinary = binary;
     }
 
     public String getUrl() {
@@ -41,6 +60,7 @@ public class ForStoreResourceAndColl {
                 "url='" + url + '\'' +
                 ", fileName='" + fileName + '\'' +
                 ", content='" + content + '\'' +
+                ", isBinary=" + isBinary +
                 '}';
     }
 }

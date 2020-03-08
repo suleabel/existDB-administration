@@ -11,9 +11,9 @@ import {ExistUserModel} from '../model/existUser.model';
 })
 export class ExistUsersEditDetailsComponent implements OnInit {
   public editUsrForm: FormGroup;
-  private userDetailsEdit = false;
-  private selectedUser: ExistUserModel = null;
-  private existGroups: string[];
+  public userDetailsEdit = false;
+  public selectedUser: ExistUserModel = null;
+  public existGroups: string[];
   public editUserData: ExistUserModel;
 
 

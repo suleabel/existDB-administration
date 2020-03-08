@@ -11,11 +11,11 @@ import {stringify} from 'querystring';
     styleUrls: ['./exist-group-details.component.sass']
 })
 export class ExistGroupDetailsComponent implements OnInit {
-    private editGroupForm: FormGroup;
-    groupDetailsEdit = false;
-    selectedGroup: ExistGroupModel = null;
-    private existUsers: string[];
-    private editGroupsData: ExistGroupModel;
+    public editGroupForm: FormGroup;
+    public groupDetailsEdit = false;
+    public selectedGroup: ExistGroupModel = null;
+    public existUsers: string[];
+    public editGroupsData: ExistGroupModel;
 
     constructor(
         private groupService: GroupsService,

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FileExplorerService} from '../service/file-explorer.service';
 import {Router} from '@angular/router';
-import {SaveModel} from '../../xml-to-xsd/model/SaveXSDModel';
+import {StoreResourceModel} from '../model/StoreResourceModel';
 
 @Component({
     selector: 'app-create-file',
@@ -9,10 +9,10 @@ import {SaveModel} from '../../xml-to-xsd/model/SaveXSDModel';
     styleUrls: ['./create-file.component.sass']
 })
 export class CreateFileComponent implements OnInit {
-    private selectedPath = '';
-    private textValue = '';
-    private fileName = '';
-    private saveData: SaveModel;
+    public selectedPath = '';
+    public textValue = '';
+    public fileName = '';
+    public saveData: StoreResourceModel;
 
     constructor(private fileExplorerService: FileExplorerService, private router: Router) {
     }
@@ -25,14 +25,14 @@ export class CreateFileComponent implements OnInit {
     }
 
     sendText(): void {
-        this.saveData = {url: this.selectedPath, fileName: this.fileName, content: this.textValue};
+        this.saveData = {url: this.selectedPath, fileName: this.fileName, content: this.textValue, isBinary: true};
         if (this.saveData.fileName === '') {
             alert('File name is empty!');
         }
         if (this.saveData.content === '') {
-            alert('File content is empty');
+            alert('File editedContent is empty');
         }
-        this.fileExplorerService.saveResourceBin(this.saveData)
+        this.fileExplorerService.saveResource(this.saveData)
             .subscribe(
                 data => {
                 console.log(data);

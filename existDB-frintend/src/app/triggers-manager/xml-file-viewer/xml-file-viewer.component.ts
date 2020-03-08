@@ -5,6 +5,7 @@ import {Credentials} from '../../file-explorer/model/Credentials';
 import {DialogService} from '../../error-dialog/service/dialog.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {AddTriggerComponent} from '../add-trigger/add-trigger.component';
+import {StoreResourceModel} from '../../file-explorer/model/StoreResourceModel';
 
 @Component({
     selector: 'app-xml-file-viewer',
@@ -12,8 +13,11 @@ import {AddTriggerComponent} from '../add-trigger/add-trigger.component';
     styleUrls: ['./xml-file-viewer.component.sass']
 })
 export class XmlFileViewerComponent implements OnInit {
-    private viewResult: string;
-    private openedFile: Credentials;
+    public viewResult: string;
+    public isBinary: boolean;
+    public openedFile: Credentials;
+    public isEdit = false;
+    public editedContent = '';
 
     constructor(public dialogRef: MatDialogRef<XmlFileViewerComponent>,
                 private fileExplorerService: FileExplorerService,
@@ -27,12 +31,34 @@ export class XmlFileViewerComponent implements OnInit {
         this.fileExplorerService.getResContent(this.openedFile.path + '/' + this.openedFile.name)
             .subscribe(
                 data => {
-                    this.viewResult = data;
+                    console.log(data);
+                    this.viewResult = data.content;
+                    this.isBinary = data.isBinary;
+
                 },
                 error => {
                     console.log(error);
                 }
             );
+    }
+
+    onEdit() {
+        this.editedContent = this.viewResult;
+        this.isEdit = true;
+    }
+
+    onSave() {
+        const saveRes: StoreResourceModel = {url: this.openedFile.path, fileName: this.openedFile.name, content: this.editedContent, isBinary: this.isBinary};
+        console.log(saveRes);
+        this.fileExplorerService.editResource(saveRes)
+            .subscribe(data => {
+                    this.notificationService.success('Saved: ' + data);
+                },
+                error => {
+                    this.notificationService.warn('Error: ' + error);
+                });
+        this.isEdit = false;
+        this.dialogRef.close();
     }
 
     onAddTrigger() {

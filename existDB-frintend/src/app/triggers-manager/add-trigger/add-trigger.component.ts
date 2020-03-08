@@ -13,12 +13,12 @@ import {NotificationService} from '../../error-dialog/service/notification.servi
     styleUrls: ['./add-trigger.component.sass']
 })
 export class AddTriggerComponent implements OnInit {
-    private triggerForm: FormGroup;
-    private triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
-    private triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
-    private triggerName = ['url', 'query'];
-    private triggerValue = 'test.xql';
-    private openedFile;
+    public triggerForm: FormGroup;
+    public triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
+    public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
+    public triggerName = ['url', 'query'];
+    public triggerValue = 'test.xql';
+    public openedFile;
 
     constructor(public dialogRef: MatDialogRef<AddTriggerComponent>,
                 private fileExplorerService: FileExplorerService,
@@ -54,10 +54,12 @@ export class AddTriggerComponent implements OnInit {
                         data => {
                             console.log(data);
                             this.notificationService.success(data);
+                            this.dialogRef.close();
                         },
                         error => {
                             console.log(error);
                             this.notificationService.warn(error);
+                            this.dialogRef.close();
                         }
                     );
             }

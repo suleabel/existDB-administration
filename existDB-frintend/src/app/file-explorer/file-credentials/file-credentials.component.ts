@@ -3,7 +3,6 @@ import {FileExplorerService} from '../service/file-explorer.service';
 import {Router} from '@angular/router';
 import {Credentials} from '../model/Credentials';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ExistGroupModel} from '../../exist-group-manager/model/existGroup.model';
 import {GroupsService} from '../../exist-group-manager/service/groups.service';
 import {UserService} from '../../user-manager-module/service/user.service';
 
@@ -13,14 +12,14 @@ import {UserService} from '../../user-manager-module/service/user.service';
     styleUrls: ['./file-credentials.component.sass']
 })
 export class FileCredentialsComponent implements OnInit {
-    private editFileForm: FormGroup;
-    private editFileData: Credentials;
+    public editFileForm: FormGroup;
+    public editFileData: Credentials;
 
-    private existUsers: string[];
-    private existGroups: string[];
+    public existUsers: string[];
+    public existGroups: string[];
 
-    selectedFileCredentials: Credentials = null;
-    private isEdit = false;
+    public selectedFileCredentials: Credentials = null;
+    public isEdit = false;
 
 
     constructor(private fileExplorerService: FileExplorerService,

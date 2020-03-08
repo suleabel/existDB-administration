@@ -17,15 +17,36 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/app.module.ts">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
+            <state relative-caret-position="340">
+              <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
               <folding>
-                <element signature="e#0#56#0" expanded="true" />
+                <element signature="e#0#48#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+              <folding>
+                <element signature="e#0#48#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="49" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -37,8 +58,8 @@
       <list>
         <option value="TypeScript JSX File" />
         <option value="HTML File" />
-        <option value="TypeScript File" />
         <option value="CSS File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -53,22 +74,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/app/file-explorer/model/Content.ts" />
-        <option value="$PROJECT_DIR$/src/app/exist-group-manager/exist-group-list/exist-group-list.component.html" />
-        <option value="$PROJECT_DIR$/src/app/exist-group-manager/service/groups.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.html" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/triggers-manager/collections.dialog/collections.dialog.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/triggers-manager/service/dialog.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/app-routing.module.ts" />
-        <option value="$PROJECT_DIR$/src/app/top-bar-module/top-bar.component.html" />
-        <option value="$PROJECT_DIR$/src/app/triggers-manager/collections-dialog/collections-dialog.component.sass" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.html" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.sass" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/create-dir-dialog/create-dir-dialog.component.html" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/create-dir-dialog/create-dir-dialog.component.ts" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.sass" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.sass" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/collections-dialog/collections-dialog.component.html" />
         <option value="$PROJECT_DIR$/src/app/file-explorer/model/Credentials.ts" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/collections-dialog/collections-dialog.component.ts" />
@@ -79,31 +85,46 @@
         <option value="$PROJECT_DIR$/src/app/error-dialog/service/notification.service.ts" />
         <option value="$PROJECT_DIR$/src/app/user-manager-module/exist-users-list/exist-users-list.component.ts" />
         <option value="$PROJECT_DIR$/src/app/exist-group-manager/exist-add-group/exist-add-group.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/exist-group-manager/exist-group-list/exist-group-list.component.ts" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.html" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.html" />
         <option value="$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.sass" />
         <option value="$PROJECT_DIR$/src/app/user-manager-module/exist-add-user/exist-add-user.component.ts" />
         <option value="$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/user-manager-module/exist-users-edit-details/exist-users-edit-details.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.html" />
-        <option value="$PROJECT_DIR$/tslint.json" />
         <option value="$PROJECT_DIR$/src/app/user-manager-module/exist-add-user/exist-add-user.component.html" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/add-trigger/add-trigger.component.sass" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/add-trigger/add-trigger.component.html" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/model/EditTriggerModel.ts" />
-        <option value="$PROJECT_DIR$/src/app/triggers-manager/service/triggers.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/triggers-manager/add-trigger/add-trigger.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/service/file-explorer.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.ts" />
         <option value="$PROJECT_DIR$/src/app/spinner/spinner.component.html" />
         <option value="$PROJECT_DIR$/src/app/spinner/spinner.component.sass" />
         <option value="$PROJECT_DIR$/src/app/spinner/spinner.component.ts" />
         <option value="$PROJECT_DIR$/src/app/spinner/spinner.component.css" />
-        <option value="$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.html" />
         <option value="$PROJECT_DIR$/src/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/src/app/user-manager-module/exist-users-edit-details/exist-users-edit-details.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/create-dir-dialog/create-dir-dialog.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/exist-group-manager/exist-group-list/exist-group-list.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/exist-group-manager/exist-group-details/exist-group-details.component.ts" />
+        <option value="$PROJECT_DIR$/tslint.json" />
+        <option value="$PROJECT_DIR$/src/app/auth-module/auth.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/exist-group-manager/service/groups.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/triggers-manager/service/triggers.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/xml-to-xsd/service/xml-to-xsd.service.ts" />
+        <option value="$PROJECT_DIR$/src/index.html" />
+        <option value="$PROJECT_DIR$/src/app/triggers-manager/add-trigger/add-trigger.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/model/ResourceReadModel.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.html" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.html" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.sass" />
+        <option value="$PROJECT_DIR$/src/app/xml-to-xsd/model/SaveXSDModel.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/model/StoreResourceModel.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/service/file-explorer.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/xml-to-xsd/xml-to-xsd.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.sass" />
+        <option value="$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.html" />
+        <option value="$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.ts" />
       </list>
     </option>
   </component>
@@ -126,7 +147,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-23" />
+    <option name="x" value="4" />
     <option name="y" value="-8" />
     <option name="width" value="2576" />
     <option name="height" value="1056" />
@@ -137,7 +158,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -156,10 +176,26 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="existDB-frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="triggers-manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="existDB-frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="triggers-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="xml-file-viewer" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -180,11 +216,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\kaeom\Documents\GitHub\existDB\existDB-administration\existDB-frintend\src\app\file-explorer\model" />
       <recent name="C:\Users\kaeom\Documents\GitHub\existDB\existDB-administration\existDB-frintend\src\app\error-dialog\service" />
       <recent name="C:\Users\kaeom\Documents\GitHub\existDB\existDB-administration\existDB-frintend\src\app" />
       <recent name="C:\Users\kaeom\Documents\GitHub\existDB\existDB-administration\existDB-frintend\src\app\exist-group-manager\model" />
       <recent name="C:\Users\kaeom\Documents\GitHub\existDB\existDB-administration\existDB-frintend\src\app\exist-group-manager" />
-      <recent name="C:\Users\kaeom\Documents\GitHub\existDB\existDB-administration\existDB-frintend\src\app\exist-group-list\service" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -268,11 +304,13 @@
       <workItem from="1583343552744" duration="7191000" />
       <workItem from="1583417344036" duration="5247000" />
       <workItem from="1583524681556" duration="1281000" />
+      <workItem from="1583586523622" duration="3882000" />
+      <workItem from="1583677817005" duration="8869000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139796000" />
+    <option name="totallyTimeSpent" value="152547000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -301,7 +339,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
       <window_info anchor="bottom" id="TypeScript" order="9" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33044422" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -337,227 +375,12 @@
     </ignored-roots>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app/errors-module/error/error.component.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/error-dialog/service/dialog.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="67" lean-forward="true" selection-start-line="2" selection-start-column="67" selection-end-line="2" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/error-dialog/confirm-dialog.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/error-dialog/confirm-dialog.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/exist-group-manager/exist-add-group/exist-add-group.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="19" column="56" lean-forward="true" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/exist-group-manager/exist-group-list/exist-group-list.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="73" column="62" lean-forward="true" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-users-list/exist-users-list.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-449">
-          <caret line="27" column="62" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="21" column="64" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/collections-dialog/collections-dialog.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="79" column="10" selection-start-line="79" selection-start-column="10" selection-end-line="79" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/model/Credentials.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/user-manager.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="24" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-add-user/exist-add-user.component.sass">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.sass">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-dir-dialog/create-dir-dialog.component.sass">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.sass">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="1" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.sass">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.component.sass">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/xml-to-xsd/xml-to-xsd.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-816">
-          <folding>
-            <element signature="n#style#0;n#h4#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.sass">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-dir-dialog/create-dir-dialog.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-dir-dialog/create-dir-dialog.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="36" column="2" lean-forward="true" selection-start-line="36" selection-start-column="2" selection-end-line="39" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="39" column="91" lean-forward="true" selection-start-line="39" selection-start-column="91" selection-end-line="39" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1692">
-          <caret line="118" column="54" selection-start-line="118" selection-start-column="54" selection-end-line="118" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-add-user/exist-add-user.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/app-routing.module.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="29" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="29" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-users-edit-details/exist-users-edit-details.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="50" column="57" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tslint.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="95" lean-forward="true" selection-start-line="16" selection-start-column="95" selection-end-line="16" selection-end-column="95" />
-          <folding>
-            <element signature="n#style#0;n#h4#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -583,37 +406,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/error-dialog/service/notification.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="32" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/model/EditTriggerModel.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -624,16 +420,327 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.html" />
+    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.css.map" />
+    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.sass" />
+    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.css" />
+    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.ts" />
+    <entry file="file://$PROJECT_DIR$/src/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/user-manager.component.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-dir-dialog/create-dir-dialog.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="66" selection-start-line="4" selection-start-column="66" selection-end-line="4" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/exist-group-manager/exist-group-list/exist-group-list.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="10" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/exist-group-manager/exist-group-details/exist-group-details.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/exist-group-manager/exist-add-group/exist-add-group.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="12" column="7" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/xml-to-xsd/xml-to-xsd.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/xml-to-xsd/dialog-panel/dialog-panel.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tslint.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-365">
+          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/error-dialog/service/notification.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/error-dialog/service/dialog.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/exist-group-manager/service/groups.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/auth-module/auth.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/add-trigger/add-trigger.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="48" column="75" selection-start-line="48" selection-start-column="75" selection-end-line="48" selection-end-column="75" />
+        <state relative-caret-position="408">
+          <caret line="61" column="51" selection-start-line="61" selection-start-column="51" selection-end-line="61" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/model/ResourceReadModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-users-list/exist-users-list.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/collections-dialog/collections-dialog.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="118" selection-start-line="10" selection-start-column="118" selection-end-line="10" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-users-edit-details/exist-users-edit-details.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="74" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="74" />
+          <folding>
+            <element signature="n#style#0;n#h4#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/model/Credentials.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/xml-to-xsd/service/xml-to-xsd.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/exist-users-edit-details/exist-users-edit-details.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/service/file-explorer.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="56" column="65" lean-forward="true" selection-start-line="56" selection-start-column="65" selection-end-line="56" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/xml-to-xsd/xml-to-xsd.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="68" column="29" selection-start-line="68" selection-start-column="29" selection-end-line="68" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/model/StoreResourceModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/create-file/create-file.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="27" column="115" lean-forward="true" selection-start-line="27" selection-start-column="115" selection-end-line="27" selection-end-column="115" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="491">
+          <caret line="54" column="31" lean-forward="true" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="20" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="18" lean-forward="true" selection-start-line="15" selection-start-column="12" selection-end-line="21" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/service/triggers.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="26" column="57" selection-start-line="26" selection-start-column="46" selection-end-line="26" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
+        <state relative-caret-position="340">
           <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
@@ -641,88 +748,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/service/triggers.service.ts">
+    <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="63" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.css.map">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="62" selection-start-column="62" selection-end-column="62" />
-        </state>
-      </provider>
-      <provider editor-type-id="sourcemapFileViewerProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.sass">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/spinner/spinner.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-explorer.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="153">
+          <caret line="9" column="49" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/triggers-manager/xml-file-viewer/xml-file-viewer.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="66" selection-start-line="3" selection-start-column="66" selection-end-line="3" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/file-viewer-dialog/file-viewer-dialog.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+        <state relative-caret-position="408">
+          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/file-explorer/service/file-explorer.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="24" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
           </folding>
         </state>
       </provider>

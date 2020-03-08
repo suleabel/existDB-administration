@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {JwtResponse} from './jwt-response';
 import {AuthLoginInfo} from './login-info';
-import {SignUpInfo} from './signup-info';
 import {TokenStorageService} from './token-storage.service';
 import {Router} from '@angular/router';
 
@@ -17,10 +16,9 @@ const httpOptions = {
 export class AuthService {
 
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  private loginUrl = 'http://localhost:8085/api/auth/signin';
-  private signupUrl = 'http://localhost:8085/api/auth/signup';
-
+  /* tslint:disable:no-string-literal */
+  private loginUrl = window['cfgApiBaseUrl'] + '/api/auth/signin';
+  /* tslint:enable:no-string-literal */
   constructor(
     private http: HttpClient,
     private token: TokenStorageService,
@@ -29,10 +27,6 @@ export class AuthService {
 
   attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
-  }
-
-  signUp(info: SignUpInfo): Observable<string> {
-    return this.http.post<string>(this.signupUrl, info, httpOptions);
   }
 
   get isLoggedIn() {

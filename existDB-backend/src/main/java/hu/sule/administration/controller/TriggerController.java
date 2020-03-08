@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/triggers/")
 public class TriggerController {
 
@@ -32,8 +32,7 @@ public class TriggerController {
 
     @RequestMapping("editTrigger")
     public String editTrigger(@RequestBody EditTriggerModel editTriggerModel){
-        triggerService.addTriggerToConfiguration(editTriggerModel);
-        return "success";
+        return triggerService.addTriggerToConfiguration(editTriggerModel);
     }
 
     @RequestMapping("getTriggersConfig")

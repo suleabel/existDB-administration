@@ -13,8 +13,9 @@ const httpOptions = {
 })
 export class GroupsService {
     private selectedGroup: ExistGroupModel = null;
-    private baseURL = 'http://localhost:8085/exist/';
-
+    /* tslint:disable:no-string-literal */
+    private baseURL = window['cfgApiBaseUrl'] + '/exist/';
+    /* tslint:enable:no-string-literal */
     constructor(private http: HttpClient) {
     }
 

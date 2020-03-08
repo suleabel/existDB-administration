@@ -20,7 +20,6 @@ public class ExistDbCollectionManagerQueries {
                 "xmldb:get-child-collections(\"" + collection + "\")\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
         return util.stringResultQuery(details, query);
     }
     public String getCollectionResources(ExistDetails details, String collection){
@@ -51,27 +50,44 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String saveResourceBin(ExistDetails details, ForStoreResourceAndColl storeResource){
+    public String saveEditedRes(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl){
         String query = "xquery version \"3.1\";\n" +
+                "declare variable $isBinary := xs:boolean(\"" + forStoreResourceAndColl.isBinary() + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        xmldb:store-as-binary(\"" + storeResource.getUrl() + "\",\"" + storeResource.getFileName() + "\", util:string-to-binary(\"" + storeResource.getContent().replaceAll("\"","'") + "\"))\n" +
+                "        xmldb:remove(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\"),\n" +
+                "        if($isBinary) then\n" +
+                "            (\n" +
+                "                xmldb:store-as-binary(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",util:string-to-binary(\"" + forStoreResourceAndColl.getContent().replaceAll("\"", "'") + "\"))\n" +
+                "            )\n" +
+                "            else\n" +
+                "            (\n" +
+                "                xmldb:store(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",\"" + forStoreResourceAndColl.getContent().replaceAll("\"","'") + "\")\n" +
+                "            )\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
+        //System.out.println(query);
         return util.stringResultQuery(details, query);
     }
 
-    public String saveResourceXml(ExistDetails details, ForStoreResourceAndColl storeResource){
+    public String saveResource(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl){
         String query = "xquery version \"3.1\";\n" +
+                "declare variable $isBinary := xs:boolean(\"" + forStoreResourceAndColl.isBinary() + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        xmldb:store-as-binary(\"" + storeResource.getUrl() + "\",\"" + storeResource.getFileName() + "\", util:string-to-binary(\"" + storeResource.getContent().replaceAll("\"","'") + "\"))\n" +
+                "        if($isBinary) then\n" +
+                "            (\n" +
+                "                xmldb:store-as-binary(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",util:string-to-binary(\"" + forStoreResourceAndColl.getContent().replaceAll("\"", "'") + "\"))\n" +
+                "            )\n" +
+                "            else\n" +
+                "            (\n" +
+                "                xmldb:store(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",\"" + forStoreResourceAndColl.getContent().replaceAll("\"", "'") + "\")\n" +
+                "            )\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
+        //System.out.println(query);
         return util.stringResultQuery(details, query);
     }
 
@@ -83,7 +99,7 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
+        //System.out.println(query);
         return util.stringResultQuery(details, query);
     }
 
@@ -148,13 +164,33 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
-        return "dummy success";
+        //System.out.println(query);
+        return util.stringResultQuery(details, query);
     }
 
     public String editResCred(ExistDetails details, ExistFileManagerModel existFileManagerModel) {
         String query = "";
         System.out.println(existFileManagerModel.toString());
         return "dummy success";
+    }
+
+    public boolean isBinary(ExistDetails details, String url) {
+        String query = "xquery version \"3.1\";\n" +
+                "declare variable $file := xs:string(\"" + url + "\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        if(util:is-binary-doc($file)) then\n" +
+                "            (\n" +
+                "                 true()\n" +
+                "                     \n" +
+                "            )\n" +
+                "            else\n" +
+                "            (\n" +
+                "                false()\n" +
+                "            )\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.booleanResultQuery(details, query);
     }
 }

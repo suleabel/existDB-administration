@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {GroupsService} from '../service/groups.service';
-import {stringify} from 'querystring';
 import {DialogService} from '../../error-dialog/service/dialog.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 
@@ -12,15 +11,15 @@ import {NotificationService} from '../../error-dialog/service/notification.servi
     styleUrls: ['./exist-group-list.component.sass']
 })
 export class ExistGroupListComponent implements OnInit {
-    GroupsData: any;
-    post: {
+    public GroupsData: any;
+    public post: {
         groupName,
         groupManager,
         desc,
         groupMembers,
         default
     };
-    displayedColumns = ['groupName', 'groupManager', 'desc', 'details', 'delete'];
+    public displayedColumns = ['groupName', 'groupManager', 'desc', 'details', 'delete'];
 
     constructor(public groupsServices: GroupsService,
                 private router: Router,

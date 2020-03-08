@@ -12,8 +12,9 @@ const httpOptions = {
 })
 export class TriggersService {
     private SelectedCollection: string;
-    private baseUrl = 'http://localhost:8085/triggers/';
-
+    /* tslint:disable:no-string-literal */
+    private baseUrl = window['cfgApiBaseUrl'] + '/triggers/';
+    /* tslint:enable:no-string-literal */
     constructor(private http: HttpClient) {
     }
 

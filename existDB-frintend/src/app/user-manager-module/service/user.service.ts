@@ -14,9 +14,9 @@ const httpOptions = {
 export class UserService {
   private selectedUser: UsersListModel = null;
   private selectedExistUser: ExistUserModel = null;
-  private baseUrl = 'http://localhost:8085/userManager/';
-  private baseUrlForExist = 'http://localhost:8085/exist/';
-
+  /* tslint:disable:no-string-literal */
+  private baseUrlForExist = window['cfgApiBaseUrl'] + '/exist/';
+  /* tslint:enable:no-string-literal */
   constructor(private http: HttpClient) {
   }
 

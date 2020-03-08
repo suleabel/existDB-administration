@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"xml-file-viewer.component.css"}
+{"version":3,"sourceRoot":"","sources":["xml-file-viewer.component.sass"],"names":[],"mappings":"AAAA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAEF;EACE;;;AAGF;EACE","file":"xml-file-viewer.component.css"}
