@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {FileExplorerService} from '../../file-explorer/service/file-explorer.service';
 import {EditTriggerModel} from '../model/EditTriggerModel';
 import {DialogService} from '../../error-dialog/service/dialog.service';
@@ -13,19 +13,21 @@ import {NotificationService} from '../../error-dialog/service/notification.servi
     styleUrls: ['./add-trigger.component.sass']
 })
 export class AddTriggerComponent implements OnInit {
-    public triggerForm: FormGroup;
+    private triggerForm: FormGroup;
     public triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
     public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
     public triggerName = ['url', 'query'];
     public triggerValue = 'test.xql';
     public openedFile;
+    public query: string;
 
     constructor(public dialogRef: MatDialogRef<AddTriggerComponent>,
                 private fileExplorerService: FileExplorerService,
                 private notificationService: NotificationService,
                 private triggerService: TriggersService,
                 private dialogService: DialogService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -35,7 +37,7 @@ export class AddTriggerComponent implements OnInit {
         this.triggerForm = this.formBuilder.group({
             event: [null, Validators.required],
             tClass: [this.triggerClass, Validators.required],
-            name: [null, Validators.required],
+            name: ['url', Validators.required],
             value: [this.triggerValue, Validators.required],
         });
 

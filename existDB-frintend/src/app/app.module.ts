@@ -116,7 +116,8 @@ import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.
         FileViewerDialogComponent,
         ConfirmDialogComponent,
         XmlFileViewerComponent,
-        AddTriggerComponent]
+        AddTriggerComponent,
+        DialogPanelComponent]
 })
 export class AppModule {
 }

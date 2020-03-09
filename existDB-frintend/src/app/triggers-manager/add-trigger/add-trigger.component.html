@@ -50,14 +50,16 @@
                         <div class="form-group">
                                 <mat-form-field>
                                     <label for="value" class="control-label">value</label>
-                                    <input matInput id="value" type="text" class="form-control" formControlName="value">
+                                    <input *ngIf="name.value == 'url'" matInput id="value" type="text" class="form-control" formControlName="value">
+<!--                                    <button *ngIf="name.value == 'query'" class="btn btn-success" (click)="onQuery()">Query code</button>-->
+                                    <label>
+                                        <textarea matInput *ngIf="name.value == 'query'" class="form-control" formControlName="value" rows="4"></textarea>
+                                    </label>
                                 </mat-form-field>
                                 <mat-error *ngIf="value.invalid && value.touched">
                                     Value is required
                                 </mat-error>
-<!--                            <button class="btn btn-success" (click)="onBrowse()">Browse</button>-->
                         </div>
-
                     </form>
                     <button class="btn btn-success" (click)="onSave()" [disabled]="triggerForm.invalid">Save</button>
                     <button class="btn btn-success" (click)="onClose()">Close</button>
