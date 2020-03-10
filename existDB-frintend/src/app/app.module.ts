@@ -50,6 +50,7 @@ import { ConfirmDialogComponent } from './error-dialog/confirm-dialog.component'
 import { XmlFileViewerComponent } from './triggers-manager/xml-file-viewer/xml-file-viewer.component';
 import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.component';
 import { VersionManagementModuleComponent } from './version-management-module/version-management-module.component';
+import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/browse-save-location.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +80,7 @@ import { VersionManagementModuleComponent } from './version-management-module/ve
       XmlFileViewerComponent,
       AddTriggerComponent,
       VersionManagementModuleComponent,
+      BrowseSaveLocationComponent,
   ],
     imports: [
         BrowserModule,
@@ -117,7 +119,8 @@ import { VersionManagementModuleComponent } from './version-management-module/ve
         ConfirmDialogComponent,
         XmlFileViewerComponent,
         AddTriggerComponent,
-        DialogPanelComponent]
+        DialogPanelComponent,
+        BrowseSaveLocationComponent]
 })
 export class AppModule {
 }

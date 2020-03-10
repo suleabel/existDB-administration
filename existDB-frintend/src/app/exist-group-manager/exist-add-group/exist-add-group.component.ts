@@ -25,10 +25,9 @@ export class ExistAddGroupComponent implements OnInit {
             .subscribe(
                 data => {
                     this.existUsers = data;
-                    console.log(this.existUsers);
                 },
                 error => {
-                    console.log('Error: ' + error);
+                    this.notificationService.warn('Error: ' + error);
                 }
             );
 

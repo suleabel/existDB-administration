@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FileExplorerService} from '../service/file-explorer.service';
 import {MatDialogRef} from '@angular/material';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
   selector: 'app-create-dir-dialog',
@@ -11,7 +12,8 @@ export class CreateDirDialogComponent implements OnInit {
   public dirName = '';
 
   constructor(public dialogRef: MatDialogRef<CreateDirDialogComponent>,
-              private fileExplorerService: FileExplorerService) { }
+              private fileExplorerService: FileExplorerService,
+              private notificationService: NotificationService) { }
 
   ngOnInit() {
   }
@@ -25,10 +27,10 @@ export class CreateDirDialogComponent implements OnInit {
     this.fileExplorerService.createDir()
         .subscribe(
             data => {
-              console.log(data);
+              this.notificationService.success('Success');
             },
             error => {
-              console.log(error);
+              this.notificationService.warn('Error: ' + error);
             }
         );
     this.dialogRef.close();

@@ -44,10 +44,9 @@ export class ExistGroupListComponent implements OnInit {
                     this.GroupsData.data = res;
                     this.GroupsData.sort = this.sort;
                     this.GroupsData.paginator = this.paginator;
-                    console.log(this.GroupsData.data);
                 },
                 error => {
-                    console.log('Error: ' + error);
+                    this.notificationService.warn('Error: ' + error);
                 }
             );
     }
@@ -64,12 +63,10 @@ export class ExistGroupListComponent implements OnInit {
                     this.groupsServices.deleteGroup(groupName)
                         .subscribe(
                             data => {
-                                console.log('Response: ' + data);
                                 this.notificationService.success('Success');
                                 location.reload();
                             },
                             error => {
-                                console.log('Error: ' + error);
                                 this.notificationService.warn('Error: ' + error);
                             }
                         );

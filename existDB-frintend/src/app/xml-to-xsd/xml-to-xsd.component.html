@@ -22,13 +22,19 @@
                 <pre>
                     <code [highlight]="generatedXSD" [lineNumbers]="true"></code>
                 </pre>
-                <div class="save-xsm-schema-form" *ngIf="generatedXSD != ''">
-                    <form [formGroup]="saveForm" (submit)="saveXsdToDB()" class="text-center border border-light">
+<!--                <div class="save-xsm-schema-form" *ngIf="generatedXSD != ''">-->
+                <div class="save-xsm-schema-form">
+                    <form [formGroup]="saveForm" class="text-center border border-light">
                         <div class="form-group">
                             <mat-form-field>
                                 <label for="url" class="control-label">url</label>
-                                <input matInput id="url" type="text" class="form-control"
-                                       formControlName="url">
+                                <div style="float: right; padding: 1em;" >
+                                    <button class="btn, btn-success" (click)="browseURL()">Browse</button>
+                                </div>
+                                <div style="overflow: hidden; padding: 1em;">
+                                    <input matInput id="url" type="text" class="form-control"
+                                           formControlName="url">
+                                </div>
                             </mat-form-field>
                             <mat-error *ngIf="url.invalid && url.touched">
                                 URL is required
@@ -46,7 +52,7 @@
                         </div>
                         <div>
                             <button [disabled]="saveForm.invalid"
-                                    class="btn btn-primary font-weight-bold">Save XSD to eXist-DB</button>
+                                    class="btn btn-primary font-weight-bold" (click)="saveXsdToDB()">Save XSD to eXist-DB</button>
                             <button [disabled]="(generatedXSD == '') ? 'disabled' : ''" class="btn btn-primary font-weight-bold"
                                     (click)="downloadXsd()"><a [href]="fileUrl" download="file.xsd">Download generated XSD</a>
                             </button>

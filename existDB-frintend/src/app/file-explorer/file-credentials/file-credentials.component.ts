@@ -5,6 +5,7 @@ import {Credentials} from '../model/Credentials';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../../exist-group-manager/service/groups.service';
 import {UserService} from '../../user-manager-module/service/user.service';
+import {NotificationService} from "../../error-dialog/service/notification.service";
 
 @Component({
     selector: 'app-file-credentials',
@@ -27,7 +28,7 @@ export class FileCredentialsComponent implements OnInit {
                 private groupService: GroupsService,
                 private userService: UserService,
                 private formBuilder: FormBuilder,
-    ) {
+                private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -55,9 +56,10 @@ export class FileCredentialsComponent implements OnInit {
             .subscribe(
                 data => {
                     this.existUsers = data;
+                    this.notificationService.success('Success');
                 },
                 error => {
-                    console.log('Error: ' + error);
+                    this.notificationService.warn('Error: ' + error);
                 }
             );
     }

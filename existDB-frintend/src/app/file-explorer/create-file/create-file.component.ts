@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FileExplorerService} from '../service/file-explorer.service';
 import {Router} from '@angular/router';
 import {StoreResourceModel} from '../model/StoreResourceModel';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-create-file',
@@ -14,7 +15,9 @@ export class CreateFileComponent implements OnInit {
     public fileName = '';
     public saveData: StoreResourceModel;
 
-    constructor(private fileExplorerService: FileExplorerService, private router: Router) {
+    constructor(private fileExplorerService: FileExplorerService,
+                private router: Router,
+                private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -36,9 +39,10 @@ export class CreateFileComponent implements OnInit {
             .subscribe(
                 data => {
                 console.log(data);
+                this.notificationService.success('Success');
                 this.router.navigateByUrl('/file-explorer');
             }, error => {
-                console.log(error);
+                    this.notificationService.warn('Error: ' + error);
             });
 
     }

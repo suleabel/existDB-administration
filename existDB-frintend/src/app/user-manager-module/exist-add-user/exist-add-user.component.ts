@@ -29,7 +29,7 @@ export class ExistAddUserComponent implements OnInit {
           console.log(this.existGroups);
         },
             error => {
-          console.log('Error: ' + error);
+          this.notificationService.warn('Error: ' + error);
         }
     );
 

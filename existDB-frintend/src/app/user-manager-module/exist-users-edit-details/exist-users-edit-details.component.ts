@@ -3,6 +3,7 @@ import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ExistUserModel} from '../model/existUser.model';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
   selector: 'app-exist-users-edit-details',
@@ -20,6 +21,7 @@ export class ExistUsersEditDetailsComponent implements OnInit {
   constructor(
       private userService: UserService,
       private formBuilder: FormBuilder,
+      private notificationService: NotificationService,
       private router: Router) { }
 
   ngOnInit() {
@@ -51,7 +53,7 @@ export class ExistUsersEditDetailsComponent implements OnInit {
           this.router.navigateByUrl('/user-manager-module');
         },
         error => {
-          console.log('edit user data error: ' + error);
+          this.notificationService.warn('Error: ' + error);
         });
   }
 
@@ -62,7 +64,7 @@ export class ExistUsersEditDetailsComponent implements OnInit {
               this.existGroups = data;
             },
             error => {
-              console.log('Error: ' + error);
+              this.notificationService.warn('Error: ' + error);
             }
         );
 

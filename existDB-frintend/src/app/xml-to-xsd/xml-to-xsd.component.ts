@@ -5,6 +5,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {DialogPanelComponent} from './dialog-panel/dialog-panel.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StoreResourceModel} from '../file-explorer/model/StoreResourceModel';
+import {BrowseSaveLocationComponent} from './browse-save-location/browse-save-location.component';
+import {NotificationService} from "../error-dialog/service/notification.service";
 
 @Component({
     selector: 'app-xml-to-xsd',
@@ -18,18 +20,25 @@ export class XmlToXsdComponent implements OnInit {
     public textValue = '';
     public fileUrl;
 
+    public selectedPath: string;
+
     animal: string;
     name: string;
 
     constructor(private xmlService: XmlToXsdService,
                 private sanitizer: DomSanitizer,
                 private formBuilder: FormBuilder,
-                public dialog: MatDialog) {
+                public dialog: MatDialog,
+                private notificationService: NotificationService) {
     }
 
     ngOnInit() {
+        this.buildForm();
+    }
+
+    buildForm() {
         this.saveForm = this.formBuilder.group({
-            url: ['/db/generated-xml-schemas', Validators.required],
+            url: [this.selectedPath, Validators.required],
             fileName: ['', Validators.required]
         });
     }
@@ -42,25 +51,37 @@ export class XmlToXsdComponent implements OnInit {
         return this.saveForm.get('fileName');
     }
 
-    openDialog(): void {
-        const dialogRef = this.dialog.open(DialogPanelComponent, {
-            width: '250px',
+    browseURL() {
+        const dialogRef = this.dialog.open(BrowseSaveLocationComponent, {
+            width: '800px',
             height: '500px',
-            data: {name: this.name, animal: this.animal}
+            data: {selectedPath: this.selectedPath}
         });
-
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            this.animal = result;
+            this.selectedPath = result;
+            this.buildForm();
         });
     }
+
+    // openDialog(): void {
+    //     const dialogRef = this.dialog.open(DialogPanelComponent, {
+    //         width: '250%',
+    //         height: '500px',
+    //         data: {name: this.name, animal: this.animal}
+    //     });
+    //
+    //     dialogRef.afterClosed().subscribe(result => {
+    //         console.log('The dialog was closed');
+    //         this.animal = result;
+    //     });
+    // }
 
     sendText(value: string): void {
         console.log(value);
         this.xmlService.sendXml(this.textValue).subscribe(data => {
             this.generatedXSD = data;
         }, error => {
-            console.log(error);
+            this.notificationService.warn('Error: ' + error);
         });
     }
 
@@ -68,12 +89,12 @@ export class XmlToXsdComponent implements OnInit {
         this.saveData = this.saveForm.value;
         this.saveData.content = this.generatedXSD;
         console.log(this.saveData);
-        this.xmlService.saveXsd(this.saveData).subscribe(data => {
-                console.log(data);
-            },
-            error => {
-                console.log(error);
-            });
+        // this.xmlService.saveXsd(this.saveData).subscribe(data => {
+        //         console.log(data);
+        //     },
+        //     error => {
+        //         console.log(error);
+        //     });
     }
 
     downloadXsd() {

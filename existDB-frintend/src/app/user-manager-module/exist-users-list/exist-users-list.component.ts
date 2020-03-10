@@ -47,7 +47,7 @@ export class ExistUsersListComponent implements OnInit {
               console.log(this.UsersData.data);
             },
             error => {
-              console.log('Error:' + error);
+              this.notificationService.warn('Error: ' + error);
             }
         );
   }
@@ -66,12 +66,10 @@ export class ExistUsersListComponent implements OnInit {
               if (res) {
                   this.userService.deleteUser(username).subscribe(
                       data => {
-                          console.log('Response: ' + res);
                           this.notificationService.success('Success');
                           location.reload();
                       },
                       error => {
-                          console.log('Error: ' + error);
                           this.notificationService.warn('Error: ' + error);
                       }
                   );

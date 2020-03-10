@@ -37,7 +37,7 @@ export class XmlFileViewerComponent implements OnInit {
 
                 },
                 error => {
-                    console.log(error);
+                    this.notificationService.warn('Error: ' + error);
                 }
             );
     }

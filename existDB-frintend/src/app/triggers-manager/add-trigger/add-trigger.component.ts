@@ -54,13 +54,11 @@ export class AddTriggerComponent implements OnInit {
                 this.triggerService.addTrigger(trigCredCont)
                     .subscribe(
                         data => {
-                            console.log(data);
-                            this.notificationService.success(data);
+                            this.notificationService.success('Success: ' + data);
                             this.dialogRef.close();
                         },
                         error => {
-                            console.log(error);
-                            this.notificationService.warn(error);
+                            this.notificationService.warn('Error: ' + error);
                             this.dialogRef.close();
                         }
                     );

@@ -5,6 +5,7 @@ import {TriggersService} from './service/triggers.service';
 import {Credentials} from '../file-explorer/model/Credentials';
 import {FileExplorerService} from '../file-explorer/service/file-explorer.service';
 import {XmlFileViewerComponent} from './xml-file-viewer/xml-file-viewer.component';
+import {NotificationService} from '../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-triggers-manager',
@@ -19,7 +20,8 @@ export class TriggersManagerComponent implements OnInit {
     constructor(
         private dialog: MatDialog,
         private triggerService: TriggersService,
-        private fileExplorerService: FileExplorerService) {
+        private fileExplorerService: FileExplorerService,
+        private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -43,10 +45,9 @@ export class TriggersManagerComponent implements OnInit {
                     };
                     this.collections = res;
                     this.collections.unshift(backElement);
-                    console.log(this.collections);
                 },
                 error => {
-                    console.log(error.status);
+                    this.notificationService.warn('Error: ' + error);
                     // this.backToRoot();
                 });
     }

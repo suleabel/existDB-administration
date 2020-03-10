@@ -4,6 +4,7 @@ import {GroupsService} from '../service/groups.service';
 import {ExistGroupModel} from '../model/existGroup.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {stringify} from 'querystring';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-exist-group-details',
@@ -20,7 +21,8 @@ export class ExistGroupDetailsComponent implements OnInit {
     constructor(
         private groupService: GroupsService,
         private formBuilder: FormBuilder,
-        private router: Router) {
+        private router: Router,
+        private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -46,9 +48,10 @@ export class ExistGroupDetailsComponent implements OnInit {
         this.groupService.editGroups(this.editGroupsData)
             .subscribe(data => {
                     console.log('edit group return value: ' + data);
+                    this.notificationService.success('Success');
                 },
                 error => {
-                    console.log('edit group return error : ' + error);
+                    this.notificationService.warn('Error: ' + error);
                 });
     }
 
@@ -59,7 +62,7 @@ export class ExistGroupDetailsComponent implements OnInit {
                     this.existUsers = data;
                 },
                 error => {
-                    console.log('Error: ' + error);
+                    this.notificationService.warn('Error: ' + error);
                 }
             );
     }

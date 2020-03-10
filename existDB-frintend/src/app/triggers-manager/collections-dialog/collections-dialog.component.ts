@@ -3,6 +3,7 @@ import {MatDialogRef} from '@angular/material';
 import {TriggersService} from '../service/triggers.service';
 import {FileExplorerService} from '../../file-explorer/service/file-explorer.service';
 import {Credentials} from '../../file-explorer/model/Credentials';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-collections-dialog',
@@ -16,7 +17,8 @@ export class CollectionsDialogComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<CollectionsDialogComponent>,
                 private triggerService: TriggersService,
-                private fileExplorerService: FileExplorerService) {
+                private fileExplorerService: FileExplorerService,
+                private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -73,9 +75,9 @@ export class CollectionsDialogComponent implements OnInit {
         this.triggerService.initializeTriggerConfig()
             .subscribe(
             data => {
-                console.log(data);
+                this.notificationService.success('Success');
             }, error => {
-                console.log(error);
+                this.notificationService.warn('Error: ' + error);
                 }
         );
         this.dialogRef.close();

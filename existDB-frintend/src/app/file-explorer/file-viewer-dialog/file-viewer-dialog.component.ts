@@ -31,6 +31,7 @@ export class FileViewerDialogComponent implements OnInit {
                     this.isBinary = data.isBinary;
                 },
                 error => {
+                    this.notificationService.warn('Error: ' + error);
                     console.log(error);
                 }
             );
