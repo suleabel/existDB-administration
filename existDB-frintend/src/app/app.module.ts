@@ -25,7 +25,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxEditorModule } from 'ngx-editor';
-import { TargyakListaComponent } from './targyak-module/targyak-lista/targyak-lista.component';
 import { UserManagerComponent } from './user-manager-module/user-manager.component';
 import {httpInterceptorProvider} from './auth-module/auth-interceptor';
 import {AuthGuardService} from './auth-module/auth-guard.service';
@@ -50,13 +49,13 @@ import { FileViewerDialogComponent } from './file-explorer/file-viewer-dialog/fi
 import { ConfirmDialogComponent } from './error-dialog/confirm-dialog.component';
 import { XmlFileViewerComponent } from './triggers-manager/xml-file-viewer/xml-file-viewer.component';
 import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.component';
+import { VersionManagementModuleComponent } from './version-management-module/version-management-module.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     LoginPageComponent,
     TopBarComponent,
-    TargyakListaComponent,
     UserManagerComponent,
     ErrorComponent,
     ExistUsersListComponent,
@@ -79,6 +78,7 @@ import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.
       ConfirmDialogComponent,
       XmlFileViewerComponent,
       AddTriggerComponent,
+      VersionManagementModuleComponent,
   ],
     imports: [
         BrowserModule,

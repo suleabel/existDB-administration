@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="card-deck">
+        <div class=" col-12">
+            <div class="card">
+                <div class="card-header  font-weight-bold">
+                    Version Management
+                </div>
+                <div class="card-body infoText" *ngIf="versionIsAvailable">
+                    <h3>Version management is disabled</h3>
+                    <h5><a (click)="deactivateVersionManagement()">Would you like to activate it?</a></h5>
+                </div>
+                <div class="card-body infoText" *ngIf="!versionIsAvailable">
+                    <h3>Version management is disabled</h3>
+                    <h5><a (click)="activateVersionManagement()">Would you like to activate it?</a></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

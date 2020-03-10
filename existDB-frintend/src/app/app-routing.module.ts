@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LoginPageComponent} from './auth-module/login-page/login-page.component';
 import {HomePageComponent} from './home-page-module/home-page/home-page.component';
-import {TargyakListaComponent} from './targyak-module/targyak-lista/targyak-lista.component';
 import {UserManagerComponent} from './user-manager-module/user-manager.component';
 import {AuthGuardService} from './auth-module/auth-guard.service';
 import {AppComponent} from './app.component';
@@ -15,11 +14,11 @@ import {FileExplorerComponent} from './file-explorer/file-explorer.component';
 import {CreateFileComponent} from './file-explorer/create-file/create-file.component';
 import {FileCredentialsComponent} from './file-explorer/file-credentials/file-credentials.component';
 import {TriggersManagerComponent} from './triggers-manager/triggers-manager.component';
+import {VersionManagementModuleComponent} from './version-management-module/version-management-module.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
   {path: 'home', component: HomePageComponent, canActivate: [AuthGuardService]},
-  {path: 'targyak-module', component: TargyakListaComponent, canActivate: [AuthGuardService]},
   {path: 'user-manager-module', component: UserManagerComponent, canActivate: [AuthGuardService]},
   {path: 'exist-group-manager', component: ExistGroupManagerComponent, canActivate: [AuthGuardService]},
   {path: 'exist-user-edit-details', component: ExistUsersEditDetailsComponent, canActivate: [AuthGuardService]},
@@ -30,6 +29,7 @@ const routes: Routes = [
   {path: 'create-file', component: CreateFileComponent, canActivate: [AuthGuardService]},
   {path: 'file-credentials', component: FileCredentialsComponent, canActivate: [AuthGuardService]},
   {path: 'trigger-manager', component: TriggersManagerComponent, canActivate: [AuthGuardService]},
+  {path: 'version-management' , component: VersionManagementModuleComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];

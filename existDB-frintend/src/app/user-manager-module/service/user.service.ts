@@ -12,7 +12,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  private selectedUser: UsersListModel = null;
   private selectedExistUser: ExistUserModel = null;
   /* tslint:disable:no-string-literal */
   private baseUrlForExist = window['cfgApiBaseUrl'] + '/exist/';
