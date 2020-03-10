@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="existDB-backend:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="existDB-backend.war">
-      <element id="artifact" artifact-name="existDB-backend:war exploded" />
-    </root>
-  </artifact>
-</component>

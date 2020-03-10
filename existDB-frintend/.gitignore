@@ -1,6 +1,7 @@
 /build/
 /deploy/
 /benchpress-build/
+/dist/
 .DS_Store
 gen_docs.disable
 test.disable
