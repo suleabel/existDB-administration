@@ -33,7 +33,7 @@
             <entry file="file://$PROJECT_DIR$/src/app/version-management-module/version-management-module.component.sass">
               <provider selected="true" editor-type-id="text-editor">
                 <state>
-                  <caret column="1" lean-forward="true" selection-start-column="1" selection-end-column="9" />
+                  <caret column="1" selection-start-column="1" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -42,7 +42,7 @@
             <entry file="file://$PROJECT_DIR$/src/app/version-management-module/version-management-module.component.ts">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="272">
-                  <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+                  <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
                 </state>
               </provider>
             </entry>
@@ -62,7 +62,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="214">
+                <state relative-caret-position="306">
                   <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
                 </state>
               </provider>
@@ -71,12 +71,21 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="true">
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="238">
                   <caret line="18" column="38" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="38" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/package-lock.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="179">
+                  <caret line="409" column="15" selection-start-line="409" selection-start-column="9" selection-end-line="409" selection-end-column="15" />
                 </state>
               </provider>
             </entry>
@@ -98,6 +107,10 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>getCollectionContent</find>
+      <find>merge</find>
+      <find>serialize-javascript</find>
+      <find>lodash.merge</find>
+      <find>lodash</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -106,7 +119,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/app/error-dialog/service/notification.service.ts" />
         <option value="$PROJECT_DIR$/src/app/exist-group-manager/exist-add-group/exist-add-group.component.ts" />
         <option value="$PROJECT_DIR$/src/app/triggers-manager/triggers-manager.component.ts" />
         <option value="$PROJECT_DIR$/src/app/file-explorer/file-credentials/file-credentials.component.sass" />
@@ -157,6 +169,7 @@
         <option value="$PROJECT_DIR$/src/app/version-management-module/version-management-module.component.ts" />
         <option value="$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts" />
         <option value="$PROJECT_DIR$/src/app/version-management-module/service/version-management.service.ts" />
+        <option value="$PROJECT_DIR$/package-lock.json" />
       </list>
     </option>
   </component>
@@ -178,7 +191,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="4" />
     <option name="y" value="-8" />
     <option name="width" value="2576" />
@@ -207,36 +220,6 @@
               <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="existDB-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="user-manager-module" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="existDB-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="user-manager-module" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="existDB-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="version-management-module" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="existDB-frontend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="existDB-frintend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="version-management-module" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -356,11 +339,12 @@
       <workItem from="1583677817005" duration="8869000" />
       <workItem from="1583773471586" duration="3235000" />
       <workItem from="1583853141947" duration="2028000" />
+      <workItem from="1583874840730" duration="894000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157810000" />
+    <option name="totallyTimeSpent" value="158704000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -373,6 +357,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18676123" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -425,13 +410,6 @@
     </ignored-roots>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tslint.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-365">
-          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/error-dialog/service/notification.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -780,6 +758,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/version-management-module/service/version-management.service.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/version-management-module/version-management-module.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -790,30 +777,14 @@
     <entry file="file://$PROJECT_DIR$/src/app/version-management-module/version-management-module.component.sass">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="1" lean-forward="true" selection-start-column="1" selection-end-column="9" />
+          <caret column="1" selection-start-column="1" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/version-management-module/version-management-module.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/version-management-module/service/version-management.service.spec.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -824,6 +795,20 @@
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/user-manager-module/service/user.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="38" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="409" column="15" selection-start-line="409" selection-start-column="9" selection-end-line="409" selection-end-column="15" />
         </state>
       </provider>
     </entry>
