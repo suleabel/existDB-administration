@@ -9,7 +9,7 @@ import {LoginPageComponent} from './auth-module/login-page/login-page.component'
 import {TopBarComponent} from './top-bar-module/top-bar.component';
 import {HttpClientModule} from '@angular/common/http';
 import {HighlightModule} from 'ngx-highlightjs';
-import {CommonModule} from '@angular/common';
+import {CommonModule, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {
     _MatMenuDirectivesModule, MatButtonModule,
     MatCardModule, MatCheckboxModule,
@@ -110,7 +110,11 @@ import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/b
         MatDialogModule,
         MatSnackBarModule
     ],
-  providers: [httpInterceptorProvider, AuthGuardService],
+  providers: [
+      httpInterceptorProvider,
+      AuthGuardService,
+      {provide: LocationStrategy, useClass: HashLocationStrategy}
+      ],
   bootstrap: [AppComponent],
     entryComponents: [
         CollectionsDialogComponent,

@@ -82,7 +82,7 @@ export class FileExplorerComponent implements OnInit {
                 console.log(error);
                 }
             );
-        location.reload();
+        this.loadData(this.selectedDirectory);
     }
 
     deleteColl(res) {
@@ -93,11 +93,11 @@ export class FileExplorerComponent implements OnInit {
                     console.log(error);
                 }
             );
-        location.reload();
+        this.loadData(this.selectedDirectory);
     }
 
-    editCredentials(selectedRsourceCredentials) {
-        this.fileExplorerService.setEditedFileCredentials(selectedRsourceCredentials);
+    editCredentials(selectedResourceCredentials) {
+        this.fileExplorerService.setEditedFileCredentials(selectedResourceCredentials);
         this.router.navigateByUrl('/file-credentials');
     }
 

@@ -64,7 +64,7 @@ export class ExistGroupListComponent implements OnInit {
                         .subscribe(
                             data => {
                                 this.notificationService.success('Success');
-                                location.reload();
+                                this.RenderGroupList();
                             },
                             error => {
                                 this.notificationService.warn('Error: ' + error);

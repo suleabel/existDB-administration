@@ -7,6 +7,7 @@ import hu.sule.administration.queries.ExistDbCollectionManagerQueries;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -63,6 +64,7 @@ public class TriggerService {
     public String addTriggerToConfiguration(EditTriggerModel editTriggerModel){
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
+        Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
         try {
             doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(editTriggerModel.getPath() + "/" + editTriggerModel.getfName()).getContent())));
         } catch (JDOMException | IOException e){
@@ -73,7 +75,7 @@ public class TriggerService {
             Element collection = doc.getRootElement();
             List<Element> triggers = collection.getChildren().get(0).getChildren();
             Element parameter = new Element("parameter").setAttribute("name",editTriggerModel.getName()).setAttribute("value", editTriggerModel.getValue());
-            Element triggerE = new Element("trigger").addContent(parameter).setAttribute("event", editTriggerModel.getEventByComma()).setAttribute("class", editTriggerModel.gettClass());
+            Element triggerE = new Element("trigger").addContent(parameter).setAttribute("event", editTriggerModel.getEventByComma()).setAttribute("class", editTriggerModel.gettClass()).setNamespace(ns);
             triggers.add(triggerE);
             String newConfig = new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
             String[] old = newConfig.split("\n");

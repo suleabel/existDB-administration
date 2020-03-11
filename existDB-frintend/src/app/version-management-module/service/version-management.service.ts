@@ -11,7 +11,7 @@ const httpOptions = {
 })
 export class VersionManagementService {
   /* tslint:disable:no-string-literal */
-  private baseUrlForExist = window['cfgApiBaseUrl'] + '/exist/';
+  private baseUrlForExist = window['cfgApiBaseUrl'] + '/version/';
   /* tslint:enable:no-string-literal */
 
   constructor(private http: HttpClient) {
@@ -20,6 +20,6 @@ export class VersionManagementService {
       return this.http.get(this.baseUrlForExist + '');
     }
     public versionManagerIsActivated(): Observable<any> {
-      return this.http.get(this.baseUrlForExist + '');
+      return this.http.get(this.baseUrlForExist + 'isEnabled', {responseType: 'text'});
     }
 }

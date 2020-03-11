@@ -13,6 +13,11 @@ public class EditTriggerModel {
     public EditTriggerModel() {
     }
 
+    public EditTriggerModel(String path, String fName) {
+        this.path = path;
+        this.fName = fName;
+    }
+
     public EditTriggerModel(String path, String fName, ArrayList<String> event, String tClass, String name, String value) {
         this.path = path;
         this.fName = fName;

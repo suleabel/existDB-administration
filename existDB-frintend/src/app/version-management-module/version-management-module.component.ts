@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {VersionManagementService} from './service/version-management.service';
 
 @Component({
   selector: 'app-version-management-module',
@@ -8,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class VersionManagementModuleComponent implements OnInit {
   public versionIsAvailable: boolean;
 
-  constructor() { }
+  constructor(private versionManagementService: VersionManagementService) { }
 
   ngOnInit() {
     this.versionIsAvailable = false;
+    this.versionManagementService.versionManagerIsActivated()
+        .subscribe(data => {
+          console.log(data);
+        }, error => {
+            console.log(error);
+        });
   }
 
   activateVersionManagement() {

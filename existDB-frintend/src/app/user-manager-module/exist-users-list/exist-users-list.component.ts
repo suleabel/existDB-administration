@@ -67,7 +67,7 @@ export class ExistUsersListComponent implements OnInit {
                   this.userService.deleteUser(username).subscribe(
                       data => {
                           this.notificationService.success('Success');
-                          location.reload();
+                          this.RenderUsersList();
                       },
                       error => {
                           this.notificationService.warn('Error: ' + error);

@@ -13,7 +13,7 @@ import {NotificationService} from '../../error-dialog/service/notification.servi
     styleUrls: ['./add-trigger.component.sass']
 })
 export class AddTriggerComponent implements OnInit {
-    private triggerForm: FormGroup;
+    public triggerForm: FormGroup;
     public triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
     public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
     public triggerName = ['url', 'query'];
@@ -27,7 +27,7 @@ export class AddTriggerComponent implements OnInit {
                 private triggerService: TriggersService,
                 private dialogService: DialogService,
                 private formBuilder: FormBuilder,
-                public dialog: MatDialog) {
+                private dialog: MatDialog) {
     }
 
     ngOnInit() {
