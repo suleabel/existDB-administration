@@ -124,7 +124,8 @@ import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/b
         XmlFileViewerComponent,
         AddTriggerComponent,
         DialogPanelComponent,
-        BrowseSaveLocationComponent]
+        BrowseSaveLocationComponent,
+        ExistAddUserComponent]
 })
 export class AppModule {
 }

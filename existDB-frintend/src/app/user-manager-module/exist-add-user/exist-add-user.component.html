@@ -1,6 +1,5 @@
 <div class="user-add-form">
-
-    <form [formGroup]="addUsrForm" (submit)="submit()" class="text-center border border-light p-5">
+    <form [formGroup]="addUsrForm" class="text-center border border-light p-5">
         <h4>Add user</h4>
         <div class="form-group">
             <mat-form-field>
@@ -71,7 +70,8 @@
         </div>
 
         <div>
-            <button class="btn btn-primary font-weight-bold" [disabled]="addUsrForm.invalid">Add</button>
+            <button class="btn btn-primary font-weight-bold" [mat-dialog-close]="addUsrForm.value" [disabled]="addUsrForm.invalid">Add</button>
+            <button mat-button (click)="onNoClick()">No Thanks</button>
         </div>
     </form>
 </div>

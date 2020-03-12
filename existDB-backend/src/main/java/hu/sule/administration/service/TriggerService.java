@@ -2,6 +2,7 @@ package hu.sule.administration.service;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistFileManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
+import hu.sule.administration.model.TriggerModel;
 import hu.sule.administration.queries.ExistDBTriggerQueries;
 import hu.sule.administration.queries.ExistDbCollectionManagerQueries;
 import org.jdom2.Document;
@@ -74,7 +75,7 @@ public class TriggerService {
 
             Element collection = doc.getRootElement();
             List<Element> triggers = collection.getChildren().get(0).getChildren();
-            Element parameter = new Element("parameter").setAttribute("name",editTriggerModel.getName()).setAttribute("value", editTriggerModel.getValue());
+            Element parameter = new Element("parameter").setAttribute("name",editTriggerModel.getName()).setAttribute("value", editTriggerModel.getValue()).setNamespace(ns);
             Element triggerE = new Element("trigger").addContent(parameter).setAttribute("event", editTriggerModel.getEventByComma()).setAttribute("class", editTriggerModel.gettClass()).setNamespace(ns);
             triggers.add(triggerE);
             String newConfig = new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
@@ -92,11 +93,58 @@ public class TriggerService {
         }
     }
 
-    public ArrayList<ExistFileManagerModel> getTriggerConfiguration(String rootTriggerConfigs){
-        return collectionService.getFileManagerContentByCollection(rootTriggerConfigs);
+    public List<TriggerModel> getTriggers(String url) {
+        List<TriggerModel> triggersList = new ArrayList<>();
+        SAXBuilder saxBuilder = new SAXBuilder();
+        Document doc = null;
+        try {
+            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url).getContent())));
+        } catch (JDOMException | IOException e){
+            logger.error("SAXBuilder exception: " + e.getMessage()) ;
+        }
+        if(doc != null) {
+            Element collection = doc.getRootElement();
+            List<Element> triggers = collection.getChildren().get(0).getChildren();
+            for (Element trigger: triggers) {
+                Element parameter = trigger.getChild("parameter");
+                TriggerModel triggerModel = new TriggerModel();
+                if(trigger.getAttributeValue("event") != null){
+                    triggerModel.setEvent(Arrays.asList(trigger.getAttributeValue("event").split(",")));
+                } else {
+                    triggerModel.setEvent(new ArrayList<>());
+                }
+                if(trigger.getAttributeValue("class") != null){
+                    triggerModel.settClass(trigger.getAttributeValue("class"));
+                }
+                else {
+                    triggerModel.settClass("");
+                }
+                if(parameter != null){
+                    if(parameter.getAttributeValue("name") != null){
+                        triggerModel.setName(parameter.getAttributeValue("name"));
+                    }else{
+                        triggerModel.setName("");
+                    }
+                    if(parameter.getAttributeValue("value") != null){
+                       triggerModel.setValue(parameter.getAttributeValue("value"));
+                    }else{
+                        triggerModel.setValue("");
+                    }
+                }
+                triggersList.add(triggerModel);
+            }
+        }
+        System.out.println(triggersList);
+        return triggersList;
+    }
+
+    public ArrayList<ExistFileManagerModel> getTriggerConfiguration(String url){
+        return collectionService.getFileManagerContentByCollection(url);
     }
 
     private boolean configIsAvailable(String path){
         return existDBTriggerQueries.triggerConfigIsAvailable(ExistDbCredentialsService.getDetails(), path);
     }
+
+
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ExistUserModel} from '../model/existUser.model';
 import {UserService} from '../service/user.service';
-import {MatSnackBar} from '@angular/material';
+import {MatDialogRef, MatSnackBar} from '@angular/material';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
@@ -12,14 +11,14 @@ import {NotificationService} from '../../error-dialog/service/notification.servi
 })
 export class ExistAddUserComponent implements OnInit {
   public addUsrForm: FormGroup;
-  public addUserData: ExistUserModel;
   public existGroups: [];
 
   constructor(
       private formBuilder: FormBuilder,
       private userService: UserService,
       private snackBar: MatSnackBar,
-      private notificationService: NotificationService) {}
+      private notificationService: NotificationService,
+      private dialogRef: MatDialogRef<ExistAddUserComponent>) {}
 
   ngOnInit() {
     this.userService.getGroupsNames()
@@ -43,22 +42,26 @@ export class ExistAddUserComponent implements OnInit {
     });
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
   submit() {
-    this.addUserData = this.addUsrForm.value;
-    if (!this.addUserData.groups.includes(this.addUserData.primaryGroup)) {
-      this.addUserData.groups.push(this.addUserData.primaryGroup);
-    }
-    console.log(this.addUserData);
-    this.userService.addUserToExist(this.addUserData).subscribe(
-        data => {
-          this.notificationService.success('User created');
-          this.addUsrForm.reset();
-        },
-        error => {
-          this.notificationService.warn('Error: ' + error);
-        }
-    );
-    location.reload();
+    // this.addUserData = this.addUsrForm.value;
+    // if (!this.addUserData.groups.includes(this.addUserData.primaryGroup)) {
+    //   this.addUserData.groups.push(this.addUserData.primaryGroup);
+    // }
+    // console.log(this.addUserData);
+    // this.userService.addUserToExist(this.addUserData).subscribe(
+    //     data => {
+    //       this.notificationService.success('User created');
+    //       this.addUsrForm.reset();
+    //     },
+    //     error => {
+    //       this.notificationService.warn('Error: ' + error);
+    //     }
+    // );
+    // location.reload();
   }
 
   get username() {

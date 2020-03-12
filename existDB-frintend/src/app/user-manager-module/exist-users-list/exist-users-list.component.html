@@ -1,54 +1,57 @@
-<div class="user-list-table">
-    <mat-table class="table-bordered table-responsive" [dataSource]="UsersData" matSort>
+<div>
+    <button class="btn, btn-success add-button" (click)="addUser()">Add user</button>
+    <div class="user-list-table">
+        <mat-table class="table-bordered table-responsive" [dataSource]="UsersData" matSort>
 
-        <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
-            <mat-cell  *matCellDef="let post"> {{post.username}} </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="username">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post.username}} </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="fullName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
-            <mat-cell *matCellDef="let post"> {{post.fullName}} </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="fullName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post.fullName}} </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="umask">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Umask</mat-header-cell>
-            <mat-cell *matCellDef="let post"> {{post.umask}} </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="umask">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Umask</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post.umask}} </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="primaryGroup">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Primary Group</mat-header-cell>
-            <mat-cell *matCellDef="let post"> {{post.primaryGroup}} </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="primaryGroup">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Primary Group</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post.primaryGroup}} </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="desc">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
-            <mat-cell *matCellDef="let post"> {{post.desc}} </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="desc">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post.desc}} </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="default">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Default user</mat-header-cell>
-            <mat-cell *matCellDef="let post" > {{post.default}} </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="default">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Default user</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post.default}} </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="details">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
-            <mat-cell *matCellDef="let post">
-                <button class="btn btn-success" (click)="details(post.username)">Detail
-                </button>
-            </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="details">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                    <button class="btn btn-success" (click)="details(post.username)">Detail
+                    </button>
+                </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="delete">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Delete</mat-header-cell>
-            <mat-cell *matCellDef="let post">
-                <button class="btn btn-danger" (click)="delete(post.username)" *ngIf="!post.default">Delete</button>
-                <label *ngIf="post.default">DEFAULT</label>
-            </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="delete">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Delete</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                    <button class="btn btn-danger" (click)="delete(post.username)" *ngIf="!post.default">Delete</button>
+                    <label *ngIf="post.default">DEFAULT</label>
+                </mat-cell>
+            </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]"></mat-paginator>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5,10,20]"></mat-paginator>
+    </div>
 </div>

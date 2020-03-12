@@ -19,4 +19,8 @@ public class VersionManagerController {
         return versionManagerService.isEnabled();
     }
 
+    @RequestMapping("/enableVersionManagement")
+    public boolean enableVersionManagement() {
+        return versionManagerService.enableVersionManager();
+    }
 }

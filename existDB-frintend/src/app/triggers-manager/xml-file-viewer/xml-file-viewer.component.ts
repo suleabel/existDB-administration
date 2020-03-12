@@ -6,6 +6,7 @@ import {DialogService} from '../../error-dialog/service/dialog.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {AddTriggerComponent} from '../add-trigger/add-trigger.component';
 import {StoreResourceModel} from '../../file-explorer/model/StoreResourceModel';
+import {TriggersService} from '../service/triggers.service';
 
 @Component({
     selector: 'app-xml-file-viewer',
@@ -21,6 +22,7 @@ export class XmlFileViewerComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<XmlFileViewerComponent>,
                 private fileExplorerService: FileExplorerService,
+                private triggerService: TriggersService,
                 private dialogService: DialogService,
                 private notificationService: NotificationService,
                 private dialog: MatDialog) {
@@ -28,6 +30,16 @@ export class XmlFileViewerComponent implements OnInit {
 
     ngOnInit() {
         this.openedFile = this.fileExplorerService.openedFile;
+        this.triggerService.getTriggers(this.openedFile.path + '/' + this.openedFile.name)
+            .subscribe(
+                data => {
+                    console.log(data);
+
+                },
+                error => {
+                    this.notificationService.warn('Error: ' + error);
+                }
+            );
         this.fileExplorerService.getResContent(this.openedFile.path + '/' + this.openedFile.name)
             .subscribe(
                 data => {

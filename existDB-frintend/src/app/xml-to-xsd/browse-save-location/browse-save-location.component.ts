@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
 import {Credentials} from '../../file-explorer/model/Credentials';
 import {FileExplorerService} from '../../file-explorer/service/file-explorer.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
@@ -16,7 +16,7 @@ export class BrowseSaveLocationComponent implements OnInit {
 
   constructor(
       private fileExplorerService: FileExplorerService,
-      public dialogRef: MatDialogRef<BrowseSaveLocationComponent>,
+      private dialogRef: MatDialogRef<BrowseSaveLocationComponent>,
       private notificationService: NotificationService) { }
 
   ngOnInit() {

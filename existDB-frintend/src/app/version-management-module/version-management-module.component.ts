@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {VersionManagementService} from './service/version-management.service';
+import {NotificationService} from '../error-dialog/service/notification.service';
 
 @Component({
   selector: 'app-version-management-module',
@@ -9,7 +10,8 @@ import {VersionManagementService} from './service/version-management.service';
 export class VersionManagementModuleComponent implements OnInit {
   public versionIsAvailable: boolean;
 
-  constructor(private versionManagementService: VersionManagementService) { }
+  constructor(private versionManagementService: VersionManagementService,
+              private notifiationService: NotificationService) { }
 
   ngOnInit() {
     this.versionIsAvailable = false;
@@ -22,7 +24,13 @@ export class VersionManagementModuleComponent implements OnInit {
   }
 
   activateVersionManagement() {
-    window.location.reload();
+      this.versionManagementService.enableVersionManager()
+          .subscribe(data => {
+              this.notifiationService.success('Version Management is enabled');
+          },
+              error => {
+              this.notifiationService.warn('Error: ' + error);
+              });
   }
 
   deactivateVersionManagement() {

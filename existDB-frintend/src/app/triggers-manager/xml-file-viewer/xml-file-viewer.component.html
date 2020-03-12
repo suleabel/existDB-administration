@@ -3,6 +3,7 @@
         <div class="card">
             <div class="card-header  font-weight-bold">
                 Selected trigger content:
+                Open mode: {{isBinary}}
             </div>
             <div class="card-body" *ngIf="!isEdit">
                 <label>{{openedFile.path + '/' + openedFile.name}}</label>

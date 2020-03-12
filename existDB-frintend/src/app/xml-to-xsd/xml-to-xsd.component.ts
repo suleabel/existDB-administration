@@ -2,11 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {XmlToXsdService} from './service/xml-to-xsd.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogPanelComponent} from './dialog-panel/dialog-panel.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StoreResourceModel} from '../file-explorer/model/StoreResourceModel';
 import {BrowseSaveLocationComponent} from './browse-save-location/browse-save-location.component';
-import {NotificationService} from "../error-dialog/service/notification.service";
+import {NotificationService} from '../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-xml-to-xsd',
@@ -22,13 +21,10 @@ export class XmlToXsdComponent implements OnInit {
 
     public selectedPath: string;
 
-    animal: string;
-    name: string;
-
     constructor(private xmlService: XmlToXsdService,
                 private sanitizer: DomSanitizer,
                 private formBuilder: FormBuilder,
-                public dialog: MatDialog,
+                private dialog: MatDialog,
                 private notificationService: NotificationService) {
     }
 

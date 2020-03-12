@@ -17,7 +17,7 @@ export class VersionManagementService {
   constructor(private http: HttpClient) {
   }
     public enableVersionManager(): Observable<any> {
-      return this.http.get(this.baseUrlForExist + '');
+      return this.http.get(this.baseUrlForExist + 'enableVersionManagement', {responseType: 'text'});
     }
     public versionManagerIsActivated(): Observable<any> {
       return this.http.get(this.baseUrlForExist + 'isEnabled', {responseType: 'text'});
