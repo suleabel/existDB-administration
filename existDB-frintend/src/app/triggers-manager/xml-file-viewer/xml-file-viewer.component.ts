@@ -30,16 +30,16 @@ export class XmlFileViewerComponent implements OnInit {
 
     ngOnInit() {
         this.openedFile = this.fileExplorerService.openedFile;
-        this.triggerService.getTriggers(this.openedFile.path + '/' + this.openedFile.name)
-            .subscribe(
-                data => {
-                    console.log(data);
-
-                },
-                error => {
-                    this.notificationService.warn('Error: ' + error);
-                }
-            );
+        // this.triggerService.getTriggers(this.openedFile.path + '/' + this.openedFile.name)
+        //     .subscribe(
+        //         data => {
+        //             console.log(data);
+        //
+        //         },
+        //         error => {
+        //             this.notificationService.warn('Error: ' + error);
+        //         }
+        //     );
         this.fileExplorerService.getResContent(this.openedFile.path + '/' + this.openedFile.name)
             .subscribe(
                 data => {

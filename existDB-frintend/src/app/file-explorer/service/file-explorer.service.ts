@@ -45,8 +45,7 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'saveEdit', res, {responseType: 'text'});
     }
 
-    public createDir(): Observable<any> {
-        const col: StoreResourceModel = {url: this.getSaveContentHere(), fileName: this.createdCollectionName, content: null, isBinary: false};
+    public createDir(col: StoreResourceModel): Observable<any> {
         return this.http.post(this.baseUrl + 'createDir', col, {responseType: 'text'});
     }
 
@@ -63,11 +62,6 @@ export class FileExplorerService {
         console.log(cred);
         return this.http.post(this.baseUrl + 'editResCred', cred, {responseType: 'text'});
     }
-
-
-
-
-
     public setSaveContentHere(url: string) {
         this.saveContentHere = url;
         console.log('createFileHere: ' + this.saveContentHere);

@@ -3,4 +3,12 @@
   font-size: large;
 }
 
+table {
+  width: 100%;
+}
+
+.rootButton {
+  margin: 20px;
+}
+
 /*# sourceMappingURL=version-management-module.component.css.map */

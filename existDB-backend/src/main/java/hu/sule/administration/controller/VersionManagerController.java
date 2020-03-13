@@ -20,7 +20,7 @@ public class VersionManagerController {
     }
 
     @RequestMapping("/enableVersionManagement")
-    public boolean enableVersionManagement() {
-        return versionManagerService.enableVersionManager();
+    public String enableVersionManagement() {
+        return versionManagerService.enableVersioning();
     }
 }

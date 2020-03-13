@@ -26,7 +26,7 @@ export class LoginPageComponent implements OnInit {
           Validators.required
       ]],
       password: ['', [
-          Validators.required
+          // Validators.required
       ]],
       url: ['YOLOZSEFA.ASUSCOMM.COM:8088', [
           Validators.required

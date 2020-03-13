@@ -3,8 +3,10 @@ import {FileExplorerService} from './service/file-explorer.service';
 import {Router} from '@angular/router';
 import {Credentials} from './model/Credentials';
 import {MatDialog, MatDialogConfig} from '@angular/material';
-import {CreateDirDialogComponent} from './create-dir-dialog/create-dir-dialog.component';
 import {FileViewerDialogComponent} from './file-viewer-dialog/file-viewer-dialog.component';
+import {NotificationService} from '../error-dialog/service/notification.service';
+import {StoreResourceModel} from './model/StoreResourceModel';
+import {CreateDirDialogComponent} from './create-dir-dialog/create-dir-dialog.component';
 
 @Component({
     selector: 'app-file-explorer',
@@ -18,7 +20,10 @@ export class FileExplorerComponent implements OnInit {
     public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date', 'writable', 'delete', 'view',
         'editCredentials'];
 
-    constructor(private fileExplorerService: FileExplorerService, private router: Router, private dialog: MatDialog) {
+    constructor(private fileExplorerService: FileExplorerService,
+                private router: Router,
+                private dialog: MatDialog,
+                private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -108,11 +113,26 @@ export class FileExplorerComponent implements OnInit {
 
     createDir(currentDir: string) {
         this.fileExplorerService.setSaveContentHere(currentDir);
-        const dialogDirNameConfig = new MatDialogConfig();
-        dialogDirNameConfig.disableClose = true;
-        dialogDirNameConfig.autoFocus = true;
-        dialogDirNameConfig.width = '40%';
-        this.dialog.open(CreateDirDialogComponent, dialogDirNameConfig);
+        const dialogRef = this.dialog.open(CreateDirDialogComponent, {
+            width: '300px',
+            height: '200px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === '') {
+                alert('Directory name is empty!!');
+            }
+            const col: StoreResourceModel = {url: currentDir, fileName: result, content: null, isBinary: false};
+            this.fileExplorerService.createDir(col)
+                .subscribe(
+                    data => {
+                        this.notificationService.success('Success');
+                        this.loadData(this.selectedDirectory);
+                    },
+                    error => {
+                        this.notificationService.warn('Error: ' + error);
+                    }
+                );
+        });
     }
 
     view(resCred: Credentials) {
@@ -123,5 +143,4 @@ export class FileExplorerComponent implements OnInit {
         dialogDirNameConfig.width = '60%';
         this.dialog.open(FileViewerDialogComponent, dialogDirNameConfig);
     }
-
 }

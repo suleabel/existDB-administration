@@ -8,8 +8,8 @@ public class LoginForm {
     @Size(min=3, max = 60)
     private String username;
 
-    @NotBlank
-    @Size(min = 4, max = 100)
+//    @NotBlank
+//    @Size(min = 4, max = 100)
     private String password;
 
     @NotBlank

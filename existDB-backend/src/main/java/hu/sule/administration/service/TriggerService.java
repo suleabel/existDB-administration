@@ -62,12 +62,17 @@ public class TriggerService {
         return existDBTriggerQueries.initTriggerConfig(ExistDbCredentialsService.getDetails(), path);
     }
 
-    public String addTriggerToConfiguration(EditTriggerModel editTriggerModel){
+    public String addTrigger(EditTriggerModel editTriggerModel){
+        return addTriggerToConfiguration(editTriggerModel, editTriggerModel.getPath());
+    }
+
+    public String addTriggerToConfiguration(TriggerModel triggerModel, String url){
+        System.out.println(url + "collection.xconf");
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
         Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
         try {
-            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(editTriggerModel.getPath() + "/" + editTriggerModel.getfName()).getContent())));
+            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url + "/collection.xconf").getContent())));
         } catch (JDOMException | IOException e){
             logger.error("SAXBuilder exception: " + e.getMessage()) ;
         }
@@ -75,8 +80,8 @@ public class TriggerService {
 
             Element collection = doc.getRootElement();
             List<Element> triggers = collection.getChildren().get(0).getChildren();
-            Element parameter = new Element("parameter").setAttribute("name",editTriggerModel.getName()).setAttribute("value", editTriggerModel.getValue()).setNamespace(ns);
-            Element triggerE = new Element("trigger").addContent(parameter).setAttribute("event", editTriggerModel.getEventByComma()).setAttribute("class", editTriggerModel.gettClass()).setNamespace(ns);
+            Element parameter = new Element("parameter").setAttribute("name",triggerModel.getName()).setAttribute("value", triggerModel.getValue()).setNamespace(ns);
+            Element triggerE = new Element("trigger").addContent(parameter).setAttribute("event", triggerModel.getEventByComma()).setAttribute("class", triggerModel.gettClass()).setNamespace(ns);
             triggers.add(triggerE);
             String newConfig = new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
             String[] old = newConfig.split("\n");
@@ -86,7 +91,7 @@ public class TriggerService {
                     fixedConfig.add(old[i]);
                 }
             }
-            return existDBTriggerQueries.saveEditedTrigger(ExistDbCredentialsService.getDetails(), editTriggerModel, String.join("\n", fixedConfig).replaceAll("\"","'"));
+            return existDBTriggerQueries.saveEditedTrigger(ExistDbCredentialsService.getDetails(), url, String.join("\n", fixedConfig).replaceAll("\"","'"));
         }
         else {
             return "Failure!";

@@ -3,7 +3,7 @@
         <label>Directory name:</label>
         <input type="text" [(ngModel)]="dirName">
     </div>
-    <button class="btn btn-success" (click)="onCreate()">Create directory</button>
-    <button class="btn btn-success" (click)="onClose()">Close</button>
+    <button class="btn btn-success" [mat-dialog-close]="dirName">Create directory</button>
+    <button class="btn btn-success" (click)="onClose()" cdkFocusInitial>Close</button>
 </div>
 

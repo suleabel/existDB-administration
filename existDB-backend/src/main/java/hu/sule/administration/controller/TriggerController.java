@@ -34,13 +34,13 @@ public class TriggerController {
 
     @RequestMapping("editTrigger")
     public String editTrigger(@RequestBody EditTriggerModel editTriggerModel){
-        return triggerService.addTriggerToConfiguration(editTriggerModel);
+        return triggerService.addTrigger(editTriggerModel);
     }
 
-    @RequestMapping("getTriggers")
-    public List<TriggerModel> getTriggers(HttpEntity<String> httpEntity){
-        return triggerService.getTriggers(httpEntity.getBody());
-    }
+//    @RequestMapping("getTriggers")
+//    public List<TriggerModel> getTriggers(HttpEntity<String> httpEntity){
+//        return triggerService.getTriggers(httpEntity.getBody());
+//    }
 
     @RequestMapping("getTriggersConfig")
     public ArrayList<ExistFileManagerModel> getTriggerConfigurations(HttpEntity<String> httpEntity){

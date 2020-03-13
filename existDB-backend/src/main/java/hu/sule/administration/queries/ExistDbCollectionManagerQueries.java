@@ -87,8 +87,9 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        //System.out.println(query);
-        return util.stringResultQuery(details, query);
+        System.out.println(query);
+        return "";
+        //return util.stringResultQuery(details, query);
     }
 
     public String createCollection(ExistDetails details, ForStoreResourceAndColl storeResource){

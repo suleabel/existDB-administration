@@ -84,17 +84,15 @@ export class XmlToXsdComponent implements OnInit {
     saveXsdToDB() {
         this.saveData = this.saveForm.value;
         this.saveData.content = this.generatedXSD;
-        console.log(this.saveData);
-        // this.xmlService.saveXsd(this.saveData).subscribe(data => {
-        //         console.log(data);
-        //     },
-        //     error => {
-        //         console.log(error);
-        //     });
+        this.xmlService.saveXsd(this.saveData).subscribe(data => {
+                console.log(data);
+            },
+            error => {
+                console.log(error);
+            });
     }
 
     downloadXsd() {
-        console.log(this.generatedXSD);
         const blob = new Blob([this.generatedXSD], {type: 'application/xml'});
         this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     }

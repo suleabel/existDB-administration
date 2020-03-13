@@ -4,6 +4,7 @@ import {FileExplorerService} from '../service/file-explorer.service';
 import {Credentials} from '../model/Credentials';
 import {StoreResourceModel} from '../model/StoreResourceModel';
 import {NotificationService} from '../../error-dialog/service/notification.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-file-viewer-dialog',
@@ -17,9 +18,12 @@ export class FileViewerDialogComponent implements OnInit {
     public isEdit = false;
     public editedContent = '';
 
+    public fileUrl;
+
     constructor(public dialogRef: MatDialogRef<FileViewerDialogComponent>,
                 private fileExplorerService: FileExplorerService,
-                private notificationService: NotificationService) {
+                private notificationService: NotificationService,
+                private sanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
@@ -40,6 +44,11 @@ export class FileViewerDialogComponent implements OnInit {
     onEdit() {
         this.editedContent = this.originalContent;
         this.isEdit = true;
+    }
+
+    onDownload() {
+        const blob = new Blob([this.originalContent], {type: 'application/xml'});
+        this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     }
 
     onSave() {

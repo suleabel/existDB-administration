@@ -35,10 +35,10 @@ export class CreateFileComponent implements OnInit {
         if (this.saveData.content === '') {
             alert('File editedContent is empty');
         }
+        console.log(this.saveData);
         this.fileExplorerService.saveResource(this.saveData)
             .subscribe(
                 data => {
-                console.log(data);
                 this.notificationService.success('Success');
                 this.router.navigateByUrl('/file-explorer');
             }, error => {

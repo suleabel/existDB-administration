@@ -10,11 +10,6 @@ public class EditTriggerModel extends TriggerModel {
         super();
     }
 
-    public EditTriggerModel(String path, String fName) {
-        this.path = path;
-        this.fName = fName;
-    }
-
     public EditTriggerModel(ArrayList<String> event, String tClass, String name, String value, String path, String fName) {
         super(event, tClass, name, value);
         this.path = path;
