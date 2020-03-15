@@ -8,8 +8,8 @@ import {Credentials} from '../../collection-manager/model/Credentials';
   styleUrls: ['./view-history.component.sass']
 })
 export class ViewHistoryComponent implements OnInit {
-  private ok: boolean;
-  private selectedResHistory;
+  public ok: boolean;
+  public selectedResHistory;
 
   constructor(public dialogRef: MatDialogRef<ViewHistoryComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Credentials) { }
