@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {UsersListModel} from '../model/users-list.model';
 import {Observable} from 'rxjs';
 import {ExistUserModel} from '../model/existUser.model';
 

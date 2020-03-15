@@ -17,7 +17,7 @@ import {
     MatPaginatorModule, MatSidenavModule,
     MatSortModule,
     MatTableModule,
-    MatToolbarModule, MatIconModule, MatSelectModule, MatDialogModule,
+    MatToolbarModule, MatIconModule, MatSelectModule, MatDialogModule, MatProgressSpinnerModule,
 } from '@angular/material';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -39,18 +39,19 @@ import { ExistAddGroupComponent } from './exist-group-manager/exist-add-group/ex
 import { ExistGroupDetailsComponent } from './exist-group-manager/exist-group-details/exist-group-details.component';
 import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
 import { DialogPanelComponent } from './xml-to-xsd/dialog-panel/dialog-panel.component';
-import { FileExplorerComponent } from './file-explorer/file-explorer.component';
-import { CreateFileComponent } from './file-explorer/create-file/create-file.component';
-import { FileCredentialsComponent } from './file-explorer/file-credentials/file-credentials.component';
+import { CreateFileComponent } from './collection-manager/create-file/create-file.component';
+import { FileCredentialsComponent } from './collection-manager/file-credentials/file-credentials.component';
 import { TriggersManagerComponent } from './triggers-manager/triggers-manager.component';
 import { CollectionsDialogComponent } from './triggers-manager/collections-dialog/collections-dialog.component';
-import { CreateDirDialogComponent } from './file-explorer/create-dir-dialog/create-dir-dialog.component';
-import { FileViewerDialogComponent } from './file-explorer/file-viewer-dialog/file-viewer-dialog.component';
+import { CreateDirDialogComponent } from './collection-manager/create-dir-dialog/create-dir-dialog.component';
+import { FileViewerDialogComponent } from './collection-manager/file-viewer-dialog/file-viewer-dialog.component';
 import { ConfirmDialogComponent } from './error-dialog/confirm-dialog.component';
 import { XmlFileViewerComponent } from './triggers-manager/xml-file-viewer/xml-file-viewer.component';
 import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.component';
 import { VersionManagementModuleComponent } from './version-management-module/version-management-module.component';
 import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/browse-save-location.component';
+import { ViewHistoryComponent } from './version-management-module/view-history/view-history.component';
+import { CollectionManagerComponent } from './collection-manager/collection-manager.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +70,6 @@ import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/b
     ExistGroupDetailsComponent,
       XmlToXsdComponent,
       DialogPanelComponent,
-      FileExplorerComponent,
       CreateFileComponent,
       FileCredentialsComponent,
       TriggersManagerComponent,
@@ -81,6 +81,8 @@ import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/b
       AddTriggerComponent,
       VersionManagementModuleComponent,
       BrowseSaveLocationComponent,
+      ViewHistoryComponent,
+      CollectionManagerComponent,
   ],
     imports: [
         BrowserModule,
@@ -108,7 +110,8 @@ import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/b
         MatSelectModule,
         HighlightModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatProgressSpinnerModule
     ],
   providers: [
       httpInterceptorProvider,
@@ -125,7 +128,8 @@ import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/b
         AddTriggerComponent,
         DialogPanelComponent,
         BrowseSaveLocationComponent,
-        ExistAddUserComponent]
+        ExistAddUserComponent,
+        ViewHistoryComponent]
 })
 export class AppModule {
 }

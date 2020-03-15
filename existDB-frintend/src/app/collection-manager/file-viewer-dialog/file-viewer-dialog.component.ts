@@ -17,7 +17,6 @@ export class FileViewerDialogComponent implements OnInit {
     public openedFile: Credentials;
     public isEdit = false;
     public editedContent = '';
-
     public fileUrl;
 
     constructor(public dialogRef: MatDialogRef<FileViewerDialogComponent>,

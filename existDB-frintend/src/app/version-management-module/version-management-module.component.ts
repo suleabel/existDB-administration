@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {VersionManagementService} from './service/version-management.service';
 import {NotificationService} from '../error-dialog/service/notification.service';
-import {Credentials} from '../file-explorer/model/Credentials';
 import {stringify} from 'querystring';
-import {FileExplorerService} from '../file-explorer/service/file-explorer.service';
+import {BehaviorSubject} from 'rxjs';
+import {MatDialog} from '@angular/material';
+import {Credentials} from '../collection-manager/model/Credentials';
+import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
+import {ViewHistoryComponent} from './view-history/view-history.component';
 
 @Component({
     selector: 'app-version-management-module',
@@ -11,27 +14,27 @@ import {FileExplorerService} from '../file-explorer/service/file-explorer.servic
     styleUrls: ['./version-management-module.component.sass']
 })
 export class VersionManagementModuleComponent implements OnInit {
-    public versionIsAvailable = false;
+    public versionIsAvailable$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public selectedDirectory = '/db';
     public collections: Credentials[];
     public displayedColumns: string[] = ['name', 'resource', 'view'];
 
     constructor(private versionManagementService: VersionManagementService,
                 private notificationService: NotificationService,
-                private fileExplorerService: FileExplorerService) {
+                private fileExplorerService: FileExplorerService,
+                private dialog: MatDialog) {
     }
 
     ngOnInit() {
-        console.log('versioning is: ' + this.versionIsAvailable);
         this.checkVersionManagementIsEnabled();
         this.loadData(this.selectedDirectory);
     }
 
     private checkVersionManagementIsEnabled() {
+        this.versionIsAvailable$.next(false);
         this.versionManagementService.versionManagerIsActivated()
             .subscribe(data => {
-                console.log(data);
-                this.versionIsAvailable = data;
+                this.versionIsAvailable$.next((data === 'true'));
             }, error => {
                 console.log(error);
                 this.notificationService.warn('Error: ' + stringify(error));
@@ -42,6 +45,7 @@ export class VersionManagementModuleComponent implements OnInit {
         this.versionManagementService.enableVersionManager()
             .subscribe(data => {
                     this.notificationService.success('Version Management is enabled');
+                    this.checkVersionManagementIsEnabled();
                 },
                 error => {
                     this.notificationService.warn('Error: ' + error);
@@ -99,11 +103,18 @@ export class VersionManagementModuleComponent implements OnInit {
     }
 
     private getVersions(element) {
-        console.log(element);
+        const dialogRef = this.dialog.open(ViewHistoryComponent, {
+            width: '60%',
+            height: '50%',
+            data: {resource: element}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(result);
+        });
     }
 
-    private deactivateVersionManagement() {
-        window.location.reload();
-    }
+    // private deactivateVersionManagement() {
+    //     window.location.reload();
+    // }
 
 }

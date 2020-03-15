@@ -11,4 +11,8 @@ table {
   align-content: center;
 }
 
-/*# sourceMappingURL=file-explorer.component.css.map */
+.loading {
+  align-self: center;
+}
+
+/*# sourceMappingURL=collection-manager.component.css.map */

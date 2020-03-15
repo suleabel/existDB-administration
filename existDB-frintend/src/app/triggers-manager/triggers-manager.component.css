@@ -6,4 +6,8 @@ table {
   margin: 20px;
 }
 
+.loading {
+  align-self: center;
+}
+
 /*# sourceMappingURL=triggers-manager.component.css.map */

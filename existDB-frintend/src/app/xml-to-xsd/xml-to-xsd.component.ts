@@ -3,9 +3,9 @@ import {XmlToXsdService} from './service/xml-to-xsd.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {StoreResourceModel} from '../file-explorer/model/StoreResourceModel';
 import {BrowseSaveLocationComponent} from './browse-save-location/browse-save-location.component';
 import {NotificationService} from '../error-dialog/service/notification.service';
+import {StoreResourceModel} from '../collection-manager/model/StoreResourceModel';
 
 @Component({
     selector: 'app-xml-to-xsd',

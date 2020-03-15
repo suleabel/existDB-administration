@@ -5,7 +5,7 @@ import {Credentials} from '../model/Credentials';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../../exist-group-manager/service/groups.service';
 import {UserService} from '../../user-manager-module/service/user.service';
-import {NotificationService} from "../../error-dialog/service/notification.service";
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-file-credentials',

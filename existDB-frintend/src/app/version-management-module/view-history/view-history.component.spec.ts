@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileExplorerComponent } from './file-explorer.component';
+import { ViewHistoryComponent } from './view-history.component';
 
-describe('FileExplorerComponent', () => {
-  let component: FileExplorerComponent;
-  let fixture: ComponentFixture<FileExplorerComponent>;
+describe('ViewHistoryComponent', () => {
+  let component: ViewHistoryComponent;
+  let fixture: ComponentFixture<ViewHistoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileExplorerComponent ]
+      declarations: [ ViewHistoryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileExplorerComponent);
+    fixture = TestBed.createComponent(ViewHistoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

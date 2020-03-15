@@ -5,17 +5,19 @@
                 <div class="card-header font-weight-bold">
                     Version Management
                 </div>
-                <div class="card-body infoText" *ngIf="versionIsAvailable">
+                <div class="card-body infoText" *ngIf="versionIsAvailable$ | async; else elseBlock">
                     <h3>Version management is enabled</h3>
-                    <h5><a (click)="deactivateVersionManagement()">Would you like to deactivate it?</a></h5>
+<!--                    <h5><a (click)="deactivateVersionManagement()">Would you like to deactivate it?</a></h5>-->
                 </div>
-                <div class="card-body infoText" *ngIf="!versionIsAvailable">
-                    <h3>Version management is disabled</h3>
-                    <h5><a (click)="activateVersionManagement()">Would you like to activate it?</a></h5>
-                </div>
+                <ng-template #elseBlock>
+                    <div class="card-body infoText">
+                        <h3>Version management is disabled</h3>
+                        <h5><a (click)="activateVersionManagement()">Would you like to activate it?</a></h5>
+                    </div>
+                </ng-template>
             </div>
 
-            <div class="card font-weight-bold" *ngIf="versionIsAvailable">
+            <div class="card font-weight-bold" *ngIf="versionIsAvailable$ | async">
                 <div class="card-header">
                     Filesystem:
                 </div>

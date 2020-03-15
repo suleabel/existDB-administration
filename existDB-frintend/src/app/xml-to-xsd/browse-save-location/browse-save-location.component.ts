@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {Credentials} from '../../file-explorer/model/Credentials';
-import {FileExplorerService} from '../../file-explorer/service/file-explorer.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
+import {Credentials} from '../../collection-manager/model/Credentials';
+import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 
 @Component({
   selector: 'app-browse-save-location',

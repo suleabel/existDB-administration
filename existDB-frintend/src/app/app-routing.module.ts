@@ -10,11 +10,11 @@ import {ExistUsersEditDetailsComponent} from './user-manager-module/exist-users-
 import {ExistGroupManagerComponent} from './exist-group-manager/exist-group-manager.component';
 import {ExistGroupDetailsComponent} from './exist-group-manager/exist-group-details/exist-group-details.component';
 import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
-import {FileExplorerComponent} from './file-explorer/file-explorer.component';
-import {CreateFileComponent} from './file-explorer/create-file/create-file.component';
-import {FileCredentialsComponent} from './file-explorer/file-credentials/file-credentials.component';
+import {CreateFileComponent} from './collection-manager/create-file/create-file.component';
+import {FileCredentialsComponent} from './collection-manager/file-credentials/file-credentials.component';
 import {TriggersManagerComponent} from './triggers-manager/triggers-manager.component';
 import {VersionManagementModuleComponent} from './version-management-module/version-management-module.component';
+import {CollectionManagerComponent} from './collection-manager/collection-manager.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -25,11 +25,11 @@ const routes: Routes = [
   {path: 'exist-group-edit-details', component: ExistGroupDetailsComponent, canActivate: [AuthGuardService]},
   {path: 'error', component: ErrorComponent},
   {path: 'xml2xsd', component: XmlToXsdComponent, canActivate: [AuthGuardService]},
-  {path: 'file-explorer', component: FileExplorerComponent, canActivate: [AuthGuardService]},
   {path: 'create-file', component: CreateFileComponent, canActivate: [AuthGuardService]},
   {path: 'file-credentials', component: FileCredentialsComponent, canActivate: [AuthGuardService]},
   {path: 'trigger-manager', component: TriggersManagerComponent, canActivate: [AuthGuardService]},
   {path: 'version-management' , component: VersionManagementModuleComponent, canActivate: [AuthGuardService]},
+  {path: 'collection-manager', component: CollectionManagerComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];

@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {CollectionsDialogComponent} from './collections-dialog/collections-dialog.component';
 import {TriggersService} from './service/triggers.service';
-import {Credentials} from '../file-explorer/model/Credentials';
-import {FileExplorerService} from '../file-explorer/service/file-explorer.service';
 import {XmlFileViewerComponent} from './xml-file-viewer/xml-file-viewer.component';
 import {NotificationService} from '../error-dialog/service/notification.service';
+import {BehaviorSubject} from 'rxjs';
+import {Credentials} from '../collection-manager/model/Credentials';
+import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
 
 @Component({
     selector: 'app-triggers-manager',
@@ -13,6 +14,7 @@ import {NotificationService} from '../error-dialog/service/notification.service'
     styleUrls: ['./triggers-manager.component.sass']
 })
 export class TriggersManagerComponent implements OnInit {
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     private triggersRootConfigurationLocation = '/db/system/config/db';
     public collections: Credentials[];
     public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date'];
@@ -29,6 +31,7 @@ export class TriggersManagerComponent implements OnInit {
     }
 
     loadData(path: string) {
+        this.isLoading$.next(true);
         this.triggerService.getTriggerConfigs(path)
             .subscribe(
                 res => {
@@ -45,6 +48,7 @@ export class TriggersManagerComponent implements OnInit {
                     };
                     this.collections = res;
                     this.collections.unshift(backElement);
+                    this.isLoading$.next(false);
                 },
                 error => {
                     this.notificationService.warn('Error: ' + error);

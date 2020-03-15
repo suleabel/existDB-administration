@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
-import {FileExplorerService} from '../../file-explorer/service/file-explorer.service';
 import {EditTriggerModel} from '../model/EditTriggerModel';
 import {DialogService} from '../../error-dialog/service/dialog.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TriggersService} from '../service/triggers.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
+import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 
 @Component({
     selector: 'app-add-trigger',

@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
-import {FileExplorerService} from '../../file-explorer/service/file-explorer.service';
-import {Credentials} from '../../file-explorer/model/Credentials';
 import {DialogService} from '../../error-dialog/service/dialog.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {AddTriggerComponent} from '../add-trigger/add-trigger.component';
-import {StoreResourceModel} from '../../file-explorer/model/StoreResourceModel';
 import {TriggersService} from '../service/triggers.service';
+import {Credentials} from '../../collection-manager/model/Credentials';
+import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
+import {StoreResourceModel} from '../../collection-manager/model/StoreResourceModel';
 
 @Component({
     selector: 'app-xml-file-viewer',
