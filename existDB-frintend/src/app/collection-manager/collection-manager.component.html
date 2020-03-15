@@ -3,7 +3,7 @@
         <div class=" col-12">
             <div class="card">
                 <div class="card-header  font-weight-bold">
-                    File Manager
+                    Collection manager
                 </div>
                 <div class="card-body loading" *ngIf="isLoading$ | async">
                     <mat-spinner></mat-spinner>
@@ -11,10 +11,10 @@
                 <div class="card-body" *ngIf="!(isLoading$ | async)">
                     <button class="btn btn-success rootButton" (click)="backToRoot()">Back To Root</button>
 
-                    <button class="btn btn-success rootButton" (click)="createFileHere(selectedDirectory)">Create file
+                    <button class="btn btn-success rootButton" (click)="createFileHere(selectedDirectory)" [disabled]="true">Create resource
                     </button>
 
-                    <button class="btn btn-success rootButton" (click)="createDir(selectedDirectory)">Create dir
+                    <button class="btn btn-success rootButton" (click)="createDir(selectedDirectory)">Create collection
                     </button>
 
                     <table mat-table [dataSource]="collections" class="mat-elevation-z8">

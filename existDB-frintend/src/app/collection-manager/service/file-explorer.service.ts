@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {StoreResourceModel} from '../model/StoreResourceModel';
 import {Credentials} from '../model/Credentials';
-import {stringify} from 'querystring';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -54,17 +53,15 @@ export class FileExplorerService {
     }
 
     public deleteCollection(cred: Credentials): Observable<any> {
-        console.log(stringify(cred));
         return this.http.post(this.baseUrl + 'deleteColl', cred, {responseType: 'text'});
     }
 
     public editFileCredentials(cred: Credentials): Observable<any> {
-        console.log(cred);
         return this.http.post(this.baseUrl + 'editResCred', cred, {responseType: 'text'});
     }
+
     public setSaveContentHere(url: string) {
         this.saveContentHere = url;
-        console.log('createFileHere: ' + this.saveContentHere);
     }
 
     public getSaveContentHere(): string {
@@ -73,7 +70,6 @@ export class FileExplorerService {
 
     public setEditedFileCredentials(url: Credentials) {
         this.selectedResourceCredentials = url;
-        console.log('createFileHere: ' + this.saveContentHere);
     }
 
     public getEditedFileCredentials(): Credentials {

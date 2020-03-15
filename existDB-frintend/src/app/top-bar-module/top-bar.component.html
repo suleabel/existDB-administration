@@ -1,8 +1,10 @@
 <div *ngIf="isLoggedIn$ | async as isLoggedIn">
-  <h1>eXist-DB Administration</h1>
+  <h1  [routerLink]="'/home'">eXist-DB Administration</h1>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        <li>
+        </li>
         <li class="nav-item active">
           <a class="nav-link" mat-button [routerLink]="'/home'"><h2>Home</h2></a>
         </li>
@@ -16,7 +18,7 @@
           <a class="nav-link" mat-button [routerLink]="'/xml2xsd'"><h2>XSD Generator from XML</h2></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/file-explorer'"><h2>File Explorer</h2></a>
+          <a class="nav-link" mat-button [routerLink]="'/file_manager-component'"><h2>File Explorer</h2></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" mat-button [routerLink]="'/trigger-manager'"><h2>Trigger Manager</h2></a>
@@ -34,7 +36,3 @@
     </div>
   </nav>
 </div>
-
-
-
-

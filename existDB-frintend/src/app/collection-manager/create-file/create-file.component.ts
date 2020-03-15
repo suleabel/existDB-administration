@@ -23,7 +23,7 @@ export class CreateFileComponent implements OnInit {
     ngOnInit() {
         this.selectedPath = this.fileExplorerService.getSaveContentHere();
         if (this.selectedPath === null || this.selectedPath === undefined) {
-            this.router.navigateByUrl('/file-explorer');
+            this.router.navigateByUrl('/collection-manager');
         }
     }
 
@@ -39,8 +39,8 @@ export class CreateFileComponent implements OnInit {
         this.fileExplorerService.saveResource(this.saveData)
             .subscribe(
                 data => {
-                this.notificationService.success('Success');
-                this.router.navigateByUrl('/file-explorer');
+                this.notificationService.success('Success:' + data);
+                this.router.navigateByUrl('/collection-manager');
             }, error => {
                     this.notificationService.warn('Error: ' + error);
             });
@@ -48,6 +48,6 @@ export class CreateFileComponent implements OnInit {
     }
 
     back() {
-        this.router.navigateByUrl('/file-explorer');
+        this.router.navigateByUrl('/collection-manager');
     }
 }

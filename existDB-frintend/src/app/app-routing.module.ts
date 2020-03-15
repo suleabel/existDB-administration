@@ -15,6 +15,7 @@ import {FileCredentialsComponent} from './collection-manager/file-credentials/fi
 import {TriggersManagerComponent} from './triggers-manager/triggers-manager.component';
 import {VersionManagementModuleComponent} from './version-management-module/version-management-module.component';
 import {CollectionManagerComponent} from './collection-manager/collection-manager.component';
+import {FileManagerComponent} from './file-manager/file-manager.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'trigger-manager', component: TriggersManagerComponent, canActivate: [AuthGuardService]},
   {path: 'version-management' , component: VersionManagementModuleComponent, canActivate: [AuthGuardService]},
   {path: 'collection-manager', component: CollectionManagerComponent, canActivate: [AuthGuardService]},
+  {path: 'file_manager-component', component: FileManagerComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];

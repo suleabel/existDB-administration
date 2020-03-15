@@ -7,11 +7,11 @@ import {NotificationService} from '../../error-dialog/service/notification.servi
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
-    selector: 'app-file-viewer-dialog',
-    templateUrl: './file-viewer-dialog.component.html',
-    styleUrls: ['./file-viewer-dialog.component.sass']
+    selector: 'app-resource-viewer-dialog',
+    templateUrl: './resource-viewer-dialog.component.html',
+    styleUrls: ['./resource-viewer-dialog.component.sass']
 })
-export class FileViewerDialogComponent implements OnInit {
+export class ResourceViewerDialogComponent implements OnInit {
     public originalContent: string;
     public isBinary: boolean;
     public openedFile: Credentials;
@@ -19,7 +19,7 @@ export class FileViewerDialogComponent implements OnInit {
     public editedContent = '';
     public fileUrl;
 
-    constructor(public dialogRef: MatDialogRef<FileViewerDialogComponent>,
+    constructor(public dialogRef: MatDialogRef<ResourceViewerDialogComponent>,
                 private fileExplorerService: FileExplorerService,
                 private notificationService: NotificationService,
                 private sanitizer: DomSanitizer) {

@@ -44,7 +44,7 @@ import { FileCredentialsComponent } from './collection-manager/file-credentials/
 import { TriggersManagerComponent } from './triggers-manager/triggers-manager.component';
 import { CollectionsDialogComponent } from './triggers-manager/collections-dialog/collections-dialog.component';
 import { CreateDirDialogComponent } from './collection-manager/create-dir-dialog/create-dir-dialog.component';
-import { FileViewerDialogComponent } from './collection-manager/file-viewer-dialog/file-viewer-dialog.component';
+import { ResourceViewerDialogComponent } from './collection-manager/resource-viewer-dialog/resource-viewer-dialog.component';
 import { ConfirmDialogComponent } from './error-dialog/confirm-dialog.component';
 import { XmlFileViewerComponent } from './triggers-manager/xml-file-viewer/xml-file-viewer.component';
 import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.component';
@@ -52,6 +52,8 @@ import { VersionManagementModuleComponent } from './version-management-module/ve
 import { BrowseSaveLocationComponent } from './xml-to-xsd/browse-save-location/browse-save-location.component';
 import { ViewHistoryComponent } from './version-management-module/view-history/view-history.component';
 import { CollectionManagerComponent } from './collection-manager/collection-manager.component';
+import {FileManagerComponent} from './file-manager/file-manager.component';
+import { FileViewerDialogComponent } from './file-manager/file-viewer-dialog/file-viewer-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +77,7 @@ import { CollectionManagerComponent } from './collection-manager/collection-mana
       TriggersManagerComponent,
       CollectionsDialogComponent,
       CreateDirDialogComponent,
-      FileViewerDialogComponent,
+      ResourceViewerDialogComponent,
       ConfirmDialogComponent,
       XmlFileViewerComponent,
       AddTriggerComponent,
@@ -83,6 +85,8 @@ import { CollectionManagerComponent } from './collection-manager/collection-mana
       BrowseSaveLocationComponent,
       ViewHistoryComponent,
       CollectionManagerComponent,
+      FileManagerComponent,
+      FileViewerDialogComponent,
   ],
     imports: [
         BrowserModule,
@@ -122,14 +126,15 @@ import { CollectionManagerComponent } from './collection-manager/collection-mana
     entryComponents: [
         CollectionsDialogComponent,
         CreateDirDialogComponent,
-        FileViewerDialogComponent,
+        ResourceViewerDialogComponent,
         ConfirmDialogComponent,
         XmlFileViewerComponent,
         AddTriggerComponent,
         DialogPanelComponent,
         BrowseSaveLocationComponent,
         ExistAddUserComponent,
-        ViewHistoryComponent]
+        ViewHistoryComponent,
+        FileViewerDialogComponent]
 })
 export class AppModule {
 }

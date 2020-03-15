@@ -34,7 +34,7 @@ export class FileCredentialsComponent implements OnInit {
     ngOnInit() {
         this.selectedFileCredentials = this.fileExplorerService.getEditedFileCredentials();
         if (this.selectedFileCredentials === null || this.selectedFileCredentials === undefined) {
-            this.router.navigateByUrl('/file-explorer');
+            this.router.navigateByUrl('/collection-manager');
         }
         this.getAllExistGroup();
         this.getAllExistUser();

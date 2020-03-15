@@ -76,7 +76,7 @@ public class Util {
             service.setProperty(OutputKeys.INDENT, "yes");
             service.setProperty(OutputKeys.ENCODING, "UTF-8");
             CompiledExpression compiled = service.compile(query);
-            ResourceSet result = service.execute(compiled);
+            ResourceSet result = service.execute(compiled); // a file manager részben itt van a baj
             for (int i = 0; i < (int) result.getSize(); i++) {
                 XMLResource r = (XMLResource) result.getResource((long) i);
                 sb.append(r.getContent().toString()).append("\n");

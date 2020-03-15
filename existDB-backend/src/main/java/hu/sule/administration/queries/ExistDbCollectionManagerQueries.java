@@ -87,8 +87,7 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
-        return "";
+        return "not working this function!!";
         //return util.stringResultQuery(details, query);
     }
 
