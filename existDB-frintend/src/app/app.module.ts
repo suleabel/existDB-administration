@@ -54,6 +54,7 @@ import { ViewHistoryComponent } from './version-management-module/view-history/v
 import { CollectionManagerComponent } from './collection-manager/collection-manager.component';
 import {FileManagerComponent} from './file-manager/file-manager.component';
 import { FileViewerDialogComponent } from './file-manager/file-viewer-dialog/file-viewer-dialog.component';
+import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backup-and-restore-module.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +88,7 @@ import { FileViewerDialogComponent } from './file-manager/file-viewer-dialog/fil
       CollectionManagerComponent,
       FileManagerComponent,
       FileViewerDialogComponent,
+      BackupAndRestoreModuleComponent,
   ],
     imports: [
         BrowserModule,

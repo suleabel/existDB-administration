@@ -11,7 +11,7 @@
                 <div class="card-body" *ngIf="!(isLoading$ | async)">
                     <button class="btn btn-success rootButton" (click)="backToRoot()">Back To Root</button>
 
-                    <button class="btn btn-success rootButton" (click)="createFileHere(selectedDirectory)" [disabled]="true">Create resource
+                    <button class="btn btn-success rootButton" (click)="createFileHere(selectedDirectory)" [disabled]="false">Create resource
                     </button>
 
                     <button class="btn btn-success rootButton" (click)="createDir(selectedDirectory)">Create collection

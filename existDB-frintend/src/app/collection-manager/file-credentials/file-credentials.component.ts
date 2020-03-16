@@ -15,6 +15,7 @@ import {NotificationService} from '../../error-dialog/service/notification.servi
 export class FileCredentialsComponent implements OnInit {
     public editFileForm: FormGroup;
     public editFileData: Credentials;
+    public modeValidPatter: '';
 
     public existUsers: string[];
     public existGroups: string[];

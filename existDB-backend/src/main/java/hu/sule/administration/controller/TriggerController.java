@@ -1,8 +1,7 @@
 package hu.sule.administration.controller;
 
 import hu.sule.administration.model.EditTriggerModel;
-import hu.sule.administration.model.ExistFileManagerModel;
-import hu.sule.administration.model.TriggerModel;
+import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.service.TriggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -43,7 +41,7 @@ public class TriggerController {
 //    }
 
     @RequestMapping("getTriggersConfig")
-    public ArrayList<ExistFileManagerModel> getTriggerConfigurations(HttpEntity<String> httpEntity){
+    public ArrayList<ExistCollectionManagerModel> getTriggerConfigurations(HttpEntity<String> httpEntity){
         return triggerService.getTriggerConfiguration(httpEntity.getBody());
     }
 

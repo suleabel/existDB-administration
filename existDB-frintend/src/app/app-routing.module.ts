@@ -16,6 +16,7 @@ import {TriggersManagerComponent} from './triggers-manager/triggers-manager.comp
 import {VersionManagementModuleComponent} from './version-management-module/version-management-module.component';
 import {CollectionManagerComponent} from './collection-manager/collection-manager.component';
 import {FileManagerComponent} from './file-manager/file-manager.component';
+import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backup-and-restore-module.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'version-management' , component: VersionManagementModuleComponent, canActivate: [AuthGuardService]},
   {path: 'collection-manager', component: CollectionManagerComponent, canActivate: [AuthGuardService]},
   {path: 'file_manager-component', component: FileManagerComponent, canActivate: [AuthGuardService]},
+  {path: 'backup-and-restore-module', component: BackupAndRestoreModuleComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];

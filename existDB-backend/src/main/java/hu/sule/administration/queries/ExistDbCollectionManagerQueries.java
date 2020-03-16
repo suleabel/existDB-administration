@@ -1,7 +1,7 @@
 package hu.sule.administration.queries;
 
+import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ExistDetails;
-import hu.sule.administration.model.ExistFileManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +50,47 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
+    public String getCollectionContent2(ExistDetails details, String url){
+        String query = "xquery version \"3.1\";\n" +
+                "declare variable $url := \"" + url + "\";\n" +
+                "declare variable $collections := xmldb:get-child-collections($url);\n" +
+                "declare variable $resources := xmldb:get-child-resources($url);\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        <result>\n" +
+                "            {for $collection in $collections\n" +
+                "                let $fullPath := string-join(($url, '/' , $collection),\"\")\n" +
+                "                let $permissions := sm:get-permissions($fullPath)/sm:permission\n" +
+                "                let $owner := $permissions/@owner/string()\n" +
+                "                let $group := $permissions/@group/string()\n" +
+                "                let $canWrite := sm:has-access($fullPath, \"w\")\n" +
+                "                let $mode :=  string($permissions/@mode)\n" +
+                "               let $date := xmldb:last-modified($url, $collection)\n" +
+                "                return (\n" +
+                "                    <exist:collection name=\"{$collection}\" path=\"{$url}\" owner=\"{$owner}\" group=\"{$group}\" writable=\"{$canWrite}\" mode=\"{$mode}\" date=\"{format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\")}\" resource=\"false\">\n" +
+                "                    </exist:collection>\n" +
+                "                )\n" +
+                "            }   \n" +
+                "            {for $resource in $resources\n" +
+                "                let $fullPath := string-join(($url, '/' , $resource),\"\")\n" +
+                "                let $permissions := sm:get-permissions($fullPath)/sm:permission\n" +
+                "                let $owner := $permissions/@owner/string()\n" +
+                "                let $group := $permissions/@group/string()\n" +
+                "                let $canWrite := sm:has-access($fullPath, \"w\")\n" +
+                "                let $mode :=  string($permissions/@mode)\n" +
+                "                let $date := xmldb:last-modified($url, $resource)\n" +
+                "                return (\n" +
+                "                    <exist:resource name=\"{$resource}\" path=\"{$url}\" owner=\"{$owner}\" group=\"{$group}\" writable=\"{$canWrite}\" mode=\"{$mode}\" date=\"{format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\")}\" resource=\"true\">\n" +
+                "                    </exist:resource>\n" +
+                "                )\n" +
+                "            }\n" +
+                "        </result>\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
+    }
+
     public String saveEditedRes(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl){
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $isBinary := xs:boolean(\"" + forStoreResourceAndColl.isBinary() + "\");\n" +
@@ -87,6 +128,7 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
+        System.out.println(query);
         return "not working this function!!";
         //return util.stringResultQuery(details, query);
     }
@@ -103,11 +145,11 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String removeCollection(ExistDetails details, ExistFileManagerModel existFileManagerModel){
+    public String removeCollection(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel){
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection()+ "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        xmldb:remove(\"" + existFileManagerModel.getPath() + "/" + existFileManagerModel.getName() + "\")\n" +
+                "        xmldb:remove(\"" + existCollectionManagerModel.getPath() + "/" + existCollectionManagerModel.getName() + "\")\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
@@ -156,11 +198,11 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String deleteResource(ExistDetails details, ExistFileManagerModel existFileManagerModel) {
+    public String deleteResource(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        xmldb:remove(\"" + existFileManagerModel.getPath() + "\",\"" + existFileManagerModel.getName() + "\")\n" +
+                "        xmldb:remove(\"" + existCollectionManagerModel.getPath() + "\",\"" + existCollectionManagerModel.getName() + "\")\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
@@ -168,9 +210,9 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String editResCred(ExistDetails details, ExistFileManagerModel existFileManagerModel) {
+    public String editResCred(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel) {
         String query = "";
-        System.out.println(existFileManagerModel.toString());
+        System.out.println(existCollectionManagerModel.toString());
         return "dummy success";
     }
 

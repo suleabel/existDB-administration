@@ -1,6 +1,6 @@
 package hu.sule.administration.model;
 
-public class ExistFileManagerModel {
+public class ExistCollectionManagerModel {
     private String name;
     private String path;
     private String owner;
@@ -11,15 +11,10 @@ public class ExistFileManagerModel {
     private boolean resource;
     private boolean triggerConfigAvailable = false;
 
-    public ExistFileManagerModel() {
+    public ExistCollectionManagerModel() {
     }
 
-    public ExistFileManagerModel(String name, boolean resource) {
-        this.name = name;
-        this.resource = resource;
-    }
-
-    public ExistFileManagerModel(String name, String path, String owner, String group, boolean writable, String mode, String date, boolean resource, boolean triggerConfigAvailable) {
+    public ExistCollectionManagerModel(String name, String path, String owner, String group, boolean writable, String mode, String date, boolean resource, boolean triggerConfigAvailable) {
         this.name = name;
         this.path = path;
         this.owner = owner;
@@ -105,7 +100,7 @@ public class ExistFileManagerModel {
 
     @Override
     public String toString() {
-        return "ExistFileManagerModel{" +
+        return "ExistCollectionManagerModel{" +
                 "name='" + name + '\'' +
                 ", path='" + path + '\'' +
                 ", owner='" + owner + '\'' +

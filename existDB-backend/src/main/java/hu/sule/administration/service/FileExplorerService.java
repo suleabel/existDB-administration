@@ -27,7 +27,6 @@ public class FileExplorerService {
 
     public List<FileManagerEntity> getDirectoryContent(String dirname) {
         List<FileManagerEntity> fileManagerEntities = new ArrayList<>();
-
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
         Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");

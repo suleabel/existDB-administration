@@ -1,6 +1,6 @@
 package hu.sule.administration.service;
 import hu.sule.administration.model.EditTriggerModel;
-import hu.sule.administration.model.ExistFileManagerModel;
+import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.model.TriggerModel;
 import hu.sule.administration.queries.ExistDBTriggerQueries;
@@ -143,7 +143,7 @@ public class TriggerService {
         return triggersList;
     }
 
-    public ArrayList<ExistFileManagerModel> getTriggerConfiguration(String url){
+    public ArrayList<ExistCollectionManagerModel> getTriggerConfiguration(String url){
         return collectionService.getFileManagerContentByCollection(url);
     }
 

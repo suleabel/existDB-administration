@@ -28,7 +28,7 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
         } else if (e.getMessage().equals("Bad credentials")) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Username or password is incorrect");
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Other error");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Other error - Authentication failed!");
             logger.error("Other error - {}", e.getMessage());
         }
     }

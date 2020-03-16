@@ -23,6 +23,7 @@ public class ExistDbCredentialsService {
         logger.info("initializeDatabaseDriver");
         details.setUsername(username);
         details.setPassword(password);
+        details.setIp(url);
         details.setUrl("xmldb:exist://" + url + "/exist/xmlrpc");
         try {
             util.initDatabaseDriver(details.getDriver());

@@ -1,0 +1,120 @@
+
+<div class="container-fluid">
+    <div class="card-deck">
+        <div class=" col-12">
+            <div class="card">
+                <div class="card-header  font-weight-bold">
+                    <h4>Backup Manager</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 inner-card">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>Backups location</h6>
+                                </div>
+                                <div class="card-body">
+                                    <label for="location">Location</label>
+                                    <div style="float: left; padding: 1em;" >
+                                        <button class="btn btn-primary font-weight-bold" (click)="setBackupsLocation()">Apply</button>
+                                        <button class="btn btn-primary font-weight-bold" (click)="setDefaultLocation()">Default Location</button>
+                                    </div>
+                                    <div style="overflow: hidden; padding: 1em;">
+                                        <input id="location" type="text" [(ngModel)]="location">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 inner-card">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>Create backup</h6>
+                                </div>
+                                <div class="card-body">
+                                    <label>Not working fine</label>
+                                    <label for="isZip"></label>
+                                    <mat-checkbox id="isZip" (change)="changeZip()">Zip</mat-checkbox>
+                                    <label for="isIncremental"></label>
+                                    <mat-checkbox id="isIncremental" (change)="changeIncremental()" >Incremental</mat-checkbox>
+                                    <button class="btn btn-primary font-weight-bold" (click)="createBackup()">Create backup</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 inner-card">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>Backups</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-body loading" *ngIf="isLoading$ | async">
+                                        <mat-spinner></mat-spinner>
+                                    </div>
+                                    <div class="card-body" *ngIf="!(isLoading$ | async)">
+
+                                        <table mat-table [dataSource]="backups" class="mat-elevation-z8">
+                                            <ng-container matColumnDef="fileName">
+                                                <th mat-header-cell *matHeaderCellDef>Name</th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <label>{{element.fileName}}</label>
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef="nrInSequence">
+                                                <th mat-header-cell *matHeaderCellDef>nrInSequence</th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <label>{{element.nrInSequence}}</label>
+                                                </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="date">
+                                                <th mat-header-cell *matHeaderCellDef>date</th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <label>{{element.date}}</label>
+                                                </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="incremental">
+                                                <th mat-header-cell *matHeaderCellDef>incremental</th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <label>{{element.incremental}}</label>
+                                                </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="previous">
+                                                <th mat-header-cell *matHeaderCellDef>previous</th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <label>{{element.previous}}</label>
+                                                </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="download">
+                                                <th mat-header-cell *matHeaderCellDef>download</th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <button *ngIf="element.downloadable" class="btn btn-success" >
+                                                        <a href="http://192.168.1.104:8088/exist/apps/dashboard/bower_components/existdb-backup/modules/backup.xql?action=retrieve&archive={{element.fileName}}">Download</a>
+                                                    </button>
+                                                </td>
+                                            </ng-container>
+
+                                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="col-12 inner-card">-->
+<!--                        <div class="card">-->
+<!--                            <div class="card-header">-->
+<!--                                <h6>Restore backup</h6>-->
+<!--                            </div>-->
+<!--                            <div class="card-body">-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

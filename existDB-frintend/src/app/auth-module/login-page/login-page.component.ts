@@ -63,7 +63,7 @@ export class LoginPageComponent implements OnInit {
         this.router.navigate(['home']);
       },
       error => {
-        // this.errorMessage = error.error.message;
+        this.errorMessage = error.error.message;
         console.log('Login errorMessage  ' + this.errorMessage);
       }
     );

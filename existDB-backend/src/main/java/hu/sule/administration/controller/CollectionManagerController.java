@@ -1,6 +1,6 @@
 package hu.sule.administration.controller;
 
-import hu.sule.administration.model.ExistFileManagerModel;
+import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.model.ResourceReadModel;
 import hu.sule.administration.service.CollectionService;
@@ -22,12 +22,12 @@ public class CollectionManagerController {
     private CollectionService collectionService;
 
     @RequestMapping("/getOnlyCollections")
-    public ArrayList<ExistFileManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity){
-        return collectionService.getCollectionContainedCollections(httpEntity.getBody());
+    public ArrayList<ExistCollectionManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity){
+        return collectionService.getFileManagerCollectionsByCollection(httpEntity.getBody());
     }
 
     @RequestMapping("/getAllContentByCollection")
-    public ArrayList<ExistFileManagerModel> getCollectionContent(HttpEntity<String> httpEntity){
+    public ArrayList<ExistCollectionManagerModel> getCollectionContent(HttpEntity<String> httpEntity){
         return collectionService.getFileManagerContentByCollection(httpEntity.getBody());
     }
 
@@ -52,17 +52,17 @@ public class CollectionManagerController {
     }
 
     @RequestMapping("/deleteRes")
-    public String deleteRes(@RequestBody ExistFileManagerModel existFileManagerModel){
-        return collectionService.deleteFile(existFileManagerModel);
+    public String deleteRes(@RequestBody ExistCollectionManagerModel existCollectionManagerModel){
+        return collectionService.deleteFile(existCollectionManagerModel);
     }
 
     @RequestMapping("/deleteColl")
-    public String deleteCollection(@RequestBody ExistFileManagerModel existFileManagerModel){
-        return collectionService.deleteCollection(existFileManagerModel);
+    public String deleteCollection(@RequestBody ExistCollectionManagerModel existCollectionManagerModel){
+        return collectionService.deleteCollection(existCollectionManagerModel);
     }
 
     @RequestMapping("/editResCred")
-    public String editResCred(@RequestBody ExistFileManagerModel existFileManagerModel){
-        return collectionService.editResCred(existFileManagerModel);
+    public String editResCred(@RequestBody ExistCollectionManagerModel existCollectionManagerModel){
+        return collectionService.editResCred(existCollectionManagerModel);
     }
 }
