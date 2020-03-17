@@ -34,10 +34,9 @@
         </ng-container>
 
         <ng-container matColumnDef="details">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
             <mat-cell *matCellDef="let post">
-                <button class="btn btn-success" (click)="details(post.username)">Detail
-                </button>
+                <button class="btn btn-success" (click)="details(post.username)">Detail</button>
             </mat-cell>
         </ng-container>
 

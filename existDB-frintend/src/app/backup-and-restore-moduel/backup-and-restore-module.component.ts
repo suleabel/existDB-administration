@@ -3,6 +3,7 @@ import {BackupRestoreService} from './service/backup-restore.service';
 import {NotificationService} from '../error-dialog/service/notification.service';
 import {BehaviorSubject} from 'rxjs';
 import {BackupEntity} from './model/BackupEntity';
+import {CreateBackupEntity} from './model/CreateBackupEntity';
 
 @Component({
     selector: 'app-backup-and-restore-module',
@@ -14,8 +15,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
     public location = '/exist/data/export';
     public backups: BackupEntity;
     public displayedColumns: string[] = ['fileName', 'nrInSequence', 'date', 'incremental', 'previous', 'download'];
-    public isZip = false;
-    public isIncremental = false;
+    public entity: CreateBackupEntity = {isZip: false, isIncremental: false};
 
     constructor(
         private backupService: BackupRestoreService,
@@ -49,18 +49,17 @@ export class BackupAndRestoreModuleComponent implements OnInit {
     }
 
     private changeZip() {
-        this.isZip = !this.isZip;
+        this.entity.isZip = !this.entity.isZip;
     }
 
     private changeIncremental() {
-        this.isIncremental = !this.isIncremental;
+        this.entity.isIncremental = !this.entity.isIncremental;
     }
 
     private createBackup() {
-        const entity = {isZip: this.isZip, isIncremental: this.isIncremental};
         this.isLoading$.next(true);
-        console.log(entity);
-        this.backupService.createBackup(entity)
+        console.log(this.entity);
+        this.backupService.createBackup(this.entity)
             .subscribe(data => {
                 this.notificationService.success('Backup created');
                 this.loadBackups(this.location);

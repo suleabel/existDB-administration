@@ -9,118 +9,111 @@
                     <mat-spinner></mat-spinner>
                 </div>
                 <div class="card-body" *ngIf="!(isLoading$ | async)">
-                    <button class="btn btn-success rootButton" (click)="backToRoot()">Back To Root</button>
+                    <div>
+                        <button class="btn btn-success rootButton" (click)="backToRoot()">Back To Root</button>
+                        <button class="btn btn-success rootButton" (click)="createFileHere(selectedDirectory)" [disabled]="false">Create resource
+                        </button>
+                        <button class="btn btn-success rootButton" (click)="createDir(selectedDirectory)">Create collection
+                        </button>
+                        <div class="user-list-table">
+                            <mat-table class="table-bordered table-responsive" [dataSource]="collections" matSort>
 
-                    <button class="btn btn-success rootButton" (click)="createFileHere(selectedDirectory)" [disabled]="false">Create resource
-                    </button>
+                                <ng-container matColumnDef="name">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <label *ngIf="!element.resource; else elseBlock">
+                                            <a (click)="aClick(element.name)">{{element.name}}</a>
+                                        </label>
+                                        <ng-template #elseBlock>
+                                            <label>
+                                                <a (click)="view(element)">{{element.name}}</a>
+                                            </label>
+                                        </ng-template>
+                                    </mat-cell>
+                                </ng-container>
 
-                    <button class="btn btn-success rootButton" (click)="createDir(selectedDirectory)">Create collection
-                    </button>
+                                <ng-container matColumnDef="resource">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Resource</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <div *ngIf="!element.resource">
+                                            <label *ngIf="element.name !== '..'">Directory</label>
+                                        </div>
+                                        <label *ngIf="element.resource">Resource</label>
+                                    </mat-cell>
+                                </ng-container>
 
-                    <table mat-table [dataSource]="collections" class="mat-elevation-z8">
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>Name</th>
-                            <td mat-cell *matCellDef="let element">
-                                <label *ngIf="!element.resource; else elseBlock">
-                                    <a (click)="aClick(element.name)">{{element.name}}</a>
-                                </label>
-                                <ng-template #elseBlock>
-                                    <label>
-                                        <a (click)="view(element)">{{element.name}}</a>
-                                    </label>
-                                </ng-template>
-                            </td>
-                        </ng-container>
-                        <ng-container matColumnDef="resource">
-                            <th mat-header-cell *matHeaderCellDef>Resource</th>
-                            <td mat-cell *matCellDef="let element">
-                                <div *ngIf="!element.resource">
-                                    <label *ngIf="element.name !== '..'">Directory</label>
-                                </div>
-                                <label *ngIf="element.resource">Resource</label>
-                            </td>
-                        </ng-container>
+                                <ng-container matColumnDef="owner">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>owner</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <label>{{element.owner}}</label>
+                                    </mat-cell>
+                                </ng-container>
 
-                        <ng-container matColumnDef="owner">
-                            <th mat-header-cell *matHeaderCellDef>owner</th>
-                            <td mat-cell *matCellDef="let element">
-                                <label>{{element.owner}}</label>
-                            </td>
-                        </ng-container>
+                                <ng-container matColumnDef="group">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>group</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <label>{{element.group}}</label>
+                                    </mat-cell>
+                                </ng-container>
 
-                        <ng-container matColumnDef="group">
-                            <th mat-header-cell *matHeaderCellDef>group</th>
-                            <td mat-cell *matCellDef="let element">
-                                <label>{{element.group}}</label>
-                            </td>
-                        </ng-container>
+                                <ng-container matColumnDef="mode">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>mode</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <label>{{element.mode}}</label>
+                                    </mat-cell>
+                                </ng-container>
 
-                        <ng-container matColumnDef="mode">
-                            <th mat-header-cell *matHeaderCellDef>mode</th>
-                            <td mat-cell *matCellDef="let element">
-                                <label>{{element.mode}}</label>
-                            </td>
-                        </ng-container>
+                                <ng-container matColumnDef="date">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>date</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <label>{{element.date}}</label>
+                                    </mat-cell>
+                                </ng-container>
 
-                        <ng-container matColumnDef="date">
-                            <th mat-header-cell *matHeaderCellDef>date</th>
-                            <td mat-cell *matCellDef="let element">
-                                <label>{{element.date}}</label>
-                            </td>
-                        </ng-container>
+                                <ng-container matColumnDef="writable">
+                                    <mat-header-cell *matHeaderCellDef>writable</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <label *ngIf="element.resource">{{element.writable}}</label>
+                                    </mat-cell>
+                                </ng-container>
 
-                        <ng-container matColumnDef="writable">
-                            <th mat-header-cell *matHeaderCellDef>writable</th>
-                            <td mat-cell *matCellDef="let element">
-                                <label *ngIf="element.resource">{{element.writable}}</label>
-                            </td>
-                        </ng-container>
+                                <ng-container matColumnDef="view">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>View</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <button class="btn btn-success" *ngIf="element.resource" (click)="view(element)">
+                                            View
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
 
-                        <ng-container matColumnDef="view">
-                            <th mat-header-cell *matHeaderCellDef>View</th>
-                            <td mat-cell *matCellDef="let element">
-                                <button class="btn btn-success" *ngIf="element.resource" (click)="view(element)">
-                                    View
-                                </button>
-                            </td>
-                        </ng-container>
+                                <ng-container matColumnDef="delete">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Delete</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <button class="btn btn-danger" *ngIf="element.resource" (click)="deleteRes(element)">
+                                            Delete
+                                        </button>
+                                        <button class="btn btn-danger" *ngIf="!element.resource && element.name !== '..'"
+                                                (click)="deleteColl(element)">
+                                            Delete
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
 
-                        <ng-container matColumnDef="delete">
-                            <th mat-header-cell *matHeaderCellDef>Delete</th>
-                            <td mat-cell *matCellDef="let element">
-                                <button class="btn btn-danger" *ngIf="element.resource" (click)="deleteRes(element)">
-                                    Delete
-                                </button>
-                                <button class="btn btn-danger" *ngIf="!element.resource && element.name !== '..'"
-                                        (click)="deleteColl(element)">
-                                    Delete
-                                </button>
-                            </td>
-                        </ng-container>
+                                <ng-container matColumnDef="editCredentials">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Edit Credentials</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <button class="btn btn-success" *ngIf="element.resource"
+                                                (click)="editCredentials(element)">
+                                            Edit Credentials
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
 
-                        <ng-container matColumnDef="editCredentials">
-                            <th mat-header-cell *matHeaderCellDef>Edit Credentials</th>
-                            <td mat-cell *matCellDef="let element">
-                                <button class="btn btn-success" *ngIf="element.resource"
-                                        (click)="editCredentials(element)">
-                                    Edit Credentials
-                                </button>
-                            </td>
-                        </ng-container>
-
-                        <!--                        <ng-container matColumnDef="download">-->
-                        <!--                            <th mat-header-cell *matHeaderCellDef>Download</th>-->
-                        <!--                            <td mat-cell *matCellDef="let element">-->
-                        <!--                                <button class="btn btn-success" *ngIf="element.resource"-->
-                        <!--                                        (click)="downloadResource(element)">-->
-                        <!--                                    <a [href]="fileUrl" download="{{downloadedFileName}}">Download</a>-->
-                        <!--                                </button>-->
-                        <!--                            </td>-->
-                        <!--                        </ng-container>-->
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

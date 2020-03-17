@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileExplorerService} from './service/file-explorer.service';
 import {Router} from '@angular/router';
 import {Credentials} from './model/Credentials';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSort, MatTableDataSource} from '@angular/material';
 import {ResourceViewerDialogComponent} from './resource-viewer-dialog/resource-viewer-dialog.component';
 import {NotificationService} from '../error-dialog/service/notification.service';
 import {StoreResourceModel} from './model/StoreResourceModel';
@@ -18,7 +18,8 @@ export class CollectionManagerComponent implements OnInit {
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public selectedDirectory = '/db';
     public openedFile: string;
-    public collections: Credentials[];
+    public collections: any;
+    public element: Credentials;
     public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date', 'writable', 'delete', 'view',
         'editCredentials'];
 
@@ -27,6 +28,8 @@ export class CollectionManagerComponent implements OnInit {
                 private dialog: MatDialog,
                 private notificationService: NotificationService) {
     }
+    // @ts-ignore
+    @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
         this.loadData(this.selectedDirectory);
@@ -48,12 +51,14 @@ export class CollectionManagerComponent implements OnInit {
                         resource: false,
                         triggerConfigAvailable: false
                     };
-                    this.collections = res;
-                    this.collections.unshift(backElement);
+                    this.collections = new MatTableDataSource();
+                    this.collections.data = res;
+                    this.collections.sort = this.sort;
+                    this.collections.data.unshift(backElement);
                     this.isLoading$.next(false);
                 },
                 error => {
-                    console.log(error.status);
+                    this.notificationService.warn('Error: ' + error.status);
                     this.backToRoot();
                 });
     }
