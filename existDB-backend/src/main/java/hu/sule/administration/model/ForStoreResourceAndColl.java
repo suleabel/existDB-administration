@@ -4,22 +4,31 @@ public class ForStoreResourceAndColl {
     private String url;
     private String fileName;
     private String content;
+    private String mime;
     private boolean isBinary = true;
 
     public ForStoreResourceAndColl() {
     }
 
-    public ForStoreResourceAndColl(String url, String fileName, String content) {
+    public ForStoreResourceAndColl(String url, String fileName) {
         this.url = url;
         this.fileName = fileName;
-        this.content = content;
     }
 
-    public ForStoreResourceAndColl(String url, String fileName, String content, boolean isBinary) {
+    public ForStoreResourceAndColl(String url, String fileName, String content, String mime, boolean isBinary) {
         this.url = url;
         this.fileName = fileName;
         this.content = content;
+        this.mime = mime;
         this.isBinary = isBinary;
+    }
+
+    public String getMime() {
+        return mime;
+    }
+
+    public void setMime(String mime) {
+        this.mime = mime;
     }
 
     public boolean isBinary() {
@@ -60,6 +69,7 @@ public class ForStoreResourceAndColl {
                 "url='" + url + '\'' +
                 ", fileName='" + fileName + '\'' +
                 ", content='" + content + '\'' +
+                ", mime='" + mime + '\'' +
                 ", isBinary=" + isBinary +
                 '}';
     }

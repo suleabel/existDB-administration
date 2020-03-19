@@ -1,5 +1,8 @@
-<div>
-    <button class="btn, btn-success add-button" (click)="addUser()">Add user</button>
+<div class="loading" *ngIf="isLoading$ | async">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!(isLoading$ | async)">
+    <button class="btn btn-success add-button" (click)="addUser()">Add user</button>
     <div class="user-list-table">
         <mat-table class="table-bordered table-responsive" [dataSource]="UsersData" matSort>
 

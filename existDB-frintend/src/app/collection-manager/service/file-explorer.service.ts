@@ -15,8 +15,6 @@ export class FileExplorerService {
     /* tslint:disable:no-string-literal */
     private baseUrl = window['cfgApiBaseUrl'] + '/collection/';
     /* tslint:enable:no-string-literal */
-    private saveContentHere: string;
-    private CreatedCollectionName: string;
     private selectedResourceCredentials: Credentials;
     private OpenedFile: Credentials;
 
@@ -60,31 +58,13 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'editResCred', cred, {responseType: 'text'});
     }
 
-    public setSaveContentHere(url: string) {
-        this.saveContentHere = url;
-    }
-
-    public getSaveContentHere(): string {
-        return this.saveContentHere;
-    }
-
-    public setEditedFileCredentials(url: Credentials) {
+    set editedFileCredentials(url: Credentials) {
         this.selectedResourceCredentials = url;
     }
 
-    public getEditedFileCredentials(): Credentials {
+    get editedFileCredentials(): Credentials {
         return this.selectedResourceCredentials;
     }
-
-
-    get createdCollectionName(): string {
-        return this.CreatedCollectionName;
-    }
-
-    set createdCollectionName(value: string) {
-        this.CreatedCollectionName = value;
-    }
-
 
     get openedFile(): Credentials {
         return this.OpenedFile;

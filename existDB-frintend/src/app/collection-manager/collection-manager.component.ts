@@ -8,6 +8,9 @@ import {NotificationService} from '../error-dialog/service/notification.service'
 import {StoreResourceModel} from './model/StoreResourceModel';
 import {CreateDirDialogComponent} from './create-dir-dialog/create-dir-dialog.component';
 import {BehaviorSubject} from 'rxjs';
+import {CreateNewResourceComponent} from './create-new-resource/create-new-resource.component';
+import {CreateXqueryComponent} from './create-xquery/create-xquery.component';
+import {FileCredentialsComponent} from './file-credentials/file-credentials.component';
 
 @Component({
     selector: 'app-collection-manager',
@@ -20,7 +23,7 @@ export class CollectionManagerComponent implements OnInit {
     public openedFile: string;
     public collections: any;
     public element: Credentials;
-    public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date', 'writable', 'delete', 'view',
+    public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date', 'delete', 'view',
         'editCredentials'];
 
     constructor(private fileExplorerService: FileExplorerService,
@@ -28,6 +31,7 @@ export class CollectionManagerComponent implements OnInit {
                 private dialog: MatDialog,
                 private notificationService: NotificationService) {
     }
+
     // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
@@ -47,7 +51,7 @@ export class CollectionManagerComponent implements OnInit {
                         group: '',
                         mode: '',
                         date: '',
-                        writable: false,
+                        mime: '',
                         resource: false,
                         triggerConfigAvailable: false
                     };
@@ -56,6 +60,7 @@ export class CollectionManagerComponent implements OnInit {
                     this.collections.sort = this.sort;
                     this.collections.data.unshift(backElement);
                     this.isLoading$.next(false);
+                    console.log(this.collections.data);
                 },
                 error => {
                     this.notificationService.warn('Error: ' + error.status);
@@ -112,36 +117,105 @@ export class CollectionManagerComponent implements OnInit {
     }
 
     editCredentials(selectedResourceCredentials) {
-        this.fileExplorerService.setEditedFileCredentials(selectedResourceCredentials);
-        this.router.navigateByUrl('/file-credentials');
+        const dialogRef = this.dialog.open(FileCredentialsComponent, {
+            width: '50%',
+            height: 'auto',
+            data: {res: selectedResourceCredentials}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === '' || result === null || result === undefined) {
+                this.notificationService.warn('Not created');
+            } else {
+                const editFileData: Credentials = result;
+                this.fileExplorerService.editFileCredentials(editFileData)
+                    .subscribe(data => {
+                            console.log(data);
+                            this.notificationService.success('Success');
+                        },
+                        error => {
+                            this.notificationService.warn('Error: ' + error);
+                        });
+            }
+        });
     }
 
-    createFileHere(currentDir: string) {
-        this.fileExplorerService.setSaveContentHere(currentDir);
-        this.router.navigateByUrl('/create-file');
+    newXquery(currentDir: string) {
+        const dialogRef = this.dialog.open(CreateXqueryComponent, {
+            width: '80%',
+            height: '80%',
+            data: {selectedPath: currentDir}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === '' || result === null || result === undefined) {
+                this.notificationService.warn('Not created');
+            } else {
+                const saveData: StoreResourceModel = result;
+                saveData.isBinary = true;
+                this.fileExplorerService.saveResource(saveData)
+                    .subscribe(
+                        data => {
+                            this.notificationService.success('Success:' + data);
+                            this.loadData(this.selectedDirectory);
+                        }, error => {
+                            this.notificationService.warn('Error: ' + error);
+                        });
+            }
+        });
+    }
+
+    newResource(currentDir: string) {
+        const dialogRef = this.dialog.open(CreateNewResourceComponent, {
+            width: '80%',
+            height: '80%',
+            data: {selectedPath: currentDir}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+                if (result === '' || result === null || result === undefined) {
+                    this.notificationService.warn('Not created');
+                } else {
+                    const saveData: StoreResourceModel = result;
+                    saveData.isBinary = false;
+                    this.fileExplorerService.saveResource(saveData)
+                        .subscribe(
+                            data => {
+                                this.notificationService.success('Success:' + data);
+                                this.loadData(this.selectedDirectory);
+                            }, error => {
+                                this.notificationService.warn('Error: ' + error);
+                            });
+                }
+            }
+        );
     }
 
     createDir(currentDir: string) {
-        this.fileExplorerService.setSaveContentHere(currentDir);
         const dialogRef = this.dialog.open(CreateDirDialogComponent, {
-            width: '300px',
-            height: '200px',
+            width: 'auto',
+            height: 'auto'
         });
         dialogRef.afterClosed().subscribe(result => {
-            if (result === '') {
-                alert('Directory name is empty!!');
+            console.log('createDir result: ' + result);
+            if (result === '' || result === null || result === undefined) {
+                this.notificationService.warn('Collection name is empty');
+            } else {
+                const col: StoreResourceModel = {
+                    url: currentDir,
+                    fileName: result,
+                    content: null,
+                    isBinary: false,
+                    mime: ''
+                };
+                this.fileExplorerService.createDir(col)
+                    .subscribe(
+                        data => {
+                            this.notificationService.success('Success');
+                            this.loadData(this.selectedDirectory);
+                        },
+                        error => {
+                            this.notificationService.warn('Error: ' + error);
+                        }
+                    );
             }
-            const col: StoreResourceModel = {url: currentDir, fileName: result, content: null, isBinary: false};
-            this.fileExplorerService.createDir(col)
-                .subscribe(
-                    data => {
-                        this.notificationService.success('Success');
-                        this.loadData(this.selectedDirectory);
-                    },
-                    error => {
-                        this.notificationService.warn('Error: ' + error);
-                    }
-                );
         });
     }
 

@@ -8,6 +8,7 @@ import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XQueryService;
+
 import javax.xml.transform.OutputKeys;
 
 @Component
@@ -17,27 +18,27 @@ public class Util {
 
     private static final Logger logger = LoggerFactory.getLogger(Util.class);
 
-    public void initDatabaseDriver(String driver) throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException{
-            Class aClass = Class.forName(driver);
-            System.out.println("aClass.getGroupName() = " + aClass.getName());
-            Database database = (Database) aClass.newInstance();
-            database.setProperty("create-database", "true");
-            DatabaseManager.registerDatabase(database);
+    public void initDatabaseDriver(String driver) throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
+        Class aClass = Class.forName(driver);
+        System.out.println("aClass.getGroupName() = " + aClass.getName());
+        Database database = (Database) aClass.newInstance();
+        database.setProperty("create-database", "true");
+        DatabaseManager.registerDatabase(database);
     }
 
-    public String stringResultQuery(ExistDetails details, String query){
+    public String stringResultQuery(ExistDetails details, String query) {
         Collection old = collection;
         String result = null;
         try {
             closeCollection(collection);
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
             result = execXQuery(query, collection);
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("Execute Query exception: " + e.getMessage());
         } finally {
             try {
                 closeCollection(collection);
-            }catch (Exception ee){
+            } catch (Exception ee) {
                 logger.error("Close collection exception: " + ee.getMessage());
             }
             collection = old;
@@ -56,7 +57,7 @@ public class Util {
         } finally {
             try {
                 closeCollection(collection);
-            }catch (Exception ee){
+            } catch (Exception ee) {
                 System.out.println("Collection exception: " + ee.getMessage());
             }
             collection = old;
@@ -76,7 +77,7 @@ public class Util {
             service.setProperty(OutputKeys.INDENT, "yes");
             service.setProperty(OutputKeys.ENCODING, "UTF-8");
             CompiledExpression compiled = service.compile(query);
-            ResourceSet result = service.execute(compiled); // a file manager részben itt van a baj
+            ResourceSet result = service.execute(compiled); // a file manager részében itt van a baj
             for (int i = 0; i < (int) result.getSize(); i++) {
                 XMLResource r = (XMLResource) result.getResource((long) i);
                 sb.append(r.getContent().toString()).append("\n");

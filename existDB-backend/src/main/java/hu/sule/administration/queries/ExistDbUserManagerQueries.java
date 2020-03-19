@@ -36,6 +36,7 @@ public class ExistDbUserManagerQueries {
         return "User created!";
     }
 
+    //TODO meg kéne nézni hogy a change pass része működik-e
     public String editUser(ExistDetails details, ExistDBUser user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -114,7 +115,9 @@ public class ExistDbUserManagerQueries {
                 "                    <username>{$user}</username>\n" +
                 "                    <primaryGroups>{sm:get-user-primary-group($user)}</primaryGroups>\n" +
                 "                    <fullName>{sm:get-account-metadata($user, $METADATA_FULLNAME_KEY)}</fullName>\n" +
+                "                    <groups>\n" +
                 "                        {for $group in sm:get-user-groups($user) return(<group>{$group}</group>)}\n" +
+                "                    </groups>\n" +
                 "                    <umask>{sm:get-umask($user)}</umask>\n" +
                 "                    <desc>{sm:get-account-metadata($user, $METADATA_DESCRIPTION_KEY)}</desc>\n" +
                 "                    <isEnabled>{sm:is-account-enabled($user)}</isEnabled>\n" +
@@ -124,24 +127,11 @@ public class ExistDbUserManagerQueries {
                 "        </users>\n" +
                 "    )\n" +
                 "else\n" +
-                "false()\n";
+                "false()";
         return util.stringResultQuery(details, query);
     }
 
-
-    //leváltva
-    public boolean isAccountEnabled(ExistDetails details, String username) {
-        String query = "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
-                "sm:is-account-enabled(\"" + username + "\")\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, query).equals("true");
-
-    }
-
-    public String getUsers(ExistDetails details) {
+    public String getUsersNames(ExistDetails details) {
         logger.info("getAllUsers");
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -170,17 +160,6 @@ public class ExistDbUserManagerQueries {
         return "User is not exist!";
     }
 
-    //leváltva
-    public String getUserGroups(ExistDetails details, String user) {
-        String query = "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
-                "    sm:get-user-groups(\"" + user + "\")\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, query);
-    }
-
     public String changeUserPass(ExistDetails details, String username, String password) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -189,50 +168,6 @@ public class ExistDbUserManagerQueries {
                 "sm:passwd(\"" + username + "\", \"" + password + "\"),\n" +
                 "true()\n" +
                 ")\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, query);
-    }
-
-    //leváltva
-    public String getUserUmask(ExistDetails details, String user) {
-        String query = "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
-                "    sm:get-umask(\"" + user + "\")\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, query);
-    }
-    //leváltva
-    public String getUserFullname(ExistDetails details, String user) {
-        String query = "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
-                "sm:get-account-metadata(\"" + user + "\", $METADATA_FULLNAME_KEY)\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, query);
-    }
-    //leváltva
-    public String getUserDesc(ExistDetails details, String user) {
-        String query = "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI(\"http://exist-db.org/security/description\");" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
-                "sm:get-account-metadata(\"" + user + "\", $METADATA_DESCRIPTION_KEY)\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, query);
-    }
-
-    //leváltva
-    public String getUserPrimaryGroup(ExistDetails details, String user) {
-        String query = "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
-                "    sm:get-user-primary-group(\"" + user + "\")\n" +
                 "else\n" +
                 "false()";
         return util.stringResultQuery(details, query);

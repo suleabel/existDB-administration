@@ -36,7 +36,7 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String readFileContent(ExistDetails details, String url) {
+    public String readFileContent(ExistDetails details, String url){
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +

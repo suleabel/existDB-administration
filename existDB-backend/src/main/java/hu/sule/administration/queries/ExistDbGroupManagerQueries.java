@@ -49,8 +49,38 @@ public class ExistDbGroupManagerQueries {
         return "Groups is not exist!";
     }
 
+    public String getGroups2(ExistDetails details){
+        String query = "xquery version \"3.1\";\n" +
+                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
+                "declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI(\"http://exist-db.org/security/description\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        <groups>\n" +
+                "            {for $group in sm:list-groups()return\n" +
+                "                (\n" +
+                "                <group>\n" +
+                "                    <name>{$group}</name>\n" +
+                "                    <manager>{sm:get-group-managers($group)}</manager>\n" +
+                "                    <desc>{sm:get-group-metadata($group, $METADATA_DESCRIPTION_KEY)}</desc>\n" +
+                "                    <groupMembers>\n" +
+                "                        {for $member in sm:get-group-members($group)return\n" +
+                "                            (\n" +
+                "                                <member>{$member}</member>\n" +
+                "                            )\n" +
+                "                        }\n" +
+                "                    </groupMembers>\n" +
+                "                </group>\n" +
+                "                )\n" +
+                "            }\n" +
+                "        </groups>\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
+    }
 
-    public String getGroups(ExistDetails details){
+//*//
+    public String getGroupsNames(ExistDetails details){
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
@@ -59,7 +89,7 @@ public class ExistDbGroupManagerQueries {
                 "\tfalse()";
         return util.stringResultQuery(details, query);
     }
-
+//*//
     public String getGroupMembers(ExistDetails details, String groupName) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -69,7 +99,7 @@ public class ExistDbGroupManagerQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
-
+//*//
     public String getGroupManager(ExistDetails details, String groupName) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -79,7 +109,7 @@ public class ExistDbGroupManagerQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
-
+//*//
     public String getGroupDesc(ExistDetails details, String groupName) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +

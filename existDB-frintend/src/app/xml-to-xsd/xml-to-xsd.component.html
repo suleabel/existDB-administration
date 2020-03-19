@@ -15,14 +15,14 @@
     </div>
     <div class="card-deck">
         <div class="card">
-            <div class="card-header  font-weight-bold">
+            <div class="card-header font-weight-bold">
                 Generated XSD:
             </div>
             <div class="card-body">
                 <pre>
                     <code [highlight]="generatedXSD" [lineNumbers]="true"></code>
                 </pre>
-                <div class="save-xsm-schema-form" *ngIf="generatedXSD != ''">
+                <div class="save-xsd-schema-form" *ngIf="generatedXSD != ''">
                     <form [formGroup]="saveForm" class="text-center border border-light">
                         <div class="form-group">
                             <mat-form-field>

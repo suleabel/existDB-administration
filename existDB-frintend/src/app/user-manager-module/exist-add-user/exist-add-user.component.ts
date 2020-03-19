@@ -21,17 +21,7 @@ export class ExistAddUserComponent implements OnInit {
       private dialogRef: MatDialogRef<ExistAddUserComponent>) {}
 
   ngOnInit() {
-    this.userService.getGroupsNames()
-        .subscribe(
-        data => {
-          this.existGroups = data;
-          console.log(this.existGroups);
-        },
-            error => {
-          this.notificationService.warn('Error: ' + error);
-        }
-    );
-
+    this.getGroupNames();
     this.addUsrForm = this.formBuilder.group({
       username: [null, Validators.required],
       password: [null, Validators.required],
@@ -42,26 +32,20 @@ export class ExistAddUserComponent implements OnInit {
     });
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  getGroupNames() {
+    this.userService.getGroupsNames()
+        .subscribe(
+            data => {
+              this.existGroups = data;
+            },
+            error => {
+              this.notificationService.warn('Error: ' + error);
+            }
+        );
   }
 
-  submit() {
-    // this.addUserData = this.addUsrForm.value;
-    // if (!this.addUserData.groups.includes(this.addUserData.primaryGroup)) {
-    //   this.addUserData.groups.push(this.addUserData.primaryGroup);
-    // }
-    // console.log(this.addUserData);
-    // this.userService.addUserToExist(this.addUserData).subscribe(
-    //     data => {
-    //       this.notificationService.success('User created');
-    //       this.addUsrForm.reset();
-    //     },
-    //     error => {
-    //       this.notificationService.warn('Error: ' + error);
-    //     }
-    // );
-    // location.reload();
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   get username() {

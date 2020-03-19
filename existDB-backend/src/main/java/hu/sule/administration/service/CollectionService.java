@@ -30,40 +30,16 @@ public class CollectionService {
     private static final Logger logger = LoggerFactory.getLogger(CollectionService.class);
 
     public ArrayList<ExistCollectionManagerModel> getFileManagerCollectionsByCollection(String collection) {
-        String[] collections = existDbCollectionManagerQueries.getCollectionContent(ExistDbCredentialsService.getDetails(), collection).split("\n");
-        return getCollections(collection, collections);
+            ArrayList<ExistCollectionManagerModel> collections = new ArrayList<>();
+        for (ExistCollectionManagerModel col: mapCollectionQueryResult(existDbCollectionManagerQueries.getCollectionContent2(ExistDbCredentialsService.getDetails(), collection))) {
+            if(!col.isResource())
+                collections.add(col);
+        }
+        return collections;
     }
 
     public ArrayList<ExistCollectionManagerModel> getFileManagerContentByCollection(String collection) {
-//        String[] collections = existDbCollectionManagerQueries.getCollectionContent(ExistDbCredentialsService.getDetails(), collection).split("\n");
-//        String[] resources = existDbCollectionManagerQueries.getCollectionResources(ExistDbCredentialsService.getDetails(), collection).split("\n");
-//        ArrayList<ExistCollectionManagerModel> existCollectionManagerModels = new ArrayList<>(getCollections(collection, collections));
-//        existCollectionManagerModels.addAll(getResources(collection, resources));
         return mapCollectionQueryResult(existDbCollectionManagerQueries.getCollectionContent2(ExistDbCredentialsService.getDetails(), collection));
-    }
-
-    private ArrayList<ExistCollectionManagerModel> getResources(String collection, String[] resources) {
-        ArrayList<ExistCollectionManagerModel> existCollectionManagerModels = new ArrayList<>();
-        if (!resources[0].equals("")) {
-            for (String res : resources) {
-                String[] ResData = existDbCollectionManagerQueries.getResourceData(ExistDbCredentialsService.getDetails(), collection, res).split("\n");
-                ExistCollectionManagerModel existCollectionManagerModel = new ExistCollectionManagerModel(res, collection, ResData[0], ResData[1], ResData[2].equals("true"), ResData[3], ResData[4], true, false);
-                existCollectionManagerModels.add(existCollectionManagerModel);
-            }
-        }
-        return existCollectionManagerModels;
-    }
-
-    private ArrayList<ExistCollectionManagerModel> getCollections(String collection, String[] collections) {
-        ArrayList<ExistCollectionManagerModel> existCollectionManagerModels = new ArrayList<>();
-        if (!collections[0].equals("")) {
-            for (String col : collections) {
-                String[] ResData = existDbCollectionManagerQueries.getResourceData(ExistDbCredentialsService.getDetails(), collection, col).split("\n");
-                ExistCollectionManagerModel existCollectionManagerModel = new ExistCollectionManagerModel(col, collection, ResData[0], ResData[1], ResData[2].equals("true"), ResData[3], "", false, false);
-                existCollectionManagerModels.add(existCollectionManagerModel);
-            }
-        }
-        return existCollectionManagerModels;
     }
 
     public String createDir(ForStoreResourceAndColl storeResource) {
@@ -112,9 +88,9 @@ public class CollectionService {
             List<Element> exist = result.getChildren();
             for (Element element: exist) {
                 if(element.getName().equals("collection")){
-                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"),element.getAttributeValue("writable").equals("true"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("resource").equals("true"), false);
+                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),element.getAttributeValue("resource").equals("true"), false);
                 }else if(element.getName().equals("resource")){
-                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"),element.getAttributeValue("writable").equals("true"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("resource").equals("true"), false);
+                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),element.getAttributeValue("resource").equals("true"), false);
                 }
                 collectionManagerModels.add(model);
             }

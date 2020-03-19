@@ -17,7 +17,7 @@ import {
     MatPaginatorModule, MatSidenavModule,
     MatSortModule,
     MatTableModule,
-    MatToolbarModule, MatIconModule, MatSelectModule, MatDialogModule, MatProgressSpinnerModule,
+    MatToolbarModule, MatIconModule, MatSelectModule, MatDialogModule, MatProgressSpinnerModule, MatTabsModule,
 } from '@angular/material';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -39,7 +39,7 @@ import { ExistAddGroupComponent } from './exist-group-manager/exist-add-group/ex
 import { ExistGroupDetailsComponent } from './exist-group-manager/exist-group-details/exist-group-details.component';
 import {XmlToXsdComponent} from './xml-to-xsd/xml-to-xsd.component';
 import { DialogPanelComponent } from './xml-to-xsd/dialog-panel/dialog-panel.component';
-import { CreateFileComponent } from './collection-manager/create-file/create-file.component';
+import { CreateXqueryComponent } from './collection-manager/create-xquery/create-xquery.component';
 import { FileCredentialsComponent } from './collection-manager/file-credentials/file-credentials.component';
 import { TriggersManagerComponent } from './triggers-manager/triggers-manager.component';
 import { CollectionsDialogComponent } from './triggers-manager/collections-dialog/collections-dialog.component';
@@ -55,6 +55,7 @@ import { CollectionManagerComponent } from './collection-manager/collection-mana
 import {FileManagerComponent} from './file-manager/file-manager.component';
 import { FileViewerDialogComponent } from './file-manager/file-viewer-dialog/file-viewer-dialog.component';
 import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backup-and-restore-module.component';
+import { CreateNewResourceComponent } from './collection-manager/create-new-resource/create-new-resource.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,7 @@ import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backu
     ExistGroupDetailsComponent,
       XmlToXsdComponent,
       DialogPanelComponent,
-      CreateFileComponent,
+      CreateXqueryComponent,
       FileCredentialsComponent,
       TriggersManagerComponent,
       CollectionsDialogComponent,
@@ -89,6 +90,7 @@ import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backu
       FileManagerComponent,
       FileViewerDialogComponent,
       BackupAndRestoreModuleComponent,
+      CreateNewResourceComponent,
   ],
     imports: [
         BrowserModule,
@@ -117,7 +119,8 @@ import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backu
         HighlightModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatTabsModule
     ],
   providers: [
       httpInterceptorProvider,
@@ -136,7 +139,11 @@ import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backu
         BrowseSaveLocationComponent,
         ExistAddUserComponent,
         ViewHistoryComponent,
-        FileViewerDialogComponent]
+        FileViewerDialogComponent,
+        CreateNewResourceComponent,
+        CreateXqueryComponent,
+        FileCredentialsComponent,
+        ExistAddGroupComponent]
 })
 export class AppModule {
 }

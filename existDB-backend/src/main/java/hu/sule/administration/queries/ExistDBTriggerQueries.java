@@ -44,13 +44,28 @@ public class ExistDBTriggerQueries {
 
     public String saveEditedTrigger(ExistDetails details, String url, String conf){
         String query = "xquery version \"3.1\";\n" +
+                "declare variable $collection := \"" + url + "\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        xmldb:remove(\"" + url + "\",\"collection.xconf\"),\n" +
-                "        xmldb:store(\"" + url + "\",\"collection.xconf\",\"" + conf + "\")\n" +
-                "    )\n" +
+                "        xmldb:remove($collection,\"collection.xconf\"),\n" +
+                "        let $result := xmldb:store($collection,\"collection.xconf\",\"" + conf + "\")\n" +
+                "        let $reindex :=\n" +
+                "                    if (starts-with($collection, \"/db/system/config\")) then\n" +
+                "                        substring-after($collection, \"/db/system/config\")\n" +
+                "                    else\n" +
+                "                        $collection\n" +
+                "        return(           \n" +
+                "            if(xmldb:reindex($reindex) and exists($result)) then \n" +
+                "                true()\n" +
+                "            else \n" +
+                "                false()\n" +
+                "            )\n" +
+                "        )\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details, query);
+        System.out.println(query);
+        String result = util.stringResultQuery(details, query);
+        System.out.println("result: " + result);
+        return result;
     }
 }

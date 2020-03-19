@@ -3,6 +3,8 @@ package hu.sule.administration.controller;
 import hu.sule.administration.model.ExistDBUser;
 import hu.sule.administration.service.UserManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,8 +19,8 @@ public class UserManagerController {
     private UserManagerService userManagerService;
 
     @RequestMapping("/getUsers")
-    public ArrayList<ExistDBUser> GetUsers(){
-        return userManagerService.listUsers();
+    public ResponseEntity<ArrayList<ExistDBUser>> GetUsers(){
+        return new ResponseEntity<>(userManagerService.listUsers(), HttpStatus.OK);
     }
 
     @RequestMapping("getUsersNames")

@@ -64,6 +64,7 @@ export class VersionManagementModuleComponent implements OnInit {
                         group: '',
                         mode: '',
                         date: '',
+                        mime: '',
                         writable: false,
                         resource: false,
                         triggerConfigAvailable: false

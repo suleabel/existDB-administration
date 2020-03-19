@@ -7,6 +7,7 @@ import {NotificationService} from '../../error-dialog/service/notification.servi
 import {ExistUserModel} from '../model/existUser.model';
 import {ExistAddUserComponent} from '../exist-add-user/exist-add-user.component';
 import {stringify} from 'querystring';
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-exist-users-list',
@@ -14,9 +15,10 @@ import {stringify} from 'querystring';
   styleUrls: ['./exist-users-list.component.sass']
 })
 export class ExistUsersListComponent implements OnInit {
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public addUserData: ExistUserModel;
-    UsersData: any;
-    post: {
+    public UsersData: any;
+    public post: {
         username,
         fullName,
         umask,
@@ -24,7 +26,7 @@ export class ExistUsersListComponent implements OnInit {
         desc,
         default
     };
-    displayedColumns = ['username', 'fullName', 'umask', 'primaryGroup', 'desc', 'default', 'details', 'delete'];
+    public displayedColumns = ['username', 'fullName', 'umask', 'primaryGroup', 'desc', 'default', 'details', 'delete'];
 
     constructor(private userService: UserService,
                 private router: Router,
@@ -44,6 +46,7 @@ export class ExistUsersListComponent implements OnInit {
     }
 
     RenderUsersList() {
+        this.isLoading$.next(true);
         this.userService.getExistUsers()
             .subscribe(
                 res => {
@@ -51,6 +54,7 @@ export class ExistUsersListComponent implements OnInit {
                     this.UsersData.data = res;
                     this.UsersData.sort = this.sort;
                     this.UsersData.paginator = this.paginator;
+                    this.isLoading$.next(false);
                     console.log(this.UsersData.data);
                 },
                 error => {

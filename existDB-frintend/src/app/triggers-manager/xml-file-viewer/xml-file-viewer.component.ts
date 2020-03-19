@@ -7,6 +7,7 @@ import {TriggersService} from '../service/triggers.service';
 import {Credentials} from '../../collection-manager/model/Credentials';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 import {StoreResourceModel} from '../../collection-manager/model/StoreResourceModel';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
     selector: 'app-xml-file-viewer',
@@ -14,6 +15,7 @@ import {StoreResourceModel} from '../../collection-manager/model/StoreResourceMo
     styleUrls: ['./xml-file-viewer.component.sass']
 })
 export class XmlFileViewerComponent implements OnInit {
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public viewResult: string;
     public isBinary: boolean;
     public openedFile: Credentials;
@@ -60,17 +62,19 @@ export class XmlFileViewerComponent implements OnInit {
     }
 
     onSave() {
-        const saveRes: StoreResourceModel = {url: this.openedFile.path, fileName: this.openedFile.name, content: this.editedContent, isBinary: this.isBinary};
+        const saveRes: StoreResourceModel = {url: this.openedFile.path, fileName: this.openedFile.name, content: this.editedContent, isBinary: this.isBinary, mime: 'application/xml'};
         console.log(saveRes);
-        this.fileExplorerService.editResource(saveRes)
+        this.isLoading$.next(true);
+        this.triggerService.editTrigger(saveRes)
             .subscribe(data => {
-                    this.notificationService.success('Saved: ' + data);
+                    this.isLoading$.next(false);
+                    this.notificationService.success('Save, and reindexing configuration');
+                    this.dialogRef.close();
                 },
                 error => {
                     this.notificationService.warn('Error: ' + error);
                 });
         this.isEdit = false;
-        this.dialogRef.close();
     }
 
     onAddTrigger() {
@@ -82,7 +86,6 @@ export class XmlFileViewerComponent implements OnInit {
     }
 
     onClose() {
-        this.fileExplorerService.setSaveContentHere('');
         this.dialogRef.close();
     }
 

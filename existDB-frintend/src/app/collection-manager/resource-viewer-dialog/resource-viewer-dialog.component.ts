@@ -51,7 +51,7 @@ export class ResourceViewerDialogComponent implements OnInit {
     }
 
     onSave() {
-        const saveRes: StoreResourceModel = {url: this.openedFile.path, fileName: this.openedFile.name, content: this.editedContent, isBinary: this.isBinary};
+        const saveRes: StoreResourceModel = {url: this.openedFile.path, fileName: this.openedFile.name, content: this.editedContent, isBinary: this.isBinary, mime: this.openedFile.mime};
         console.log(saveRes);
         this.fileExplorerService.editResource(saveRes)
             .subscribe(data => {
@@ -65,7 +65,6 @@ export class ResourceViewerDialogComponent implements OnInit {
     }
 
     onClose() {
-        this.fileExplorerService.setSaveContentHere('');
         this.dialogRef.close();
     }
 

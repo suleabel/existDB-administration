@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateFileComponent } from './create-file.component';
+import { CreateNewResourceComponent } from './create-new-resource.component';
 
-describe('CreateFileComponent', () => {
-  let component: CreateFileComponent;
-  let fixture: ComponentFixture<CreateFileComponent>;
+describe('CreateNewResourceComponent', () => {
+  let component: CreateNewResourceComponent;
+  let fixture: ComponentFixture<CreateNewResourceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateFileComponent ]
+      declarations: [ CreateNewResourceComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateFileComponent);
+    fixture = TestBed.createComponent(CreateNewResourceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

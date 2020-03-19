@@ -10,6 +10,16 @@ public class ExistDBGroup {
     private List<String> groupMembers;
     private boolean Default;
 
+    public ExistDBGroup() {
+    }
+
+    public ExistDBGroup(String groupName, String groupManager, String desc, boolean aDefault) {
+        this.groupName = groupName;
+        this.groupManager = groupManager;
+        this.desc = desc;
+        Default = aDefault;
+    }
+
     public String getGroupName() {
         return groupName;
     }

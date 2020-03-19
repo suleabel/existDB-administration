@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../service/groups.service';
 import {ExistGroupModel} from '../model/existGroup.model';
 import {NotificationService} from '../../error-dialog/service/notification.service';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
     selector: 'app-exist-add-group',
@@ -17,10 +18,22 @@ export class ExistAddGroupComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private groupService: GroupsService,
-        private notificationService: NotificationService) {
+        private notificationService: NotificationService,
+        private dialogRef: MatDialogRef<ExistAddGroupComponent>) {
     }
 
     ngOnInit() {
+        this.getUsersNames();
+        this.addGroupForm = this.formBuilder.group({
+            groupName: [null, Validators.required],
+            groupManager: [null],
+            groupMembers: [null, Validators.required],
+            desc: []
+        });
+        console.log(this.addGroupForm);
+    }
+
+    getUsersNames() {
         this.groupService.getUsersNames()
             .subscribe(
                 data => {
@@ -30,14 +43,10 @@ export class ExistAddGroupComponent implements OnInit {
                     this.notificationService.warn('Error: ' + error);
                 }
             );
+    }
 
-        this.addGroupForm = this.formBuilder.group({
-            groupName: [null, Validators.required],
-            groupManager: [null],
-            groupMembers: [null, Validators.required],
-            desc: []
-        });
-        console.log(this.addGroupForm);
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
     get groupName() {
@@ -54,20 +63,5 @@ export class ExistAddGroupComponent implements OnInit {
 
     get groupMembers() {
         return this.addGroupForm.get('groupMembers');
-    }
-
-    submit() {
-        this.addGroupData = this.addGroupForm.value;
-        console.log(this.addGroupData);
-        this.groupService.addGroupToExist(this.addGroupData).subscribe(
-            data => {
-                this.notificationService.success('Success');
-                this.addGroupForm.reset();
-            },
-            error => {
-                this.notificationService.warn('Error: ' + error);
-            }
-        );
-        location.reload();
     }
 }

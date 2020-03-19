@@ -5,25 +5,31 @@ public class ExistCollectionManagerModel {
     private String path;
     private String owner;
     private String group;
-    private boolean writable = false;
     private String mode;
     private String date;
+    private String mime;
     private boolean resource;
     private boolean triggerConfigAvailable = false;
 
-    public ExistCollectionManagerModel() {
-    }
 
-    public ExistCollectionManagerModel(String name, String path, String owner, String group, boolean writable, String mode, String date, boolean resource, boolean triggerConfigAvailable) {
+    public ExistCollectionManagerModel(String name, String path, String owner, String group, String mode, String date, String mime, boolean resource, boolean triggerConfigAvailable) {
         this.name = name;
         this.path = path;
         this.owner = owner;
         this.group = group;
-        this.writable = writable;
         this.mode = mode;
         this.date = date;
+        this.mime = mime;
         this.resource = resource;
         this.triggerConfigAvailable = triggerConfigAvailable;
+    }
+
+    public String getMime() {
+        return mime;
+    }
+
+    public void setMime(String mime) {
+        this.mime = mime;
     }
 
     public String getName() {
@@ -56,14 +62,6 @@ public class ExistCollectionManagerModel {
 
     public void setGroup(String group) {
         this.group = group;
-    }
-
-    public boolean isWritable() {
-        return writable;
-    }
-
-    public void setWritable(boolean writable) {
-        this.writable = writable;
     }
 
     public String getMode() {
@@ -105,11 +103,11 @@ public class ExistCollectionManagerModel {
                 ", path='" + path + '\'' +
                 ", owner='" + owner + '\'' +
                 ", group='" + group + '\'' +
-                ", writable=" + writable +
                 ", mode='" + mode + '\'' +
                 ", date='" + date + '\'' +
+                ", mime='" + mime + '\'' +
                 ", resource=" + resource +
-                ", triggerConfigAvaliable=" + triggerConfigAvailable +
+                ", triggerConfigAvailable=" + triggerConfigAvailable +
                 '}';
     }
 }

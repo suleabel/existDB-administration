@@ -11,7 +11,9 @@
                 <div class="card-body" *ngIf="!(isLoading$ | async)">
                     <div>
                         <button class="btn btn-success rootButton" (click)="backToRoot()">Back To Root</button>
-                        <button class="btn btn-success rootButton" (click)="createFileHere(selectedDirectory)" [disabled]="false">Create resource
+                        <button class="btn btn-success rootButton" (click)="newXquery(selectedDirectory)" [disabled]="false">New XQuery
+                        </button>
+                        <button class="btn btn-success rootButton" (click)="newResource(selectedDirectory)" [disabled]="false">New
                         </button>
                         <button class="btn btn-success rootButton" (click)="createDir(selectedDirectory)">Create collection
                         </button>
@@ -70,13 +72,6 @@
                                     </mat-cell>
                                 </ng-container>
 
-                                <ng-container matColumnDef="writable">
-                                    <mat-header-cell *matHeaderCellDef>writable</mat-header-cell>
-                                    <mat-cell *matCellDef="let element">
-                                        <label *ngIf="element.resource">{{element.writable}}</label>
-                                    </mat-cell>
-                                </ng-container>
-
                                 <ng-container matColumnDef="view">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>View</mat-header-cell>
                                     <mat-cell *matCellDef="let element">
@@ -102,7 +97,7 @@
                                 <ng-container matColumnDef="editCredentials">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Edit Credentials</mat-header-cell>
                                     <mat-cell *matCellDef="let element">
-                                        <button class="btn btn-success" *ngIf="element.resource"
+                                        <button class="btn btn-success" *ngIf="element.name !== '..'"
                                                 (click)="editCredentials(element)">
                                             Edit Credentials
                                         </button>

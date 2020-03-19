@@ -1,0 +1,62 @@
+<h4 style="text-align: center">Create File</h4>
+<div class="container">
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header  font-weight-bold">
+                Create new resource
+            </div>
+            <div class="create-resource-form">
+                <form [formGroup]="createResourceForm" class="text-center border border-light">
+                    <div class="form-group">
+                        <mat-form-field>
+                            <label for="textarea" class="control-label"></label>
+                            <textarea matInput id="textarea" class="form-control" formControlName="content" rows="4"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field>
+                            <label for="url" class="control-label">url</label>
+                            <div style="float: right; padding: 1em;" >
+                                <button class="btn, btn-success" (click)="browseURL()">Browse</button>
+                            </div>
+                            <div style="overflow: hidden; padding: 1em;">
+                                <input matInput id="url" type="text" class="form-control"
+                                       formControlName="url">
+                            </div>
+                        </mat-form-field>
+                        <mat-error *ngIf="url.invalid && url.touched">
+                            URL is required
+                        </mat-error>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field>
+                            <label for="mime" class="control-label">Type</label>
+                            <mat-select id="mime" class="form-control" formControlName="mime">
+                                <mat-option *ngFor="let mime of mimes" [value]="mime">
+                                    {{mime}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="mime.invalid && mime.touched">
+                            Type is required
+                        </mat-error>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field>
+                            <label for="fileName" class="control-label">fileName</label>
+                            <input matInput id="fileName" type="text" class="form-control"
+                                   formControlName="fileName">
+                        </mat-form-field>
+                        <mat-error *ngIf="fileName.invalid && fileName.touched">
+                            File name is required
+                        </mat-error>
+                    </div>
+                    <div>
+                        <button [disabled]="createResourceForm.invalid" class="btn btn-primary font-weight-bold" [mat-dialog-close]="createResourceForm.value">Save</button>
+                        <button class="btn btn-primary font-weight-bold" (click)="onClose()">Back</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

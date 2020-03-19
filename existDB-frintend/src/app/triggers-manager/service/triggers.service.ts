@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EditTriggerModel} from '../model/EditTriggerModel';
+import {StoreResourceModel} from "../../collection-manager/model/StoreResourceModel";
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -24,7 +25,11 @@ export class TriggersService {
 
     public addTrigger(data: EditTriggerModel): Observable<any> {
         console.log(data);
-        return this.http.post(this.baseUrl + 'editTrigger', data, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'addTrigger', data, {responseType: 'text'});
+    }
+
+    public editTrigger(res: StoreResourceModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'editTrigger', res, {responseType: 'text'});
     }
 
     public initializeTriggerConfig(): Observable<any> {

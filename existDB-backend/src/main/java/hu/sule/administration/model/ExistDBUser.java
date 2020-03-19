@@ -1,37 +1,31 @@
 package hu.sule.administration.model;
 
-import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.List;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ExistDBUser implements Serializable {
-
-    @XmlElement(name="username")
     private String username;
-
-    @XmlElement(name="group")
     private List<String> groups;
-
-    @XmlElement(name="umask")
     private String umask;
-
-    @XmlElement(name="primaryGroups")
     private String primaryGroup;
-
-    @XmlElement(name="fullName")
     private String fullName;
-
-    @XmlElement(name="desc")
-    private String Desc;
-
+    private String desc;
     private String password;
-
     private boolean Default;
-
-    @XmlElement(name="isEnabled")
     private boolean enabled = true;
+
+    public ExistDBUser() {
+    }
+
+    public ExistDBUser(String username, String umask, String primaryGroup, String fullName, String desc, boolean aDefault, boolean enabled) {
+        this.username = username;
+        this.umask = umask;
+        this.primaryGroup = primaryGroup;
+        this.fullName = fullName;
+        this.desc = desc;
+        Default = aDefault;
+        this.enabled = enabled;
+    }
 
     public boolean isEnabled() {
         return enabled;
@@ -90,11 +84,11 @@ public class ExistDBUser implements Serializable {
     }
 
     public String getDesc() {
-        return Desc;
+        return desc;
     }
 
     public void setDesc(String desc) {
-        Desc = desc;
+        desc = desc;
     }
 
     public boolean isDefault() {
@@ -121,7 +115,7 @@ public class ExistDBUser implements Serializable {
                 ", umask='" + umask + '\'' +
                 ", primaryGroup='" + primaryGroup + '\'' +
                 ", fullName='" + fullName + '\'' +
-                ", Desc='" + Desc + '\'' +
+                ", Desc='" + desc + '\'' +
                 ", password='" + password + '\'' +
                 ", Default=" + Default +
                 ", enabled=" + enabled +

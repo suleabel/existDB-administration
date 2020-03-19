@@ -55,7 +55,7 @@ public class FileExplorerService {
         return existDbFileExplorerQueries.getRootDirectory(ExistDbCredentialsService.getDetails());
     }
 
-    public String getFileContent(String url) {
+    public String getFileContent(String url){
         return existDbFileExplorerQueries.readFileContent(ExistDbCredentialsService.getDetails(), url);
     }
 }

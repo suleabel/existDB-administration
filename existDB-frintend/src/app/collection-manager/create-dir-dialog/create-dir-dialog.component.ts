@@ -17,7 +17,6 @@ export class CreateDirDialogComponent implements OnInit {
   }
 
   onClose() {
-    this.fileExplorerService.setSaveContentHere('');
     this.dialogRef.close();
   }
 

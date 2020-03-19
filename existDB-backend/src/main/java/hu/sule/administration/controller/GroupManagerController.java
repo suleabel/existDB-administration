@@ -21,6 +21,7 @@ public class GroupManagerController {
 
     @RequestMapping("/getGroups")
     public ArrayList<ExistDBGroup> getGroups() {
+        System.out.println("asdasd");
         return groupManagerService.listGroups();
     }
 

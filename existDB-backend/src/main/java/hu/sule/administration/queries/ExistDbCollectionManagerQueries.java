@@ -4,8 +4,14 @@ import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ExistDetails;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.util.Util;
+import org.exquery.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class ExistDbCollectionManagerQueries {
@@ -20,33 +26,6 @@ public class ExistDbCollectionManagerQueries {
                 "xmldb:get-child-collections(\"" + collection + "\")\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details, query);
-    }
-    public String getCollectionResources(ExistDetails details, String collection){
-        String query = "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
-                "xmldb:get-child-resources(\"" + collection + "\")\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, query);
-    }
-
-    public String getResourceData(ExistDetails details, String baseCollection, String resource){
-        String query = "xquery version \"3.1\";\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
-                "    (\n" +
-                "        let $rsource := xs:anyURI(\"" + baseCollection + "/" + resource + "\")\n" +
-                "        let $permissions := sm:get-permissions($rsource)/sm:permission\n" +
-                "        let $owner := $permissions/@owner/string()\n" +
-                "        let $group := $permissions/@group/string()\n" +
-                "        let $canWrite := sm:has-access($rsource, \"w\")\n" +
-                "        let $mode :=  string($permissions/@mode)\n" +
-                "        let $date := xmldb:last-modified(\"" + baseCollection + "/" + "\", \"" + resource + "\")\n" +
-                "        return ($owner, $group, $canWrite, $mode, format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\"))\n" +
-                "    )\n" +
-                "else\n" +
-                "false()\n";
         return util.stringResultQuery(details, query);
     }
 
@@ -65,9 +44,10 @@ public class ExistDbCollectionManagerQueries {
                 "                let $group := $permissions/@group/string()\n" +
                 "                let $canWrite := sm:has-access($fullPath, \"w\")\n" +
                 "                let $mode :=  string($permissions/@mode)\n" +
-                "               let $date := xmldb:last-modified($url, $collection)\n" +
+                "                let $date := xmldb:last-modified($url, $collection)\n" +
+                "                let $mime := xmldb:get-mime-type($fullPath)\n" +
                 "                return (\n" +
-                "                    <exist:collection name=\"{$collection}\" path=\"{$url}\" owner=\"{$owner}\" group=\"{$group}\" writable=\"{$canWrite}\" mode=\"{$mode}\" date=\"{format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\")}\" resource=\"false\">\n" +
+                "                    <exist:collection name=\"{$collection}\" path=\"{$url}\" owner=\"{$owner}\" group=\"{$group}\" writeable=\"{$canWrite}\" mode=\"{$mode}\" mime=\"{$mime}\" date=\"{format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\")}\" resource=\"false\">\n" +
                 "                    </exist:collection>\n" +
                 "                )\n" +
                 "            }   \n" +
@@ -79,8 +59,9 @@ public class ExistDbCollectionManagerQueries {
                 "                let $canWrite := sm:has-access($fullPath, \"w\")\n" +
                 "                let $mode :=  string($permissions/@mode)\n" +
                 "                let $date := xmldb:last-modified($url, $resource)\n" +
+                "                let $mime := xmldb:get-mime-type($fullPath)\n" +
                 "                return (\n" +
-                "                    <exist:resource name=\"{$resource}\" path=\"{$url}\" owner=\"{$owner}\" group=\"{$group}\" writable=\"{$canWrite}\" mode=\"{$mode}\" date=\"{format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\")}\" resource=\"true\">\n" +
+                "                    <exist:resource name=\"{$resource}\" path=\"{$url}\" owner=\"{$owner}\" group=\"{$group}\" writeable=\"{$canWrite}\" mode=\"{$mode}\" mime=\"{$mime}\" date=\"{format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\")}\" resource=\"true\">\n" +
                 "                    </exist:resource>\n" +
                 "                )\n" +
                 "            }\n" +
@@ -108,26 +89,51 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        //System.out.println(query);
         return util.stringResultQuery(details, query);
     }
 
     public String saveResource(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl){
+        System.out.println("create file: " + forStoreResourceAndColl);
         String query = "xquery version \"3.1\";\n" +
-                "declare variable $isBinary := xs:boolean(\"" + forStoreResourceAndColl.isBinary() + "\");\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "declare variable $collection := \"" + forStoreResourceAndColl.getUrl() + "\";\n" +
+                "declare variable $resource := \"" + forStoreResourceAndColl.getFileName() + "\";\n" +
+                "declare variable $data :=\"" + forStoreResourceAndColl.getContent().replaceAll("\"","'") + "\";\n" +
+                "declare variable $isBinary := " + forStoreResourceAndColl.isBinary() + "();\n" +
+                "declare variable $mime := \"" + forStoreResourceAndColl.getMime() + "\";\n" +
+                "declare variable $path := string-join(($collection, \"/\", $resource),\"\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername()+ "\", \"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        if($isBinary) then\n" +
-                "            (\n" +
-                "                xmldb:store-as-binary(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",util:string-to-binary(\"" + forStoreResourceAndColl.getContent().replaceAll("\"", "'") + "\"))\n" +
-                "            )\n" +
-                "            else\n" +
-                "            (\n" +
-                "                xmldb:store(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",\"" + forStoreResourceAndColl.getContent().replaceAll("\"", "'") + "\")\n" +
+                "            let $isNew := not(util:binary-doc-available($path)) and not(doc-available($path))\n" +
+                "            return (\n" +
+                "                if ($isNew) then\n" +
+                "                    (\n" +
+                "                    if($isBinary) then\n" +
+                "                        xmldb:store-as-binary($collection, $resource, $data)\n" +
+                "                    else \n" +
+                "                        if (string-length($mime) ne 0) then\n" +
+                "                            xmldb:store($collection, $resource, $data, $mime)\n" +
+                "                        else\n" +
+                "                            xmldb:store($collection, $resource, $data)\n" +
+                "                    )\n" +
+                "                else\n" +
+                "                    (\n" +
+                "                    if(util:is-binary-doc($path)) then\n" +
+                "                            xmldb:store-as-binary($collection, $resource, $data)\n" +
+                "                    else \n" +
+                "                        if (string-length($mime) ne 0) then\n" +
+                "                            xmldb:store($collection, $resource, $data, $mime)\n" +
+                "                        else\n" +
+                "                            xmldb:store($collection, $resource, $data)\n" +
+                "                    ),\n" +
+                "                if ($isBinary or $mime eq \"application/xquery\") then\n" +
+                "                        sm:chmod(xs:anyURI($path), \"u+x,g+x,o+x\")\n" +
+                "                        else \n" +
+                "                            false()\n" +
                 "            )\n" +
                 "    )\n" +
                 "else\n" +
-                "false()";
+                "false()\n" +
+                "\n";
         System.out.println(query);
         return "not working this function!!";
         //return util.stringResultQuery(details, query);
@@ -141,7 +147,6 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        //System.out.println(query);
         return util.stringResultQuery(details, query);
     }
 
@@ -155,30 +160,6 @@ public class ExistDbCollectionManagerQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
-
-//    public String readBinaryFile(ExistDetails details, String resUrl){
-//        String query = "xquery version \"3.1\";\n" +
-//                "import module namespace util=\"http://exist-db.org/xquery/util\" at \"java:org.exist.xquery.functions.util.UtilModule\";\n" +
-//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
-//                "    (\n" +
-//                "       util:binary-to-string(util:binary-doc(\"" + resUrl + "\"))\n" +
-//                "    )\n" +
-//                "else\n" +
-//                "false()\n";
-//        return util.stringResultQuery(details, query);
-//    }
-//
-//    public String readXmlFile(ExistDetails details, String confUrl){
-//        String query = "xquery version \"3.1\";\n" +
-//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\",false())) then\n" +
-//                "    (\n" +
-//                "       doc(\"" + confUrl + "\")\n" +
-//                "    )\n" +
-//                "    else\n" +
-//                "    false()\n";
-//        return util.stringResultQuery(details, query);
-//    }
-
     public String readFile(ExistDetails details, String resUrl) {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $file := xs:string(\"" + resUrl + "\");\n" +
@@ -206,14 +187,24 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        //System.out.println(query);
         return util.stringResultQuery(details, query);
     }
 
     public String editResCred(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel) {
-        String query = "";
-        System.out.println(existCollectionManagerModel.toString());
-        return "dummy success";
+        String query = "xquery version \"3.1\";\n" +
+                "declare variable $collection := \"" + existCollectionManagerModel.getPath() + "\";\n" +
+                "declare variable $resource := \"" + existCollectionManagerModel.getName() + "\";\n" +
+                "declare variable $path := string-join(($collection, \"/\", $resource),\"\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "       sm:chgrp($path,\"" + existCollectionManagerModel.getGroup() + "\"),\n" +
+                "       sm:chown($path,\"" + existCollectionManagerModel.getOwner() + "\"),\n" +
+                "       sm:chmod($path,\"" + existCollectionManagerModel.getMode() + "\"),\n" +
+                "       true()\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
     }
 
     public boolean isBinary(ExistDetails details, String url) {

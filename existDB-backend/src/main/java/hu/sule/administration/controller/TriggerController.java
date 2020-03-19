@@ -2,6 +2,7 @@ package hu.sule.administration.controller;
 
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistCollectionManagerModel;
+import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.service.TriggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -30,9 +31,14 @@ public class TriggerController {
         return triggerService.initTriggerConfig(httpEntity.getBody());
     }
 
-    @RequestMapping("editTrigger")
-    public String editTrigger(@RequestBody EditTriggerModel editTriggerModel){
+    @RequestMapping("addTrigger")
+    public String addTrigger(@RequestBody EditTriggerModel editTriggerModel){
         return triggerService.addTrigger(editTriggerModel);
+    }
+
+    @RequestMapping("editTrigger")
+    public String saveEdit(@RequestBody ForStoreResourceAndColl storeResource){
+        return triggerService.editTrigger(storeResource);
     }
 
 //    @RequestMapping("getTriggers")

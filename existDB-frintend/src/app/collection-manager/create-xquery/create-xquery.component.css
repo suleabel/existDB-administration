@@ -17,4 +17,8 @@ button {
   margin: 10px;
 }
 
-/*# sourceMappingURL=create-file.component.css.map */
+mat-form-field {
+  width: 90%;
+}
+
+/*# sourceMappingURL=create-xquery.component.css.map */

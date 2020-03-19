@@ -41,7 +41,7 @@ public class TriggerService {
         String triggerDir = "triggerQueries";
         if(!Arrays.asList(existDbCollectionManagerQueries.getCollectionContent(ExistDbCredentialsService.getDetails()
                 , "/db").split("\n")).contains(triggerDir)){
-            existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), new ForStoreResourceAndColl("/db", triggerDir, null));
+            existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), new ForStoreResourceAndColl("/db", triggerDir));
             logger.info("Trigger Root Directory initializing");
         }
     }
@@ -53,7 +53,7 @@ public class TriggerService {
         for (String part: pathParts) {
             if(!part.equals("")){
                 if(!configIsAvailable(testedPath.toString() + "/" + part)){
-                    existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), new ForStoreResourceAndColl(testedPath.toString(), part, null));
+                    existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), new ForStoreResourceAndColl(testedPath.toString(), part));
                     System.out.println("not available path: " + testedPath + " part: " + part);
                 }
                 testedPath.append("/").append(part);
@@ -152,4 +152,7 @@ public class TriggerService {
     }
 
 
+    public String editTrigger(ForStoreResourceAndColl storeResource) {
+        return existDBTriggerQueries.saveEditedTrigger(ExistDbCredentialsService.getDetails(), storeResource.getUrl(), String.join("\n", storeResource.getContent()).replaceAll("\"","'"));
+    }
 }

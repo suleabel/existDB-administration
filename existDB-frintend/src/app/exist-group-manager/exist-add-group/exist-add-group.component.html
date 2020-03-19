@@ -1,5 +1,5 @@
 <div class="user-group-form">
-    <form [formGroup]="addGroupForm" (submit)="submit()" class="text-center border border-light p-5">
+    <form [formGroup]="addGroupForm" class="text-center border border-light p-5">
         <h4>Add group</h4>
         <div class="form-group">
             <mat-form-field>
@@ -46,10 +46,9 @@
                 Username is required
             </mat-error>
         </div>
-
         <div>
-            <button class="btn btn-primary font-weight-bold">Add</button>
+            <button class="btn btn-primary font-weight-bold" [mat-dialog-close]="addGroupForm.value" [disabled]="addGroupForm.invalid">Add</button>
+            <button class="btn btn-primary" (click)="onNoClick()">No Thanks</button>
         </div>
-
     </form>
 </div>
