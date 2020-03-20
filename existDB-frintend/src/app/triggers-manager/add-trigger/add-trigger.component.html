@@ -7,7 +7,7 @@
                     Add User
                 </div>
                 <div class="card-body">
-                    <form [formGroup]="triggerForm" (submit)="onSave()" class="text-center border border-light">
+                    <form [formGroup]="triggerForm" class="text-center border border-light">
                         <h4>Add Trigger</h4>
                         <div class="form-group">
                             <mat-form-field>
@@ -49,12 +49,20 @@
 
                         <div class="form-group">
                                 <mat-form-field>
-                                    <label for="value" class="control-label">value</label>
-                                    <input *ngIf="name.value == 'url'" matInput id="value" type="text" class="form-control" formControlName="value">
-<!--                                    <button *ngIf="name.value == 'query'" class="btn btn-success" (click)="onQuery()">Query code</button>-->
-                                    <label>
-                                        <textarea matInput *ngIf="name.value == 'query'" class="form-control" formControlName="value" rows="4"></textarea>
-                                    </label>
+                                    <div *ngIf="name.value == 'url'">
+                                        <label for="value" class="control-label">Selected xquery</label>
+                                        <div style="float: right; padding: 1em;">
+                                            <button class="btn, btn-success" (click)="browseXquery()">Browse</button>
+                                        </div>
+                                        <div style="overflow: hidden; padding: 1em;">
+                                            <input  matInput id="value" type="text" class="form-control" formControlName="value">
+                                        </div>
+                                    </div>
+                                    <div *ngIf="name.value == 'query'" >
+                                        <!--<button *ngIf="name.value == 'query'" class="btn btn-success" (click)="onQuery()">Query code</button>-->
+                                        <label for="textarea">Xquery</label>
+                                        <textarea matInput id="textarea" class="form-control" formControlName="value" rows="4"></textarea>
+                                    </div>
                                 </mat-form-field>
                                 <mat-error *ngIf="value.invalid && value.touched">
                                     Value is required

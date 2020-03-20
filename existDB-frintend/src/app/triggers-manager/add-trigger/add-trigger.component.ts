@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TriggersService} from '../service/triggers.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
+import {BrowseXqueryFileComponent} from '../browse-xquery-file/browse-xquery-file.component';
 
 @Component({
     selector: 'app-add-trigger',
@@ -17,7 +18,7 @@ export class AddTriggerComponent implements OnInit {
     public triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
     public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
     public triggerName = ['url', 'query'];
-    public triggerValue = 'test.xql';
+    public triggerValue = '';
     public openedFile;
     public query: string;
 
@@ -33,14 +34,28 @@ export class AddTriggerComponent implements OnInit {
     ngOnInit() {
         this.openedFile = this.fileExplorerService.openedFile;
         console.log(this.openedFile);
+        this.buildForm();
+    }
 
+    buildForm() {
         this.triggerForm = this.formBuilder.group({
             event: [null, Validators.required],
             tClass: [this.triggerClass, Validators.required],
             name: ['url', Validators.required],
             value: [this.triggerValue, Validators.required],
         });
+    }
 
+    browseXquery() {
+        const dialogRef = this.dialog.open(BrowseXqueryFileComponent, {
+            width: '70%',
+            height: 'auto',
+            data: {}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.triggerValue = result;
+            this.buildForm();
+        });
     }
 
     onSave() {
@@ -48,8 +63,12 @@ export class AddTriggerComponent implements OnInit {
             .afterClosed().subscribe(res => {
             if (res) {
                 const trigCredCont: EditTriggerModel = {
-                    path: this.openedFile.path, fName: this.openedFile.name, event: this.triggerForm.value.event, tClass: this.triggerForm.value.tClass,
-                    name: this.triggerForm.value.name, value: this.triggerForm.value.value
+                    path: this.openedFile.path,
+                    fName: this.openedFile.name,
+                    event: this.triggerForm.value.event,
+                    tClass: this.triggerForm.value.tClass,
+                    name: this.triggerForm.value.name,
+                    value: this.triggerForm.value.value
                 };
                 this.triggerService.addTrigger(trigCredCont)
                     .subscribe(

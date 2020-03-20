@@ -7,13 +7,15 @@
                 Insert content here:
             </div>
             <div class="card-body">
-
                 <table mat-table [dataSource]="collections" class="mat-elevation-z8">
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef>Name</th>
                         <td mat-cell *matCellDef="let element">
                             <label *ngIf="!element.resource;">
                                 <a (click)="aClick(element.name)">{{element.name}}</a>
+                            </label>
+                            <label *ngIf="element.resource;">
+                                <a (click)="select(element)">{{element.name}}</a>
                             </label>
                         </td>
                     </ng-container>
@@ -23,13 +25,15 @@
                             <div *ngIf="!element.resource">
                                 <label *ngIf="element.name !== '..'">Directory</label>
                             </div>
+                            <div *ngIf="element.resource">
+                                <label *ngIf="element.name !== '..'">Resource</label>
+                            </div>
                         </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-
                 <button class="btn btn-success" (click)="onNoClick()">No Thanks</button>
                 <button class="btn btn-success" [mat-dialog-close]="selectedDirectory" cdkFocusInitial>Ok</button>
             </div>

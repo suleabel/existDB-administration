@@ -4,9 +4,8 @@ import {NotificationService} from '../error-dialog/service/notification.service'
 import {BehaviorSubject} from 'rxjs';
 import {BackupEntity} from './model/BackupEntity';
 import {CreateBackupEntity} from './model/CreateBackupEntity';
-import {FileCredentialsComponent} from "../collection-manager/file-credentials/file-credentials.component";
-import {MatDialog} from "@angular/material";
-import {InformationDialogComponent} from "./information-dialog/information-dialog.component";
+import {MatDialog} from '@angular/material';
+import {InformationDialogComponent} from './information-dialog/information-dialog.component';
 
 @Component({
     selector: 'app-backup-and-restore-module',
@@ -18,7 +17,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
     public isLoading2$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public location = '/exist/data/export';
     public backups: BackupEntity;
-    public displayedColumns: string[] = ['fileName', 'nrInSequence', 'date', 'incremental', 'previous', 'download'];
+    public displayedColumns: string[] = ['fileName', 'nrInSequence', 'date', 'incremental', 'previous', 'download', 'restore'];
     public entity: CreateBackupEntity = {isZip: false, isIncremental: false};
 
     constructor(
@@ -61,19 +60,23 @@ export class BackupAndRestoreModuleComponent implements OnInit {
         this.entity.isIncremental = !this.entity.isIncremental;
     }
 
+    restore(element) {
+        console.log(element);
+    }
+
     createBackup() {
-        this.isLoading$.next(true);
+        this.isLoading2$.next(true);
         console.log(this.entity);
         this.backupService.createBackup(this.entity)
             .subscribe(data => {
                 this.notificationService.success('Backup created');
-                this.isLoading$.next(false);
+                this.isLoading2$.next(false);
                 const dialogRef = this.dialog.open(InformationDialogComponent, {
                     width: '50%',
                     height: '80%',
                     data: {res: data}
                 });
-                dialogRef.afterClosed().subscribe( result => {
+                dialogRef.afterClosed().subscribe(result => {
                     this.loadBackups(this.location);
                 });
             }, error => {

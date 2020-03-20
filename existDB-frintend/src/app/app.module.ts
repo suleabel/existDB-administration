@@ -57,6 +57,7 @@ import { FileViewerDialogComponent } from './file-manager/file-viewer-dialog/fil
 import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backup-and-restore-module.component';
 import { CreateNewResourceComponent } from './collection-manager/create-new-resource/create-new-resource.component';
 import { InformationDialogComponent } from './backup-and-restore-moduel/information-dialog/information-dialog.component';
+import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file/browse-xquery-file.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,6 +94,7 @@ import { InformationDialogComponent } from './backup-and-restore-moduel/informat
       BackupAndRestoreModuleComponent,
       CreateNewResourceComponent,
       InformationDialogComponent,
+      BrowseXqueryFileComponent,
   ],
     imports: [
         BrowserModule,
@@ -146,7 +148,8 @@ import { InformationDialogComponent } from './backup-and-restore-moduel/informat
         CreateXqueryComponent,
         FileCredentialsComponent,
         ExistAddGroupComponent,
-        InformationDialogComponent]
+        InformationDialogComponent,
+        BrowseXqueryFileComponent]
 })
 export class AppModule {
 }

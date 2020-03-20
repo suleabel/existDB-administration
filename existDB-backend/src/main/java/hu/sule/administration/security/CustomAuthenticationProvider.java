@@ -19,7 +19,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try{
             if(UserManagerService.isAdmin()){
-
                 return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials().toString());
             } else {
                 throw new
