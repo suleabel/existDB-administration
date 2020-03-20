@@ -16,9 +16,9 @@ import {BrowseXqueryFileComponent} from '../browse-xquery-file/browse-xquery-fil
 export class AddTriggerComponent implements OnInit {
     public triggerForm: FormGroup;
     public triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
-    public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
     public triggerName = ['url', 'query'];
-    public triggerValue = '';
+    public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
+    public tempFormData = {event: '', tClass: this.triggerClass, name: 'url', value: ''};
     public openedFile;
     public query: string;
 
@@ -34,27 +34,28 @@ export class AddTriggerComponent implements OnInit {
     ngOnInit() {
         this.openedFile = this.fileExplorerService.openedFile;
         console.log(this.openedFile);
-        this.buildForm();
+        this.buildForm(this.tempFormData);
     }
 
-    buildForm() {
+    buildForm(tempFormData) {
         this.triggerForm = this.formBuilder.group({
-            event: [null, Validators.required],
-            tClass: [this.triggerClass, Validators.required],
-            name: ['url', Validators.required],
-            value: [this.triggerValue, Validators.required],
+            event: [tempFormData.event, Validators.required],
+            tClass: [tempFormData.tClass, Validators.required],
+            name: [tempFormData.name, Validators.required],
+            value: [tempFormData.value, Validators.required],
         });
     }
 
     browseXquery() {
+        this.tempFormData = this.triggerForm.value;
         const dialogRef = this.dialog.open(BrowseXqueryFileComponent, {
             width: '70%',
             height: 'auto',
             data: {}
         });
         dialogRef.afterClosed().subscribe(result => {
-            this.triggerValue = result;
-            this.buildForm();
+            this.tempFormData.value = result;
+            this.buildForm(this.tempFormData);
         });
     }
 
