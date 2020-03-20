@@ -4,13 +4,17 @@ package hu.sule.administration.controller;
 import hu.sule.administration.model.BackupEntity;
 import hu.sule.administration.model.CreateBackupEntity;
 import hu.sule.administration.service.BackupService;
+import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @RestController
@@ -27,9 +31,29 @@ public class BackupsController {
     }
 
     @RequestMapping("/createBackup")
-    public String createBackup(@RequestBody CreateBackupEntity createBackupEntity){
+    public ResponseEntity<String> createBackup(@RequestBody CreateBackupEntity createBackupEntity){
         System.out.println(createBackupEntity.toString());
-        return backupService.createBackup(createBackupEntity);
+        String result = "";
+        try {
+            result = backupService.createBackup(createBackupEntity);
+        } catch (JDOMException | IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping("/restoreBackup")
+    public ResponseEntity<String> restoreBackup(HttpEntity<String> httpEntity){
+        String result = "";
+        try {
+            result =  backupService.restoreBackup(httpEntity.getBody());
+        } catch (JDOMException | IOException e) {
+            e.printStackTrace();
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

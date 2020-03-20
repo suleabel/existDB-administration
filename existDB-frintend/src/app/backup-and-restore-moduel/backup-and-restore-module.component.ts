@@ -4,6 +4,9 @@ import {NotificationService} from '../error-dialog/service/notification.service'
 import {BehaviorSubject} from 'rxjs';
 import {BackupEntity} from './model/BackupEntity';
 import {CreateBackupEntity} from './model/CreateBackupEntity';
+import {FileCredentialsComponent} from "../collection-manager/file-credentials/file-credentials.component";
+import {MatDialog} from "@angular/material";
+import {InformationDialogComponent} from "./information-dialog/information-dialog.component";
 
 @Component({
     selector: 'app-backup-and-restore-module',
@@ -12,6 +15,7 @@ import {CreateBackupEntity} from './model/CreateBackupEntity';
 })
 export class BackupAndRestoreModuleComponent implements OnInit {
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public isLoading2$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public location = '/exist/data/export';
     public backups: BackupEntity;
     public displayedColumns: string[] = ['fileName', 'nrInSequence', 'date', 'incremental', 'previous', 'download'];
@@ -19,7 +23,8 @@ export class BackupAndRestoreModuleComponent implements OnInit {
 
     constructor(
         private backupService: BackupRestoreService,
-        private notificationService: NotificationService) {
+        private notificationService: NotificationService,
+        private dialog: MatDialog,) {
     }
 
     ngOnInit() {
@@ -62,7 +67,15 @@ export class BackupAndRestoreModuleComponent implements OnInit {
         this.backupService.createBackup(this.entity)
             .subscribe(data => {
                 this.notificationService.success('Backup created');
-                this.loadBackups(this.location);
+                this.isLoading$.next(false);
+                const dialogRef = this.dialog.open(InformationDialogComponent, {
+                    width: '50%',
+                    height: '80%',
+                    data: {res: data}
+                });
+                dialogRef.afterClosed().subscribe( result => {
+                    this.loadBackups(this.location);
+                });
             }, error => {
                 this.notificationService.warn('Error: ' + error.message);
             });

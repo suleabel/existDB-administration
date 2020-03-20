@@ -24,6 +24,29 @@ public class ExistDbBackupsAndRestoreQueries {
         return util.stringResultQuery(details, query);
     }
 
+    public String createBackup2(ExistDetails details, CreateBackupEntity createBackupEntity) {
+        createBackupEntity.setZip(true);
+        String query = "xquery version '3.1';\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        system:export(\"/exist/data/export\", " + createBackupEntity.isIncremental() + "(), " + createBackupEntity.isIncremental() + "())\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details,query);
+    }
+
+    public String restoreBackup(ExistDetails details, String path) {
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" ,\"" + details.getUsername() + "\", \"" + details.getPassword()+ "\")) then\n" +
+                "    (\n" +
+                "        system:import(\"" + path + "\",\"" + details.getPassword() + "\",\"" + details.getPassword() + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details,query);
+    }
+
     public String createBackup(ExistDetails details, CreateBackupEntity createBackupEntity) {
         System.out.println(createBackupEntity.toString());
         String query = "xquery version \"3.1\";\n" +
@@ -47,4 +70,5 @@ public class ExistDbBackupsAndRestoreQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
+
 }

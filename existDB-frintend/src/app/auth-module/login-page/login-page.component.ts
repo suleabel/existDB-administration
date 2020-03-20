@@ -69,6 +69,7 @@ export class LoginPageComponent implements OnInit {
       error => {
         this.errorMessage = error.error.message;
         console.log('Login errorMessage  ' + this.errorMessage);
+        location.reload();
       }
     );
   }

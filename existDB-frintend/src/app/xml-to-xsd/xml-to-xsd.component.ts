@@ -59,19 +59,6 @@ export class XmlToXsdComponent implements OnInit {
         });
     }
 
-    // openDialog(): void {
-    //     const dialogRef = this.dialog.open(DialogPanelComponent, {
-    //         width: '250%',
-    //         height: '500px',
-    //         data: {name: this.name, animal: this.animal}
-    //     });
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         console.log('The dialog was closed');
-    //         this.animal = result;
-    //     });
-    // }
-
     sendText(value: string): void {
         console.log(value);
         this.xmlService.sendXml(this.textValue).subscribe(data => {

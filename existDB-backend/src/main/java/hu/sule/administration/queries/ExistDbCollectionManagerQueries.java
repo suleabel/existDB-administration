@@ -135,8 +135,8 @@ public class ExistDbCollectionManagerQueries {
                 "false()\n" +
                 "\n";
         System.out.println(query);
-        return "not working this function!!";
-        //return util.stringResultQuery(details, query);
+        //return "not working this function!!";
+        return util.stringResultQuery(details, query);
     }
 
     public String createCollection(ExistDetails details, ForStoreResourceAndColl storeResource){

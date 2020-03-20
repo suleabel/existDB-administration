@@ -13,54 +13,53 @@
             </div>
         </div>
     </div>
-    <div class="card-deck">
-        <div class="card">
-            <div class="card-header font-weight-bold">
-                Generated XSD:
-            </div>
-            <div class="card-body">
+    <div class="card" *ngIf="generatedXSD != ''">
+        <div class="card-header font-weight-bold">
+            Generated XSD:
+        </div>
+        <div class="card-body">
                 <pre>
                     <code [highlight]="generatedXSD" [lineNumbers]="true"></code>
                 </pre>
-                <div class="save-xsd-schema-form" *ngIf="generatedXSD != ''">
-                    <form [formGroup]="saveForm" class="text-center border border-light">
-                        <div class="form-group">
-                            <mat-form-field>
-                                <label for="url" class="control-label">url</label>
-                                <div style="float: right; padding: 1em;" >
-                                    <button class="btn, btn-success" (click)="browseURL()">Browse</button>
-                                </div>
-                                <div style="overflow: hidden; padding: 1em;">
-                                    <input matInput id="url" type="text" class="form-control"
-                                           formControlName="url">
-                                </div>
-                            </mat-form-field>
-                            <mat-error *ngIf="url.invalid && url.touched">
-                                URL is required
-                            </mat-error>
-                        </div>
-                        <div class="form-group">
-                            <mat-form-field>
-                                <label for="fileName" class="control-label">fileName</label>
-                                <input matInput id="fileName" type="text" class="form-control"
-                                       formControlName="fileName">
-                            </mat-form-field>
-                            <mat-error *ngIf="fileName.invalid && fileName.touched">
-                                File name is required
-                            </mat-error>
-                        </div>
-                        <div>
-                            <button [disabled]="saveForm.invalid"
-                                    class="btn btn-primary font-weight-bold" (click)="saveXsdToDB()">Save XSD to eXist-DB</button>
-                            <button [disabled]="(generatedXSD == '') ? 'disabled' : ''" class="btn btn-primary font-weight-bold"
-                                    (click)="downloadXsd()"><a [href]="fileUrl" download="file.xsd">Download generated XSD</a>
-                            </button>
-                        </div>
+            <div class="save-xsd-schema-form">
+                <form [formGroup]="saveForm" class="text-center border border-light">
+                    <div class="form-group">
+                        <mat-form-field>
+                            <label for="url" class="control-label">url</label>
+                            <div style="float: right; padding: 1em;">
+                                <button class="btn, btn-success" (click)="browseURL()">Browse</button>
+                            </div>
+                            <div style="overflow: hidden; padding: 1em;">
+                                <input matInput id="url" type="text" class="form-control"
+                                       formControlName="url">
+                            </div>
+                        </mat-form-field>
+                        <mat-error *ngIf="url.invalid && url.touched">
+                            URL is required
+                        </mat-error>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field>
+                            <label for="fileName" class="control-label">fileName</label>
+                            <input matInput id="fileName" type="text" class="form-control"
+                                   formControlName="fileName">
+                        </mat-form-field>
+                        <mat-error *ngIf="fileName.invalid && fileName.touched">
+                            File name is required
+                        </mat-error>
+                    </div>
+                    <div>
+                        <button [disabled]="saveForm.invalid"
+                                class="btn btn-primary font-weight-bold" (click)="saveXsdToDB()">Save XSD to eXist-DB
+                        </button>
+                        <button [disabled]="(generatedXSD == '') ? 'disabled' : ''"
+                                class="btn btn-primary font-weight-bold"
+                                (click)="downloadXsd()"><a [href]="fileUrl" download="file.xsd">Download generated
+                            XSD</a>
+                        </button>
+                    </div>
 
-                    </form>
-                </div>
-
-
+                </form>
             </div>
         </div>
     </div>

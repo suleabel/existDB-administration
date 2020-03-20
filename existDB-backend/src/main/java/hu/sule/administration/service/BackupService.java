@@ -3,11 +3,14 @@ package hu.sule.administration.service;
 import hu.sule.administration.model.BackupEntity;
 import hu.sule.administration.model.CreateBackupEntity;
 import hu.sule.administration.queries.ExistDbBackupsAndRestoreQueries;
+import org.eclipse.jetty.util.IO;
 import org.exist.xquery.functions.session.Create;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +34,13 @@ public class BackupService {
         return mapBackups(existDbBackupsAndRestoreQueries.getBackups(ExistDbCredentialsService.getDetails(), url));
     }
 
-    public String createBackup(CreateBackupEntity createBackupEntity){
-        return existDbBackupsAndRestoreQueries.createBackup(ExistDbCredentialsService.getDetails(), createBackupEntity);
+    public String createBackup(CreateBackupEntity createBackupEntity) throws JDOMException, IOException {
+        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbBackupsAndRestoreQueries.createBackup2(ExistDbCredentialsService.getDetails(), createBackupEntity))));
+    }
+
+    public String restoreBackup(String name) throws JDOMException, IOException {
+        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbBackupsAndRestoreQueries.restoreBackup(ExistDbCredentialsService.getDetails(), name))));
+
     }
 
     private ArrayList<BackupEntity> mapBackups(String input){
