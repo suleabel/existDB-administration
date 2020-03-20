@@ -150,7 +150,7 @@ export class CollectionManagerComponent implements OnInit {
                 this.notificationService.warn('Not created');
             } else {
                 const saveData: StoreResourceModel = result;
-                saveData.isBinary = true;
+                saveData.isBinary = false;
                 this.fileExplorerService.saveResource(saveData)
                     .subscribe(
                         data => {

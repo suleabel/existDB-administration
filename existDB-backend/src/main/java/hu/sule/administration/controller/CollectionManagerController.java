@@ -43,6 +43,7 @@ public class CollectionManagerController {
 
     @RequestMapping("/store")
     public String store(@RequestBody ForStoreResourceAndColl storeResource){
+
         return collectionService.Store(storeResource);
     }
 

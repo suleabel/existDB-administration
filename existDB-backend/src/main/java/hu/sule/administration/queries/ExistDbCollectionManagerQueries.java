@@ -101,39 +101,20 @@ public class ExistDbCollectionManagerQueries {
                 "declare variable $isBinary := " + forStoreResourceAndColl.isBinary() + "();\n" +
                 "declare variable $mime := \"" + forStoreResourceAndColl.getMime() + "\";\n" +
                 "declare variable $path := string-join(($collection, \"/\", $resource),\"\");\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername()+ "\", \"" + details.getPassword() + "\")) then\n" +
+                "if(xmldb:login(\"/db/\" , \"admin\", \"\")) then\n" +
                 "    (\n" +
-                "            let $isNew := not(util:binary-doc-available($path)) and not(doc-available($path))\n" +
-                "            return (\n" +
-                "                if ($isNew) then\n" +
-                "                    (\n" +
-                "                    if($isBinary) then\n" +
-                "                        xmldb:store-as-binary($collection, $resource, $data)\n" +
-                "                    else \n" +
-                "                        if (string-length($mime) ne 0) then\n" +
-                "                            xmldb:store($collection, $resource, $data, $mime)\n" +
-                "                        else\n" +
-                "                            xmldb:store($collection, $resource, $data)\n" +
-                "                    )\n" +
-                "                else\n" +
-                "                    (\n" +
-                "                    if(util:is-binary-doc($path)) then\n" +
-                "                            xmldb:store-as-binary($collection, $resource, $data)\n" +
-                "                    else \n" +
-                "                        if (string-length($mime) ne 0) then\n" +
-                "                            xmldb:store($collection, $resource, $data, $mime)\n" +
-                "                        else\n" +
-                "                            xmldb:store($collection, $resource, $data)\n" +
-                "                    ),\n" +
-                "                if ($isBinary or $mime eq \"application/xquery\") then\n" +
-                "                        sm:chmod(xs:anyURI($path), \"u+x,g+x,o+x\")\n" +
-                "                        else \n" +
-                "                            false()\n" +
+                "        if($isBinary) then\n" +
+                "            xmldb:store-as-binary($collection, $resource, $data)\n" +
+                "        else \n" +
+                "            (\n" +
+                "            if (string-length($mime) ne 0) then\n" +
+                "                xmldb:store($collection, $resource, $data, $mime)\n" +
+                "            else\n" +
+                "                xmldb:store($collection, $resource, $data)\n" +
                 "            )\n" +
                 "    )\n" +
                 "else\n" +
-                "false()\n" +
-                "\n";
+                "false()";
         System.out.println(query);
         //return "not working this function!!";
         return util.stringResultQuery(details, query);

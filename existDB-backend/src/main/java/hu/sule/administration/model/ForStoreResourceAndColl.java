@@ -5,7 +5,7 @@ public class ForStoreResourceAndColl {
     private String fileName;
     private String content;
     private String mime;
-    private boolean isBinary = true;
+    private boolean isBinary;
 
     public ForStoreResourceAndColl() {
     }
