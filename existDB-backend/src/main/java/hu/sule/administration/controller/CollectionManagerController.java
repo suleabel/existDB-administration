@@ -65,4 +65,14 @@ public class CollectionManagerController {
     public String editResCred(@RequestBody ExistCollectionManagerModel existCollectionManagerModel){
         return collectionService.editResCred(existCollectionManagerModel);
     }
+
+    @RequestMapping("/evalXqueryasString")
+    public String evalXqueryasString(HttpEntity<String> httpEntity){
+        return collectionService.evalXqueryasString(httpEntity.getBody());
+    }
+
+    @RequestMapping("/evalXqueryasPath")
+    public String evalXqueryasPath(HttpEntity<String> httpEntity){
+        return collectionService.evalXqueryasString(httpEntity.getBody());
+    }
 }

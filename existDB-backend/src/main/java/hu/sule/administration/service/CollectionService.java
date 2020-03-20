@@ -66,6 +66,14 @@ public class CollectionService {
         return existDbCollectionManagerQueries.editResCred(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
+    public String evalXqueryasString(String query){
+        return existDbCollectionManagerQueries.evalXqueryasString(ExistDbCredentialsService.getDetails(),query);
+    }
+
+    public String evalXqueryasPath(String query){
+        return existDbCollectionManagerQueries.evalXqueryasPath(ExistDbCredentialsService.getDetails(),query);
+    }
+
     public ResourceReadModel readFile(String url) {
         ResourceReadModel resourceReadModel = new ResourceReadModel();
         resourceReadModel.setContent(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url));

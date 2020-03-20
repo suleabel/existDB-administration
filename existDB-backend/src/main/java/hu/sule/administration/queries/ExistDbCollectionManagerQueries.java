@@ -226,4 +226,28 @@ public class ExistDbCollectionManagerQueries {
                 "false()";
         return util.booleanResultQuery(details, query);
     }
+
+    //TODO meg kéne nézni, hogy visszaadja-e ha hiba van
+    public String evalXqueryasString(ExistDetails details, String query){
+        String xquery = "xquery version '3.1';\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        util:eval(\"" + query + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, xquery);
+    }
+
+    //TODO meg kéne nézni, hogy visszaadja-e ha hiba van
+    public String evalXqueryasPath(ExistDetails details, String url){
+        String xquery = "xquery version '3.1';\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        util:eval(xs:anyURI(\"" + url + "\"))\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, xquery);
+    }
 }
