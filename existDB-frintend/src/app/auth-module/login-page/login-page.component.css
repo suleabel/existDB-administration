@@ -11,4 +11,8 @@ h1 {
   text-align: center;
 }
 
+.loading {
+  align-self: center;
+}
+
 /*# sourceMappingURL=login-page.component.css.map */

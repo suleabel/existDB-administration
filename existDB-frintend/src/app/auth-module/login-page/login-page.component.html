@@ -45,7 +45,10 @@
             <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
           </div>
 
-          <div>
+          <div class="loading" *ngIf="isLoading$ | async">
+            <mat-spinner></mat-spinner>
+          </div >
+          <div class="login_button" *ngIf="!(isLoading$ | async)">
             <button class="btn btn-primary font-weight-bold" [disabled]="loginForm.invalid">Login</button>
           </div>
         </form>

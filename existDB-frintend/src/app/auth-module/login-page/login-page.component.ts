@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth.service';
 import {TokenStorageService} from '../token-storage.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -10,6 +11,7 @@ import {TokenStorageService} from '../token-storage.service';
   styleUrls: ['./login-page.component.sass']
 })
 export class LoginPageComponent implements OnInit {
+  public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public loginForm: FormGroup;
   public errorMessage: string;
 
@@ -55,11 +57,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   loggedIn() {
+    this.isLoading$.next(true);
     this.authService.attemptAuth(this.loginForm.value).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
+        this.isLoading$.next(false);
         this.router.navigate(['home']);
       },
       error => {

@@ -26,7 +26,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
         this.loadBackups(this.location);
     }
 
-    private loadBackups(location: string) {
+    loadBackups(location: string) {
         this.isLoading$.next(true);
         this.backupService.getBackups(location)
             .subscribe(data => {
@@ -40,23 +40,23 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                 });
     }
 
-    private setDefaultLocation() {
+    setDefaultLocation() {
         this.location = '/exist/data/export';
     }
 
-    private setBackupsLocation() {
+    setBackupsLocation() {
         this.loadBackups(this.location);
     }
 
-    private changeZip() {
+    changeZip() {
         this.entity.isZip = !this.entity.isZip;
     }
 
-    private changeIncremental() {
+    changeIncremental() {
         this.entity.isIncremental = !this.entity.isIncremental;
     }
 
-    private createBackup() {
+    createBackup() {
         this.isLoading$.next(true);
         console.log(this.entity);
         this.backupService.createBackup(this.entity)
