@@ -14,11 +14,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   /* tslint:disable:no-string-literal */
   private loginUrl = window['cfgApiBaseUrl'] + '/api/auth/signin';
   /* tslint:enable:no-string-literal */
+  private Url: string;
+  private User: string;
   constructor(
     private http: HttpClient,
     private token: TokenStorageService,
@@ -26,6 +27,8 @@ export class AuthService {
   }
 
   attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
+    this.Url = credentials.url;
+    this.User = credentials.username;
     return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
   }
 
@@ -42,5 +45,13 @@ export class AuthService {
     this.loggedIn.next(false);
     this.token.signOut();
     this.router.navigate(['/login']);
+  }
+
+  get url(): string {
+    return this.Url;
+  }
+
+  get user(): string {
+    return this.User;
   }
 }

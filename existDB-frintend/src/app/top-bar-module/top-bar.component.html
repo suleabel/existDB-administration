@@ -1,41 +1,75 @@
+<!--<div *ngIf="isLoggedIn$ | async as isLoggedIn">-->
+<!--  <h1  [routerLink]="'/home'">eXist-DB Administration</h1>-->
+<!--  <nav class="navbar navbar-expand-lg navbar-light">-->
+<!--    <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--      <ul class="navbar-nav mr-auto">-->
+<!--        <li>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--          <a class="nav-link" mat-button [routerLink]="'/home'"><h2>Home</h2></a>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--        <a class="nav-link" mat-button [routerLink]="'/user-manager-module'"><h2>User Manager</h2></a>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--          <a class="nav-link" mat-button [routerLink]="'/exist-group-manager'"><h2>Group Manager</h2></a>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--          <a class="nav-link" mat-button [routerLink]="'/xml2xsd'"><h2>XSD Generator from XML</h2></a>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--          <a class="nav-link" mat-button [routerLink]="'/file_manager-component'"><h2>File Explorer</h2></a>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--          <a class="nav-link" mat-button [routerLink]="'/trigger-manager'"><h2>Trigger Manager</h2></a>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--          <a class="nav-link" mat-button [routerLink]="'/version-management'"><h2>Version Management</h2></a>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--          <a class="nav-link" mat-button [routerLink]="'/collection-manager'"><h2>Collection Manager</h2></a>-->
+<!--        </li>-->
+<!--        <li class="nav-item active">-->
+<!--          <a class="nav-link" mat-button [routerLink]="'/backup-and-restore-module'"><h2>Backup</h2></a>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <form class="form-inline my-2 my-lg-0">-->
+<!--        <a class="nav-link" mat-button (click)="onLogout()" *ngIf="isLoggedIn"><h2>Logout</h2></a>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </nav>-->
+<!--</div>-->
 <div *ngIf="isLoggedIn$ | async as isLoggedIn">
-  <h1  [routerLink]="'/home'">eXist-DB Administration</h1>
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/home'"><h2>Home</h2></a>
-        </li>
-        <li class="nav-item active">
-        <a class="nav-link" mat-button [routerLink]="'/user-manager-module'"><h2>User Manager</h2></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/exist-group-manager'"><h2>Group Manager</h2></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/xml2xsd'"><h2>XSD Generator from XML</h2></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/file_manager-component'"><h2>File Explorer</h2></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/trigger-manager'"><h2>Trigger Manager</h2></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/version-management'"><h2>Version Management</h2></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/collection-manager'"><h2>Collection Manager</h2></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" mat-button [routerLink]="'/backup-and-restore-module'"><h2>Backup</h2></a>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <a class="nav-link" mat-button (click)="onLogout()" *ngIf="isLoggedIn"><h2>Logout</h2></a>
-      </form>
-    </div>
-  </nav>
+    <h1 [routerLink]="'/home'">eXist-DB Administration</h1>
+<!--    <h5>Server: {{authService.url}} , User: {{authService.user}}</h5>-->
+    <mat-toolbar color="primary">
+        <!--  <span>Application Title</span>-->
+        <a class="nav-link" mat-button [routerLink]="'/home'"><h2>Home</h2></a>
+
+        <a mat-button [matMenuTriggerFor]="menu"><h2>User Manager</h2></a>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="'/user-manager-module'">Users</button>
+            <button mat-menu-item [routerLink]="'/exist-group-manager'">Groups</button>
+        </mat-menu>
+<!--        <a class="nav-link" mat-button [routerLink]="'/user-manager-module'"><h2>User Manager</h2></a>-->
+<!--        <a class="nav-link" mat-button [routerLink]="'/exist-group-manager'"><h2>Group Manager</h2></a>-->
+<!--        <a class="nav-link" mat-button [routerLink]="'/xml2xsd'"><h2>XSD Generator from XML</h2></a>-->
+        <a class="nav-link" mat-button [routerLink]="'/collection-manager'"><h2>Collection Manager</h2></a>
+        <a class="nav-link" mat-button [routerLink]="'/file_manager-component'"><h2>File Explorer</h2></a>
+        <a class="nav-link" mat-button [routerLink]="'/trigger-manager'"><h2>Trigger Manager</h2></a>
+        <a class="nav-link" mat-button [routerLink]="'/version-management'"><h2>Version Management</h2></a>
+<!--        <a class="nav-link" mat-button [routerLink]="'/backup-and-restore-module'"><h2>Backup</h2></a>-->
+
+        <a mat-button [matMenuTriggerFor]="menu"><h2>Tools</h2></a>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="'/xml2xsd'">Generate XSD from XML</button>
+            <button mat-menu-item [routerLink]="'/backup-and-restore-module'">Backup</button>
+        </mat-menu>
+
+
+        <span class="example-fill-remaining-space"></span>
+        <form class="form-inline my-2 my-lg-0">
+            <a class="nav-link" mat-button (click)="onLogout()" *ngIf="isLoggedIn"><h2>Logout</h2></a>
+        </form>
+    </mat-toolbar>
 </div>
