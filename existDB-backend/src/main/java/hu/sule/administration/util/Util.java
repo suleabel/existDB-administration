@@ -75,9 +75,9 @@ public class Util {
         try {
             XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
             service.setProperty(OutputKeys.INDENT, "yes");
-            service.setProperty(OutputKeys.ENCODING, "UTF-8");
+            service.setProperty(OutputKeys.ENCODING, "UTF-16");
             CompiledExpression compiled = service.compile(query);
-            ResourceSet result = service.execute(compiled); // a file manager részében itt van a baj
+            ResourceSet result = service.execute(compiled);
             for (int i = 0; i < (int) result.getSize(); i++) {
                 XMLResource r = (XMLResource) result.getResource((long) i);
                 sb.append(r.getContent().toString()).append("\n");

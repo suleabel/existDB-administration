@@ -88,8 +88,8 @@ export class FileManagerComponent implements OnInit {
 
     view(element: FileManagerEntity) {
         const dialogRef = this.dialog.open(FileViewerDialogComponent, {
-            width: '300px',
-            height: '200px',
+            width: '80%',
+            height: '80%',
             data: {fileData: element, url: this.url}
         });
         dialogRef.afterClosed().subscribe( result => {

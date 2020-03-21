@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FileManagerService} from '../service/file-manager.service';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
   selector: 'app-file-viewer-dialog',
@@ -8,21 +9,25 @@ import {FileManagerService} from '../service/file-manager.service';
   styleUrls: ['./file-viewer-dialog.component.sass']
 })
 export class FileViewerDialogComponent implements OnInit {
+  public fullPath: string;
+  public content: string;
 
   constructor(private dialogRef: MatDialogRef<FileViewerDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
-              private fileManagerService: FileManagerService ) { }
+              private fileManagerService: FileManagerService,
+              private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.readFile();
+    this.fullPath = this.data.url + '/' + this.data.fileData.name;
+    this.readFile(this.fullPath);
   }
 
-  readFile() {
-    this.fileManagerService.readFile(this.data.url + '/' + this.data.fileData.name)
+  readFile(fullPath) {
+    this.fileManagerService.readFile(fullPath)
         .subscribe(data => {
-          console.log(data);
+          this.content = data;
         }, error => {
-          console.log(error);
+          this.notificationService.warn('Error: ' + error);
         }
     );
   }

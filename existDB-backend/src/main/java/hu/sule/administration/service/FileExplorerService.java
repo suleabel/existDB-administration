@@ -32,18 +32,18 @@ public class FileExplorerService {
         Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
         try {
             doc = saxBuilder.build(new InputSource(new StringReader(existDbFileExplorerQueries.getDirectoryContent(ExistDbCredentialsService.getDetails(), dirname))));
-        } catch (JDOMException | IOException e){
-            logger.error("SAXBuilder exception: " + e.getMessage()) ;
+        } catch (JDOMException | IOException e) {
+            logger.error("SAXBuilder exception: " + e.getMessage());
         }
-        if(doc != null) {
+        if (doc != null) {
             Element list = doc.getRootElement();
             List<Element> content = list.getChildren();
-            for (Element file: content) {
+            for (Element file : content) {
                 FileManagerEntity fme = null;
-                if(file.getName().equals("file")){
-                    fme = new FileManagerEntity(true,file.getAttributeValue("name"),file.getAttributeValue("size"),file.getAttributeValue("human-size"),file.getAttributeValue("modified"),file.getAttributeValue("hidden").equals("true"),file.getAttributeValue("canRead").equals("true"),file.getAttributeValue("canWrite").equals("true"));
-                }else if(file.getName().equals("directory")){
-                    fme = new FileManagerEntity(false,file.getAttributeValue("name"),file.getAttributeValue("size"),file.getAttributeValue("human-size"),file.getAttributeValue("modified"),file.getAttributeValue("hidden").equals("true"),file.getAttributeValue("canRead").equals("true"),file.getAttributeValue("canWrite").equals("true"));
+                if (file.getName().equals("file")) {
+                    fme = new FileManagerEntity(true, file.getAttributeValue("name"), file.getAttributeValue("size"), file.getAttributeValue("human-size"), file.getAttributeValue("modified"), file.getAttributeValue("hidden").equals("true"), file.getAttributeValue("canRead").equals("true"), file.getAttributeValue("canWrite").equals("true"));
+                } else if (file.getName().equals("directory")) {
+                    fme = new FileManagerEntity(false, file.getAttributeValue("name"), file.getAttributeValue("size"), file.getAttributeValue("human-size"), file.getAttributeValue("modified"), file.getAttributeValue("hidden").equals("true"), file.getAttributeValue("canRead").equals("true"), file.getAttributeValue("canWrite").equals("true"));
                 }
                 fileManagerEntities.add(fme);
             }
@@ -55,7 +55,31 @@ public class FileExplorerService {
         return existDbFileExplorerQueries.getRootDirectory(ExistDbCredentialsService.getDetails());
     }
 
-    public String getFileContent(String url){
-        return existDbFileExplorerQueries.readFileContent(ExistDbCredentialsService.getDetails(), url);
+    public String getFileContent(String url) {
+        // XML 1.0
+        // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+        String xml10pattern = "[^"
+                + "\u0009\r\n"
+                + "\u0020-\uD7FF"
+                + "\uE000-\uFFFD"
+                + "\ud800\udc00-\udbff\udfff"
+                + "]";
+        String xmlString = existDbFileExplorerQueries.readFileContent(ExistDbCredentialsService.getDetails(), url).replaceAll(xml10pattern, "");
+        String content = "";
+        SAXBuilder saxBuilder = new SAXBuilder();
+        Document doc = null;
+        Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
+        try {
+            doc = saxBuilder.build(new InputSource(new StringReader(xmlString)));
+        } catch (JDOMException | IOException e) {
+            logger.error("SAXBuilder exception: " + e.getMessage());
+        }
+        if (doc != null) {
+            content = doc.getRootElement().getValue();
+        }
+
+        return content;
+//        return existDbFileExplorerQueries.readFileContent(ExistDbCredentialsService.getDetails(), url);
+        //return existDbFileExplorerQueries.readFileContent(ExistDbCredentialsService.getDetails(), url).replace("&lt;","<").replace("&gt;",">");
     }
 }
