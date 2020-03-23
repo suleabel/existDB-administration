@@ -58,6 +58,7 @@ import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backu
 import { CreateNewResourceComponent } from './collection-manager/create-new-resource/create-new-resource.component';
 import { InformationDialogComponent } from './backup-and-restore-moduel/information-dialog/information-dialog.component';
 import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file/browse-xquery-file.component';
+import { EvalResultViewerComponent } from './collection-manager/eval-result-viewer/eval-result-viewer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,6 +96,7 @@ import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file
       CreateNewResourceComponent,
       InformationDialogComponent,
       BrowseXqueryFileComponent,
+      EvalResultViewerComponent,
   ],
     imports: [
         BrowserModule,
@@ -149,7 +151,8 @@ import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file
         FileCredentialsComponent,
         ExistAddGroupComponent,
         InformationDialogComponent,
-        BrowseXqueryFileComponent]
+        BrowseXqueryFileComponent,
+        EvalResultViewerComponent]
 })
 export class AppModule {
 }

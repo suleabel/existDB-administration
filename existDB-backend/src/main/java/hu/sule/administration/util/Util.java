@@ -1,6 +1,7 @@
 package hu.sule.administration.util;
 
 import hu.sule.administration.model.ExistDetails;
+import org.exolab.castor.dsml.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -65,7 +66,7 @@ public class Util {
         return result;
     }
 
-    public void closeCollection(Collection collection) throws Exception {
+    public void closeCollection(Collection collection) throws XMLDBException {
         if (collection != null)
             collection.close();
     }
@@ -86,5 +87,30 @@ public class Util {
             System.out.println("execQuery Exception: " + e.getMessage());
         }
         return sb.toString().trim();
+    }
+
+    public String execXQuery2(String query, Collection collection) throws XMLDBException {
+        StringBuilder sb = new StringBuilder();
+        XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
+        service.setProperty(OutputKeys.INDENT, "yes");
+        service.setProperty(OutputKeys.ENCODING, "UTF-16");
+        CompiledExpression compiled = service.compile(query);
+        ResourceSet result = service.execute(compiled);
+        for (int i = 0; i < (int) result.getSize(); i++) {
+            XMLResource r = (XMLResource) result.getResource((long) i);
+            sb.append(r.getContent().toString()).append("\n");
+        }
+        return sb.toString().trim();
+    }
+
+    public String stringResultQuery2(ExistDetails details, String query) throws XMLDBException {
+        Collection old = collection;
+        String result = null;
+        closeCollection(collection);
+        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
+        result = execXQuery(query, collection);
+        closeCollection(collection);
+        collection = old;
+        return result;
     }
 }

@@ -18,7 +18,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try{
-            if(UserManagerService.isAdmin()){
+            boolean isAdminAccess = UserManagerService.isAdmin();
+            if(isAdminAccess){
                 return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials().toString());
             } else {
                 throw new

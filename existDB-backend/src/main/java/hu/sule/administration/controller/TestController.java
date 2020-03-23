@@ -1,7 +1,9 @@
 package hu.sule.administration.controller;
 
-import hu.sule.administration.service.ExistDbCredentialsService;
+import hu.sule.administration.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @Autowired
-    private ExistDbCredentialsService existDbCredentialsService;
+    private TestService testService;
 
-//    @RequestMapping("testTree")
-//    public List<String> getTest(){
-//        return existDbMainService.getCollectionFree("/db");
-//    }
+    @RequestMapping("test")
+    public ResponseEntity<String> getTest() throws Exception {
+        testService.testCucc();
+        return new ResponseEntity<>("Error" , HttpStatus.INTERNAL_SERVER_ERROR);
+        //throw new ApiRequestException("working");
+    }
 }

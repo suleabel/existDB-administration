@@ -7,6 +7,7 @@ import hu.sule.administration.util.Util;
 import org.exquery.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xmldb.api.base.XMLDBException;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -209,7 +210,7 @@ public class ExistDbCollectionManagerQueries {
     }
 
     //TODO meg kéne nézni, hogy visszaadja-e ha hiba van
-    public String evalXqueryasString(ExistDetails details, String query){
+    public String evalXqueryasString(ExistDetails details, String query) throws XMLDBException{
         String xquery = "xquery version '3.1';\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -217,11 +218,12 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details, xquery);
+        System.out.println(xquery);
+        return util.stringResultQuery2(details, xquery);
     }
 
     //TODO meg kéne nézni, hogy visszaadja-e ha hiba van
-    public String evalXqueryasPath(ExistDetails details, String url){
+    public String evalXqueryasPath(ExistDetails details, String url) throws XMLDBException {
         String xquery = "xquery version '3.1';\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +

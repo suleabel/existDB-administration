@@ -58,13 +58,10 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'editResCred', cred, {responseType: 'text'});
     }
 
-    set editedFileCredentials(url: Credentials) {
-        this.selectedResourceCredentials = url;
+    public evalXqueryFromPath(url: string): Observable<any> {
+        return this.http.post(this.baseUrl + 'evalXqueryasPath', url, {responseType: 'text'});
     }
 
-    get editedFileCredentials(): Credentials {
-        return this.selectedResourceCredentials;
-    }
 
     get openedFile(): Credentials {
         return this.OpenedFile;

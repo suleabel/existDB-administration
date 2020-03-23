@@ -9,11 +9,14 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
+import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -66,12 +69,12 @@ public class CollectionService {
         return existDbCollectionManagerQueries.editResCred(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
-    public String evalXqueryasString(String query){
+    public String evalXqueryasString(String query) throws XMLDBException {
         return existDbCollectionManagerQueries.evalXqueryasString(ExistDbCredentialsService.getDetails(),query);
     }
 
-    public String evalXqueryasPath(String query){
-        return existDbCollectionManagerQueries.evalXqueryasPath(ExistDbCredentialsService.getDetails(),query);
+    public String evalXqueryasPath(String query) throws XMLDBException, IOException, JDOMException{
+        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbCollectionManagerQueries.evalXqueryasPath(ExistDbCredentialsService.getDetails(),query))));
     }
 
     public ResourceReadModel readFile(String url) {

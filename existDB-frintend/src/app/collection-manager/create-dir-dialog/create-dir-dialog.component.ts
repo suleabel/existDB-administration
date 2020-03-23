@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FileExplorerService} from '../service/file-explorer.service';
 import {MatDialogRef} from '@angular/material';
 
 @Component({
@@ -10,8 +9,7 @@ import {MatDialogRef} from '@angular/material';
 export class CreateDirDialogComponent implements OnInit {
   public dirName = '';
 
-  constructor(public dialogRef: MatDialogRef<CreateDirDialogComponent>,
-              private fileExplorerService: FileExplorerService) { }
+  constructor(public dialogRef: MatDialogRef<CreateDirDialogComponent>) { }
 
   ngOnInit() {
   }

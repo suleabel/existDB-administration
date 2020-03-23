@@ -33,11 +33,9 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(tap((event: HttpEvent) => {
       if (event instanceof HttpResponse) {
         console.log('Service Response thr Interceptor');
-        console.log(event);
       }
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
-        console.log('err.status', err);
         if (err.status === 401 || err.status === 403) {
           console.log('error massage: ' + err.error.message);
           if (err.error.message === 'Username or password is incorrect') {
@@ -50,9 +48,10 @@ export class AuthInterceptor implements HttpInterceptor {
         } else if (err.status === 0) {
           console.log('ERR_CONNECTION_REFUSED');
           // location.href = '/error';
-        } else if (err.status === 200) {
-          console.log(err.error.text);
         }
+        // else if (err.status === 200) {
+        //   console.log(err.error.text);
+        // }
         // if (err.status === 400) {
         //   // location.href = '/register';
         //   console.log('error, massage: ' + err.error.message);

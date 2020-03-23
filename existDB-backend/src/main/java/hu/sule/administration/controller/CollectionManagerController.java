@@ -4,13 +4,18 @@ import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.model.ResourceReadModel;
 import hu.sule.administration.service.CollectionService;
+import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.xmldb.api.base.XMLDBException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @RestController
@@ -43,7 +48,6 @@ public class CollectionManagerController {
 
     @RequestMapping("/store")
     public String store(@RequestBody ForStoreResourceAndColl storeResource){
-
         return collectionService.Store(storeResource);
     }
 
@@ -68,12 +72,14 @@ public class CollectionManagerController {
     }
 
     @RequestMapping("/evalXqueryasString")
-    public String evalXqueryasString(HttpEntity<String> httpEntity){
-        return collectionService.evalXqueryasString(httpEntity.getBody());
+    public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) throws XMLDBException{
+        String result = collectionService.evalXqueryasString(httpEntity.getBody());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping("/evalXqueryasPath")
-    public String evalXqueryasPath(HttpEntity<String> httpEntity){
-        return collectionService.evalXqueryasString(httpEntity.getBody());
+    public ResponseEntity<String> evalXqueryasPath(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException {
+        String result = collectionService.evalXqueryasPath(httpEntity.getBody());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

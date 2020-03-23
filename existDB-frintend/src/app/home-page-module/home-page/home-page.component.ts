@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from '../../auth-module/token-storage.service';
-import {XmlToXsdService} from '../../xml-to-xsd/service/xml-to-xsd.service';
+import {TestService} from '../test.service';
 
 @Component({
   selector: 'app-home-page',
@@ -15,27 +14,23 @@ export class HomePageComponent implements OnInit {
     username: string
   };
 
-  // @ts-ignore
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ts-ignore
-  @ViewChild(MatSort) sort: MatSort;
-
-  constructor(private token: TokenStorageService) {
+  constructor(private token: TokenStorageService,
+              private testService: TestService) {
   }
 
   ngOnInit() {
+    // this.testService.test().subscribe( data => {
+    //   console.log(data);
+    // },
+    //     error => {
+    //   console.log('Error: ' + error);
+    //     });
     this.info = {
       token: this.token.getToken(),
       username: this.token.getUsername()
     };
     console.log(this.info);
   }
-
-  logout() {
-    this.token.signOut();
-    window.location.reload();
-  }
-
 }
 
 

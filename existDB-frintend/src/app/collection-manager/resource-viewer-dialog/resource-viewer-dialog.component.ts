@@ -1,10 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {FileExplorerService} from '../service/file-explorer.service';
 import {Credentials} from '../model/Credentials';
 import {StoreResourceModel} from '../model/StoreResourceModel';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {stringify} from 'querystring';
+import {FileCredentialsComponent} from "../file-credentials/file-credentials.component";
+import {EvalResultViewerComponent} from "../eval-result-viewer/eval-result-viewer.component";
 
 @Component({
     selector: 'app-resource-viewer-dialog',
@@ -22,7 +25,8 @@ export class ResourceViewerDialogComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<ResourceViewerDialogComponent>,
                 private fileExplorerService: FileExplorerService,
                 private notificationService: NotificationService,
-                private sanitizer: DomSanitizer) {
+                private sanitizer: DomSanitizer,
+                private dialog: MatDialog,) {
     }
 
     ngOnInit() {
@@ -51,17 +55,40 @@ export class ResourceViewerDialogComponent implements OnInit {
     }
 
     onSave() {
-        const saveRes: StoreResourceModel = {url: this.openedFile.path, fileName: this.openedFile.name, content: this.editedContent, isBinary: this.isBinary, mime: this.openedFile.mime};
+        const saveRes: StoreResourceModel = {
+            url: this.openedFile.path,
+            fileName: this.openedFile.name,
+            content: this.editedContent,
+            isBinary: this.isBinary,
+            mime: this.openedFile.mime
+        };
         console.log(saveRes);
         this.fileExplorerService.editResource(saveRes)
             .subscribe(data => {
-                this.notificationService.success('Saved: ' + data);
-            },
+                    this.notificationService.success('Saved: ' + data);
+                },
                 error => {
-                this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn('Error: ' + error);
                 });
         this.isEdit = false;
         this.dialogRef.close();
+    }
+
+    eval() {
+        this.fileExplorerService.evalXqueryFromPath(this.openedFile.path + '/' + this.openedFile.name)
+            .subscribe(result => {
+                this.notificationService.success('Success');
+                const dialogRef = this.dialog.open(EvalResultViewerComponent, {
+                        width: '80%',
+                        height: 'auto',
+                        data: {res: result}
+                    });
+                dialogRef.afterClosed().subscribe();
+            },
+            error => {
+                console.log(error);
+                this.notificationService.warn('Error: ' + stringify(error.error));
+            });
     }
 
     onClose() {
