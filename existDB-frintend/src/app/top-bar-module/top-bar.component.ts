@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth-module/auth.service';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-top-bar',
@@ -8,14 +7,10 @@ import {Observable} from 'rxjs';
   styleUrls: ['./top-bar.component.sass']
 })
 export class TopBarComponent implements OnInit {
-  isLoggedIn$: Observable<boolean>;
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {
-    this.isLoggedIn$ = this.authService.isLoggedIn;
-  }
+  ngOnInit() { }
 
   onLogout() {
     this.authService.logout();

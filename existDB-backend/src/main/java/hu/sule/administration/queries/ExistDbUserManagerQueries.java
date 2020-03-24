@@ -68,7 +68,8 @@ public class ExistDbUserManagerQueries {
                 "        if(sm:get-umask($user) ne $umask)then\n" +
                 "            sm:set-umask($user, $umask)\n" +
                 "        else(),\n" +
-                "        if($password ne \"null\") then sm:passwd($user, $password) else (),\n" +
+                "        if(string-length($password) ne 0) then " +
+                "            sm:passwd($user, $password) else (),\n" +
                 "            true()\n" +
                 "        )\n" +
                 "    )\n" +

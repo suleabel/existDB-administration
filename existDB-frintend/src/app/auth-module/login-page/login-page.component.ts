@@ -59,6 +59,7 @@ export class LoginPageComponent implements OnInit {
     this.isLoading$.next(true);
     this.authService.attemptAuth(this.loginForm.value).subscribe(
       data => {
+        this.tokenStorage.saveServerIp(this.loginForm.value.url);
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);

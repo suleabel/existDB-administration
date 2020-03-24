@@ -60,6 +60,7 @@ import { InformationDialogComponent } from './backup-and-restore-moduel/informat
 import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file/browse-xquery-file.component';
 import { EvalResultViewerComponent } from './collection-manager/eval-result-viewer/eval-result-viewer.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog/error-dialog.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,6 +100,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog/error-dialog.c
       BrowseXqueryFileComponent,
       EvalResultViewerComponent,
       ErrorDialogComponent,
+      FooterComponent,
   ],
     imports: [
         BrowserModule,

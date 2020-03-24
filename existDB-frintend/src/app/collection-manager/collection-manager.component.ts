@@ -100,9 +100,9 @@ export class CollectionManagerComponent implements OnInit {
                     this.loadData(this.selectedDirectory);
                 }, error => {
                 this.notificationService.warn(error.error.message);
+                this.loadData(this.selectedDirectory);
                 }
             );
-        this.loadData(this.selectedDirectory);
     }
 
     deleteColl(res) {
@@ -112,9 +112,9 @@ export class CollectionManagerComponent implements OnInit {
                     this.loadData(this.selectedDirectory);
                 }, error => {
                 this.notificationService.warn(error.error.message);
+                this.loadData(this.selectedDirectory);
                 }
             );
-        this.loadData(this.selectedDirectory);
     }
 
     editCredentials(selectedResourceCredentials) {
