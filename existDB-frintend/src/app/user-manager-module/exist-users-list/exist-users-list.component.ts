@@ -58,7 +58,7 @@ export class ExistUsersListComponent implements OnInit {
                     console.log(this.UsersData.data);
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 }
             );
     }
@@ -82,7 +82,7 @@ export class ExistUsersListComponent implements OnInit {
                         this.RenderUsersList();
                     },
                     error => {
-                        this.notificationService.warn('Error: ' + error);
+                        this.notificationService.warn(error.error.message);
                     }
                 );
             }
@@ -106,7 +106,7 @@ export class ExistUsersListComponent implements OnInit {
                         this.RenderUsersList();
                     },
                     error => {
-                        this.notificationService.warn('Error: ' + stringify(error));
+                        this.notificationService.warn(error.error.message);
                     }
                 );
             }

@@ -42,7 +42,7 @@ export class BrowseSaveLocationComponent implements OnInit {
               this.collections.unshift(backElement);
             },
             error => {
-              this.notificationService.warn('Error: ' + error);
+              this.notificationService.warn(error.error.message);
               this.backToRoot();
             });
   }

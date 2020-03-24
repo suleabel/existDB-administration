@@ -2,6 +2,7 @@ package hu.sule.administration.service;
 
 import hu.sule.administration.model.FileManagerEntity;
 import hu.sule.administration.queries.ExistDbFileExplorerQueries;
+import org.eclipse.jetty.util.IO;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
+import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -25,7 +27,7 @@ public class FileExplorerService {
 
     private static final Logger logger = LoggerFactory.getLogger(FileExplorerService.class);
 
-    public List<FileManagerEntity> getDirectoryContent(String dirname) {
+    public List<FileManagerEntity> getDirectoryContent(String dirname) throws XMLDBException {
         List<FileManagerEntity> fileManagerEntities = new ArrayList<>();
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
@@ -51,11 +53,11 @@ public class FileExplorerService {
         return fileManagerEntities;
     }
 
-    public String getRootDirectory() {
+    public String getRootDirectory() throws XMLDBException {
         return existDbFileExplorerQueries.getRootDirectory(ExistDbCredentialsService.getDetails());
     }
 
-    public String getFileContent(String url) {
+    public String getFileContent(String url) throws XMLDBException, JDOMException, IOException {
         // XML 1.0
         // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
         String xml10pattern = "[^"
@@ -69,17 +71,11 @@ public class FileExplorerService {
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
         Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
-        try {
-            doc = saxBuilder.build(new InputSource(new StringReader(xmlString)));
-        } catch (JDOMException | IOException e) {
-            logger.error("SAXBuilder exception: " + e.getMessage());
-        }
+        doc = saxBuilder.build(new InputSource(new StringReader(xmlString)));
         if (doc != null) {
             content = doc.getRootElement().getValue();
         }
 
         return content;
-//        return existDbFileExplorerQueries.readFileContent(ExistDbCredentialsService.getDetails(), url);
-        //return existDbFileExplorerQueries.readFileContent(ExistDbCredentialsService.getDetails(), url).replace("&lt;","<").replace("&gt;",">");
     }
 }

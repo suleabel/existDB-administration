@@ -40,7 +40,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error.message);
+                    this.notificationService.warn(error.error.message);
                 });
     }
 
@@ -80,7 +80,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                     this.loadBackups(this.location);
                 });
             }, error => {
-                this.notificationService.warn('Error: ' + error.message);
+                this.notificationService.warn(error.error.message);
             });
     }
 

@@ -33,7 +33,6 @@ export class AddTriggerComponent implements OnInit {
 
     ngOnInit() {
         this.openedFile = this.fileExplorerService.openedFile;
-        console.log(this.openedFile);
         this.buildForm(this.tempFormData);
     }
 
@@ -74,11 +73,11 @@ export class AddTriggerComponent implements OnInit {
                 this.triggerService.addTrigger(trigCredCont)
                     .subscribe(
                         data => {
-                            this.notificationService.success('Success: ' + data);
+                            this.notificationService.success('Success');
                             this.dialogRef.close();
                         },
                         error => {
-                            this.notificationService.warn('Error: ' + error);
+                            this.notificationService.warn(error.error.message);
                             this.dialogRef.close();
                         }
                     );

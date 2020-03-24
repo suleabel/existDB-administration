@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
+import org.xmldb.api.base.XMLDBException;
 
 @Component
 public class ExistDbUserManagerQueries {
@@ -18,7 +19,7 @@ public class ExistDbUserManagerQueries {
 
     private static Util util = new Util();
 
-    public String createUser(ExistDetails details, ExistDBUser user) {
+    public String createUser(ExistDetails details, ExistDBUser user) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -37,7 +38,7 @@ public class ExistDbUserManagerQueries {
     }
 
     //TODO meg kéne nézni hogy a change pass része működik-e
-    public String editUser(ExistDetails details, ExistDBUser user) {
+    public String editUser(ExistDetails details, ExistDBUser user) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
@@ -77,7 +78,7 @@ public class ExistDbUserManagerQueries {
     }
 
 
-    public String removeUserFromGroup(ExistDetails details, String user, String group) {
+    public String removeUserFromGroup(ExistDetails details, String user, String group) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -89,7 +90,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String addUserToGroup(ExistDetails details, String user, String group) {
+    public String addUserToGroup(ExistDetails details, String user, String group) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -101,7 +102,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String getUsersData(ExistDetails details){
+    public String getUsersData(ExistDetails details) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +
@@ -131,7 +132,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String getUsersNames(ExistDetails details) {
+    public String getUsersNames(ExistDetails details) throws XMLDBException {
         logger.info("getAllUsers");
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -142,7 +143,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String deleteUser(ExistDetails details, String username) {
+    public String deleteUser(ExistDetails details, String username) throws XMLDBException {
         logger.info("Try to create user: " + username);
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -160,7 +161,7 @@ public class ExistDbUserManagerQueries {
         return "User is not exist!";
     }
 
-    public String changeUserPass(ExistDetails details, String username, String password) {
+    public String changeUserPass(ExistDetails details, String username, String password) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -173,7 +174,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    private String userExists(ExistDetails details, String user) {
+    private String userExists(ExistDetails details, String user) throws XMLDBException {
         logger.info("check user is exist: " + user);
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -184,7 +185,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public boolean isAdminAccess(ExistDetails details) throws Exception {
+    public boolean isAdminAccess(ExistDetails details) throws XMLDBException {
         logger.info("check admin access");
         Collection old = collection;
         boolean result = false;

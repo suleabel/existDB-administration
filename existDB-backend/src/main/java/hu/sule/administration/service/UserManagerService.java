@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
+import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -26,72 +27,68 @@ public class UserManagerService {
 
     private static final Logger logger = LoggerFactory.getLogger(ExistDbCredentialsService.class);
 
-    public ArrayList<ExistDBUser> listUsers() {
+    public ArrayList<ExistDBUser> listUsers() throws XMLDBException, JDOMException, IOException {
         return mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
     }
 
-    public String createUser(ExistDBUser user){
+    public String createUser(ExistDBUser user) throws XMLDBException {
         logger.info("try to create user:" + user.toString());
         return existDbUserManagerQueries.createUser(ExistDbCredentialsService.getDetails(), user);
     }
 
-    public String deleteUser(String username){
+    public String deleteUser(String username) throws XMLDBException {
         return existDbUserManagerQueries.deleteUser(ExistDbCredentialsService.getDetails(), username);
     }
 
-    public String editUser(ExistDBUser user) {
+    public String editUser(ExistDBUser user) throws XMLDBException, JDOMException, IOException {
         editUserGroups(user);
         return existDbUserManagerQueries.editUser(ExistDbCredentialsService.getDetails(), user);
     }
 
-    public boolean isAdmin() throws Exception{
+    public boolean isAdmin() throws XMLDBException {
         return existDbUserManagerQueries.isAdminAccess(ExistDbCredentialsService.getDetails());
     }
 
-    public List<String> getUsersNames() {
+    public List<String> getUsersNames() throws XMLDBException {
         return Arrays.asList(existDbUserManagerQueries.getUsersNames(ExistDbCredentialsService.getDetails()).split("\n"));
     }
 
-    private void editUserGroups(ExistDBUser user){
+    private void editUserGroups(ExistDBUser user) throws XMLDBException, JDOMException, IOException {
         ArrayList<ExistDBUser> existDBUsers = mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
-        for (ExistDBUser existDBUser: existDBUsers) {
-            if(existDBUser.getUsername().equals(user.getUsername())){
+        for (ExistDBUser existDBUser : existDBUsers) {
+            if (existDBUser.getUsername().equals(user.getUsername())) {
                 List<String> oldGroups = existDBUser.getGroups();
                 oldGroups.remove(existDBUser.getPrimaryGroup());
                 List<String> newGroups = user.getGroups();
                 newGroups.remove(user.getPrimaryGroup());
-                for (String group: oldGroups) {
+                for (String group : oldGroups) {
                     existDbUserManagerQueries.removeUserFromGroup(ExistDbCredentialsService.getDetails(), existDBUser.getUsername(), group);
                 }
-                for (String group: newGroups) {
+                for (String group : newGroups) {
                     existDbUserManagerQueries.addUserToGroup(ExistDbCredentialsService.getDetails(), existDBUser.getUsername(), group);
                 }
             }
         }
     }
 
-    private ArrayList<ExistDBUser> mapUsersQueryResult(String input){
+    private ArrayList<ExistDBUser> mapUsersQueryResult(String input) throws JDOMException, IOException {
         ArrayList<ExistDBUser> existDBUsers = new ArrayList<>();
         ExistDBUser existDBUser;
         ArrayList<String> userGroups;
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
-        try {
-            doc = saxBuilder.build(new InputSource(new StringReader(input)));
-        } catch (JDOMException | IOException e){
-            logger.error("SAXBuilder exception: " + e.getMessage()) ;
-        }
-        if(doc != null) {
+        doc = saxBuilder.build(new InputSource(new StringReader(input)));
+        if (doc != null) {
             Element result = doc.getRootElement();
             List<Element> users = result.getChildren();
-            for (Element user: users) {
+            for (Element user : users) {
                 userGroups = new ArrayList<>();
                 existDBUser = new ExistDBUser(
-                        user.getChildText("username"),user.getChildText("umask"),user.getChildText("primaryGroups"),
-                        user.getChildText("fullName"),user.getChildText("desc"),existDbUserManagerQueries.isDefaultUser(user.getChildText("username")), true);
+                        user.getChildText("username"), user.getChildText("umask"), user.getChildText("primaryGroups"),
+                        user.getChildText("fullName"), user.getChildText("desc"), existDbUserManagerQueries.isDefaultUser(user.getChildText("username")), true);
                 Element groups = user.getChild("groups");
                 List<Element> groupList = groups.getChildren();
-                for(Element group: groupList){
+                for (Element group : groupList) {
                     userGroups.add(group.getValue());
                 }
                 existDBUser.setGroups(userGroups);

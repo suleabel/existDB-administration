@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
+import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -30,28 +31,24 @@ public class BackupService {
 
     private static final Logger logger = LoggerFactory.getLogger(BackupService.class);
 
-    public ArrayList<BackupEntity> getBackups(String url) {
+    public ArrayList<BackupEntity> getBackups(String url) throws XMLDBException, IOException, JDOMException {
         return mapBackups(existDbBackupsAndRestoreQueries.getBackups(ExistDbCredentialsService.getDetails(), url));
     }
 
-    public String createBackup(CreateBackupEntity createBackupEntity) throws JDOMException, IOException {
+    public String createBackup(CreateBackupEntity createBackupEntity) throws JDOMException, IOException, XMLDBException {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbBackupsAndRestoreQueries.createBackup2(ExistDbCredentialsService.getDetails(), createBackupEntity))));
     }
 
-    public String restoreBackup(String name) throws JDOMException, IOException {
+    public String restoreBackup(String name) throws JDOMException, IOException, XMLDBException {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbBackupsAndRestoreQueries.restoreBackup(ExistDbCredentialsService.getDetails(), name))));
 
     }
 
-    private ArrayList<BackupEntity> mapBackups(String input){
+    private ArrayList<BackupEntity> mapBackups(String input) throws JDOMException, IOException {
         ArrayList<BackupEntity> backupEntities = new ArrayList<>();
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
-        try {
-            doc = saxBuilder.build(new InputSource(new StringReader(input)));
-        } catch (JDOMException | IOException e){
-            logger.error("SAXBuilder exception: " + e.getMessage()) ;
-        }
+        doc = saxBuilder.build(new InputSource(new StringReader(input)));
         if(doc != null) {
             Element directory = doc.getRootElement();
             List<Element> backups = directory.getChildren();

@@ -23,8 +23,6 @@ export class FileCredentialsComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<FileCredentialsComponent>,
         @Inject(MAT_DIALOG_DATA) public data,
-        private fileExplorerService: FileExplorerService,
-        private router: Router,
         private groupService: GroupsService,
         private userService: UserService,
         private formBuilder: FormBuilder,
@@ -53,7 +51,7 @@ export class FileCredentialsComponent implements OnInit {
                     this.notificationService.success('Success');
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 }
             );
     }
@@ -65,7 +63,7 @@ export class FileCredentialsComponent implements OnInit {
                     this.existGroups = data;
                 },
                 error => {
-                    console.log('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 }
             );
 

@@ -4,6 +4,7 @@ import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.model.ResourceReadModel;
 import hu.sule.administration.queries.ExistDbCollectionManagerQueries;
+import org.eclipse.jetty.util.IO;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -32,7 +33,7 @@ public class CollectionService {
 
     private static final Logger logger = LoggerFactory.getLogger(CollectionService.class);
 
-    public ArrayList<ExistCollectionManagerModel> getFileManagerCollectionsByCollection(String collection) {
+    public ArrayList<ExistCollectionManagerModel> getFileManagerCollectionsByCollection(String collection) throws XMLDBException, JDOMException, IOException {
             ArrayList<ExistCollectionManagerModel> collections = new ArrayList<>();
         for (ExistCollectionManagerModel col: mapCollectionQueryResult(existDbCollectionManagerQueries.getCollectionContent2(ExistDbCredentialsService.getDetails(), collection))) {
             if(!col.isResource())
@@ -41,31 +42,31 @@ public class CollectionService {
         return collections;
     }
 
-    public ArrayList<ExistCollectionManagerModel> getFileManagerContentByCollection(String collection) {
+    public ArrayList<ExistCollectionManagerModel> getFileManagerContentByCollection(String collection) throws XMLDBException, JDOMException, IOException {
         return mapCollectionQueryResult(existDbCollectionManagerQueries.getCollectionContent2(ExistDbCredentialsService.getDetails(), collection));
     }
 
-    public String createDir(ForStoreResourceAndColl storeResource) {
+    public String createDir(ForStoreResourceAndColl storeResource) throws XMLDBException {
         return existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), storeResource);
     }
 
-    public String Store(ForStoreResourceAndColl forStoreResourceAndColl){
+    public String Store(ForStoreResourceAndColl forStoreResourceAndColl) throws XMLDBException {
         return existDbCollectionManagerQueries.saveResource(ExistDbCredentialsService.getDetails(), forStoreResourceAndColl);
     }
 
-    public String saveEditedRes(ForStoreResourceAndColl forStoreResourceAndColl){
+    public String saveEditedRes(ForStoreResourceAndColl forStoreResourceAndColl) throws XMLDBException {
         return existDbCollectionManagerQueries.saveEditedRes(ExistDbCredentialsService.getDetails(), forStoreResourceAndColl);
     }
 
-    public String deleteFile(ExistCollectionManagerModel existCollectionManagerModel) {
+    public String deleteFile(ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
         return existDbCollectionManagerQueries.deleteResource(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
-    public String deleteCollection(ExistCollectionManagerModel existCollectionManagerModel){
+    public String deleteCollection(ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
         return existDbCollectionManagerQueries.removeCollection(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
-    public String editResCred(ExistCollectionManagerModel existCollectionManagerModel) {
+    public String editResCred(ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
         return existDbCollectionManagerQueries.editResCred(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
@@ -77,23 +78,19 @@ public class CollectionService {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbCollectionManagerQueries.evalXqueryasPath(ExistDbCredentialsService.getDetails(),query))));
     }
 
-    public ResourceReadModel readFile(String url) {
+    public ResourceReadModel readFile(String url) throws XMLDBException {
         ResourceReadModel resourceReadModel = new ResourceReadModel();
         resourceReadModel.setContent(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url));
         resourceReadModel.setIsBinary(existDbCollectionManagerQueries.isBinary(ExistDbCredentialsService.getDetails(), url));
         return resourceReadModel;
     }
 
-    private ArrayList<ExistCollectionManagerModel> mapCollectionQueryResult(String input){
+    private ArrayList<ExistCollectionManagerModel> mapCollectionQueryResult(String input) throws IOException, JDOMException{
         ArrayList<ExistCollectionManagerModel> collectionManagerModels = new ArrayList<>();
         ExistCollectionManagerModel model = null;
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
-        try {
-            doc = saxBuilder.build(new InputSource(new StringReader(input)));
-        } catch (JDOMException | IOException e){
-            logger.error("SAXBuilder exception: " + e.getMessage()) ;
-        }
+        doc = saxBuilder.build(new InputSource(new StringReader(input)));
         if(doc != null) {
             Element result = doc.getRootElement();
             List<Element> exist = result.getChildren();

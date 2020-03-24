@@ -1,7 +1,6 @@
 package hu.sule.administration.util;
 
 import hu.sule.administration.model.ExistDetails;
-import org.exolab.castor.dsml.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,7 +26,7 @@ public class Util {
         DatabaseManager.registerDatabase(database);
     }
 
-    public String stringResultQuery(ExistDetails details, String query) {
+    public String stringResultQueryOLD(ExistDetails details, String query) {
         Collection old = collection;
         String result = null;
         try {
@@ -47,7 +46,7 @@ public class Util {
         return result;
     }
 
-    public boolean booleanResultQuery(ExistDetails details, String query) {
+    public boolean booleanResultQueryOLD(ExistDetails details, String query) {
         Collection old = collection;
         boolean result = false;
         try {
@@ -71,7 +70,7 @@ public class Util {
             collection.close();
     }
 
-    public String execXQuery(String query, Collection collection) {
+    public String execXQueryOLD(String query, Collection collection) {
         StringBuilder sb = new StringBuilder();
         try {
             XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
@@ -89,7 +88,7 @@ public class Util {
         return sb.toString().trim();
     }
 
-    public String execXQuery2(String query, Collection collection) throws XMLDBException {
+    public String execXQuery(String query, Collection collection) throws XMLDBException {
         StringBuilder sb = new StringBuilder();
         XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
         service.setProperty(OutputKeys.INDENT, "yes");
@@ -103,12 +102,22 @@ public class Util {
         return sb.toString().trim();
     }
 
-    public String stringResultQuery2(ExistDetails details, String query) throws XMLDBException {
+    public String stringResultQuery(ExistDetails details, String query) throws XMLDBException {
         Collection old = collection;
         String result = null;
         closeCollection(collection);
         collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
         result = execXQuery(query, collection);
+        closeCollection(collection);
+        collection = old;
+        return result;
+    }
+
+    public boolean booleanResultQuery(ExistDetails details, String query) throws XMLDBException{
+        Collection old = collection;
+        boolean result = false;
+        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection(), details.getUsername(), details.getPassword());
+        result = !execXQuery(query, collection).equals("false");
         closeCollection(collection);
         collection = old;
         return result;

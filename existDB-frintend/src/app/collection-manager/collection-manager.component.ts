@@ -60,10 +60,9 @@ export class CollectionManagerComponent implements OnInit {
                     this.collections.sort = this.sort;
                     this.collections.data.unshift(backElement);
                     this.isLoading$.next(false);
-                    console.log(this.collections.data);
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error.status);
+                    this.notificationService.warn(error.error.message);
                     this.backToRoot();
                 });
     }
@@ -98,7 +97,7 @@ export class CollectionManagerComponent implements OnInit {
                     this.notificationService.success('Success');
                     this.loadData(this.selectedDirectory);
                 }, error => {
-                    this.notificationService.warn('Error: ' + error);
+                this.notificationService.warn(error.error.message);
                 }
             );
         this.loadData(this.selectedDirectory);
@@ -110,7 +109,7 @@ export class CollectionManagerComponent implements OnInit {
                     this.notificationService.success('Success');
                     this.loadData(this.selectedDirectory);
                 }, error => {
-                    this.notificationService.warn('Error: ' + error);
+                this.notificationService.warn(error.error.message);
                 }
             );
         this.loadData(this.selectedDirectory);
@@ -133,7 +132,7 @@ export class CollectionManagerComponent implements OnInit {
                             this.notificationService.success('Success');
                         },
                         error => {
-                            this.notificationService.warn('Error: ' + error);
+                            this.notificationService.warn(error.error.message);
                         });
             }
         });
@@ -154,10 +153,10 @@ export class CollectionManagerComponent implements OnInit {
                 this.fileExplorerService.saveResource(saveData)
                     .subscribe(
                         data => {
-                            this.notificationService.success('Success:' + data);
+                            this.notificationService.success('Success');
                             this.loadData(this.selectedDirectory);
                         }, error => {
-                            this.notificationService.warn('Error: ' + error);
+                            this.notificationService.warn(error.error.message);
                         });
             }
         });
@@ -178,10 +177,10 @@ export class CollectionManagerComponent implements OnInit {
                     this.fileExplorerService.saveResource(saveData)
                         .subscribe(
                             data => {
-                                this.notificationService.success('Success:' + data);
+                                this.notificationService.success('Success');
                                 this.loadData(this.selectedDirectory);
                             }, error => {
-                                this.notificationService.warn('Error: ' + error);
+                                this.notificationService.warn(error.error.message);
                             });
                 }
             }

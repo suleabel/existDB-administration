@@ -37,7 +37,7 @@ export class VersionManagementModuleComponent implements OnInit {
                 this.versionIsAvailable$.next((data === 'true'));
             }, error => {
                 console.log(error);
-                this.notificationService.warn('Error: ' + stringify(error));
+                this.notificationService.warn(error.error.message);
             });
     }
 
@@ -48,7 +48,7 @@ export class VersionManagementModuleComponent implements OnInit {
                     this.checkVersionManagementIsEnabled();
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 });
     }
 

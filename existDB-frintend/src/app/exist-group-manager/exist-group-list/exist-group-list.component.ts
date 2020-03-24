@@ -55,7 +55,7 @@ export class ExistGroupListComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 }
             );
     }
@@ -81,7 +81,7 @@ export class ExistGroupListComponent implements OnInit {
                         this.notificationService.success('Success');
                     },
                     error => {
-                        this.notificationService.warn('Error: ' + error);
+                        this.notificationService.warn(error.error.message);
                     }
                 );
             }
@@ -99,7 +99,7 @@ export class ExistGroupListComponent implements OnInit {
                                 this.RenderGroupList();
                             },
                             error => {
-                                this.notificationService.warn('Error: ' + error);
+                                this.notificationService.warn(error.error.message);
                             }
                         );
                 }

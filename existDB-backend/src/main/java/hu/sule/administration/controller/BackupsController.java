@@ -4,6 +4,7 @@ package hu.sule.administration.controller;
 import hu.sule.administration.model.BackupEntity;
 import hu.sule.administration.model.CreateBackupEntity;
 import hu.sule.administration.service.BackupService;
+import org.eclipse.jetty.util.IO;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,12 +28,12 @@ public class BackupsController {
     private BackupService backupService;
 
     @RequestMapping("/getBackups")
-    public ArrayList<BackupEntity> getBackups(HttpEntity<String> httpEntity) {
+    public ArrayList<BackupEntity> getBackups(HttpEntity<String> httpEntity) throws XMLDBException, IOException, JDOMException {
         return backupService.getBackups(httpEntity.getBody());
     }
 
     @RequestMapping("/createBackup")
-    public ResponseEntity<String> createBackup(@RequestBody CreateBackupEntity createBackupEntity){
+    public ResponseEntity<String> createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws XMLDBException{
         System.out.println(createBackupEntity.toString());
         String result = "";
         try {
@@ -44,7 +46,7 @@ public class BackupsController {
     }
 
     @RequestMapping("/restoreBackup")
-    public ResponseEntity<String> restoreBackup(HttpEntity<String> httpEntity){
+    public ResponseEntity<String> restoreBackup(HttpEntity<String> httpEntity) throws XMLDBException{
         String result = "";
         try {
             result =  backupService.restoreBackup(httpEntity.getBody());

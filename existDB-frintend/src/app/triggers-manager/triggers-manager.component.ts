@@ -51,7 +51,7 @@ export class TriggersManagerComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                     // this.backToRoot();
                 });
     }

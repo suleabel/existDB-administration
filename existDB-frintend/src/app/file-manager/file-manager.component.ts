@@ -4,6 +4,7 @@ import {FileManagerService} from './service/file-manager.service';
 import {BehaviorSubject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {FileViewerDialogComponent} from './file-viewer-dialog/file-viewer-dialog.component';
+import {NotificationService} from '../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-file-manager',
@@ -19,7 +20,8 @@ export class FileManagerComponent implements OnInit {
     public displayedColumns: string[] = ['name', 'isFile', 'size', 'humanSize', 'modified', 'hidden', 'canRead', 'canWrite', 'view'];
 
     constructor(private fileManagerService: FileManagerService,
-                private dialog: MatDialog) {
+                private dialog: MatDialog,
+                private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -46,7 +48,7 @@ export class FileManagerComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
-                    console.log(error.status);
+                    this.notificationService.warn(error.error.message);
                 });
     }
 
@@ -59,7 +61,7 @@ export class FileManagerComponent implements OnInit {
                     this.loadData(this.root);
                 },
                 error => {
-                    console.log(error);
+                    this.notificationService.warn(error.error.message);
                 });
     }
 

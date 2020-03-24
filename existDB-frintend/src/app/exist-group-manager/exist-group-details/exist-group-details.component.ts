@@ -51,7 +51,7 @@ export class ExistGroupDetailsComponent implements OnInit {
                     this.notificationService.success('Success');
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 });
     }
 
@@ -62,7 +62,7 @@ export class ExistGroupDetailsComponent implements OnInit {
                     this.existUsers = data;
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 }
             );
     }

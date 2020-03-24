@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from '../../auth-module/token-storage.service';
 import {TestService} from '../test.service';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
   selector: 'app-home-page',
@@ -15,7 +16,8 @@ export class HomePageComponent implements OnInit {
   };
 
   constructor(private token: TokenStorageService,
-              private testService: TestService) {
+              private testService: TestService,
+              private notifitationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -23,7 +25,7 @@ export class HomePageComponent implements OnInit {
     //   console.log(data);
     // },
     //     error => {
-    //   console.log('Error: ' + error);
+    //   this.notifitationService.warn(error.error.message);
     //     });
     this.info = {
       token: this.token.getToken(),

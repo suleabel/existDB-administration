@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+import {DialogService} from './dialog.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  constructor(public snackBar: MatSnackBar) { }
+  constructor(public snackBar: MatSnackBar,
+              private dialogService: DialogService) { }
 
   config: MatSnackBarConfig = {
-    duration: 3000,
+    duration: 6000,
     horizontalPosition: 'right',
     verticalPosition: 'top'
-  }
+  };
 
 
   success(msg) {
@@ -22,6 +24,7 @@ export class NotificationService {
 
   warn(msg) {
     this.config.panelClass = ['notification', 'warn'];
-    this.snackBar.open(msg, '', this.config);
+    this.snackBar.open('Error: ' + msg, '', this.config);
+    this.dialogService.openErrorDialog(msg);
   }
 }

@@ -45,7 +45,7 @@ import { TriggersManagerComponent } from './triggers-manager/triggers-manager.co
 import { CollectionsDialogComponent } from './triggers-manager/collections-dialog/collections-dialog.component';
 import { CreateDirDialogComponent } from './collection-manager/create-dir-dialog/create-dir-dialog.component';
 import { ResourceViewerDialogComponent } from './collection-manager/resource-viewer-dialog/resource-viewer-dialog.component';
-import { ConfirmDialogComponent } from './error-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from './error-dialog/confirm-dialog/confirm-dialog.component';
 import { XmlFileViewerComponent } from './triggers-manager/xml-file-viewer/xml-file-viewer.component';
 import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.component';
 import { VersionManagementModuleComponent } from './version-management-module/version-management-module.component';
@@ -59,6 +59,7 @@ import { CreateNewResourceComponent } from './collection-manager/create-new-reso
 import { InformationDialogComponent } from './backup-and-restore-moduel/information-dialog/information-dialog.component';
 import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file/browse-xquery-file.component';
 import { EvalResultViewerComponent } from './collection-manager/eval-result-viewer/eval-result-viewer.component';
+import { ErrorDialogComponent } from './error-dialog/error-dialog/error-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,6 +98,7 @@ import { EvalResultViewerComponent } from './collection-manager/eval-result-view
       InformationDialogComponent,
       BrowseXqueryFileComponent,
       EvalResultViewerComponent,
+      ErrorDialogComponent,
   ],
     imports: [
         BrowserModule,
@@ -152,7 +154,8 @@ import { EvalResultViewerComponent } from './collection-manager/eval-result-view
         ExistAddGroupComponent,
         InformationDialogComponent,
         BrowseXqueryFileComponent,
-        EvalResultViewerComponent]
+        EvalResultViewerComponent,
+        ErrorDialogComponent]
 })
 export class AppModule {
 }

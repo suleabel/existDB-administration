@@ -53,7 +53,7 @@ export class ExistUsersEditDetailsComponent implements OnInit {
           this.router.navigateByUrl('/user-manager-module');
         },
         error => {
-          this.notificationService.warn('Error: ' + error);
+          this.notificationService.warn(error.error.message);
         });
   }
 
@@ -64,7 +64,7 @@ export class ExistUsersEditDetailsComponent implements OnInit {
               this.existGroups = data;
             },
             error => {
-              this.notificationService.warn('Error: ' + error);
+              this.notificationService.warn(error.error.message);
             }
         );
 

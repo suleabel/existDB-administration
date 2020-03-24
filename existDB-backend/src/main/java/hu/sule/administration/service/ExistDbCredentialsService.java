@@ -27,7 +27,6 @@ public class ExistDbCredentialsService {
         details.setUrl("xmldb:exist://" + url + "/exist/xmlrpc");
         try {
             util.initDatabaseDriver(details.getDriver());
-
         } catch (
                 ClassNotFoundException e) {
             logger.error("DriverClassNotFoundException: " + e.getMessage());

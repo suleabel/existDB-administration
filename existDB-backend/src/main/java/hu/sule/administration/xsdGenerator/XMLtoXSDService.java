@@ -1,4 +1,5 @@
 package hu.sule.administration.xsdGenerator;
+
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.service.CollectionService;
 import org.exolab.castor.xml.schema.Schema;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+import org.xmldb.api.base.XMLDBException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -29,56 +31,46 @@ public class XMLtoXSDService {
     @Autowired
     private CollectionService collectionService;
 
-    public String convert(String xml) {
-
+    public String convert(String xml) throws JDOMException, IOException, XMLIsNotValidException, SAXException  {
         XMLInstance2Schema xmlInstance2Schema = new XMLInstance2Schema();
         Writer writer = new StringWriter();
         String generatedXSD = "";
         Document doc = null;
-        try {
-            if (!validateXML(xml)) {
-                throw new XMLIsNotValidException("XML is not valid!: " + xml);
-            }
-            Schema schema = xmlInstance2Schema.createSchema(new InputSource(new StringReader(xml)));
-            xmlInstance2Schema.serializeSchema(writer, schema);
-            generatedXSD = writer.toString();
-            writer.close();
-            doc = new SAXBuilder().build(new StringReader(generatedXSD));
-        } catch (XMLIsNotValidException e){
-            logger.error("XMLIsNotValidException: " + e.getMessage());
-        } catch(IOException ioe){
-            logger.error("IOException: " + ioe.getMessage());
-        } catch(SAXException saxe) {
-            logger.error("SAXException: " + saxe.getMessage());
-        } catch (JDOMException jdome) {
-            logger.error("JDOMException: " + jdome.getMessage());
+        if (!validateXML(xml)) {
+            throw new XMLIsNotValidException("XML is not valid!: " + xml);
         }
-    return new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
+        Schema schema = xmlInstance2Schema.createSchema(new InputSource(new StringReader(xml)));
+        xmlInstance2Schema.serializeSchema(writer, schema);
+        generatedXSD = writer.toString();
+        writer.close();
+        doc = new SAXBuilder().build(new StringReader(generatedXSD));
+        return new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
     }
 
-    private boolean validateXML(String xml){
+    //TODO kivételkezelés átalakítása
+    private boolean validateXML(String xml) {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(false);
         factory.setNamespaceAware(true);
-        try{
+        try {
             SAXParser parser = factory.newSAXParser();
             XMLReader reader = parser.getXMLReader();
             reader.setErrorHandler(new SimpleErrorHandler());
-            reader.parse(new InputSource( new StringReader( xml )));
-        }catch (SAXException saxe){
+            reader.parse(new InputSource(new StringReader(xml)));
+        } catch (SAXException saxe) {
             logger.error("SAXException during validation: " + saxe.getMessage());
             return false;
-        }catch (ParserConfigurationException pce){
+        } catch (ParserConfigurationException pce) {
             logger.error("ParserConfigurationException during validation: " + pce.getMessage());
             return false;
-        }catch (IOException ioe){
+        } catch (IOException ioe) {
             logger.error("IOException during validation: " + ioe.getMessage());
             return false;
         }
         return true;
     }
 
-    public String saveXsd(ForStoreResourceAndColl storeResource) {
+    public String saveXsd(ForStoreResourceAndColl storeResource) throws XMLDBException {
         return collectionService.Store(storeResource);
     }
 

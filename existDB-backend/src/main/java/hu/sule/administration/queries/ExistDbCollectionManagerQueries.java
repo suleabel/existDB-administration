@@ -20,7 +20,7 @@ public class ExistDbCollectionManagerQueries {
     @Autowired
     private Util util;
 
-    public String getCollectionContent(ExistDetails details, String collection){
+    public String getCollectionContent(ExistDetails details, String collection) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
@@ -30,7 +30,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String getCollectionContent2(ExistDetails details, String url){
+    public String getCollectionContent2(ExistDetails details, String url) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $url := \"" + url + "\";\n" +
                 "declare variable $collections := xmldb:get-child-collections($url);\n" +
@@ -73,7 +73,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String saveEditedRes(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl){
+    public String saveEditedRes(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $isBinary := xs:boolean(\"" + forStoreResourceAndColl.isBinary() + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -93,7 +93,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String saveResource(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl){
+    public String saveResource(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl) throws XMLDBException {
         System.out.println("create file: " + forStoreResourceAndColl);
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $collection := \"" + forStoreResourceAndColl.getUrl() + "\";\n" +
@@ -121,7 +121,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String createCollection(ExistDetails details, ForStoreResourceAndColl storeResource){
+    public String createCollection(ExistDetails details, ForStoreResourceAndColl storeResource) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -132,7 +132,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String removeCollection(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel){
+    public String removeCollection(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection()+ "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -142,7 +142,7 @@ public class ExistDbCollectionManagerQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
-    public String readFile(ExistDetails details, String resUrl) {
+    public String readFile(ExistDetails details, String resUrl) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $file := xs:string(\"" + resUrl + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -161,7 +161,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String deleteResource(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel) {
+    public String deleteResource(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -172,7 +172,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String editResCred(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel) {
+    public String editResCred(ExistDetails details, ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $collection := \"" + existCollectionManagerModel.getPath() + "\";\n" +
                 "declare variable $resource := \"" + existCollectionManagerModel.getName() + "\";\n" +
@@ -189,7 +189,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public boolean isBinary(ExistDetails details, String url) {
+    public boolean isBinary(ExistDetails details, String url) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $file := xs:string(\"" + url + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -219,10 +219,9 @@ public class ExistDbCollectionManagerQueries {
                 "else\n" +
                 "false()";
         System.out.println(xquery);
-        return util.stringResultQuery2(details, xquery);
+        return util.stringResultQuery(details, xquery);
     }
 
-    //TODO meg kéne nézni, hogy visszaadja-e ha hiba van
     public String evalXqueryasPath(ExistDetails details, String url) throws XMLDBException {
         String xquery = "xquery version '3.1';\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +

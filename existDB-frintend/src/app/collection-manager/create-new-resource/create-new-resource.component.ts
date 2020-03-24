@@ -19,9 +19,6 @@ export class CreateNewResourceComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<CreateNewResourceComponent>,
         @Inject(MAT_DIALOG_DATA) public data,
-        private fileExplorerService: FileExplorerService,
-        private router: Router,
-        private notificationService: NotificationService,
         private formBuilder: FormBuilder,
         private dialog: MatDialog) {
     }

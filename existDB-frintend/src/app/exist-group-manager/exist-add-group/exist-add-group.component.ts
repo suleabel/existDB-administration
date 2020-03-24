@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../service/groups.service';
-import {ExistGroupModel} from '../model/existGroup.model';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {MatDialogRef} from '@angular/material';
 
@@ -12,7 +11,6 @@ import {MatDialogRef} from '@angular/material';
 })
 export class ExistAddGroupComponent implements OnInit {
     public addGroupForm: FormGroup;
-    public addGroupData: ExistGroupModel;
     public existUsers: [];
 
     constructor(
@@ -40,7 +38,7 @@ export class ExistAddGroupComponent implements OnInit {
                     this.existUsers = data;
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 }
             );
     }

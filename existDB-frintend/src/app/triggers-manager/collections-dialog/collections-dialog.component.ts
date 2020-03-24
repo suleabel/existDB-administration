@@ -63,10 +63,9 @@ export class CollectionsDialogComponent implements OnInit {
                     };
                     this.collections = data;
                     this.collections.unshift(backElement);
-                    console.log(this.collections);
                 },
                 error => {
-                    console.log(error);
+                    this.notificationService.warn(error.error.message);
                 });
     }
 

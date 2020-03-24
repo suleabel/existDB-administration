@@ -4,6 +4,7 @@ import hu.sule.administration.model.ExistDetails;
 import hu.sule.administration.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xmldb.api.base.XMLDBException;
 
 @Component
 public class ExistDbFileExplorerQueries {
@@ -11,7 +12,7 @@ public class ExistDbFileExplorerQueries {
     @Autowired
     private Util util;
 
-    public String getDirectoryContent(ExistDetails details, String dirname){
+    public String getDirectoryContent(ExistDetails details, String dirname) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $exist-home := system:get-exist-home();\n" +
@@ -24,7 +25,7 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String getRootDirectory(ExistDetails details){
+    public String getRootDirectory(ExistDetails details) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $exist-home := system:get-exist-home();\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
@@ -36,7 +37,7 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String readFileContent(ExistDetails details, String url){
+    public String readFileContent(ExistDetails details, String url) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "   (\n" +

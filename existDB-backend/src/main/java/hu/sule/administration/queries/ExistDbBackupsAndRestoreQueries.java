@@ -5,6 +5,7 @@ import hu.sule.administration.model.ExistDetails;
 import hu.sule.administration.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xmldb.api.base.XMLDBException;
 
 @Component
 public class ExistDbBackupsAndRestoreQueries {
@@ -12,7 +13,7 @@ public class ExistDbBackupsAndRestoreQueries {
     @Autowired
     private Util util;
 
-    public String getBackups(ExistDetails details, String url) {
+    public String getBackups(ExistDetails details, String url) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $backupLocation := \"" + url + "\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
@@ -24,7 +25,7 @@ public class ExistDbBackupsAndRestoreQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String createBackup2(ExistDetails details, CreateBackupEntity createBackupEntity) {
+    public String createBackup2(ExistDetails details, CreateBackupEntity createBackupEntity) throws XMLDBException {
         createBackupEntity.setZip(true);
         String query = "xquery version '3.1';\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
@@ -36,7 +37,7 @@ public class ExistDbBackupsAndRestoreQueries {
         return util.stringResultQuery(details,query);
     }
 
-    public String restoreBackup(ExistDetails details, String path) {
+    public String restoreBackup(ExistDetails details, String path) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" ,\"" + details.getUsername() + "\", \"" + details.getPassword()+ "\")) then\n" +
                 "    (\n" +
@@ -47,7 +48,7 @@ public class ExistDbBackupsAndRestoreQueries {
         return util.stringResultQuery(details,query);
     }
 
-    public String createBackup(ExistDetails details, CreateBackupEntity createBackupEntity) {
+    public String createBackup(ExistDetails details, CreateBackupEntity createBackupEntity) throws XMLDBException {
         System.out.println(createBackupEntity.toString());
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +

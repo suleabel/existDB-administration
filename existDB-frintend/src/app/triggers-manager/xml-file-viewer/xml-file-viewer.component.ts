@@ -51,7 +51,7 @@ export class XmlFileViewerComponent implements OnInit {
 
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 }
             );
     }
@@ -72,7 +72,7 @@ export class XmlFileViewerComponent implements OnInit {
                     this.dialogRef.close();
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 });
         this.isEdit = false;
     }

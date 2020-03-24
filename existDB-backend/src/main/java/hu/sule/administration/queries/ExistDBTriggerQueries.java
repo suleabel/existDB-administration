@@ -7,6 +7,7 @@ import hu.sule.administration.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.xmldb.api.base.XMLDBException;
 
 @Component
 public class ExistDBTriggerQueries {
@@ -14,7 +15,7 @@ public class ExistDBTriggerQueries {
     private static Util util = new Util();
     private static final Logger logger = LoggerFactory.getLogger(ExistDBTriggerQueries.class);
 
-    public String initTriggerConfig(ExistDetails details, String path){
+    public String initTriggerConfig(ExistDetails details, String path) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -31,7 +32,7 @@ public class ExistDBTriggerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public boolean triggerConfigIsAvailable(ExistDetails details, String path){
+    public boolean triggerConfigIsAvailable(ExistDetails details, String path) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -42,7 +43,7 @@ public class ExistDBTriggerQueries {
         return util.stringResultQuery(details, query).contains("true");
     }
 
-    public String saveEditedTrigger(ExistDetails details, String url, String conf){
+    public String saveEditedTrigger(ExistDetails details, String url, String conf) throws XMLDBException {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $collection := \"" + url + "\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +

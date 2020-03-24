@@ -8,12 +8,22 @@ public class CustomErrorResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime timestamp;
     private int status;
-    private String error;
+    private String message;
+    private String url;
 
-    public CustomErrorResponse(LocalDateTime timestamp, int status, String error) {
+    public CustomErrorResponse(LocalDateTime timestamp, int status, String message, String url) {
         this.timestamp = timestamp;
         this.status = status;
-        this.error = error;
+        this.message = message;
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setTimestamp(LocalDateTime timestamp) {
@@ -24,8 +34,8 @@ public class CustomErrorResponse {
         this.status = status;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public LocalDateTime getTimestamp() {
@@ -36,7 +46,17 @@ public class CustomErrorResponse {
         return status;
     }
 
-    public String getError() {
-        return error;
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomErrorResponse{" +
+                "timestamp=" + timestamp +
+                ", status=" + status +
+                ", message='" + message + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

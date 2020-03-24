@@ -5,9 +5,7 @@ import {Credentials} from '../model/Credentials';
 import {StoreResourceModel} from '../model/StoreResourceModel';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {stringify} from 'querystring';
-import {FileCredentialsComponent} from "../file-credentials/file-credentials.component";
-import {EvalResultViewerComponent} from "../eval-result-viewer/eval-result-viewer.component";
+import {EvalResultViewerComponent} from '../eval-result-viewer/eval-result-viewer.component';
 
 @Component({
     selector: 'app-resource-viewer-dialog',
@@ -26,7 +24,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                 private fileExplorerService: FileExplorerService,
                 private notificationService: NotificationService,
                 private sanitizer: DomSanitizer,
-                private dialog: MatDialog,) {
+                private dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -38,8 +36,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                     this.isBinary = data.isBinary;
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
-                    console.log(error);
+                    this.notificationService.warn(error.error.message);
                 }
             );
     }
@@ -68,7 +65,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                     this.notificationService.success('Saved: ' + data);
                 },
                 error => {
-                    this.notificationService.warn('Error: ' + error);
+                    this.notificationService.warn(error.error.message);
                 });
         this.isEdit = false;
         this.dialogRef.close();
@@ -86,8 +83,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                 dialogRef.afterClosed().subscribe();
             },
             error => {
-                console.log(error);
-                this.notificationService.warn('Error: ' + stringify(error.error));
+                this.notificationService.warn(error.error.message);
             });
     }
 

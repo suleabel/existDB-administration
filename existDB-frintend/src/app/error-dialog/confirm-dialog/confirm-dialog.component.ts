@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 @Component({
   selector: 'app-error-dialog',
   templateUrl: './confirm-dialog.component.html',
-  styleUrls: ['./error-dialog.component.sass']
+  styleUrls: ['./confirm-dialog.component.sass']
 })
 export class ConfirmDialogComponent implements OnInit {
 
@@ -12,6 +12,7 @@ export class ConfirmDialogComponent implements OnInit {
               public dialogRef: MatDialogRef<ConfirmDialogComponent>) { }
 
   ngOnInit() {
+    console.log(this.data.message);
   }
 
   closeDialog() {
