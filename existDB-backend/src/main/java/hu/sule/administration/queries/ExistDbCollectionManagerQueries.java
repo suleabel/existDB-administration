@@ -7,6 +7,7 @@ import hu.sule.administration.util.Util;
 import org.exquery.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
 import java.net.HttpURLConnection;
@@ -59,10 +60,11 @@ public class ExistDbCollectionManagerQueries {
                 "                let $group := $permissions/@group/string()\n" +
                 "                let $canWrite := sm:has-access($fullPath, \"w\")\n" +
                 "                let $mode :=  string($permissions/@mode)\n" +
+                "                let $locked := xmldb:document-has-lock($url, $resource)\n" +
                 "                let $date := xmldb:last-modified($url, $resource)\n" +
                 "                let $mime := xmldb:get-mime-type($fullPath)\n" +
                 "                return (\n" +
-                "                    <exist:resource name=\"{$resource}\" path=\"{$url}\" owner=\"{$owner}\" group=\"{$group}\" writeable=\"{$canWrite}\" mode=\"{$mode}\" mime=\"{$mime}\" date=\"{format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\")}\" resource=\"true\">\n" +
+                "                    <exist:resource name=\"{$resource}\" path=\"{$url}\" owner=\"{$owner}\" group=\"{$group}\" writeable=\"{$canWrite}\" mode=\"{$mode}\" mime=\"{$mime}\" date=\"{format-dateTime($date, \"[M00]/[D00]/[Y0000] [H00]:[m00]:[s00]\")}\" locked=\"{$locked}\" resource=\"true\">\n" +
                 "                    </exist:resource>\n" +
                 "                )\n" +
                 "            }\n" +
@@ -231,5 +233,20 @@ public class ExistDbCollectionManagerQueries {
                 "else\n" +
                 "false()";
         return util.stringResultQuery(details, xquery);
+    }
+
+    public String unlockResource(ExistDetails details, String url) throws XMLDBException {
+        String path = url.substring(0,url.lastIndexOf("/"));
+        String resource = url.substring(url.lastIndexOf("/")+1);
+
+        String xquery = "xquery version '3.1';\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        xmldb:clear-lock(\"" + path + "\",\""+ resource +"\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        System.out.println(xquery);
+        return util.stringResultQuery(details,xquery);
     }
 }

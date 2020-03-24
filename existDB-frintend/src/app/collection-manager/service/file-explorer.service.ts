@@ -62,6 +62,10 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'evalXqueryasPath', url, {responseType: 'text'});
     }
 
+    public unlockResource(url: string): Observable<any> {
+        return this.http.post(this.baseUrl + 'unlockResource', url, {responseType: 'text'});
+    }
+
 
     get openedFile(): Credentials {
         return this.OpenedFile;

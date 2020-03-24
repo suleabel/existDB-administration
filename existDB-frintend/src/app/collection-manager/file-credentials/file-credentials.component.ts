@@ -1,12 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FileExplorerService} from '../service/file-explorer.service';
-import {Router} from '@angular/router';
-import {Credentials} from '../model/Credentials';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../../exist-group-manager/service/groups.service';
 import {UserService} from '../../user-manager-module/service/user.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {FileExplorerService} from '../service/file-explorer.service';
 
 @Component({
     selector: 'app-file-credentials',
@@ -26,7 +24,8 @@ export class FileCredentialsComponent implements OnInit {
         private groupService: GroupsService,
         private userService: UserService,
         private formBuilder: FormBuilder,
-        private notificationService: NotificationService) {
+        private notificationService: NotificationService,
+        private collectionService: FileExplorerService) {
     }
 
     ngOnInit() {
@@ -66,7 +65,17 @@ export class FileCredentialsComponent implements OnInit {
                     this.notificationService.warn(error.error.message);
                 }
             );
+    }
 
+    unlockResource(res) {
+        this.collectionService.unlockResource(res)
+            .subscribe(
+                data => {
+                    this.notificationService.success('success');
+                },
+                error => {
+                    this.notificationService.warn(error.error.message);
+                });
     }
 
     onClose() {

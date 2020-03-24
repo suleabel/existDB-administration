@@ -58,6 +58,7 @@ export class CollectionsDialogComponent implements OnInit {
                         mode: '',
                         date: '',
                         mime: '',
+                        locked: '',
                         resource: false,
                         triggerConfigAvailable: false
                     };

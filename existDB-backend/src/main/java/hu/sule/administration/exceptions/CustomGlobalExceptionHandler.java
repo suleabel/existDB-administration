@@ -1,6 +1,5 @@
 package hu.sule.administration.exceptions;
 
-import hu.sule.administration.service.CollectionService;
 import hu.sule.administration.xsdGenerator.XMLIsNotValidException;
 import org.jdom2.JDOMException;
 import org.slf4j.Logger;

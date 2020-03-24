@@ -44,7 +44,7 @@ export class CollectionManagerComponent implements OnInit {
         this.fileExplorerService.getCollection(path)
             .subscribe(
                 res => {
-                    const backElement = {
+                    const backElement: Credentials = {
                         name: '..',
                         path: '',
                         owner: '',
@@ -52,11 +52,13 @@ export class CollectionManagerComponent implements OnInit {
                         mode: '',
                         date: '',
                         mime: '',
+                        locked: '',
                         resource: false,
                         triggerConfigAvailable: false
                     };
                     this.collections = new MatTableDataSource();
                     this.collections.data = res;
+                    console.log(res);
                     this.collections.sort = this.sort;
                     this.collections.data.unshift(backElement);
                     this.isLoading$.next(false);
@@ -123,12 +125,11 @@ export class CollectionManagerComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result === '' || result === null || result === undefined) {
-                this.notificationService.warn('Not created');
+                this.notificationService.success('Not created');
             } else {
                 const editFileData: Credentials = result;
                 this.fileExplorerService.editFileCredentials(editFileData)
                     .subscribe(data => {
-                            console.log(data);
                             this.notificationService.success('Success');
                         },
                         error => {

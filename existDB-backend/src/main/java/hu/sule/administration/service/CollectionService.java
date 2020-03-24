@@ -78,6 +78,10 @@ public class CollectionService {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbCollectionManagerQueries.evalXqueryasPath(ExistDbCredentialsService.getDetails(),query))));
     }
 
+    public String unlockResource(String url) throws XMLDBException{
+        return existDbCollectionManagerQueries.unlockResource(ExistDbCredentialsService.getDetails(), url);
+    }
+
     public ResourceReadModel readFile(String url) throws XMLDBException {
         ResourceReadModel resourceReadModel = new ResourceReadModel();
         resourceReadModel.setContent(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url));
@@ -96,9 +100,9 @@ public class CollectionService {
             List<Element> exist = result.getChildren();
             for (Element element: exist) {
                 if(element.getName().equals("collection")){
-                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),element.getAttributeValue("resource").equals("true"), false);
+                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),null,element.getAttributeValue("resource").equals("true"), false);
                 }else if(element.getName().equals("resource")){
-                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),element.getAttributeValue("resource").equals("true"), false);
+                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),element.getAttributeValue("locked"),element.getAttributeValue("resource").equals("true"), false);
                 }
                 collectionManagerModels.add(model);
             }

@@ -8,11 +8,12 @@ public class ExistCollectionManagerModel {
     private String mode;
     private String date;
     private String mime;
+    private String locked;
     private boolean resource;
     private boolean triggerConfigAvailable = false;
 
 
-    public ExistCollectionManagerModel(String name, String path, String owner, String group, String mode, String date, String mime, boolean resource, boolean triggerConfigAvailable) {
+    public ExistCollectionManagerModel(String name, String path, String owner, String group, String mode, String date, String mime, String locked, boolean resource, boolean triggerConfigAvailable) {
         this.name = name;
         this.path = path;
         this.owner = owner;
@@ -20,6 +21,7 @@ public class ExistCollectionManagerModel {
         this.mode = mode;
         this.date = date;
         this.mime = mime;
+        this.locked = locked;
         this.resource = resource;
         this.triggerConfigAvailable = triggerConfigAvailable;
     }
@@ -96,6 +98,14 @@ public class ExistCollectionManagerModel {
         this.triggerConfigAvailable = triggerConfigAvailable;
     }
 
+    public String getLocked() {
+        return locked;
+    }
+
+    public void setLocked(String locked) {
+        this.locked = locked;
+    }
+
     @Override
     public String toString() {
         return "ExistCollectionManagerModel{" +
@@ -106,6 +116,7 @@ public class ExistCollectionManagerModel {
                 ", mode='" + mode + '\'' +
                 ", date='" + date + '\'' +
                 ", mime='" + mime + '\'' +
+                ", locked='" + locked + '\'' +
                 ", resource=" + resource +
                 ", triggerConfigAvailable=" + triggerConfigAvailable +
                 '}';

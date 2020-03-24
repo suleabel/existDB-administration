@@ -7,6 +7,7 @@
             <div class="card-body" *ngIf="!isEdit">
                 <label>{{openedFile.name}}</label>
                 <label>isBinary: {{isBinary}}</label>
+                <label *ngIf="openedFile.resource && openedFile.locked !== ''" >Is locked by: {{openedFile.locked}}</label>
                 <pre>
                     <code [highlight]="originalContent" [lineNumbers]="true"></code>
                 </pre>

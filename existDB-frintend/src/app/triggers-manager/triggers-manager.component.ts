@@ -43,6 +43,7 @@ export class TriggersManagerComponent implements OnInit {
                         mode: '',
                         date: '',
                         mime: '',
+                        locked: '',
                         resource: false,
                         triggerConfigAvailable: false
                     };

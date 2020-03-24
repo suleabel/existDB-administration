@@ -82,4 +82,9 @@ public class CollectionManagerController {
         String result = collectionService.evalXqueryasPath(httpEntity.getBody());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @RequestMapping("/unlockResource")
+    public String unlockResource(HttpEntity<String> httpEntity) throws XMLDBException{
+        return collectionService.unlockResource(httpEntity.getBody());
+    }
 }
