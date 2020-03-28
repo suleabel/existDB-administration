@@ -19,7 +19,7 @@ export class FooterComponent implements OnInit {
     ngOnInit() {
         this.info = {
             username: this.token.getUsername(),
-            serverIp: this.token.getServerIp()
+            serverIp: this.token.getServerIp().toLowerCase()
         };
     }
 

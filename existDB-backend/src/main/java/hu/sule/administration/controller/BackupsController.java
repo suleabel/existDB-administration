@@ -33,29 +33,13 @@ public class BackupsController {
     }
 
     @RequestMapping("/createBackup")
-    public ResponseEntity<String> createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws XMLDBException{
-        System.out.println(createBackupEntity.toString());
-        String result = "";
-        try {
-            result = backupService.createBackup(createBackupEntity);
-        } catch (JDOMException | IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(),null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public String createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws XMLDBException, JDOMException, IOException{
+        return backupService.createBackup(createBackupEntity);
     }
 
     @RequestMapping("/restoreBackup")
-    public ResponseEntity<String> restoreBackup(HttpEntity<String> httpEntity) throws XMLDBException{
-        String result = "";
-        try {
-            result =  backupService.restoreBackup(httpEntity.getBody());
-        } catch (JDOMException | IOException e) {
-            e.printStackTrace();
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(),null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<String> restoreBackup(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException{
+        return new ResponseEntity<>(backupService.restoreBackup(httpEntity.getBody()), HttpStatus.OK);
     }
 
 }

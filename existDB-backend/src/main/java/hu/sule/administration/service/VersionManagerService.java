@@ -3,6 +3,7 @@ package hu.sule.administration.service;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.TriggerModel;
 import hu.sule.administration.queries.ExistDBTriggerQueries;
+import hu.sule.administration.queries.ExistDbHistroyQueries;
 import org.eclipse.jetty.util.IO;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -30,7 +31,7 @@ public class VersionManagerService {
     private CollectionService collectionService;
 
     @Autowired
-    private ExistDBTriggerQueries existDBTriggerQueries;
+    private ExistDbHistroyQueries existDbHistroyQueries;
 
     @Autowired
     private TriggerService triggerService;
@@ -38,22 +39,26 @@ public class VersionManagerService {
 
     private static final Logger logger = LoggerFactory.getLogger(VersionManagerService.class);
 
-    public boolean isEnabled() throws XMLDBException, JDOMException, IOException{
+    public String isEnabled() throws JDOMException, IOException{
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
-        doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile("/db/system/config/db/collection.xconf").getContent())));
-        if (doc != null) {
+        try {
+            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile("/db/system/config/db/collection.xconf").getContent())));
+        } catch(XMLDBException e){
+            System.out.println("isEnabled XMDBException");
+        }
+            if (doc != null) {
             Element collection = doc.getRootElement();
             List<Element> triggerList = collection.getChildren().get(0).getChildren();
             for (Element trigger : triggerList) {
                 if (trigger.getAttributeValue("class").equals("org.exist.versioning.VersioningTrigger")) {
-                    return true;
+                    return "true";
                 }
             }
         } else {
-            return false;
+            return "false";
         }
-        return false;
+        return "false";
     }
 
     public String enableVersioning() throws XMLDBException, JDOMException, IOException {
@@ -64,6 +69,10 @@ public class VersionManagerService {
         events.add("copy");
         events.add("move");
         return triggerService.addTriggerToConfiguration(new TriggerModel(events, "org.exist.versioning.VersioningTrigger", "overwrite", "yes"), "/db/system/config/db");
+    }
+
+    public String getHistory(String path) throws JDOMException, IOException {
+        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbHistroyQueries.getResHistroy(ExistDbCredentialsService.getDetails(), path))));
     }
 
 //    public boolean enableVersionManager(){

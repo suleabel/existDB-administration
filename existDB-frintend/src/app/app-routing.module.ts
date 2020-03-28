@@ -17,7 +17,7 @@ import {VersionManagementModuleComponent} from './version-management-module/vers
 import {CollectionManagerComponent} from './collection-manager/collection-manager.component';
 import {FileManagerComponent} from './file-manager/file-manager.component';
 import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backup-and-restore-module.component';
-import {CreateNewResourceComponent} from "./collection-manager/create-new-resource/create-new-resource.component";
+import {CreateNewResourceComponent} from './collection-manager/create-new-resource/create-new-resource.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},

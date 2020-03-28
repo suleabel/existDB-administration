@@ -8,14 +8,52 @@ public class CustomErrorResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime timestamp;
     private int status;
+    private String exceptionType;
+    private String subtype;
+    private String location;
     private String message;
     private String url;
 
-    public CustomErrorResponse(LocalDateTime timestamp, int status, String message, String url) {
+    public CustomErrorResponse(LocalDateTime timestamp, int status, String exceptionType, String message, String url) {
         this.timestamp = timestamp;
         this.status = status;
+        this.exceptionType = exceptionType;
         this.message = message;
         this.url = url;
+    }
+
+    public CustomErrorResponse(LocalDateTime timestamp, int status, String exceptionType, String subtype, String location, String message, String url) {
+        this.timestamp = timestamp;
+        this.status = status;
+        this.exceptionType = exceptionType;
+        this.subtype = subtype;
+        this.location = location;
+        this.message = message;
+        this.url = url;
+    }
+
+    public String getSubtype() {
+        return subtype;
+    }
+
+    public void setSubtype(String subtype) {
+        this.subtype = subtype;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getExceptionType() {
+        return exceptionType;
+    }
+
+    public void setExceptionType(String exceptionType) {
+        this.exceptionType = exceptionType;
     }
 
     public String getUrl() {
@@ -55,6 +93,9 @@ public class CustomErrorResponse {
         return "CustomErrorResponse{" +
                 "timestamp=" + timestamp +
                 ", status=" + status +
+                ", exceptionType='" + exceptionType + '\'' +
+                ", subtype='" + subtype + '\'' +
+                ", location='" + location + '\'' +
                 ", message='" + message + '\'' +
                 ", url='" + url + '\'' +
                 '}';

@@ -38,6 +38,8 @@
                                 </div>
                                 <div class="card-body" *ngIf="!(isLoading2$ | async)">
                                     <label>Not working fine</label>
+                                    <label for="location2">Location:</label>
+                                    <input id="location2" type="text" [(ngModel)]="entity.saveLocation">
                                     <label for="isZip"></label>
                                     <mat-checkbox id="isZip" (change)="changeZip()">Zip</mat-checkbox>
                                     <label for="isIncremental"></label>
@@ -106,7 +108,7 @@
                                         <ng-container matColumnDef="restore">
                                             <th mat-header-cell *matHeaderCellDef>restore</th>
                                             <td mat-cell *matCellDef="let element">
-                                                <button class="btn btn-success">Restore</button>
+                                                <button class="btn btn-success" (click)="restore(element)">Restore</button>
                                             </td>
                                         </ng-container>
 

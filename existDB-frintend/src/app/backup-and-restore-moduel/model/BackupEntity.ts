@@ -6,8 +6,6 @@ export class BackupEntity {
     previous: string;
     downloadable: boolean;
     downloadLink: string;
-
-
     constructor(fileName: string, nrInSequence: string, date: string, incremental: string, previous: string, downloadable: boolean, downloadLink: string) {
         this.fileName = fileName;
         this.nrInSequence = nrInSequence;

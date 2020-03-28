@@ -61,6 +61,7 @@ import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file
 import { EvalResultViewerComponent } from './collection-manager/eval-result-viewer/eval-result-viewer.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog/error-dialog.component';
 import { FooterComponent } from './footer/footer.component';
+import {TypeaheadModule} from 'ngx-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -130,7 +131,8 @@ import { FooterComponent } from './footer/footer.component';
         MatDialogModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,
-        MatTabsModule
+        MatTabsModule,
+        TypeaheadModule
     ],
   providers: [
       httpInterceptorProvider,

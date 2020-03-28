@@ -1,5 +1,6 @@
 package hu.sule.administration.util;
 
+import hu.sule.administration.exceptions.UtilException;
 import hu.sule.administration.model.ExistDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ public class Util {
         DatabaseManager.registerDatabase(database);
     }
 
-    public String stringResultQueryOLD(ExistDetails details, String query) {
+    public String stringResultQuery(ExistDetails details, String query) {
         Collection old = collection;
         String result = null;
         try {
@@ -34,7 +35,11 @@ public class Util {
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
             result = execXQuery(query, collection);
         } catch (Exception e) {
-            logger.error("Execute Query exception: " + e.getMessage());
+            if(e.getMessage().equals("")){
+                throw new UtilException("no error message","stringResultQuery","XMLDBException");
+            }
+            System.out.println(e.getMessage() + " stringResultQuery " + " XMLDBException");
+            throw new UtilException(e.getMessage(),"stringResultQuery","XMLDBException");
         } finally {
             try {
                 closeCollection(collection);
@@ -46,14 +51,18 @@ public class Util {
         return result;
     }
 
-    public boolean booleanResultQueryOLD(ExistDetails details, String query) {
+    public boolean booleanResultQuery(ExistDetails details, String query) {
         Collection old = collection;
         boolean result = false;
         try {
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection(), details.getUsername(), details.getPassword());
             result = !execXQuery(query, collection).equals("false");
         } catch (XMLDBException e) {
-            System.out.println("User delete Exception: " + e.getMessage());
+            if(e.getMessage().equals("")){
+                throw new UtilException("no error message","booleanResultQuery","XMLDBException");
+            }
+            System.out.println(e.getMessage() + " booleanResultQuery " + " XMLDBException");
+            throw new UtilException(e.getMessage(),"booleanResultQuery","XMLDBException");
         } finally {
             try {
                 closeCollection(collection);
@@ -70,7 +79,7 @@ public class Util {
             collection.close();
     }
 
-    public String execXQueryOLD(String query, Collection collection) {
+    public String execXQuery(String query, Collection collection) {
         StringBuilder sb = new StringBuilder();
         try {
             XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
@@ -83,43 +92,46 @@ public class Util {
                 sb.append(r.getContent().toString()).append("\n");
             }
         } catch (XMLDBException e) {
-            System.out.println("execQuery Exception: " + e.getMessage());
+            if(e.getMessage().equals("")){
+                throw new UtilException("no error message","execXQuery","XMLDBException");
+            }
+            System.out.println("query: "+ query + ", " + e.getMessage() + " execXQuery " + " XMLDBException");
+            throw new UtilException(e.getMessage(),"execXQuery","XMLDBException");
         }
         return sb.toString().trim();
     }
 
-    public String execXQuery(String query, Collection collection) throws XMLDBException {
-        StringBuilder sb = new StringBuilder();
-        XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
-        service.setProperty(OutputKeys.INDENT, "yes");
-        service.setProperty(OutputKeys.ENCODING, "UTF-16");
-        CompiledExpression compiled = service.compile(query);
-        ResourceSet result = service.execute(compiled);
-        for (int i = 0; i < (int) result.getSize(); i++) {
-            XMLResource r = (XMLResource) result.getResource((long) i);
-            sb.append(r.getContent().toString()).append("\n");
-        }
-        return sb.toString().trim();
-    }
-
-    public String stringResultQuery(ExistDetails details, String query) throws XMLDBException {
-        Collection old = collection;
-        String result = null;
-        closeCollection(collection);
-        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
-        result = execXQuery(query, collection);
-        closeCollection(collection);
-        collection = old;
-        return result;
-    }
-
-    public boolean booleanResultQuery(ExistDetails details, String query) throws XMLDBException{
-        Collection old = collection;
-        boolean result = false;
-        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection(), details.getUsername(), details.getPassword());
-        result = !execXQuery(query, collection).equals("false");
-        closeCollection(collection);
-        collection = old;
-        return result;
-    }
+//    public String execXQuery(String query, Collection collection) throws XMLDBException {
+//        StringBuilder sb = new StringBuilder();
+//        XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
+//        service.setProperty(OutputKeys.INDENT, "yes");
+//        service.setProperty(OutputKeys.ENCODING, "UTF-16");
+//        CompiledExpression compiled = service.compile(query);
+//        ResourceSet result = service.execute(compiled);
+//        for (int i = 0; i < (int) result.getSize(); i++) {
+//            XMLResource r = (XMLResource) result.getResource((long) i);
+//            sb.append(r.getContent().toString()).append("\n");
+//        }
+//        return sb.toString().trim();
+//    }
+//
+//    public String stringResultQuery(ExistDetails details, String query) throws XMLDBException {
+//        Collection old = collection;
+//        closeCollection(collection);
+//        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
+//        String result = execXQuery(query, collection);
+//        closeCollection(collection);
+//        collection = old;
+//        return result;
+//    }
+//
+//    public boolean booleanResultQuery(ExistDetails details, String query) throws XMLDBException{
+//        Collection old = collection;
+//        boolean result = false;
+//        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection(), details.getUsername(), details.getPassword());
+//        result = !execXQuery(query, collection).equals("false");
+//        closeCollection(collection);
+//        collection = old;
+//        return result;
+//    }
 }

@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {VersionManagementService} from './service/version-management.service';
 import {NotificationService} from '../error-dialog/service/notification.service';
-import {stringify} from 'querystring';
 import {BehaviorSubject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {Credentials} from '../collection-manager/model/Credentials';
 import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
 import {ViewHistoryComponent} from './view-history/view-history.component';
+import {escapeRegExp} from "tslint/lib/utils";
 
 @Component({
     selector: 'app-version-management-module',
@@ -27,7 +27,9 @@ export class VersionManagementModuleComponent implements OnInit {
 
     ngOnInit() {
         this.checkVersionManagementIsEnabled();
-        this.loadData(this.selectedDirectory);
+        if (this.versionIsAvailable$) {
+            this.loadData(this.selectedDirectory);
+        }
     }
 
     private checkVersionManagementIsEnabled() {
@@ -36,8 +38,8 @@ export class VersionManagementModuleComponent implements OnInit {
             .subscribe(data => {
                 this.versionIsAvailable$.next((data === 'true'));
             }, error => {
-                console.log(error);
-                this.notificationService.warn(error.error.message);
+                console.log(error.error);
+                this.notificationService.warn(error.error);
             });
     }
 
@@ -53,7 +55,6 @@ export class VersionManagementModuleComponent implements OnInit {
     }
 
     private loadData(path: string) {
-        console.log(path);
         this.fileExplorerService.getCollection(path)
             .subscribe(
                 res => {
@@ -72,10 +73,10 @@ export class VersionManagementModuleComponent implements OnInit {
                     };
                     this.collections = res;
                     this.collections.unshift(backElement);
-                    console.log(this.collections);
+                    // console.log('content: ' + this.collections);
                 },
                 error => {
-                    console.log(error.status);
+                    console.log(error.error);
                     this.backToRoot();
                 });
     }
@@ -105,10 +106,11 @@ export class VersionManagementModuleComponent implements OnInit {
     }
 
     private getVersions(element) {
+        console.log(element);
         const dialogRef = this.dialog.open(ViewHistoryComponent, {
             width: '60%',
             height: '50%',
-            data: {resource: element}
+            data: {res: element}
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log(result);

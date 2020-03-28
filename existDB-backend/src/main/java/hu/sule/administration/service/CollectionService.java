@@ -94,7 +94,11 @@ public class CollectionService {
         ExistCollectionManagerModel model = null;
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
-        doc = saxBuilder.build(new InputSource(new StringReader(input)));
+        try {
+            doc = saxBuilder.build(new InputSource(new StringReader(input)));
+        }catch (JDOMException e){
+            e.printStackTrace();
+        }
         if(doc != null) {
             Element result = doc.getRootElement();
             List<Element> exist = result.getChildren();

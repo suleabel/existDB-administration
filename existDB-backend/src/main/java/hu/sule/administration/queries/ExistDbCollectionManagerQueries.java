@@ -211,7 +211,6 @@ public class ExistDbCollectionManagerQueries {
         return util.booleanResultQuery(details, query);
     }
 
-    //TODO meg kéne nézni, hogy visszaadja-e ha hiba van
     public String evalXqueryasString(ExistDetails details, String query) throws XMLDBException{
         String xquery = "xquery version '3.1';\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +

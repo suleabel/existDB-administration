@@ -62,7 +62,13 @@ export class XmlFileViewerComponent implements OnInit {
     }
 
     onSave() {
-        const saveRes: StoreResourceModel = {url: this.openedFile.path, fileName: this.openedFile.name, content: this.editedContent, isBinary: this.isBinary, mime: 'application/xml'};
+        const saveRes: StoreResourceModel = {
+            url: this.openedFile.path,
+            fileName: this.openedFile.name,
+            content: this.editedContent,
+            isBinary: this.isBinary,
+            mime: 'application/xml'
+        };
         console.log(saveRes);
         this.isLoading$.next(true);
         this.triggerService.editTrigger(saveRes)
