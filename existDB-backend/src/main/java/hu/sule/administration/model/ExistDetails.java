@@ -1,66 +1,16 @@
 package hu.sule.administration.model;
 
+import lombok.*;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class ExistDetails {
     private String username = "default";
     private String password = "default";
-//    private String url = "xmldb:exist://192.168.1.104:8088/exist/xmlrpc";
-     private String ip;
+    private String ip;
     private String url = "xmldb:exist://" + ip + "/exist/xmlrpc";
     private String collection = "/db/";
     private final String driver = "org.exist.xmldb.DatabaseImpl";
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getCollection() {
-        return collection;
-    }
-
-    public void setCollection(String collection) {
-        this.collection = collection;
-    }
-
-    public String getDriver() {
-        return driver;
-    }
-
-    @Override
-    public String toString() {
-        return "ExistDetails{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", url='" + url + '\'' +
-                ", collection='" + collection + '\'' +
-                ", driver='" + driver + '\'' +
-                '}';
-    }
 }

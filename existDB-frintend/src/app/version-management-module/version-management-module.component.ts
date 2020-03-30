@@ -114,14 +114,19 @@ export class VersionManagementModuleComponent implements OnInit {
     }
 
     private getVersions(element) {
-        const dialogRef = this.dialog.open(ViewHistoryComponent, {
-            width: '60%',
-            height: 'auto',
-            data: {res: element}
-        });
-        dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
-        });
+        console.log(element.name);
+        if (element.name.includes('xml')) {
+            const dialogRef = this.dialog.open(ViewHistoryComponent, {
+                width: '60%',
+                height: 'auto',
+                data: {res: element}
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                console.log(result);
+            });
+        } else {
+            this.notificationService.warn('This is not XML document!!');
+        }
     }
 
     // private deactivateVersionManagement() {

@@ -82,14 +82,17 @@ public class CollectionService {
         return existDbCollectionManagerQueries.unlockResource(ExistDbCredentialsService.getDetails(), url);
     }
 
-    public ResourceReadModel readFile(String url) throws XMLDBException {
+    public ResourceReadModel readFile(String url) throws XMLDBException, JDOMException, IOException {
         ResourceReadModel resourceReadModel = new ResourceReadModel();
-        resourceReadModel.setContent(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url));
-        resourceReadModel.setIsBinary(existDbCollectionManagerQueries.isBinary(ExistDbCredentialsService.getDetails(), url));
+        if(url.contains("xml"))
+            resourceReadModel.setContent(new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url)))));
+        else
+            resourceReadModel.setContent(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url));
+        resourceReadModel.setBinary(existDbCollectionManagerQueries.isBinary(ExistDbCredentialsService.getDetails(), url));
         return resourceReadModel;
     }
 
-    private ArrayList<ExistCollectionManagerModel> mapCollectionQueryResult(String input) throws IOException, JDOMException{
+    private ArrayList<ExistCollectionManagerModel> mapCollectionQueryResult(String input) throws IOException{
         ArrayList<ExistCollectionManagerModel> collectionManagerModels = new ArrayList<>();
         ExistCollectionManagerModel model = null;
         SAXBuilder saxBuilder = new SAXBuilder();

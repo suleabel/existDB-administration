@@ -1,11 +1,16 @@
 package hu.sule.administration.controller;
 
+import hu.sule.administration.exceptions.CustomeException;
 import hu.sule.administration.model.FileManagerEntity;
+import hu.sule.administration.model.StoreDirOrFileModel;
 import hu.sule.administration.service.FileExplorerService;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.xmldb.api.base.XMLDBException;
@@ -23,19 +28,29 @@ public class FileManagerController {
 
     @RequestMapping("/getDirectoryContent")
     public List<FileManagerEntity> getDirectoryContent(HttpEntity<String> httpEntity) throws XMLDBException {
-        System.out.println("getDirContent");
         return fileExplorerService.getDirectoryContent(httpEntity.getBody());
     }
 
     @RequestMapping("/getRootDirectory")
     public String getRootDirectory() throws XMLDBException{
-        System.out.println("getRootDir");
         return fileExplorerService.getRootDirectory();
     }
 
     @RequestMapping("/readFile")
     public String readFileContent(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException {
         return fileExplorerService.getFileContent(httpEntity.getBody());
+    }
+
+    @RequestMapping("/makeDir")
+    public ResponseEntity<String> makeDir(@RequestBody StoreDirOrFileModel storeDirOrFileModel) {
+        fileExplorerService.makeDir(storeDirOrFileModel);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping("/deleteDir")
+    public ResponseEntity<String> deleteDir(@RequestBody StoreDirOrFileModel storeDirOrFileModel) {
+        fileExplorerService.deleteDir(storeDirOrFileModel);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 

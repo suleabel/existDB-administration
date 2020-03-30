@@ -85,8 +85,8 @@ public class TriggerService {
                 parameter.setAttribute("value", triggerModel.getValue());
             if(!"".equals(triggerModel.getEventByComma()))
                 triggerE.setAttribute("event", triggerModel.getEventByComma());
-            if(!"".equals(triggerModel.gettClass()))
-                triggerE.setAttribute("class", triggerModel.gettClass());
+            if(!"".equals(triggerModel.getTClass()))
+                triggerE.setAttribute("class", triggerModel.getTClass());
             triggers.add(triggerE);
             String newConfig = new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
             String[] old = newConfig.split("\n");

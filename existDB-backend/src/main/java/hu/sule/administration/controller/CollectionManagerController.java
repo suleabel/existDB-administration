@@ -42,7 +42,7 @@ public class CollectionManagerController {
     }
 
     @RequestMapping("/getFileContent")
-    public ResourceReadModel getFileContent(HttpEntity<String> httpEntity) throws XMLDBException{
+    public ResourceReadModel getFileContent(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException{
         return collectionService.readFile(httpEntity.getBody());
     }
 

@@ -1,6 +1,7 @@
 package hu.sule.administration.queries;
 
 import hu.sule.administration.model.ExistDetails;
+import hu.sule.administration.model.StoreDirOrFileModel;
 import hu.sule.administration.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,28 @@ public class ExistDbFileExplorerQueries {
                 "            }\n" +
                 "        </result>\n" +
                 "    )" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
+    }
+
+    public String mkDir(ExistDetails details, StoreDirOrFileModel storeDirOrFileModel) {
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        file:mkdir(\"" + storeDirOrFileModel.getUrl() + "/" + storeDirOrFileModel.getName()+ "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
+    }
+
+    public String deleteDir(ExistDetails details, StoreDirOrFileModel storeDirOrFileModel) {
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        file:delete(\"" + storeDirOrFileModel.getUrl() + "/" + storeDirOrFileModel.getName()+ "\")\n" +
+                "    )\n" +
                 "else\n" +
                 "false()";
         System.out.println(query);

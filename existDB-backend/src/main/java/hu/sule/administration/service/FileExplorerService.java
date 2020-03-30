@@ -1,6 +1,7 @@
 package hu.sule.administration.service;
 
 import hu.sule.administration.model.FileManagerEntity;
+import hu.sule.administration.model.StoreDirOrFileModel;
 import hu.sule.administration.queries.ExistDbFileExplorerQueries;
 import org.eclipse.jetty.util.IO;
 import org.jdom2.Document;
@@ -77,5 +78,13 @@ public class FileExplorerService {
         }
 
         return content;
+    }
+
+    public String makeDir(StoreDirOrFileModel storeDirOrFileModel) {
+        return existDbFileExplorerQueries.mkDir(ExistDbCredentialsService.getDetails(),storeDirOrFileModel);
+    }
+
+    public String deleteDir(StoreDirOrFileModel storeDirOrFileModel) {
+        return existDbFileExplorerQueries.deleteDir(ExistDbCredentialsService.getDetails(),storeDirOrFileModel);
     }
 }

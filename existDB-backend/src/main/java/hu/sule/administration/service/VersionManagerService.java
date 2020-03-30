@@ -37,8 +37,6 @@ public class VersionManagerService {
     private static final Logger logger = LoggerFactory.getLogger(VersionManagerService.class);
 
     public String isEnabled() throws IOException{
-        boolean versionTrigger = false;
-        boolean histroyTrigger = false;
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
         try {
@@ -56,17 +54,12 @@ public class VersionManagerService {
             List<Element> triggerList = collection.getChildren().get(0).getChildren();
             for (Element trigger : triggerList) {
                 if (trigger.getAttributeValue("class").equals("org.exist.versioning.VersioningTrigger")) {
-                    versionTrigger = true;
-                }
-                if (trigger.getAttributeValue("class").equals("org.exist.collections.triggers.HistoryTrigger")) {
-                    histroyTrigger = true;
+                    return "true";
                 }
             }
         } else {
             return "false";
         }
-        if(versionTrigger && histroyTrigger)
-            return "true";
         return "false";
     }
 
@@ -77,9 +70,9 @@ public class VersionManagerService {
         events.add("update");
         events.add("copy");
         events.add("move");
-        if(triggerService.addTriggerToConfiguration(new TriggerModel(new ArrayList<>(),"org.exist.collections.triggers.HistoryTrigger","",""), "/db/system/config/db").equals("Failure!")){
-            return "Failure!";
-        }
+//        if(triggerService.addTriggerToConfiguration(new TriggerModel(new ArrayList<>(),"org.exist.collections.triggers.HistoryTrigger","",""), "/db/system/config/db").equals("Failure!")){
+//            return "Failure!";
+//        }
         if(triggerService.addTriggerToConfiguration(new TriggerModel(events, "org.exist.versioning.VersioningTrigger", "overwrite", "yes"), "/db/system/config/db").equals("Failure!")){
             return "Failure!";
         }

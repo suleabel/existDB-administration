@@ -194,7 +194,6 @@ export class CollectionManagerComponent implements OnInit {
             height: 'auto'
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log('createDir result: ' + result);
             if (result === '' || result === null || result === undefined) {
                 this.notificationService.warn('Collection name is empty');
             } else {

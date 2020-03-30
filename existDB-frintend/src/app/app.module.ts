@@ -63,6 +63,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog/error-dialog.c
 import { FooterComponent } from './footer/footer.component';
 import {TypeaheadModule} from 'ngx-bootstrap';
 import { ViewChangesDialogComponent } from './version-management-module/view-changes-dialog/view-changes-dialog.component';
+import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,6 +105,7 @@ import { ViewChangesDialogComponent } from './version-management-module/view-cha
       ErrorDialogComponent,
       FooterComponent,
       ViewChangesDialogComponent,
+      MakeDirDialogComponent,
   ],
     imports: [
         BrowserModule,
@@ -162,7 +164,8 @@ import { ViewChangesDialogComponent } from './version-management-module/view-cha
         BrowseXqueryFileComponent,
         EvalResultViewerComponent,
         ErrorDialogComponent,
-        ViewChangesDialogComponent]
+        ViewChangesDialogComponent,
+        MakeDirDialogComponent]
 })
 export class AppModule {
 }

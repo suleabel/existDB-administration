@@ -16,9 +16,9 @@ import {BrowseXqueryFileComponent} from '../browse-xquery-file/browse-xquery-fil
 export class AddTriggerComponent implements OnInit {
     public triggerForm: FormGroup;
     public triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
-    public triggerName = ['url', 'query'];
+    public triggerName = ['selectedDir', 'query'];
     public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
-    public tempFormData = {event: '', tClass: this.triggerClass, name: 'url', value: ''};
+    public tempFormData = {event: '', tClass: this.triggerClass, name: 'selectedDir', value: ''};
     public openedFile;
     public query: string;
 
