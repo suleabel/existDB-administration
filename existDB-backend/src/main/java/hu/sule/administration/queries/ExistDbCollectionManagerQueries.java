@@ -96,7 +96,7 @@ public class ExistDbCollectionManagerQueries {
     }
 
     public String saveResource(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl) throws XMLDBException {
-        System.out.println("create file: " + forStoreResourceAndColl);
+        // System.out.println("create file: " + forStoreResourceAndColl);
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $collection := \"" + forStoreResourceAndColl.getUrl() + "\";\n" +
                 "declare variable $resource := \"" + forStoreResourceAndColl.getFileName() + "\";\n" +
@@ -118,7 +118,7 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
+        // System.out.println(query);
         //return "not working this function!!";
         return util.stringResultQuery(details, query);
     }
@@ -144,7 +144,7 @@ public class ExistDbCollectionManagerQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
-    public String readFile(ExistDetails details, String resUrl) throws XMLDBException {
+    public String readFile(ExistDetails details, String resUrl) {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $file := xs:string(\"" + resUrl + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -219,7 +219,7 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(xquery);
+        // System.out.println(xquery);
         return util.stringResultQuery(details, xquery);
     }
 
@@ -245,7 +245,7 @@ public class ExistDbCollectionManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(xquery);
+        //System.out.println(xquery);
         return util.stringResultQuery(details,xquery);
     }
 }

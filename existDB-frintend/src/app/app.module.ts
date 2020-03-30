@@ -62,6 +62,7 @@ import { EvalResultViewerComponent } from './collection-manager/eval-result-view
 import { ErrorDialogComponent } from './error-dialog/error-dialog/error-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import {TypeaheadModule} from 'ngx-bootstrap';
+import { ViewChangesDialogComponent } from './version-management-module/view-changes-dialog/view-changes-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,6 +103,7 @@ import {TypeaheadModule} from 'ngx-bootstrap';
       EvalResultViewerComponent,
       ErrorDialogComponent,
       FooterComponent,
+      ViewChangesDialogComponent,
   ],
     imports: [
         BrowserModule,
@@ -159,7 +161,8 @@ import {TypeaheadModule} from 'ngx-bootstrap';
         InformationDialogComponent,
         BrowseXqueryFileComponent,
         EvalResultViewerComponent,
-        ErrorDialogComponent]
+        ErrorDialogComponent,
+        ViewChangesDialogComponent]
 })
 export class AppModule {
 }

@@ -30,7 +30,7 @@ export class DialogService {
             panelClass: 'error-dialog-container',
             disableClose: false,
             data: {
-                message: msg
+                error: msg
             }
         });
     }

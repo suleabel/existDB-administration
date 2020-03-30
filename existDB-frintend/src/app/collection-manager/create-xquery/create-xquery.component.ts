@@ -1,6 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FileExplorerService} from '../service/file-explorer.service';
-import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BrowseSaveLocationComponent} from '../../xml-to-xsd/browse-save-location/browse-save-location.component';

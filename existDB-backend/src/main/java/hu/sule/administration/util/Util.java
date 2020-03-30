@@ -1,6 +1,6 @@
 package hu.sule.administration.util;
 
-import hu.sule.administration.exceptions.UtilException;
+import hu.sule.administration.exceptions.CustomeException;
 import hu.sule.administration.model.ExistDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +36,10 @@ public class Util {
             result = execXQuery(query, collection);
         } catch (Exception e) {
             if(e.getMessage().equals("")){
-                throw new UtilException("no error message","stringResultQuery","XMLDBException");
+                throw new CustomeException("no error message","stringResultQuery","XMLDBException");
             }
             System.out.println(e.getMessage() + " stringResultQuery " + " XMLDBException");
-            throw new UtilException(e.getMessage(),"stringResultQuery","XMLDBException");
+            throw new CustomeException(e.getMessage(),"stringResultQuery","XMLDBException");
         } finally {
             try {
                 closeCollection(collection);
@@ -59,10 +59,10 @@ public class Util {
             result = !execXQuery(query, collection).equals("false");
         } catch (XMLDBException e) {
             if(e.getMessage().equals("")){
-                throw new UtilException("no error message","booleanResultQuery","XMLDBException");
+                throw new CustomeException("no error message","booleanResultQuery","XMLDBException");
             }
             System.out.println(e.getMessage() + " booleanResultQuery " + " XMLDBException");
-            throw new UtilException(e.getMessage(),"booleanResultQuery","XMLDBException");
+            throw new CustomeException(e.getMessage(),"booleanResultQuery","XMLDBException");
         } finally {
             try {
                 closeCollection(collection);
@@ -93,10 +93,10 @@ public class Util {
             }
         } catch (XMLDBException e) {
             if(e.getMessage().equals("")){
-                throw new UtilException("no error message","execXQuery","XMLDBException");
+                throw new CustomeException("no error message","execXQuery","XMLDBException");
             }
             System.out.println("query: "+ query + ", " + e.getMessage() + " execXQuery " + " XMLDBException");
-            throw new UtilException(e.getMessage(),"execXQuery","XMLDBException");
+            throw new CustomeException(e.getMessage(),"execXQuery","XMLDBException");
         }
         return sb.toString().trim();
     }

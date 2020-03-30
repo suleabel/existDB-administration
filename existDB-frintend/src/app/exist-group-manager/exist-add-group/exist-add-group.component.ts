@@ -38,7 +38,7 @@ export class ExistAddGroupComponent implements OnInit {
                     this.existUsers = data;
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 }
             );
     }

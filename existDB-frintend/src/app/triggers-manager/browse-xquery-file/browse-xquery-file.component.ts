@@ -46,7 +46,7 @@ export class BrowseXqueryFileComponent implements OnInit {
                     this.collections.unshift(backElement);
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                     this.backToRoot();
                 });
     }

@@ -32,16 +32,6 @@ export class XmlFileViewerComponent implements OnInit {
 
     ngOnInit() {
         this.openedFile = this.fileExplorerService.openedFile;
-        // this.triggerService.getTriggers(this.openedFile.path + '/' + this.openedFile.name)
-        //     .subscribe(
-        //         data => {
-        //             console.log(data);
-        //
-        //         },
-        //         error => {
-        //             this.notificationService.warn('Error: ' + error);
-        //         }
-        //     );
         this.fileExplorerService.getResContent(this.openedFile.path + '/' + this.openedFile.name)
             .subscribe(
                 data => {
@@ -51,7 +41,7 @@ export class XmlFileViewerComponent implements OnInit {
 
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 }
             );
     }
@@ -78,7 +68,7 @@ export class XmlFileViewerComponent implements OnInit {
                     this.dialogRef.close();
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 });
         this.isEdit = false;
     }

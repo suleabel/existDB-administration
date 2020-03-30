@@ -1,14 +1,11 @@
 package hu.sule.administration.service;
 
-import hu.sule.administration.model.EditTriggerModel;
-import hu.sule.administration.model.TriggerModel;
-import hu.sule.administration.queries.ExistDBTriggerQueries;
+import hu.sule.administration.exceptions.CustomeException;
+import hu.sule.administration.model.*;
 import hu.sule.administration.queries.ExistDbHistroyQueries;
-import org.eclipse.jetty.util.IO;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -39,25 +36,37 @@ public class VersionManagerService {
 
     private static final Logger logger = LoggerFactory.getLogger(VersionManagerService.class);
 
-    public String isEnabled() throws JDOMException, IOException{
+    public String isEnabled() throws IOException{
+        boolean versionTrigger = false;
+        boolean histroyTrigger = false;
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
         try {
-            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile("/db/system/config/db/collection.xconf").getContent())));
+            String confContent = collectionService.readFile("/db/system/config/db/collection.xconf").getContent();
+            if("".equals(confContent))
+                throw new CustomeException("root collection.xconf is not exist, Please initialize it in the Trigger manager","","ERROR MESSAGE");
+            doc = saxBuilder.build(new InputSource(new StringReader(confContent)));
         } catch(XMLDBException e){
-            System.out.println("isEnabled XMDBException");
+            throw new CustomeException(e.getMessage(),"isEnabled in VersionManagerService","XMLDBException");
+        } catch(JDOMException e){
+            throw new CustomeException(e.getMessage(),"isEnabled in VersionManagerService","JDOMException");
         }
             if (doc != null) {
             Element collection = doc.getRootElement();
             List<Element> triggerList = collection.getChildren().get(0).getChildren();
             for (Element trigger : triggerList) {
                 if (trigger.getAttributeValue("class").equals("org.exist.versioning.VersioningTrigger")) {
-                    return "true";
+                    versionTrigger = true;
+                }
+                if (trigger.getAttributeValue("class").equals("org.exist.collections.triggers.HistoryTrigger")) {
+                    histroyTrigger = true;
                 }
             }
         } else {
             return "false";
         }
+        if(versionTrigger && histroyTrigger)
+            return "true";
         return "false";
     }
 
@@ -68,41 +77,51 @@ public class VersionManagerService {
         events.add("update");
         events.add("copy");
         events.add("move");
-        return triggerService.addTriggerToConfiguration(new TriggerModel(events, "org.exist.versioning.VersioningTrigger", "overwrite", "yes"), "/db/system/config/db");
+        if(triggerService.addTriggerToConfiguration(new TriggerModel(new ArrayList<>(),"org.exist.collections.triggers.HistoryTrigger","",""), "/db/system/config/db").equals("Failure!")){
+            return "Failure!";
+        }
+        if(triggerService.addTriggerToConfiguration(new TriggerModel(events, "org.exist.versioning.VersioningTrigger", "overwrite", "yes"), "/db/system/config/db").equals("Failure!")){
+            return "Failure!";
+        }
+        return "Success";
     }
 
-    public String getHistory(String path) throws JDOMException, IOException {
-        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbHistroyQueries.getResHistroy(ExistDbCredentialsService.getDetails(), path))));
+    public VersionsModel getHistory(String path) throws JDOMException, IOException {
+        return mapVersions(existDbHistroyQueries.getResHistroy(ExistDbCredentialsService.getDetails(), path));
     }
 
-//    public boolean enableVersionManager(){
-//        SAXBuilder saxBuilder = new SAXBuilder();
-//        Document doc = null;
-//        Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
-//        try {
-//            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile("/db/system/config/db/collection.xconf").getContent())));
-//        } catch (JDOMException | IOException e){
-//            logger.error("SAXBuilder exception: " + e.getMessage()) ;
-//        }
-//        if(doc != null) {
-//
-//            Element collection = doc.getRootElement();
-//            List<Element> triggers = collection.getChildren().get(0).getChildren();
-//            Element parameter = new Element("parameter").setAttribute("name","overwrite").setAttribute("value", "yes");
-//            Element triggerE = new Element("trigger").addContent(parameter).setAttribute("event", "create,delete,update,copy,move").setAttribute("class", "org.exist.versioning.VersioningTrigger").setNamespace(ns);
-//            triggers.add(triggerE);
-//            String newConfig = new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
-//            String[] old = newConfig.split("\n");
-//            List<String> fixedConfig = new ArrayList<>();
-//            for (int i = 0; i<old.length; i++){
-//                if(i != 0){
-//                    fixedConfig.add(old[i]);
-//                }
-//            }
-//            return existDBTriggerQueries.saveEditedTrigger(ExistDbCredentialsService.getDetails(), "/db/system/config/db/", String.join("\n", fixedConfig).replaceAll("\"","'")).contains("true");
-//        }
-//        else {
-//            return false;
-//        }
-//    }
+    public String getDiffByRev(VersionByRevModel versionByRevModel) throws IOException, JDOMException{
+        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbHistroyQueries.getDiffertencesByRev(ExistDbCredentialsService.getDetails(), versionByRevModel))));
+    }
+
+    public String resotreResByRev(VersionByRevModel versionByRevModel) throws IOException, JDOMException{
+        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbHistroyQueries.restoreDocByRev(ExistDbCredentialsService.getDetails(), versionByRevModel))));
+    }
+
+    private VersionsModel mapVersions(String input) throws JDOMException, IOException {
+        VersionsModel versionsModel = new VersionsModel();
+        ArrayList<ReversionsModel> reversionsModels = new ArrayList<>();
+        ReversionsModel reversionsModel;
+        SAXBuilder saxBuilder = new SAXBuilder();
+        Document doc = null;
+        doc = saxBuilder.build(new InputSource(new StringReader(input)));
+        if (doc != null) {
+            Element root = doc.getRootElement();
+            List<Element> data = root.getChildren();
+            for (Element node : data) {
+                if("document".equals(node.getName())){
+                    versionsModel.setDoc(node.getValue());
+                }
+                if("revisions".equals(node.getName())){
+                    List<Element> reversions = node.getChildren();
+                    for (Element reversion : reversions) {
+                        reversionsModel = new ReversionsModel(reversion.getAttributeValue("rev"),reversion.getChildren().get(0).getValue(),reversion.getChildren().get(1).getValue());
+                        reversionsModels.add(reversionsModel);
+                    }
+                }
+            }
+            versionsModel.setReversions(reversionsModels);
+        }
+        return versionsModel;
+    }
 }

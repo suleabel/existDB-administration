@@ -27,7 +27,7 @@ export class FileViewerDialogComponent implements OnInit {
         .subscribe(data => {
           this.content = data;
         }, error => {
-          this.notificationService.warn(error.error.message);
+          this.notificationService.Error(error.error);
         }
     );
   }

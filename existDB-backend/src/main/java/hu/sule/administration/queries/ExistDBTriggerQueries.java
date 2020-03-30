@@ -1,8 +1,6 @@
 package hu.sule.administration.queries;
 
-import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistDetails;
-import hu.sule.administration.model.TriggerModel;
 import hu.sule.administration.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,16 +14,40 @@ public class ExistDBTriggerQueries {
     private static final Logger logger = LoggerFactory.getLogger(ExistDBTriggerQueries.class);
 
     public String initTriggerConfig(ExistDetails details, String path) throws XMLDBException {
+//        String query = "xquery version \"3.1\";\n" +
+//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+//                "    (\n" +
+//                "        xmldb:store(\"/db/system/config" + path + "\",\"collection.xconf\",\n" +
+//                "        <collection xmlns=\"http://exist-db.org/collection-config/1.0\">\n" +
+//                "\t    <triggers>\t\t\t\n" +
+//                "\t        <trigger class=\"org.exist.extensions.exquery.restxq.impl.RestXqTrigger\"/>\n" +
+//                "\t    </triggers>\n" +
+//                "        </collection>)\n" +
+//                "    )\n" +
+//                "else\n" +
+//                "false()";
+
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        xmldb:store(\"/db/system/config" + path + "\",\"collection.xconf\",\n" +
-                "        <collection xmlns=\"http://exist-db.org/collection-config/1.0\">\n" +
-                "\t    <triggers>\t\t\t\n" +
-                "\t        <trigger class=\"org.exist.extensions.exquery.restxq.impl.RestXqTrigger\"/>\n" +
-                "\t    </triggers>\n" +
-                "        </collection>)\n" +
-                "    )\n" +
+                "        let $result := xmldb:store(\"/db/system/config" + path + "\",\"collection.xconf\",\"\n" +
+                "        <collection xmlns='http://exist-db.org/collection-config/1.0'>\n" +
+                "        <triggers>\n" +
+                "        <trigger class='org.exist.extensions.exquery.restxq.impl.RestXqTrigger'/>\n" +
+                "        </triggers>\n" +
+                "        </collection>\")\n" +
+                "        let $reindex :=\n" +
+                "                    if (starts-with(\"/db/system/config" + path + "\", \"/db/system/config\")) then\n" +
+                "                        substring-after(\"/db/system/config" + path + "\", \"/db/system/config\")\n" +
+                "                    else\n" +
+                "                        \"/db/system/config" + path + "\"\n" +
+                "        return(           \n" +
+                "            if(xmldb:reindex($reindex) and exists($result)) then \n" +
+                "                true()\n" +
+                "            else \n" +
+                "                false()\n" +
+                "            )\n" +
+                "        )\n" +
                 "else\n" +
                 "false()";
         System.out.println(query);
@@ -64,9 +86,6 @@ public class ExistDBTriggerQueries {
                 "        )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
-        String result = util.stringResultQuery(details, query);
-        System.out.println("result: " + result);
-        return result;
+        return util.stringResultQuery(details, query);
     }
 }

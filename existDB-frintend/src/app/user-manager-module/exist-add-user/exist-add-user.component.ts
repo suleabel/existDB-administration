@@ -39,7 +39,7 @@ export class ExistAddUserComponent implements OnInit {
               this.existGroups = data;
             },
             error => {
-              this.notificationService.warn(error.error.message);
+              this.notificationService.Error(error.error);
             }
         );
   }

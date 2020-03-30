@@ -6,7 +6,6 @@ import {MatDialog} from '@angular/material';
 import {Credentials} from '../collection-manager/model/Credentials';
 import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
 import {ViewHistoryComponent} from './view-history/view-history.component';
-import {escapeRegExp} from "tslint/lib/utils";
 
 @Component({
     selector: 'app-version-management-module',
@@ -36,10 +35,14 @@ export class VersionManagementModuleComponent implements OnInit {
         this.versionIsAvailable$.next(false);
         this.versionManagementService.versionManagerIsActivated()
             .subscribe(data => {
-                this.versionIsAvailable$.next((data === 'true'));
+                this.versionIsAvailable$.next(data);
             }, error => {
-                console.log(error.error);
-                this.notificationService.warn(error.error);
+                if (error.error.message !== 'no error message') {
+                    this.notificationService.Error(error.error);
+                } else {
+                    console.log(error.error);
+                    window.location.reload();
+                }
             });
     }
 
@@ -50,7 +53,7 @@ export class VersionManagementModuleComponent implements OnInit {
                     this.checkVersionManagementIsEnabled();
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 });
     }
 
@@ -76,7 +79,12 @@ export class VersionManagementModuleComponent implements OnInit {
                     // console.log('content: ' + this.collections);
                 },
                 error => {
-                    console.log(error.error);
+                    if (error.error.message !== 'no error message') {
+                        this.notificationService.Error(error.error);
+                    } else {
+                        console.log(error.error);
+                        window.location.reload();
+                    }
                     this.backToRoot();
                 });
     }
@@ -106,10 +114,9 @@ export class VersionManagementModuleComponent implements OnInit {
     }
 
     private getVersions(element) {
-        console.log(element);
         const dialogRef = this.dialog.open(ViewHistoryComponent, {
             width: '60%',
-            height: '50%',
+            height: 'auto',
             data: {res: element}
         });
         dialogRef.afterClosed().subscribe(result => {

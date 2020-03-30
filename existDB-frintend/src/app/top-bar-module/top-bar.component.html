@@ -20,8 +20,8 @@
         <a class="nav-link" mat-button [routerLink]="'/version-management'"><h2>Version Management</h2></a>
 <!--        <a class="nav-link" mat-button [routerLink]="'/backup-and-restore-module'"><h2>Backup</h2></a>-->
 
-        <a mat-button [matMenuTriggerFor]="menu"><h2>Tools</h2></a>
-        <mat-menu #menu="matMenu">
+        <a mat-button [matMenuTriggerFor]="menu2"><h2>Tools</h2></a>
+        <mat-menu #menu2="matMenu">
             <button mat-menu-item [routerLink]="'/xml2xsd'">Generate XSD from XML</button>
             <button mat-menu-item [routerLink]="'/backup-and-restore-module'">Backup</button>
         </mat-menu>

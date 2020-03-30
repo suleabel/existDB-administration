@@ -36,7 +36,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                     this.isBinary = data.isBinary;
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 }
             );
     }
@@ -65,7 +65,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                     this.notificationService.success('Saved: ' + data);
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 });
         this.isEdit = false;
         this.dialogRef.close();
@@ -83,7 +83,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                 dialogRef.afterClosed().subscribe();
             },
             error => {
-                this.notificationService.warn(error.error.message);
+                this.notificationService.Error(error.error);
             });
     }
 

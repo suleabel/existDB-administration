@@ -43,7 +43,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 });
     }
 
@@ -81,7 +81,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                 });
             }, error => {
                 console.log(error.error);
-                this.notificationService.warn(error.error);
+                this.notificationService.Error(error.error);
                 this.isLoading2$.next(false);
             });
     }
@@ -102,7 +102,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                     this.loadBackups(this.location);
                 });
             }, error => {
-                this.notificationService.warn(error.error.message);
+                this.notificationService.Error(error.error);
                 this.isLoading2$.next(false);
             });
     }

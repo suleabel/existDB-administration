@@ -77,7 +77,7 @@ export class AddTriggerComponent implements OnInit {
                             this.dialogRef.close();
                         },
                         error => {
-                            this.notificationService.warn(error.error.message);
+                            this.notificationService.Error(error.error);
                             this.dialogRef.close();
                         }
                     );

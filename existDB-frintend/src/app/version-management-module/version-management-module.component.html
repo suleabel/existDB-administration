@@ -3,7 +3,7 @@
         <div class=" col-12">
             <div class="card">
                 <div class="card-header font-weight-bold">
-                    Version Management
+                    Version Management (VERY BUGGY)
                 </div>
                 <div class="card-body infoText" *ngIf="versionIsAvailable$ | async; else elseBlock">
                     <h3>Version management is enabled</h3>
@@ -22,9 +22,7 @@
                     Filesystem:
                 </div>
                 <div class="card-body">
-
                     <button class="btn btn-success rootButton" (click)="backToRoot()">Back To Root</button>
-
                     <table mat-table [dataSource]="collections" class="mat-elevation-z8">
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef>Name</th>

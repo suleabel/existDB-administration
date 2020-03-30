@@ -64,7 +64,7 @@ export class CollectionManagerComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
-                    this.notificationService.warn(error.error);
+                    this.notificationService.Error(error.error);
                     this.backToRoot();
                 });
     }
@@ -99,7 +99,7 @@ export class CollectionManagerComponent implements OnInit {
                     this.notificationService.success('Success');
                     this.loadData(this.selectedDirectory);
                 }, error => {
-                this.notificationService.warn(error.error);
+                this.notificationService.Error(error.error);
                 this.loadData(this.selectedDirectory);
                 }
             );
@@ -111,7 +111,7 @@ export class CollectionManagerComponent implements OnInit {
                     this.notificationService.success('Success');
                     this.loadData(this.selectedDirectory);
                 }, error => {
-                this.notificationService.warn(error.error);
+                this.notificationService.Error(error.error);
                 this.loadData(this.selectedDirectory);
                 }
             );
@@ -133,7 +133,7 @@ export class CollectionManagerComponent implements OnInit {
                             this.notificationService.success('Success');
                         },
                         error => {
-                            this.notificationService.warn(error.error);
+                            this.notificationService.Error(error.error);
                         });
             }
         });
@@ -157,7 +157,7 @@ export class CollectionManagerComponent implements OnInit {
                             this.notificationService.success('Success');
                             this.loadData(this.selectedDirectory);
                         }, error => {
-                            this.notificationService.warn(error.error);
+                            this.notificationService.Error(error.error);
                         });
             }
         });
@@ -181,7 +181,7 @@ export class CollectionManagerComponent implements OnInit {
                                 this.notificationService.success('Success');
                                 this.loadData(this.selectedDirectory);
                             }, error => {
-                                this.notificationService.warn(error.error);
+                                this.notificationService.Error(error.error);
                             });
                 }
             }
@@ -212,7 +212,7 @@ export class CollectionManagerComponent implements OnInit {
                             this.loadData(this.selectedDirectory);
                         },
                         error => {
-                            this.notificationService.warn('Error: ' + error);
+                            this.notificationService.Error(error.error);
                         }
                     );
             }

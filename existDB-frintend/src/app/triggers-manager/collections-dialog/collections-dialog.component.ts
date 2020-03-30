@@ -66,7 +66,7 @@ export class CollectionsDialogComponent implements OnInit {
                     this.collections.unshift(backElement);
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 });
     }
 
@@ -77,7 +77,7 @@ export class CollectionsDialogComponent implements OnInit {
             data => {
                 this.notificationService.success('Success');
             }, error => {
-                this.notificationService.warn('Error: ' + error);
+                    this.notificationService.Error(error.error);
                 }
         );
         this.dialogRef.close();

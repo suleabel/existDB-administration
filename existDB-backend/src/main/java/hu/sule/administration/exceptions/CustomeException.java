@@ -1,11 +1,11 @@
 package hu.sule.administration.exceptions;
 
-public class UtilException extends RuntimeException {
+public class CustomeException extends RuntimeException {
 
     private String location;
     private String subType;
 
-    public UtilException(String message, String location, String subType){
+    public CustomeException(String message, String location, String subType){
         super(message);
         this.location = location;
         this.subType = subType;

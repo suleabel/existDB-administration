@@ -52,7 +52,7 @@ export class TriggersManagerComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                     // this.backToRoot();
                 });
     }
@@ -96,7 +96,11 @@ export class TriggersManagerComponent implements OnInit {
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '60%';
-        this.dialog.open(CollectionsDialogComponent, dialogConfig);
+        this.dialog.open(CollectionsDialogComponent, dialogConfig).afterClosed().subscribe(
+          data => {
+                this.loadData(this.triggersRootConfigurationLocation);
+            }
+        );
     }
 
     getSelectedCollection() {

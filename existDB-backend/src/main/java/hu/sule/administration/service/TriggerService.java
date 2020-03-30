@@ -57,11 +57,11 @@ public class TriggerService {
             if(!part.equals("")){
                 if(!configIsAvailable(testedPath.toString() + "/" + part)){
                     existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), new ForStoreResourceAndColl(testedPath.toString(), part));
-                    System.out.println("not available path: " + testedPath + " part: " + part);
                 }
                 testedPath.append("/").append(part);
             }
         }
+        System.out.println(path);
         return existDBTriggerQueries.initTriggerConfig(ExistDbCredentialsService.getDetails(), path);
     }
 
@@ -70,17 +70,23 @@ public class TriggerService {
     }
 
     public String addTriggerToConfiguration(TriggerModel triggerModel, String url) throws XMLDBException, JDOMException, IOException{
-        System.out.println(url + "collection.xconf");
         SAXBuilder saxBuilder = new SAXBuilder();
-        Document doc = null;
         Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
-        doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url + "/collection.xconf").getContent())));
+        Document doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url + "/collection.xconf").getContent())));
         if(doc != null) {
 
             Element collection = doc.getRootElement();
             List<Element> triggers = collection.getChildren().get(0).getChildren();
-            Element parameter = new Element("parameter").setAttribute("name",triggerModel.getName()).setAttribute("value", triggerModel.getValue()).setNamespace(ns);
-            Element triggerE = new Element("trigger").addContent(parameter).setAttribute("event", triggerModel.getEventByComma()).setAttribute("class", triggerModel.gettClass()).setNamespace(ns);
+            Element parameter = new Element("parameter").setNamespace(ns);
+            Element triggerE = new Element("trigger").addContent(parameter).setNamespace(ns);
+            if(!"".equals(triggerModel.getName()))
+                parameter.setAttribute("name",triggerModel.getName());
+            if(!"".equals(triggerModel.getValue()))
+                parameter.setAttribute("value", triggerModel.getValue());
+            if(!"".equals(triggerModel.getEventByComma()))
+                triggerE.setAttribute("event", triggerModel.getEventByComma());
+            if(!"".equals(triggerModel.gettClass()))
+                triggerE.setAttribute("class", triggerModel.gettClass());
             triggers.add(triggerE);
             String newConfig = new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
             String[] old = newConfig.split("\n");

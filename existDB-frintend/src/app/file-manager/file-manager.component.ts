@@ -48,7 +48,7 @@ export class FileManagerComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 });
     }
 
@@ -61,7 +61,7 @@ export class FileManagerComponent implements OnInit {
                     this.loadData(this.root);
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 });
     }
 

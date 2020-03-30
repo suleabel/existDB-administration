@@ -50,7 +50,7 @@ export class FileCredentialsComponent implements OnInit {
                     this.notificationService.success('Success');
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 }
             );
     }
@@ -62,7 +62,7 @@ export class FileCredentialsComponent implements OnInit {
                     this.existGroups = data;
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 }
             );
     }
@@ -74,7 +74,7 @@ export class FileCredentialsComponent implements OnInit {
                     this.notificationService.success('success');
                 },
                 error => {
-                    this.notificationService.warn(error.error.message);
+                    this.notificationService.Error(error.error);
                 });
     }
 
