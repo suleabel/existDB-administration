@@ -79,12 +79,6 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String editFile(ExistDetails details, SerializeFile file){
-        String query = "";
-        return util.stringResultQuery(details, query);
-    }
-
-
     public String mkDir(ExistDetails details, StoreDirOrFileModel storeDirOrFileModel) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -105,6 +99,31 @@ public class ExistDbFileExplorerQueries {
                 "else\n" +
                 "false()";
         System.out.println(query);
+        return util.stringResultQuery(details, query);
+    }
+
+    public String editXmlFile(ExistDetails details, SerializeFile file) {
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        file:delete(\"" + file.getPath() + "/" + file.getName() + "\"),\n" +
+                "        file:serialize(" + file.getContent() + ",\"" + file.getPath() + "/" + file.getName() + "\",\"\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.stringResultQuery(details, query);
+    }
+
+    public String editFile(ExistDetails details, SerializeFile file){
+        String query = "xquery version \"3.1\";\n" +
+                "declare variable $data := xs:string(\"" + file.getContent() + "\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        file:delete(\"" + file.getPath() + "/" + file.getName() + "\"),\n" +
+                "        file:serialize-binary(util:string-to-binary($data),\"" + file.getPath() + "/" + file.getName() + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
         return util.stringResultQuery(details, query);
     }
 }

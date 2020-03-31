@@ -95,12 +95,11 @@ export class FileManagerComponent implements OnInit {
     view(element: FileManagerEntity) {
         const dialogRef = this.dialog.open(FileViewerDialogComponent, {
             width: '80%',
-            height: '80%',
+            height: 'auto',
+            maxHeight: '80%',
             data: {fileData: element, url: this.selectedDir}
         });
-        dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
-        });
+        dialogRef.afterClosed().subscribe();
     }
 
     newFile(selectedDir: string) {
@@ -127,7 +126,6 @@ export class FileManagerComponent implements OnInit {
             }
         });
     }
-
 
     delete(element) {
         const dir: StoreDirOrFileModel = {

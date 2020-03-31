@@ -43,4 +43,8 @@ export class FileManagerService {
     public serializeFile(data: SerializeFileModel): Observable<any> {
         return this.http.post(this.baseUrl + 'serializeFile', data, httpOptions);
     }
+
+    public editFile(data: SerializeFileModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'editFile', data, httpOptions);
+    }
 }

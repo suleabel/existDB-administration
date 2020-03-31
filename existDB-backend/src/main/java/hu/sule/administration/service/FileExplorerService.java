@@ -95,7 +95,6 @@ public class FileExplorerService {
     }
 
     public String createFile(SerializeFile file){
-        System.out.println(file.toString());
         if("true".equals(file.getIsXml())){
             return existDbFileExplorerQueries.createXmlFile(ExistDbCredentialsService.getDetails(), file);
         }
@@ -103,6 +102,16 @@ public class FileExplorerService {
     }
 
     public String editFile(SerializeFile file){
-        return existDbFileExplorerQueries.editFile(ExistDbCredentialsService.getDetails(), file);
+        String result;
+        if("true".equals(file.getIsXml())){
+            result = existDbFileExplorerQueries.editXmlFile(ExistDbCredentialsService.getDetails(), file);
+
+        } else {
+            result = existDbFileExplorerQueries.editFile(ExistDbCredentialsService.getDetails(), file);
+        }
+        if(result.contains("true")){
+            return "Success";
+        }
+        return "failure";
     }
 }

@@ -4,11 +4,18 @@
             <div class="card-header  font-weight-bold">
                 Selected file content:
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="!isEdit">
                 <label>{{fullPath}}</label>
                 <pre>
                     <code [highlight]="content" [lineNumbers]="true"></code>
                 </pre>
+                <button class="btn btn-success" (click)="onEdit()">Edit</button>
+                <button class="btn btn-success" (click)="onClose()">Close</button>
+            </div>
+            <div class="card-body" *ngIf="isEdit">
+                <label for="textarea">{{data.fileData.name}}</label>
+                <textarea id="textarea" [(ngModel)]="editedContent" rows="4"></textarea>
+                <button class="btn btn-success" (click)="onSave()">Save</button>
                 <button class="btn btn-success" (click)="onClose()">Close</button>
             </div>
         </div>

@@ -51,14 +51,9 @@ public class FileManagerController {
         return new ResponseEntity<>("{\"response\":\"" +fileExplorerService.delete(storeDirOrFileModel) + "\"}", HttpStatus.OK);
     }
 
-    @RequestMapping("/createFile")
-    public ResponseEntity<String> createFile(@RequestBody SerializeFile file){
-        return new ResponseEntity<>(fileExplorerService.createFile(file), HttpStatus.OK);
-    }
-
     @RequestMapping("/editFile")
     public ResponseEntity<String> editFile(@RequestBody SerializeFile file){
-        return new ResponseEntity<>(fileExplorerService.editFile(file), HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.editFile(file) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/serializeFile")
