@@ -6,6 +6,7 @@ import {StoreResourceModel} from '../model/StoreResourceModel';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {EvalResultViewerComponent} from '../eval-result-viewer/eval-result-viewer.component';
+import {XmlParserService} from '../service/xml-parser.service';
 
 @Component({
     selector: 'app-resource-viewer-dialog',
@@ -24,7 +25,8 @@ export class ResourceViewerDialogComponent implements OnInit {
                 private fileExplorerService: FileExplorerService,
                 private notificationService: NotificationService,
                 private sanitizer: DomSanitizer,
-                private dialog: MatDialog) {
+                private dialog: MatDialog,
+                private xmlParser: XmlParserService) {
     }
 
     ngOnInit() {
@@ -32,8 +34,9 @@ export class ResourceViewerDialogComponent implements OnInit {
         this.fileExplorerService.getResContent(this.fileExplorerService.openedFile.path + '/' + this.fileExplorerService.openedFile.name)
             .subscribe(
                 data => {
+                    console.log(data);
                     this.originalContent = data.content;
-                    this.isBinary = data.isBinary;
+                    this.isBinary = data.binary;
                 },
                 error => {
                     this.notificationService.Error(error.error);
@@ -60,6 +63,21 @@ export class ResourceViewerDialogComponent implements OnInit {
             mime: this.openedFile.mime
         };
         console.log(saveRes);
+        if (saveRes.mime === 'application/xml') {
+            const result = this.xmlParser.validateXML(saveRes.content);
+            if (result === 'isXML') {
+                this.save(saveRes);
+            } else {
+                this.notificationService.Error2(result);
+            }
+        } else {
+           this.save(saveRes);
+        }
+        this.isEdit = false;
+        this.dialogRef.close();
+    }
+
+    private save(saveRes: StoreResourceModel) {
         this.fileExplorerService.editResource(saveRes)
             .subscribe(data => {
                     this.notificationService.success('Saved: ' + data);
@@ -67,24 +85,22 @@ export class ResourceViewerDialogComponent implements OnInit {
                 error => {
                     this.notificationService.Error(error.error);
                 });
-        this.isEdit = false;
-        this.dialogRef.close();
     }
 
     eval() {
         this.fileExplorerService.evalXqueryFromPath(this.openedFile.path + '/' + this.openedFile.name)
             .subscribe(result => {
-                this.notificationService.success('Success');
-                const dialogRef = this.dialog.open(EvalResultViewerComponent, {
+                    this.notificationService.success('Success');
+                    const dialogRef = this.dialog.open(EvalResultViewerComponent, {
                         width: '80%',
                         height: 'auto',
                         data: {res: result}
                     });
-                dialogRef.afterClosed().subscribe();
-            },
-            error => {
-                this.notificationService.Error(error.error);
-            });
+                    dialogRef.afterClosed().subscribe();
+                },
+                error => {
+                    this.notificationService.Error(error.error);
+                });
     }
 
     onClose() {

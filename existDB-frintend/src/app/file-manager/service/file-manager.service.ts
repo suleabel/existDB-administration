@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {StoreDirOrFileModel} from '../model/StoreDirOrFileModel';
+import {SerializeFileModel} from '../model/SerializeFileModel';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -35,7 +36,11 @@ export class FileManagerService {
         return this.http.post(this.baseUrl + 'makeDir', data, httpOptions);
     }
 
-    public deleteDir(data: StoreDirOrFileModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'deleteDir', data, httpOptions);
+    public delete(data: StoreDirOrFileModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'delete', data, httpOptions);
+    }
+
+    public serializeFile(data: SerializeFileModel): Observable<any> {
+        return this.http.post(this.baseUrl + 'serializeFile', data, httpOptions);
     }
 }

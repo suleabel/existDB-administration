@@ -18,7 +18,8 @@ export class FileViewerDialogComponent implements OnInit {
               private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.fullPath = this.data.selectedDir + '/' + this.data.fileData.name;
+    this.fullPath = this.data.url + '/' + this.data.fileData.name;
+    console.log(this.fullPath);
     this.readFile(this.fullPath);
   }
 

@@ -173,6 +173,7 @@ export class CollectionManagerComponent implements OnInit {
                 if (result === '' || result === null || result === undefined) {
                     this.notificationService.warn('Not created');
                 } else {
+                    console.log(result);
                     const saveData: StoreResourceModel = result;
                     saveData.isBinary = false;
                     this.fileExplorerService.saveResource(saveData)

@@ -1,6 +1,7 @@
 package hu.sule.administration.queries;
 
 import hu.sule.administration.model.ExistDetails;
+import hu.sule.administration.model.SerializeFile;
 import hu.sule.administration.model.StoreDirOrFileModel;
 import hu.sule.administration.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,37 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
+    public String createFile(ExistDetails details, SerializeFile file){
+        String query = "xquery version \"3.1\";\n" +
+                "declare variable $data := xs:string(\"" + file.getContent() + "\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "       file:serialize-binary(util:string-to-binary($data),\"" + file.getPath() + "/" + file.getName() + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        System.out.println(query);
+        return util.stringResultQuery(details, query);
+    }
+
+    public String createXmlFile(ExistDetails details, SerializeFile file){
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        file:serialize(" + file.getContent() + ",\"" + file.getPath() + "/" + file.getName() + "\",\"" + file.getParameters() + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        System.out.println(query);
+        return util.stringResultQuery(details, query);
+    }
+
+    public String editFile(ExistDetails details, SerializeFile file){
+        String query = "";
+        return util.stringResultQuery(details, query);
+    }
+
+
     public String mkDir(ExistDetails details, StoreDirOrFileModel storeDirOrFileModel) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -64,7 +96,7 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String deleteDir(ExistDetails details, StoreDirOrFileModel storeDirOrFileModel) {
+    public String delete(ExistDetails details, StoreDirOrFileModel storeDirOrFileModel) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +

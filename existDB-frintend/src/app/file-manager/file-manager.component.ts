@@ -7,6 +7,7 @@ import {FileViewerDialogComponent} from './file-viewer-dialog/file-viewer-dialog
 import {NotificationService} from '../error-dialog/service/notification.service';
 import {MakeDirDialogComponent} from './make-dir-dialog/make-dir-dialog.component';
 import {StoreDirOrFileModel} from './model/StoreDirOrFileModel';
+import {CreateNewFileComponent} from './create-new-file/create-new-file.component';
 
 @Component({
     selector: 'app-file-manager',
@@ -14,16 +15,17 @@ import {StoreDirOrFileModel} from './model/StoreDirOrFileModel';
     styleUrls: ['./file-manager.component.sass']
 })
 export class FileManagerComponent implements OnInit {
-    public content: FileManagerEntity[];
-    public selectedDir: string;
-    public root: string;
-    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public displayedColumns: string[] = ['name', 'isFile', 'size', 'humanSize', 'modified', 'hidden', 'canRead', 'canWrite', 'view', 'delete'];
 
     constructor(private fileManagerService: FileManagerService,
                 private dialog: MatDialog,
                 private notificationService: NotificationService) {
     }
+
+    public content: FileManagerEntity[];
+    public selectedDir: string;
+    public root: string;
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public displayedColumns: string[] = ['name', 'isFile', 'size', 'humanSize', 'modified', 'hidden', 'canRead', 'canWrite', 'view', 'delete'];
 
     ngOnInit() {
         this.getRootDir();
@@ -101,13 +103,39 @@ export class FileManagerComponent implements OnInit {
         });
     }
 
-    deleteDir(element) {
+    newFile(selectedDir: string) {
+        const dialogRef = this.dialog.open(CreateNewFileComponent, {
+            width: '80%',
+            height: '80%',
+            data: {selectedPath: selectedDir}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === '' || result === null || result === undefined) {
+                this.notificationService.warn('Not created');
+            } else {
+                console.log(result);
+                this.fileManagerService.serializeFile(result).subscribe(
+                    data => {
+                        console.log(data);
+                        this.notificationService.success('Success');
+                        this.loadData(this.selectedDir);
+                    }, error => {
+                        console.log(error);
+                        this.notificationService.Error(error.error);
+                    }
+                );
+            }
+        });
+    }
+
+
+    delete(element) {
         const dir: StoreDirOrFileModel = {
             url: this.selectedDir,
             name: element.name
         };
         console.log(dir);
-        this.fileManagerService.deleteDir(dir).subscribe(
+        this.fileManagerService.delete(dir).subscribe(
             data => {
                 this.notificationService.success('Directory deleted');
                 this.loadData(this.selectedDir);
@@ -145,5 +173,4 @@ export class FileManagerComponent implements OnInit {
             }
         });
     }
-
 }

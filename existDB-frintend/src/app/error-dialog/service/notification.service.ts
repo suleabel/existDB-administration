@@ -32,6 +32,13 @@ export class NotificationService {
         this.dialogService.openErrorDialog(this.error.message);
     }
 
+    Error2(msg) {
+        this.error = msg;
+        this.config.panelClass = ['notification', 'warn'];
+        this.snackBar.open('Error: ' + this.error, '', this.config);
+        this.dialogService.openErrorDialog(this.error);
+    }
+
     warn(msg) {
         this.config.panelClass = ['notification', 'warn'];
         this.snackBar.open('Error: ' + msg, '', this.config);

@@ -1,7 +1,7 @@
 package hu.sule.administration.controller;
 
-import hu.sule.administration.exceptions.CustomeException;
 import hu.sule.administration.model.FileManagerEntity;
+import hu.sule.administration.model.SerializeFile;
 import hu.sule.administration.model.StoreDirOrFileModel;
 import hu.sule.administration.service.FileExplorerService;
 import org.jdom2.JDOMException;
@@ -43,14 +43,27 @@ public class FileManagerController {
 
     @RequestMapping("/makeDir")
     public ResponseEntity<String> makeDir(@RequestBody StoreDirOrFileModel storeDirOrFileModel) {
-        fileExplorerService.makeDir(storeDirOrFileModel);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.makeDir(storeDirOrFileModel) + "\"}", HttpStatus.OK);
     }
 
-    @RequestMapping("/deleteDir")
-    public ResponseEntity<String> deleteDir(@RequestBody StoreDirOrFileModel storeDirOrFileModel) {
-        fileExplorerService.deleteDir(storeDirOrFileModel);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @RequestMapping("/delete")
+    public ResponseEntity<String> delete(@RequestBody StoreDirOrFileModel storeDirOrFileModel) {
+        return new ResponseEntity<>("{\"response\":\"" +fileExplorerService.delete(storeDirOrFileModel) + "\"}", HttpStatus.OK);
+    }
+
+    @RequestMapping("/createFile")
+    public ResponseEntity<String> createFile(@RequestBody SerializeFile file){
+        return new ResponseEntity<>(fileExplorerService.createFile(file), HttpStatus.OK);
+    }
+
+    @RequestMapping("/editFile")
+    public ResponseEntity<String> editFile(@RequestBody SerializeFile file){
+        return new ResponseEntity<>(fileExplorerService.editFile(file), HttpStatus.OK);
+    }
+
+    @RequestMapping("/serializeFile")
+    public ResponseEntity<String> serializeFile(@RequestBody SerializeFile file){
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.createFile(file) + "\"}", HttpStatus.OK);
     }
 }
 

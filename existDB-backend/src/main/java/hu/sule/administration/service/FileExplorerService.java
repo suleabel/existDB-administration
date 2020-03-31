@@ -1,9 +1,11 @@
 package hu.sule.administration.service;
 
+import hu.sule.administration.exceptions.CustomeException;
 import hu.sule.administration.model.FileManagerEntity;
+import hu.sule.administration.model.SerializeFile;
 import hu.sule.administration.model.StoreDirOrFileModel;
 import hu.sule.administration.queries.ExistDbFileExplorerQueries;
-import org.eclipse.jetty.util.IO;
+import hu.sule.administration.xsdGenerator.SimpleErrorHandler;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -14,8 +16,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xmldb.api.base.XMLDBException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -84,7 +90,19 @@ public class FileExplorerService {
         return existDbFileExplorerQueries.mkDir(ExistDbCredentialsService.getDetails(),storeDirOrFileModel);
     }
 
-    public String deleteDir(StoreDirOrFileModel storeDirOrFileModel) {
-        return existDbFileExplorerQueries.deleteDir(ExistDbCredentialsService.getDetails(),storeDirOrFileModel);
+    public String delete(StoreDirOrFileModel storeDirOrFileModel) {
+        return existDbFileExplorerQueries.delete(ExistDbCredentialsService.getDetails(),storeDirOrFileModel);
+    }
+
+    public String createFile(SerializeFile file){
+        System.out.println(file.toString());
+        if("true".equals(file.getIsXml())){
+            return existDbFileExplorerQueries.createXmlFile(ExistDbCredentialsService.getDetails(), file);
+        }
+        return existDbFileExplorerQueries.createFile(ExistDbCredentialsService.getDetails(), file);
+    }
+
+    public String editFile(SerializeFile file){
+        return existDbFileExplorerQueries.editFile(ExistDbCredentialsService.getDetails(), file);
     }
 }

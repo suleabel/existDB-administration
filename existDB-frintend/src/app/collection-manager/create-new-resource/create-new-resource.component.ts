@@ -1,11 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {StoreResourceModel} from '../model/StoreResourceModel';
-import {FileExplorerService} from '../service/file-explorer.service';
-import {Router} from '@angular/router';
-import {NotificationService} from '../../error-dialog/service/notification.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BrowseSaveLocationComponent} from '../../xml-to-xsd/browse-save-location/browse-save-location.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {XmlParserService} from '../service/xml-parser.service';
+import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
     selector: 'app-create-new-resource',
@@ -20,7 +18,9 @@ export class CreateNewResourceComponent implements OnInit {
         public dialogRef: MatDialogRef<CreateNewResourceComponent>,
         @Inject(MAT_DIALOG_DATA) public data,
         private formBuilder: FormBuilder,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private xmlParser: XmlParserService,
+        private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -30,7 +30,7 @@ export class CreateNewResourceComponent implements OnInit {
     buildForm() {
         this.createResourceForm = this.formBuilder.group({
             content: [''],
-            mime: [''],
+            mime: ['', Validators.required],
             url: [this.data.selectedPath, Validators.required],
             fileName: ['', Validators.required]
         });
@@ -46,6 +46,19 @@ export class CreateNewResourceComponent implements OnInit {
             this.data.selectedPath = result;
             this.buildForm();
         });
+    }
+
+    save() {
+        if (this.createResourceForm.value.mime === 'application/xml') {
+            const result = this.xmlParser.validateXML(this.createResourceForm.value.content);
+            if (result === 'isXML') {
+                this.dialogRef.close(this.createResourceForm.value);
+            } else {
+                this.notificationService.Error2(result);
+            }
+        } else {
+            this.dialogRef.close(this.createResourceForm.value);
+        }
     }
 
     onClose() {

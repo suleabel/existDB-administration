@@ -64,6 +64,7 @@ import { FooterComponent } from './footer/footer.component';
 import {TypeaheadModule} from 'ngx-bootstrap';
 import { ViewChangesDialogComponent } from './version-management-module/view-changes-dialog/view-changes-dialog.component';
 import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-dialog.component';
+import { CreateNewFileComponent } from './file-manager/create-new-file/create-new-file.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,6 +107,7 @@ import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-
       FooterComponent,
       ViewChangesDialogComponent,
       MakeDirDialogComponent,
+      CreateNewFileComponent,
   ],
     imports: [
         BrowserModule,
@@ -165,7 +167,8 @@ import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-
         EvalResultViewerComponent,
         ErrorDialogComponent,
         ViewChangesDialogComponent,
-        MakeDirDialogComponent]
+        MakeDirDialogComponent,
+        CreateNewFileComponent]
 })
 export class AppModule {
 }
