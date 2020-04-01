@@ -73,7 +73,7 @@ public class VersionManagerService {
 //        if(triggerService.addTriggerToConfiguration(new TriggerModel(new ArrayList<>(),"org.exist.collections.triggers.HistoryTrigger","",""), "/db/system/config/db").equals("Failure!")){
 //            return "Failure!";
 //        }
-        if(triggerService.addTriggerToConfiguration(new TriggerModel(events, "org.exist.versioning.VersioningTrigger", "overwrite", "yes"), "/db/system/config/db").equals("Failure!")){
+        if(triggerService.addTriggerToConfiguration(new EditTriggerModel(events, "org.exist.versioning.VersioningTrigger", "overwrite", "yes"), "/db/system/config/db").equals("Failure!")){
             return "Failure!";
         }
         return "Success";

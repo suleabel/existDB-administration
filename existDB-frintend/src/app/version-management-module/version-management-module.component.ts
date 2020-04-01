@@ -41,7 +41,7 @@ export class VersionManagementModuleComponent implements OnInit {
                     this.notificationService.Error(error.error);
                 } else {
                     console.log(error.error);
-                    window.location.reload();
+                    this.checkVersionManagementIsEnabled();
                 }
             });
     }
@@ -83,7 +83,7 @@ export class VersionManagementModuleComponent implements OnInit {
                         this.notificationService.Error(error.error);
                     } else {
                         console.log(error.error);
-                        window.location.reload();
+                        this.loadData(path);
                     }
                     this.backToRoot();
                 });

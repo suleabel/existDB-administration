@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from '../auth-module/token-storage.service';
+import {AuthService} from '../auth-module/auth.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
     selector: 'app-footer',
@@ -7,20 +9,30 @@ import {TokenStorageService} from '../auth-module/token-storage.service';
     styleUrls: ['./footer.component.sass']
 })
 export class FooterComponent implements OnInit {
-    info: {
-        username: string,
-        serverIp: string
-    };
+    public serverVersion?: BehaviorSubject<string> = new BehaviorSubject('');
+    public username: string;
+    public serverIp?: BehaviorSubject<string> = new BehaviorSubject('');
 
     constructor(
-        private token: TokenStorageService) {
+        private token: TokenStorageService,
+        private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.info = {
-            username: this.token.getUsername(),
-            serverIp: this.token.getServerIp().toLowerCase()
-        };
+        this.username = TokenStorageService.getUsername();
+        this.authService.getDbVersion().subscribe(data => {
+                this.serverVersion.next(data.response);
+            },
+            error => {
+                console.log(error);
+            });
+        this.authService.getServerIp().subscribe(data => {
+                console.log(data);
+                this.serverIp.next(data.response.toLowerCase());
+            },
+            error => {
+                console.log(error);
+            });
     }
 
 }

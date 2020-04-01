@@ -25,8 +25,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                 private fileExplorerService: FileExplorerService,
                 private notificationService: NotificationService,
                 private sanitizer: DomSanitizer,
-                private dialog: MatDialog,
-                private xmlParser: XmlParserService) {
+                private dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -34,7 +33,6 @@ export class ResourceViewerDialogComponent implements OnInit {
         this.fileExplorerService.getResContent(this.fileExplorerService.openedFile.path + '/' + this.fileExplorerService.openedFile.name)
             .subscribe(
                 data => {
-                    console.log(data);
                     this.originalContent = data.content;
                     this.isBinary = data.binary;
                 },
@@ -62,9 +60,8 @@ export class ResourceViewerDialogComponent implements OnInit {
             isBinary: this.isBinary,
             mime: this.openedFile.mime
         };
-        console.log(saveRes);
         if (saveRes.mime === 'application/xml') {
-            const result = this.xmlParser.validateXML(saveRes.content);
+            const result = XmlParserService.validateXML(saveRes.content);
             if (result === 'isXML') {
                 this.save(saveRes);
             } else {

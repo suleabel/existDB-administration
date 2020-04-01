@@ -2,10 +2,8 @@ package hu.sule.administration.service;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
-import hu.sule.administration.model.TriggerModel;
 import hu.sule.administration.queries.ExistDBTriggerQueries;
 import hu.sule.administration.queries.ExistDbCollectionManagerQueries;
-import org.eclipse.jetty.util.IO;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -69,7 +67,7 @@ public class TriggerService {
         return addTriggerToConfiguration(editTriggerModel, editTriggerModel.getPath());
     }
 
-    public String addTriggerToConfiguration(TriggerModel triggerModel, String url) throws XMLDBException, JDOMException, IOException{
+    public String addTriggerToConfiguration(EditTriggerModel triggerModel, String url) throws XMLDBException, JDOMException, IOException{
         SAXBuilder saxBuilder = new SAXBuilder();
         Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
         Document doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url + "/collection.xconf").getContent())));
@@ -85,8 +83,8 @@ public class TriggerService {
                 parameter.setAttribute("value", triggerModel.getValue());
             if(!"".equals(triggerModel.getEventByComma()))
                 triggerE.setAttribute("event", triggerModel.getEventByComma());
-            if(!"".equals(triggerModel.getTClass()))
-                triggerE.setAttribute("class", triggerModel.getTClass());
+            if(!"".equals(triggerModel.gettClass()))
+                triggerE.setAttribute("class", triggerModel.gettClass());
             triggers.add(triggerE);
             String newConfig = new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
             String[] old = newConfig.split("\n");

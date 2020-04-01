@@ -84,7 +84,7 @@ public class CollectionService {
 
     public ResourceReadModel readFile(String url) throws XMLDBException, JDOMException, IOException {
         ResourceReadModel resourceReadModel = new ResourceReadModel();
-        if(url.contains("xml"))
+        if(url.endsWith(".xml"))
             resourceReadModel.setContent(new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url)))));
         else
             resourceReadModel.setContent(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url));

@@ -21,6 +21,7 @@ export class XmlFileViewerComponent implements OnInit {
     public openedFile: Credentials;
     public isEdit = false;
     public editedContent = '';
+    public fullPath: string;
 
     constructor(public dialogRef: MatDialogRef<XmlFileViewerComponent>,
                 private fileExplorerService: FileExplorerService,
@@ -32,7 +33,13 @@ export class XmlFileViewerComponent implements OnInit {
 
     ngOnInit() {
         this.openedFile = this.fileExplorerService.openedFile;
-        this.fileExplorerService.getResContent(this.openedFile.path + '/' + this.openedFile.name)
+        this.fullPath = this.openedFile.path + '/' + this.openedFile.name;
+        this.readContent(this.fullPath);
+
+    }
+
+    readContent(path) {
+        this.fileExplorerService.getResContent(path)
             .subscribe(
                 data => {
                     console.log(data);
@@ -73,6 +80,7 @@ export class XmlFileViewerComponent implements OnInit {
         this.isEdit = false;
     }
 
+    // TODO át kell írni a másik dialog open be
     onAddTrigger() {
         const dialogDirNameConfig = new MatDialogConfig();
         dialogDirNameConfig.disableClose = true;

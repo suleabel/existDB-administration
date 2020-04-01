@@ -50,7 +50,7 @@ export class CreateNewResourceComponent implements OnInit {
 
     save() {
         if (this.createResourceForm.value.mime === 'application/xml') {
-            const result = this.xmlParser.validateXML(this.createResourceForm.value.content);
+            const result = XmlParserService.validateXML(this.createResourceForm.value.content);
             if (result === 'isXML') {
                 this.dialogRef.close(this.createResourceForm.value);
             } else {

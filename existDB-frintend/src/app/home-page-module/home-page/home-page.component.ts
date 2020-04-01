@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from '../../auth-module/token-storage.service';
-import {TestService} from '../test.service';
-import {NotificationService} from '../../error-dialog/service/notification.service';
 
 @Component({
   selector: 'app-home-page',
@@ -15,23 +13,14 @@ export class HomePageComponent implements OnInit {
     username: string
   };
 
-  constructor(private token: TokenStorageService,
-              private testService: TestService,
-              private notifitationService: NotificationService) {
+  constructor(private token: TokenStorageService) {
   }
 
   ngOnInit() {
-    // this.testService.test().subscribe( data => {
-    //   console.log(data);
-    // },
-    //     error => {
-    //   this.notifitationService.warn(error.error.message);
-    //     });
     this.info = {
-      token: this.token.getToken(),
-      username: this.token.getUsername()
+      token: TokenStorageService.getToken(),
+      username: TokenStorageService.getUsername()
     };
-    console.log(this.info);
   }
 }
 

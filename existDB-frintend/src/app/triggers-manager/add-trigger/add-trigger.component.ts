@@ -16,9 +16,9 @@ import {BrowseXqueryFileComponent} from '../browse-xquery-file/browse-xquery-fil
 export class AddTriggerComponent implements OnInit {
     public triggerForm: FormGroup;
     public triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
-    public triggerName = ['selectedDir', 'query'];
+    public triggerName = ['url', 'query'];
     public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
-    public tempFormData = {event: '', tClass: this.triggerClass, name: 'selectedDir', value: ''};
+    public tempFormData = {event: '', tClass: this.triggerClass, name: 'url', value: ''};
     public openedFile;
     public query: string;
 
@@ -38,7 +38,7 @@ export class AddTriggerComponent implements OnInit {
 
     buildForm(tempFormData) {
         this.triggerForm = this.formBuilder.group({
-            event: [tempFormData.event, Validators.required],
+            event: [tempFormData.event],
             tClass: [tempFormData.tClass, Validators.required],
             name: [tempFormData.name, Validators.required],
             value: [tempFormData.value, Validators.required],
@@ -70,6 +70,7 @@ export class AddTriggerComponent implements OnInit {
                     name: this.triggerForm.value.name,
                     value: this.triggerForm.value.value
                 };
+                console.log(trigCredCont);
                 this.triggerService.addTrigger(trigCredCont)
                     .subscribe(
                         data => {

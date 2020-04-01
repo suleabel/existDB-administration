@@ -59,10 +59,9 @@ export class LoginPageComponent implements OnInit {
     this.isLoading$.next(true);
     this.authService.attemptAuth(this.loginForm.value).subscribe(
       data => {
-        this.tokenStorage.saveServerIp(this.loginForm.value.selectedDir);
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUsername(data.username);
-        this.tokenStorage.saveAuthorities(data.authorities);
+        TokenStorageService.saveToken(data.accessToken);
+        TokenStorageService.saveUsername(data.username);
+        TokenStorageService.saveAuthorities(data.authorities);
         this.isLoading$.next(false);
         this.router.navigate(['home']);
       },

@@ -49,7 +49,7 @@ export class CreateNewFileComponent implements OnInit {
             name: this.createFileForm.value.fileName
         };
         if (this.createFileForm.value.type === 'xml') {
-            const result = this.xmlParser.validateXML(this.createFileForm.value.content);
+            const result = XmlParserService.validateXML(this.createFileForm.value.content);
             if (result === 'isXML') {
                 data.isXml = 'true';
                 this.dialogRef.close(data);
