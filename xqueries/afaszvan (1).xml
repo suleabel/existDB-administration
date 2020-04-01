@@ -1,0 +1,39 @@
+xquery version "3.1";
+import module namespace sm="http://exist-db.org/xquery/securitymanager";
+declare variable $METADATA_FULLNAME_KEY := xs:anyURI("http://axschema.org/namePerson");
+declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI("http://exist-db.org/security/description");
+declare variable $user := "kaeom0914";
+declare variable $fullName := "asd";
+declare variable $description := "asasd";
+declare variable $password := "null";
+declare variable $disabled := xs:boolean("true");
+declare variable $umask := 18;
+declare variable $groups := ["dba", "eXide", "guest", "monex"];
+if(xmldb:login("/db/","admin","admin1234")) then
+    (
+        if(sm:get-account-metadata($user, $METADATA_FULLNAME_KEY) = $fullName)then
+        ()else 
+            sm:set-account-metadata($user, $METADATA_FULLNAME_KEY, $fullName),
+        if(sm:get-account-metadata($user, $METADATA_DESCRIPTION_KEY) = $description)then
+        ()else 
+            sm:set-account-metadata($user, $METADATA_DESCRIPTION_KEY, $description),
+        if(sm:is-account-enabled($user) eq $disabled)then
+            sm:set-account-enabled($user, $disabled)
+        else(),
+
+                if(sm:get-umask($user) ne $umask)then
+                    sm:set-umask($user, $umask)
+                else(),
+
+                (: if a password is provided, we always change the password, as we dont know what the original password was :)
+                
+                for $group in ["eXide", "guest", "monex"] return(sm:remove-group-member($group, $user)),
+                for $group in $groups return if(sm:group-exists($group)) then sm:add-group-member($group, $user) else (),
+                
+                if($password) then sm:passwd($user, $password) else (),
+
+                (: success :)
+                true()
+            
+    )else
+        false()

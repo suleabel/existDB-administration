@@ -1,0 +1,16 @@
+xquery version "3.1";
+declare variable $collection := "/db";
+if(xmldb:login("/db","admin","admin1234")) then
+    (
+        xmldb:remove($collection,"collection.xconf"),
+        xmldb:store($collection,"collection.xconf",""),
+        let $reindex :=
+                    if (starts-with($collection, "/db/system/config")) then
+                        substring-after($collection, "/db/system/config")
+                    else
+                        $collection
+                return
+                    $reindex
+    )
+else
+false()
