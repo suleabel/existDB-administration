@@ -36,7 +36,7 @@ public class ViewService {
         events.add("update");
         String ifCondition = genCondition(docs);
         collectionService.Store(new ForStoreResourceAndColl("/db/view_triggers", trigger_name,existDbViewQueries.genViewTrigger(viewCreateModel, ifCondition),"application/xquery",true));
-        triggerService.addTrigger(new EditTriggerModel(triggerConfigLocation,"collection.xconf", events, "org.exist.collections.triggers.XQueryTrigger", "url",trigger_name));
+        triggerService.addTrigger(new EditTriggerModel(triggerConfigLocation,"collection.xconf", events, "org.exist.collections.triggers.XQueryTrigger", "url",trigger_name,"false"));
 }
 
     private ArrayList<String> getDocs(String data){

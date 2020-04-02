@@ -42,6 +42,7 @@ export class AddTriggerComponent implements OnInit {
             tClass: [tempFormData.tClass, Validators.required],
             name: [tempFormData.name, Validators.required],
             value: [tempFormData.value, Validators.required],
+            overwrite: [false]
         });
     }
 
@@ -68,7 +69,8 @@ export class AddTriggerComponent implements OnInit {
                     event: this.triggerForm.value.event,
                     tClass: this.triggerForm.value.tClass,
                     name: this.triggerForm.value.name,
-                    value: this.triggerForm.value.value
+                    value: this.triggerForm.value.value,
+                    isOverwrite: this.triggerForm.value.overwrite.toString(),
                 };
                 console.log(trigCredCont);
                 this.triggerService.addTrigger(trigCredCont)

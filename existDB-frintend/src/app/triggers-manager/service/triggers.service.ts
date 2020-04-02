@@ -24,7 +24,6 @@ export class TriggersService {
     }
 
     public addTrigger(data: EditTriggerModel): Observable<any> {
-        console.log(data);
         return this.http.post(this.baseUrl + 'addTrigger', data, {responseType: 'text'});
     }
 
@@ -36,9 +35,9 @@ export class TriggersService {
         return this.http.post(this.baseUrl + 'initTriggerConfig', this.selectedCollection, {responseType: 'text'});
     }
 
-    public getTriggers(url: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'getTriggers', url, httpOptions);
-    }
+    // public getTriggers(url: string): Observable<any> {
+    //     return this.http.post(this.baseUrl + 'getTriggers', url, httpOptions);
+    // }
 
 
     get selectedCollection(): string {

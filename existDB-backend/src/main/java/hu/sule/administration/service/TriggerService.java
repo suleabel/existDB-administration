@@ -83,12 +83,15 @@ public class TriggerService {
 
             Element collection = doc.getRootElement();
             List<Element> triggers = collection.getChildren().get(0).getChildren();
-            Element parameter = new Element("parameter").setNamespace(ns);
-            Element triggerE = new Element("trigger").addContent(parameter).setNamespace(ns);
+            Element parameterQuery = new Element("parameter").setNamespace(ns);
+            Element parameterOverWrite = new Element("parameter").setNamespace(ns);
+            Element triggerE = new Element("trigger").addContent(parameterQuery).addContent(parameterOverWrite).setNamespace(ns);
+            if("true".equals(triggerModel.getIsOverwrite()))
+                parameterOverWrite.setAttribute("name", "overwrite").setAttribute("value","yes");
             if(!"".equals(triggerModel.getName()))
-                parameter.setAttribute("name",triggerModel.getName());
+                parameterQuery.setAttribute("name",triggerModel.getName());
             if(!"".equals(triggerModel.getValue()))
-                parameter.setAttribute("value", triggerModel.getValue());
+                parameterQuery.setAttribute("value", triggerModel.getValue());
             if(!"".equals(triggerModel.getEventByComma()))
                 triggerE.setAttribute("event", triggerModel.getEventByComma());
             if(!"".equals(triggerModel.gettClass()))

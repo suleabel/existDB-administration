@@ -85,7 +85,7 @@ export class XmlFileViewerComponent implements OnInit {
         const dialogDirNameConfig = new MatDialogConfig();
         dialogDirNameConfig.disableClose = true;
         dialogDirNameConfig.autoFocus = true;
-        dialogDirNameConfig.width = '60%';
+        dialogDirNameConfig.width = '50%';
         this.dialog.open(AddTriggerComponent, dialogDirNameConfig);
     }
 

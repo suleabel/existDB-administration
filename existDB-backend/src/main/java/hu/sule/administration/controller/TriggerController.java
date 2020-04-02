@@ -35,9 +35,9 @@ public class TriggerController {
     }
 
     @RequestMapping("addTrigger")
-    public String addTrigger(@RequestBody EditTriggerModel editTriggerModel) throws XMLDBException, JDOMException, IOException {
+    public String addTrigger(@RequestBody EditTriggerModel editTriggerModel) {
         System.out.println(editTriggerModel.toString());
-        return triggerService.addTrigger(editTriggerModel);
+        return ""; //triggerService.addTrigger(editTriggerModel);
     }
 
     @RequestMapping("editTrigger")

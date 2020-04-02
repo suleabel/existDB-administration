@@ -12,17 +12,19 @@ public class EditTriggerModel {
     private String tClass;
     private String name;
     private String value;
+    private String isOverwrite;
 
     public EditTriggerModel() {
     }
 
-    public EditTriggerModel(String path, String fName, List<String> event, String tClass, String name, String value) {
+    public EditTriggerModel(String path, String fName, List<String> event, String tClass, String name, String value, String isOverwrite) {
         this.path = path;
         this.fName = fName;
         this.event = event;
         this.tClass = tClass;
         this.name = name;
         this.value = value;
+        this.isOverwrite = isOverwrite;
     }
 
     public EditTriggerModel(List<String> event, String tClass, String name, String value) {
@@ -30,6 +32,14 @@ public class EditTriggerModel {
         this.tClass = tClass;
         this.name = name;
         this.value = value;
+    }
+
+    public String getIsOverwrite() {
+        return isOverwrite;
+    }
+
+    public void setIsOverwrite(String isOverWrite) {
+        this.isOverwrite = isOverWrite;
     }
 
     public String getPath() {
@@ -89,6 +99,7 @@ public class EditTriggerModel {
                 ", tClass='" + tClass + '\'' +
                 ", name='" + name + '\'' +
                 ", value='" + value + '\'' +
+                ", isOverwrite='" + isOverwrite + '\'' +
                 '}';
     }
 

@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
     <div class="card-deck">
         <div class="col-12">
@@ -30,6 +29,12 @@
                             <mat-error *ngIf="tClass.invalid && tClass.touched">
                                 Class is required
                             </mat-error>
+                        </div>
+
+                        <div class="form-group text-left">
+                            <div class="checkbox">
+                                <mat-checkbox id="overwrite" class="form-control" formControlName="overwrite" >Is overwrite?</mat-checkbox>
+                            </div>
                         </div>
 
                         <div class="form-group">
