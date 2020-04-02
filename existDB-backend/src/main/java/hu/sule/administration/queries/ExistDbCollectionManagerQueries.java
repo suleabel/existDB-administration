@@ -207,7 +207,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public boolean isBinary(ExistDetails details, String url) throws XMLDBException {
+    public boolean isBinary(ExistDetails details, String url) {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $file := xs:string(\"" + url + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +

@@ -71,7 +71,7 @@ public class CollectionService {
     }
 
     public String evalXqueryasString(String query) throws XMLDBException {
-        return existDbCollectionManagerQueries.evalXqueryasString(ExistDbCredentialsService.getDetails(),query);
+        return existDbCollectionManagerQueries.evalXqueryasString(ExistDbCredentialsService.getDetails(),query.replaceAll("\"","'"));
     }
 
     public String evalXqueryasPath(String query) throws XMLDBException, IOException, JDOMException{
@@ -82,7 +82,7 @@ public class CollectionService {
         return existDbCollectionManagerQueries.unlockResource(ExistDbCredentialsService.getDetails(), url);
     }
 
-    public ResourceReadModel readFile(String url) throws XMLDBException, JDOMException, IOException {
+    public ResourceReadModel readFile(String url) throws JDOMException, IOException {
         ResourceReadModel resourceReadModel = new ResourceReadModel();
         if(url.endsWith(".xml"))
             resourceReadModel.setContent(new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbCollectionManagerQueries.readFile(ExistDbCredentialsService.getDetails(), url)))));

@@ -11,13 +11,24 @@ import {HttpClientModule} from '@angular/common/http';
 import {HighlightModule} from 'ngx-highlightjs';
 import {CommonModule, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {
-    _MatMenuDirectivesModule, MatButtonModule,
-    MatCardModule, MatCheckboxModule,
-    MatInputModule, MatListModule, MatMenuModule,
-    MatPaginatorModule, MatSidenavModule,
+    _MatMenuDirectivesModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatSidenavModule,
     MatSortModule,
     MatTableModule,
-    MatToolbarModule, MatIconModule, MatSelectModule, MatDialogModule, MatProgressSpinnerModule, MatTabsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    MatTooltipModule,
 } from '@angular/material';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -66,6 +77,7 @@ import { ViewChangesDialogComponent } from './version-management-module/view-cha
 import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-dialog.component';
 import { CreateNewFileComponent } from './file-manager/create-new-file/create-new-file.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component';
+import { QueryResultDialogComponent } from './error-dialog/query-result-dialog/query-result-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,6 +122,7 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
       MakeDirDialogComponent,
       CreateNewFileComponent,
       ViewManagerComponent,
+      QueryResultDialogComponent,
   ],
     imports: [
         BrowserModule,
@@ -140,7 +153,8 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
         MatSnackBarModule,
         MatProgressSpinnerModule,
         MatTabsModule,
-        TypeaheadModule
+        TypeaheadModule,
+        MatTooltipModule
     ],
   providers: [
       httpInterceptorProvider,
@@ -170,7 +184,9 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
         ErrorDialogComponent,
         ViewChangesDialogComponent,
         MakeDirDialogComponent,
-        CreateNewFileComponent]
+        CreateNewFileComponent,
+        QueryResultDialogComponent
+    ]
 })
 export class AppModule {
 }

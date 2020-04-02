@@ -44,8 +44,6 @@ public class VersionManagerService {
             if("".equals(confContent))
                 throw new CustomeException("root collection.xconf is not exist, Please initialize it in the Trigger manager","","ERROR MESSAGE");
             doc = saxBuilder.build(new InputSource(new StringReader(confContent)));
-        } catch(XMLDBException e){
-            throw new CustomeException(e.getMessage(),"isEnabled in VersionManagerService","XMLDBException");
         } catch(JDOMException e){
             throw new CustomeException(e.getMessage(),"isEnabled in VersionManagerService","JDOMException");
         }

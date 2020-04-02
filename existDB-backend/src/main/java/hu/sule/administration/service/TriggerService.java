@@ -64,11 +64,11 @@ public class TriggerService {
         return existDBTriggerQueries.initTriggerConfig(ExistDbCredentialsService.getDetails(), path);
     }
 
-    public String addTrigger(EditTriggerModel editTriggerModel) throws XMLDBException, JDOMException, IOException {
+    public String addTrigger(EditTriggerModel editTriggerModel) throws XMLDBException {
         return addTriggerToConfiguration(editTriggerModel, editTriggerModel.getPath());
     }
 
-    public String addTriggerToConfiguration(EditTriggerModel triggerModel, String url) throws XMLDBException{
+    public String addTriggerToConfiguration(EditTriggerModel triggerModel, String url){
         SAXBuilder saxBuilder = new SAXBuilder();
         Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
         Document doc = null;

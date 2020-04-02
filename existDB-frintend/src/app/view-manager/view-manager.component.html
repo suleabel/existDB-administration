@@ -1,1 +1,46 @@
-<p>view-manager works!</p>
+<div class="container-fluid">
+    <div class="card-deck">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header  font-weight-bold">
+                    Create view (Beta)
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="viewForm" class="text-center border border-light">
+                        <div class="form-group">
+                            <mat-form-field>
+                                <label for="viewName" class="control-label">View Name</label>
+                                <input matInput id="viewName" type="text" class="form-control" formControlName="viewName">
+                            </mat-form-field>
+                            <mat-error *ngIf="viewName.invalid && viewName.touched">
+                                View name is required
+                            </mat-error>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field>
+                                <label for="viewCollection" class="control-label">View Collection</label>
+                                <input matInput id="viewCollection" type="text" class="form-control" formControlName="viewCollection">
+                            </mat-form-field>
+                            <mat-error *ngIf="viewCollection.invalid && viewCollection.touched">
+                                View collection is required
+                            </mat-error>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field>
+                                <label for="queryExpression" class="control-label">View Name</label>
+                                <textarea matInput id="queryExpression" class="form-control" formControlName="queryExpression" rows="10"></textarea>
+                            </mat-form-field>
+                            <mat-error *ngIf="queryExpression.invalid && queryExpression.touched">
+                                Query expression is required
+                            </mat-error>
+                        </div>
+                    </form>
+                    <button class="btn btn-success" (click)="onCheck()">Check</button>
+                    <button matTooltip="Save after checked (valid)" class="btn btn-success" (click)="onSave()" [disabled]="!queryIsChecked">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

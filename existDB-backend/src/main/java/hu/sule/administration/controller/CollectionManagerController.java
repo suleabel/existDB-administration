@@ -73,8 +73,7 @@ public class CollectionManagerController {
 
     @RequestMapping("/evalXqueryasString")
     public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) throws XMLDBException{
-        String result = collectionService.evalXqueryasString(httpEntity.getBody());
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.evalXqueryasString(httpEntity.getBody()) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/evalXqueryasPath")
