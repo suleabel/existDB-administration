@@ -18,6 +18,7 @@ import {CollectionManagerComponent} from './collection-manager/collection-manage
 import {FileManagerComponent} from './file-manager/file-manager.component';
 import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backup-and-restore-module.component';
 import {CreateNewResourceComponent} from './collection-manager/create-new-resource/create-new-resource.component';
+import {ViewManagerComponent} from './view-manager/view-manager.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'file_manager-component', component: FileManagerComponent, canActivate: [AuthGuardService]},
   {path: 'backup-and-restore-module', component: BackupAndRestoreModuleComponent, canActivate: [AuthGuardService]},
   {path: 'create-new-resource', component: CreateNewResourceComponent, canActivate: [AuthGuardService]},
+  {path: 'view-manager', component: ViewManagerComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];

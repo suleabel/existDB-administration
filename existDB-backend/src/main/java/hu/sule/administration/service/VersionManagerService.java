@@ -63,7 +63,7 @@ public class VersionManagerService {
         return "false";
     }
 
-    public String enableVersioning() throws XMLDBException, JDOMException, IOException {
+    public String enableVersioning() throws XMLDBException {
         List<String> events = new ArrayList<>();
         events.add("create");
         events.add("delete");

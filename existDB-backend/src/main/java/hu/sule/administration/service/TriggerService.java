@@ -1,4 +1,5 @@
 package hu.sule.administration.service;
+import hu.sule.administration.exceptions.CustomeException;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
@@ -67,10 +68,17 @@ public class TriggerService {
         return addTriggerToConfiguration(editTriggerModel, editTriggerModel.getPath());
     }
 
-    public String addTriggerToConfiguration(EditTriggerModel triggerModel, String url) throws XMLDBException, JDOMException, IOException{
+    public String addTriggerToConfiguration(EditTriggerModel triggerModel, String url) throws XMLDBException{
         SAXBuilder saxBuilder = new SAXBuilder();
         Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
-        Document doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url + "/collection.xconf").getContent())));
+        Document doc = null;
+        try{
+            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url + "/collection.xconf").getContent())));
+        }catch (JDOMException e){
+            throw new CustomeException(e.getMessage(),"addTriggerToConfiguration","JDOMException");
+        }catch (IOException e){
+            throw new CustomeException(e.getMessage(),"addTriggerToConfiguration","IOException");
+        }
         if(doc != null) {
 
             Element collection = doc.getRootElement();

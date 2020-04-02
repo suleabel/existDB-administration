@@ -13,20 +13,7 @@ public class ExistDBTriggerQueries {
     private static Util util = new Util();
     private static final Logger logger = LoggerFactory.getLogger(ExistDBTriggerQueries.class);
 
-    public String initTriggerConfig(ExistDetails details, String path) throws XMLDBException {
-//        String query = "xquery version \"3.1\";\n" +
-//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
-//                "    (\n" +
-//                "        xmldb:store(\"/db/system/config" + path + "\",\"collection.xconf\",\n" +
-//                "        <collection xmlns=\"http://exist-db.org/collection-config/1.0\">\n" +
-//                "\t    <triggers>\t\t\t\n" +
-//                "\t        <trigger class=\"org.exist.extensions.exquery.restxq.impl.RestXqTrigger\"/>\n" +
-//                "\t    </triggers>\n" +
-//                "        </collection>)\n" +
-//                "    )\n" +
-//                "else\n" +
-//                "false()";
-
+    public String initTriggerConfig(ExistDetails details, String path) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -54,7 +41,7 @@ public class ExistDBTriggerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public boolean triggerConfigIsAvailable(ExistDetails details, String path) throws XMLDBException {
+    public boolean triggerConfigIsAvailable(ExistDetails details, String path) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -65,12 +52,12 @@ public class ExistDBTriggerQueries {
         return util.stringResultQuery(details, query).contains("true");
     }
 
-    public String saveEditedTrigger(ExistDetails details, String url, String conf) throws XMLDBException {
+    public String saveEditedTrigger(ExistDetails details, String url, String conf) {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $collection := \"" + url + "\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        xmldb:remove($collection,\"collection.xconf\"),\n" +
+//                "        xmldb:remove($collection,\"collection.xconf\"),\n" +
                 "        let $result := xmldb:store($collection,\"collection.xconf\",\"" + conf + "\")\n" +
                 "        let $reindex :=\n" +
                 "                    if (starts-with($collection, \"/db/system/config\")) then\n" +

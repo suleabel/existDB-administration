@@ -13,11 +13,9 @@ const httpOptions = {
 export class BackupRestoreService {
     /* tslint:disable:no-string-literal */
     private baseUrl = window['cfgApiBaseUrl'] + '/backups/';
-
     /* tslint:enable:no-string-literal */
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) { }
 
     public getBackups(url: string): Observable<any> {
         return this.http.post(this.baseUrl + 'getBackups', url, httpOptions);

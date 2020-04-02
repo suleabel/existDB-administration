@@ -27,7 +27,6 @@ export class FooterComponent implements OnInit {
                 console.log(error);
             });
         this.authService.getServerIp().subscribe(data => {
-                console.log(data);
                 this.serverIp.next(data.response.toLowerCase());
             },
             error => {

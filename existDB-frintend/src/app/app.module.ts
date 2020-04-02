@@ -65,6 +65,7 @@ import {TypeaheadModule} from 'ngx-bootstrap';
 import { ViewChangesDialogComponent } from './version-management-module/view-changes-dialog/view-changes-dialog.component';
 import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-dialog.component';
 import { CreateNewFileComponent } from './file-manager/create-new-file/create-new-file.component';
+import { ViewManagerComponent } from './view-manager/view-manager.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,6 +109,7 @@ import { CreateNewFileComponent } from './file-manager/create-new-file/create-ne
       ViewChangesDialogComponent,
       MakeDirDialogComponent,
       CreateNewFileComponent,
+      ViewManagerComponent,
   ],
     imports: [
         BrowserModule,

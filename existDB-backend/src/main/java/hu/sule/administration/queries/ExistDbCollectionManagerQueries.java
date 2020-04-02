@@ -76,11 +76,27 @@ public class ExistDbCollectionManagerQueries {
     }
 
     public String saveEditedRes(ExistDetails details, ForStoreResourceAndColl forStoreResourceAndColl) throws XMLDBException {
-        String query = "xquery version \"3.1\";\n" +
+        // TODO ha működik a másik törölni kell ezt
+        String queryOLD = "xquery version \"3.1\";\n" +
                 "declare variable $isBinary := xs:boolean(\"" + forStoreResourceAndColl.isBinary() + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
                 "        xmldb:remove(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\"),\n" +
+                "        if($isBinary) then\n" +
+                "            (\n" +
+                "                xmldb:store-as-binary(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",util:string-to-binary(\"" + forStoreResourceAndColl.getContent().replaceAll("\"", "'") + "\"))\n" +
+                "            )\n" +
+                "            else\n" +
+                "            (\n" +
+                "                xmldb:store(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",\"" + forStoreResourceAndColl.getContent().replaceAll("\"","'") + "\")\n" +
+                "            )\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        String query = "xquery version \"3.1\";\n" +
+                "declare variable $isBinary := xs:boolean(\"" + forStoreResourceAndColl.isBinary() + "\");\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
                 "        if($isBinary) then\n" +
                 "            (\n" +
                 "                xmldb:store-as-binary(\"" + forStoreResourceAndColl.getUrl() + "\",\"" + forStoreResourceAndColl.getFileName() + "\",util:string-to-binary(\"" + forStoreResourceAndColl.getContent().replaceAll("\"", "'") + "\"))\n" +
