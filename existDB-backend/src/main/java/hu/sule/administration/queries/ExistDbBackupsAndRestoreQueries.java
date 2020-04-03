@@ -15,6 +15,7 @@ public class ExistDbBackupsAndRestoreQueries {
 
     public String getBackups(ExistDetails details, String url) {
         String query = "xquery version \"3.1\";\n" +
+                "import module namespace backups=\"http://exist-db.org/xquery/backups\" at \"java:org.exist.backup.xquery.BackupModule\";\n"+
                 "declare variable $backupLocation := \"" + url + "\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
@@ -26,14 +27,14 @@ public class ExistDbBackupsAndRestoreQueries {
     }
 
     public String createBackup2(ExistDetails details, CreateBackupEntity createBackupEntity) {
-        createBackupEntity.setZip(true);
         String query = "xquery version '3.1';\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        system:export(\"/exist/data/export\", " + createBackupEntity.isIncremental() + "(), " + createBackupEntity.isZip() + "())\n" +
+                "        system:export(\"/exist/data/export\", " + createBackupEntity.getIsIncremental() + "(), " + createBackupEntity.getIsZip() + "())\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
+        System.out.println(query);
         return util.stringResultQuery(details,query);
     }
 

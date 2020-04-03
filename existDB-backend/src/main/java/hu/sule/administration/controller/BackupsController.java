@@ -33,8 +33,9 @@ public class BackupsController {
     }
 
     @RequestMapping("/createBackup")
-    public String createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws XMLDBException, JDOMException, IOException{
-        return backupService.createBackup(createBackupEntity);
+    public ResponseEntity<String> createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws XMLDBException, JDOMException, IOException{
+        System.out.println(createBackupEntity.toString());
+        return new ResponseEntity<>(backupService.createBackup(createBackupEntity),HttpStatus.OK);
     }
 
     @RequestMapping("/restoreBackup")

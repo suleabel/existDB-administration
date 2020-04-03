@@ -6,7 +6,11 @@
                     File Manager
                 </div>
                 <div class="card-body loading" *ngIf="isLoading$ | async">
-                    <mat-spinner></mat-spinner>
+                    <div class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body" *ngIf="!(isLoading$ | async)">
                     <button class="btn btn-success rootButton" (click)="backToRoot()">Back To Root</button>

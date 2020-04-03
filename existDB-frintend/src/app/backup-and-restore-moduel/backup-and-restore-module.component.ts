@@ -6,6 +6,7 @@ import {BackupEntity} from './model/BackupEntity';
 import {CreateBackupEntity} from './model/CreateBackupEntity';
 import {MatDialog} from '@angular/material';
 import {InformationDialogComponent} from './information-dialog/information-dialog.component';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-backup-and-restore-module',
@@ -15,27 +16,27 @@ import {InformationDialogComponent} from './information-dialog/information-dialo
 export class BackupAndRestoreModuleComponent implements OnInit {
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public isLoading2$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public rootLocation = '/exist/data/';
-    public location = 'export';
+    public rootLocation = '/exist/data/export';
     public backups: BackupEntity;
     public displayedColumns: string[] = ['fileName', 'nrInSequence', 'date', 'incremental', 'previous', 'download', 'restore'];
-    public entity: CreateBackupEntity = {saveLocation: 'export', isZip: false, isIncremental: false};
-    public restoreURL = '/exist/apps/dashboard/bower_components/existdb-backup/modules/backup.xql?action=retrieve&archive=';
+    public entity: CreateBackupEntity = {saveLocation: 'export', isZip: 'false', isIncremental: 'false'};
+    // public restoreURL = '/exist/apps/dashboard/bower_components/existdb-backup/modules/backup.xql?action=retrieve&archive=';
 
     constructor(
         private backupService: BackupRestoreService,
         private notificationService: NotificationService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private router: Router) {
     }
 
     ngOnInit() {
         // console.log('http://' + this.backupService.getExistDbServerIp.toLowerCase() + this.restoreURL);
-        this.loadBackups(this.location);
+        this.loadBackups(this.rootLocation);
     }
 
     loadBackups(location: string) {
         this.isLoading$.next(true);
-        this.backupService.getBackups(this.rootLocation + location)
+        this.backupService.getBackups(this.rootLocation)
             .subscribe(data => {
                     console.log(data);
                     this.backups = data;
@@ -43,41 +44,57 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                     this.isLoading$.next(false);
                 },
                 error => {
+                    console.log(error.error.message);
                     this.notificationService.Error(error.error);
+                    // if (error.error.message.toLowerCase() === 'exerr:ERROR err:XPST0081 Invalid qname backups:list'.toLowerCase()) {
+                    //     this.notificationService.Error2('Install backup module in package manager!!');
+                    //     this.router.navigate(['home']);
+                    // } else {
+                    //     this.notificationService.Error(error.error);
+                    // }
                 });
     }
 
     setDefaultLocation() {
-        this.location = 'export';
+        this.rootLocation = '/exist/data/export';
     }
 
     setBackupsLocation() {
-        this.loadBackups(this.location);
+        this.loadBackups(this.rootLocation);
     }
 
     changeZip() {
-        this.entity.isZip = !this.entity.isZip;
+        if (this.entity.isZip === 'true') {
+           this.entity.isZip = 'false';
+        } else {
+            this.entity.isZip = 'true';
+        }
     }
 
     changeIncremental() {
-        this.entity.isIncremental = !this.entity.isIncremental;
+        if (this.entity.isIncremental === 'true') {
+            this.entity.isIncremental = 'false';
+        } else {
+            this.entity.isIncremental = 'true';
+        }
     }
 
     restore(element) {
         this.isLoading2$.next(true);
         console.log(element.fileName);
-        const backupPath = this.rootLocation + this.location + '/' + element.fileName;
+        const backupPath = this.rootLocation + '/' + element.fileName;
         this.backupService.restoreBackup(backupPath)
             .subscribe(data => {
                 this.notificationService.success('Database is restored');
                 this.isLoading2$.next(false);
                 const dialogRef = this.dialog.open(InformationDialogComponent, {
                     width: '50%',
-                    height: '80%',
+                    height: 'auto',
+                    maxHeight: '80%',
                     data: {res: data}
                 });
                 dialogRef.afterClosed().subscribe(result => {
-                    this.loadBackups(this.location);
+                    this.loadBackups(this.rootLocation);
                 });
             }, error => {
                 console.log(error.error);
@@ -99,7 +116,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                     data: {res: data}
                 });
                 dialogRef.afterClosed().subscribe(result => {
-                    this.loadBackups(this.location);
+                    this.loadBackups(this.rootLocation);
                 });
             }, error => {
                 this.notificationService.Error(error.error);

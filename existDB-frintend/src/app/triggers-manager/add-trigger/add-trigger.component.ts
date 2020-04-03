@@ -7,6 +7,7 @@ import {TriggersService} from '../service/triggers.service';
 import {NotificationService} from '../../error-dialog/service/notification.service';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 import {BrowseXqueryFileComponent} from '../browse-xquery-file/browse-xquery-file.component';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
     selector: 'app-add-trigger',
@@ -14,6 +15,7 @@ import {BrowseXqueryFileComponent} from '../browse-xquery-file/browse-xquery-fil
     styleUrls: ['./add-trigger.component.sass']
 })
 export class AddTriggerComponent implements OnInit {
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public triggerForm: FormGroup;
     public triggerEvents = ['create', 'update', 'copy', 'move', 'delete'];
     public triggerName = ['url', 'query'];
@@ -50,7 +52,7 @@ export class AddTriggerComponent implements OnInit {
         this.tempFormData = this.triggerForm.value;
         const dialogRef = this.dialog.open(BrowseXqueryFileComponent, {
             width: '70%',
-            height: 'auto',
+            height: '70%',
             data: {}
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -62,6 +64,7 @@ export class AddTriggerComponent implements OnInit {
     onSave() {
         this.dialogService.openConfirmDialog('Are your sure to save this configuration ?')
             .afterClosed().subscribe(res => {
+            this.isLoading$.next(true);
             if (res) {
                 const trigCredCont: EditTriggerModel = {
                     path: this.openedFile.path,
@@ -77,11 +80,14 @@ export class AddTriggerComponent implements OnInit {
                     .subscribe(
                         data => {
                             this.notificationService.success('Success');
+                            console.log('success');
+                            this.isLoading$.next(false);
                             this.dialogRef.close();
                         },
                         error => {
                             this.notificationService.Error(error.error);
-                            this.dialogRef.close();
+                            console.log('Error');
+                            this.isLoading$.next(false);
                         }
                     );
             }

@@ -22,7 +22,6 @@ export class BackupRestoreService {
     }
 
     public createBackup(entity: CreateBackupEntity): Observable<any> {
-        console.log(entity);
         return this.http.post(this.baseUrl + 'createBackup', entity, {responseType: 'text'});
     }
 

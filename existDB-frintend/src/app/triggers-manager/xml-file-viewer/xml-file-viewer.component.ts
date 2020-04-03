@@ -8,6 +8,7 @@ import {Credentials} from '../../collection-manager/model/Credentials';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 import {StoreResourceModel} from '../../collection-manager/model/StoreResourceModel';
 import {BehaviorSubject} from 'rxjs';
+import {XmlParserService} from "../../collection-manager/service/xml-parser.service";
 
 @Component({
     selector: 'app-xml-file-viewer',
@@ -68,6 +69,20 @@ export class XmlFileViewerComponent implements OnInit {
         };
         console.log(saveRes);
         this.isLoading$.next(true);
+        if (saveRes.mime === 'application/xml') {
+            const result = XmlParserService.validateXML(saveRes.content);
+            if (result === 'isXML') {
+                this.save(saveRes);
+            } else {
+                this.notificationService.Error2(result);
+            }
+        } else {
+            this.save(saveRes);
+        }
+        this.isEdit = false;
+    }
+
+    save(saveRes) {
         this.triggerService.editTrigger(saveRes)
             .subscribe(data => {
                     this.isLoading$.next(false);
@@ -77,7 +92,6 @@ export class XmlFileViewerComponent implements OnInit {
                 error => {
                     this.notificationService.Error(error.error);
                 });
-        this.isEdit = false;
     }
 
     // TODO át kell írni a másik dialog open be

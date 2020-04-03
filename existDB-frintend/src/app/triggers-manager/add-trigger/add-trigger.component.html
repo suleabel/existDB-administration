@@ -5,7 +5,14 @@
                 <div class="card-header  font-weight-bold">
                     <h4>Add Trigger</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body loading" *ngIf="isLoading$ | async">
+                    <div class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="!(isLoading$ | async)">
                     <form [formGroup]="triggerForm" class="text-center border border-light">
                         <div class="form-group">
                             <mat-form-field>

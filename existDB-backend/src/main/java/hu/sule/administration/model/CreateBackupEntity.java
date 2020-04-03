@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 public class CreateBackupEntity {
-    private boolean isZip;
-    private boolean isIncremental;
+    private String saveLocation;
+    private String isZip;
+    private String isIncremental;
 }

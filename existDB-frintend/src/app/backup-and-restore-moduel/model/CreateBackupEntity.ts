@@ -1,9 +1,9 @@
 export class CreateBackupEntity {
     saveLocation: string;
-    isZip: boolean;
-    isIncremental: boolean;
+    isZip: string;
+    isIncremental: string;
 
-    constructor(saveLocation: string, isZip: boolean, isIncremental: boolean) {
+    constructor(saveLocation: string, isZip: string, isIncremental: string) {
         this.saveLocation = saveLocation;
         this.isZip = isZip;
         this.isIncremental = isIncremental;
