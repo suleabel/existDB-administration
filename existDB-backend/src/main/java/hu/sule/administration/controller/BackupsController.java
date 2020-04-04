@@ -28,19 +28,18 @@ public class BackupsController {
     private BackupService backupService;
 
     @RequestMapping("/getBackups")
-    public ArrayList<BackupEntity> getBackups(HttpEntity<String> httpEntity) throws XMLDBException, IOException, JDOMException {
-        return backupService.getBackups(httpEntity.getBody());
+    public ResponseEntity<ArrayList<BackupEntity>> getBackups(HttpEntity<String> httpEntity) throws IOException, JDOMException {
+        return new ResponseEntity<>(backupService.getBackups(httpEntity.getBody()),HttpStatus.OK);
     }
 
     @RequestMapping("/createBackup")
-    public ResponseEntity<String> createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws XMLDBException, JDOMException, IOException{
-        System.out.println(createBackupEntity.toString());
-        return new ResponseEntity<>(backupService.createBackup(createBackupEntity),HttpStatus.OK);
+    public ResponseEntity<String> createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws JDOMException, IOException{
+        return new ResponseEntity<>("{\"response\":\"" + backupService.createBackup(createBackupEntity) + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/restoreBackup")
-    public ResponseEntity<String> restoreBackup(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException{
-        return new ResponseEntity<>(backupService.restoreBackup(httpEntity.getBody()), HttpStatus.OK);
+    public ResponseEntity<String> restoreBackup(HttpEntity<String> httpEntity) throws JDOMException, IOException{
+        return new ResponseEntity<>("{\"response\":\"" + backupService.restoreBackup(httpEntity.getBody()) + "\"}", HttpStatus.OK);
     }
 
 }

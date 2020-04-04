@@ -27,63 +27,62 @@ public class CollectionManagerController {
     private CollectionService collectionService;
 
     @RequestMapping("/getOnlyCollections")
-    public ArrayList<ExistCollectionManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException{
+    public ArrayList<ExistCollectionManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity) throws IOException{
         return collectionService.getFileManagerCollectionsByCollection(httpEntity.getBody());
     }
 
     @RequestMapping("/getAllContentByCollection")
-    public ArrayList<ExistCollectionManagerModel> getCollectionContent(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException{
+    public ArrayList<ExistCollectionManagerModel> getCollectionContent(HttpEntity<String> httpEntity) throws IOException{
         return collectionService.getFileManagerContentByCollection(httpEntity.getBody());
     }
 
     @RequestMapping("/createDir")
-    public String createDir(@RequestBody ForStoreResourceAndColl storeCollection) throws XMLDBException{
-        return collectionService.createDir(storeCollection);
+    public ResponseEntity<String> createDir(@RequestBody ForStoreResourceAndColl storeCollection) {
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.createDir(storeCollection) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/getFileContent")
-    public ResourceReadModel getFileContent(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException{
-        return collectionService.readFile(httpEntity.getBody());
+    public ResponseEntity<ResourceReadModel> getFileContent(HttpEntity<String> httpEntity) throws JDOMException, IOException{
+        return new ResponseEntity<>(collectionService.readFile(httpEntity.getBody()),HttpStatus.OK);
     }
 
     @RequestMapping("/store")
-    public String store(@RequestBody ForStoreResourceAndColl storeResource) throws XMLDBException{
-        return collectionService.Store(storeResource);
+    public ResponseEntity<String> store(@RequestBody ForStoreResourceAndColl storeResource) {
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.Store(storeResource) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/saveEdit")
-    public String saveEdit(@RequestBody ForStoreResourceAndColl storeResource) throws XMLDBException{
-        return collectionService.saveEditedRes(storeResource);
+    public ResponseEntity<String> saveEdit(@RequestBody ForStoreResourceAndColl storeResource) {
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.saveEditedRes(storeResource) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/deleteRes")
-    public String deleteRes(@RequestBody ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException{
-        return collectionService.deleteFile(existCollectionManagerModel);
+    public ResponseEntity<String> deleteRes(@RequestBody ExistCollectionManagerModel existCollectionManagerModel) {
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.deleteFile(existCollectionManagerModel) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/deleteColl")
-    public String deleteCollection(@RequestBody ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException{
-        return collectionService.deleteCollection(existCollectionManagerModel);
+    public ResponseEntity<String> deleteCollection(@RequestBody ExistCollectionManagerModel existCollectionManagerModel) {
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.deleteCollection(existCollectionManagerModel) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/editResCred")
-    public String editResCred(@RequestBody ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException{
-        return collectionService.editResCred(existCollectionManagerModel);
+    public ResponseEntity<String> editResCred(@RequestBody ExistCollectionManagerModel existCollectionManagerModel) {
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.editResCred(existCollectionManagerModel) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/evalXqueryasString")
-    public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) throws XMLDBException{
+    public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) {
         return new ResponseEntity<>("{\"response\":\"" + collectionService.evalXqueryasString(httpEntity.getBody()) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/evalXqueryasPath")
-    public ResponseEntity<String> evalXqueryasPath(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException {
-        String result = collectionService.evalXqueryasPath(httpEntity.getBody());
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<String> evalXqueryasPath(HttpEntity<String> httpEntity) throws JDOMException, IOException {
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.evalXqueryasPath(httpEntity.getBody()) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/unlockResource")
-    public String unlockResource(HttpEntity<String> httpEntity) throws XMLDBException{
-        return collectionService.unlockResource(httpEntity.getBody());
+    public ResponseEntity<String> unlockResource(HttpEntity<String> httpEntity) {
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.unlockResource(httpEntity.getBody()) + "\"}", HttpStatus.OK);
     }
 }

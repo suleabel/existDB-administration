@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
-import {DialogService} from '../../error-dialog/service/dialog.service';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {DialogService} from '../../error-notification-module/service/dialog.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {AddTriggerComponent} from '../add-trigger/add-trigger.component';
 import {TriggersService} from '../service/triggers.service';
 import {Credentials} from '../../collection-manager/model/Credentials';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 import {StoreResourceModel} from '../../collection-manager/model/StoreResourceModel';
 import {BehaviorSubject} from 'rxjs';
-import {XmlParserService} from "../../collection-manager/service/xml-parser.service";
+import {XmlParserService} from '../../collection-manager/service/xml-parser.service';
 
 @Component({
     selector: 'app-xml-file-viewer',

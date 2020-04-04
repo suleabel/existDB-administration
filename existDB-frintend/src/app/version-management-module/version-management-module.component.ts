@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {VersionManagementService} from './service/version-management.service';
-import {NotificationService} from '../error-dialog/service/notification.service';
+import {NotificationService} from '../error-notification-module/service/notification.service';
 import {BehaviorSubject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {Credentials} from '../collection-manager/model/Credentials';
@@ -14,6 +14,7 @@ import {ViewHistoryComponent} from './view-history/view-history.component';
 })
 export class VersionManagementModuleComponent implements OnInit {
     public versionIsAvailable$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public selectedDirectory = '/db';
     public collections: Credentials[];
     public displayedColumns: string[] = ['name', 'resource', 'view'];
@@ -33,11 +34,14 @@ export class VersionManagementModuleComponent implements OnInit {
 
     private checkVersionManagementIsEnabled() {
         this.versionIsAvailable$.next(false);
+        this.isLoading$.next(true);
         this.versionManagementService.versionManagerIsActivated()
             .subscribe(data => {
                 this.versionIsAvailable$.next(data);
+                this.isLoading$.next(false);
             }, error => {
-                if (error.error.message !== 'no error message') {
+                this.isLoading$.next(false);
+                if (error.error.message !== 'no error-page message') {
                     this.notificationService.Error(error.error);
                 } else {
                     console.log(error.error);
@@ -79,7 +83,7 @@ export class VersionManagementModuleComponent implements OnInit {
                     // console.log('content: ' + this.collections);
                 },
                 error => {
-                    if (error.error.message !== 'no error message') {
+                    if (error.error.message !== 'no error-page message') {
                         this.notificationService.Error(error.error);
                     } else {
                         console.log(error.error);

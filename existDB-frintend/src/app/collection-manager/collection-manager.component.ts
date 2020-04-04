@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Credentials} from './model/Credentials';
 import {MatDialog, MatDialogConfig, MatSort, MatTableDataSource} from '@angular/material';
 import {ResourceViewerDialogComponent} from './resource-viewer-dialog/resource-viewer-dialog.component';
-import {NotificationService} from '../error-dialog/service/notification.service';
+import {NotificationService} from '../error-notification-module/service/notification.service';
 import {StoreResourceModel} from './model/StoreResourceModel';
 import {CreateDirDialogComponent} from './create-dir-dialog/create-dir-dialog.component';
 import {BehaviorSubject} from 'rxjs';
@@ -128,7 +128,7 @@ export class CollectionManagerComponent implements OnInit {
                 this.notificationService.success('Not created');
             } else {
                 const editFileData: Credentials = result;
-                this.fileExplorerService.editFileCredentials(editFileData)
+                this.fileExplorerService.editResCredentials(editFileData)
                     .subscribe(data => {
                             this.notificationService.success('Success');
                         },

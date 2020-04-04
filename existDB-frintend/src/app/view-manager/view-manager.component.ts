@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ViewServiceService} from './service/view-service.service';
 import {CreateViewModel} from './model/CreateViewModel';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NotificationService} from '../error-dialog/service/notification.service';
+import {NotificationService} from '../error-notification-module/service/notification.service';
 import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
 
 @Component({

@@ -37,7 +37,6 @@ public class ExistDbUserManagerQueries {
         return "User created!";
     }
 
-    //TODO meg kéne nézni hogy a change pass része működik-e
     public String editUser(ExistDetails details, ExistDBUser user) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
@@ -162,20 +161,6 @@ public class ExistDbUserManagerQueries {
         return "User is not exist!";
     }
 
-    // TODO valószinű nem kell
-    public String changeUserPass(ExistDetails details, String username, String password) {
-        String query = "xquery version \"3.1\";\n" +
-                "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
-                "(\n" +
-                "sm:passwd(\"" + username + "\", \"" + password + "\"),\n" +
-                "true()\n" +
-                ")\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, query);
-    }
-
     private String userExists(ExistDetails details, String user) {
         logger.info("check user is exist: " + user);
         String query = "xquery version \"3.1\";\n" +
@@ -190,7 +175,7 @@ public class ExistDbUserManagerQueries {
     public boolean isAdminAccess(ExistDetails details) throws XMLDBException {
         logger.info("check admin access");
         Collection old = collection;
-        boolean result = false;
+        boolean result;
         util.closeCollection(collection);
         collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
         String querry = "xquery version \"3.1\";\n" +

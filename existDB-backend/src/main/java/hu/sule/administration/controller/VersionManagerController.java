@@ -1,6 +1,5 @@
 package hu.sule.administration.controller;
 
-import hu.sule.administration.model.RestoreResByRevResponse;
 import hu.sule.administration.model.VersionByRevModel;
 import hu.sule.administration.model.VersionsModel;
 import hu.sule.administration.service.VersionManagerService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 
@@ -31,7 +29,7 @@ public class VersionManagerController {
     }
 
     @RequestMapping("/enableVersionManagement")
-    public ResponseEntity<String> enableVersionManagement() throws XMLDBException, JDOMException, IOException {
+    public ResponseEntity<String> enableVersionManagement() {
         return new ResponseEntity<>(versionManagerService.enableVersioning(), HttpStatus.OK);
     }
 

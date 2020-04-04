@@ -4,7 +4,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BrowseSaveLocationComponent} from './browse-save-location/browse-save-location.component';
-import {NotificationService} from '../error-dialog/service/notification.service';
+import {NotificationService} from '../error-notification-module/service/notification.service';
 import {StoreResourceModel} from '../collection-manager/model/StoreResourceModel';
 
 @Component({
@@ -62,7 +62,7 @@ export class XmlToXsdComponent implements OnInit {
     sendText(value: string): void {
         console.log(value);
         this.xmlService.sendXml(this.textValue).subscribe(data => {
-            this.generatedXSD = data;
+            this.generatedXSD = data.response;
         }, error => {
             this.notificationService.Error(error.error);
         });
@@ -72,10 +72,10 @@ export class XmlToXsdComponent implements OnInit {
         this.saveData = this.saveForm.value;
         this.saveData.content = this.generatedXSD;
         this.xmlService.saveXsd(this.saveData).subscribe(data => {
-                console.log(data);
+                this.notificationService.success('Saved');
             },
             error => {
-                console.log(error);
+                this.notificationService.Error(error.error);
             });
     }
 

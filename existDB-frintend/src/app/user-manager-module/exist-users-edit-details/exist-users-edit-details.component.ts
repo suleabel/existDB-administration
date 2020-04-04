@@ -3,7 +3,7 @@ import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ExistUserModel} from '../model/existUser.model';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 
 @Component({
   selector: 'app-exist-users-edit-details',
@@ -46,10 +46,9 @@ export class ExistUsersEditDetailsComponent implements OnInit {
     if (!this.editUserData.groups.includes(this.editUserData.primaryGroup)) {
       this.editUserData.groups.push(this.editUserData.primaryGroup);
     }
-    console.log(this.editUserData);
     this.userService.editUser(this.editUserData)
         .subscribe( data => {
-          console.log('edit user data return value: ' + data);
+          this.notificationService.success('Saved');
           this.router.navigateByUrl('/user-manager-module');
         },
         error => {

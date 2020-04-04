@@ -1,8 +1,9 @@
 package hu.sule.administration.service;
 
-import hu.sule.administration.exceptions.CustomeException;
+import hu.sule.administration.exceptions.CustomException;
 import hu.sule.administration.model.*;
 import hu.sule.administration.queries.ExistDbHistroyQueries;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
-import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -42,10 +42,10 @@ public class VersionManagerService {
         try {
             String confContent = collectionService.readFile("/db/system/config/db/collection.xconf").getContent();
             if("".equals(confContent))
-                throw new CustomeException("root collection.xconf is not exist, Please initialize it in the Trigger manager","","ERROR MESSAGE");
+                throw new CustomException("root collection.xconf is not exist, Please initialize it in the Trigger manager","","ERROR MESSAGE");
             doc = saxBuilder.build(new InputSource(new StringReader(confContent)));
         } catch(JDOMException e){
-            throw new CustomeException(e.getMessage(),"isEnabled in VersionManagerService","JDOMException");
+            throw new CustomException(e.getMessage(),"isEnabled in VersionManagerService","JDOMException", e.getStackTrace());
         }
             if (doc != null) {
             Element collection = doc.getRootElement();
@@ -61,7 +61,7 @@ public class VersionManagerService {
         return "false";
     }
 
-    public String enableVersioning() throws XMLDBException {
+    public String enableVersioning() {
         List<String> events = new ArrayList<>();
         events.add("create");
         events.add("delete");

@@ -37,7 +37,6 @@ public class ExistDBTriggerQueries {
                 "        )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
         return util.stringResultQuery(details, query);
     }
 
@@ -57,7 +56,6 @@ public class ExistDBTriggerQueries {
                 "declare variable $collection := \"" + url + "\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-//                "        xmldb:remove($collection,\"collection.xconf\"),\n" +
                 "        let $result := xmldb:store($collection,\"collection.xconf\",\"" + conf + "\")\n" +
                 "        let $reindex :=\n" +
                 "                    if (starts-with($collection, \"/db/system/config\")) then\n" +

@@ -14,7 +14,7 @@ public class ExistDbFileExplorerQueries {
     @Autowired
     private Util util;
 
-    public String getDirectoryContent(ExistDetails details, String dirname) throws XMLDBException {
+    public String getDirectoryContent(ExistDetails details, String dirname) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $exist-home := system:get-exist-home();\n" +
@@ -27,7 +27,7 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String getRootDirectory(ExistDetails details) throws XMLDBException {
+    public String getRootDirectory(ExistDetails details) {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $exist-home := system:get-exist-home();\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
@@ -39,7 +39,7 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String readFileContent(ExistDetails details, String url) throws XMLDBException {
+    public String readFileContent(ExistDetails details, String url) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "   (\n" +
@@ -102,12 +102,10 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    // TODO meg kell nézni szükséges-e a file:delete
     public String editXmlFile(ExistDetails details, SerializeFile file) {
         String query = "xquery version \"3.1\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        file:delete(\"" + file.getPath() + "/" + file.getName() + "\"),\n" +
                 "        file:serialize(" + file.getContent() + ",\"" + file.getPath() + "/" + file.getName() + "\",\"\")\n" +
                 "    )\n" +
                 "else\n" +
@@ -115,13 +113,11 @@ public class ExistDbFileExplorerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    // TODO meg kell nézni szükséges-e a file:delete
     public String editFile(ExistDetails details, SerializeFile file){
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $data := xs:string(\"" + file.getContent() + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        file:delete(\"" + file.getPath() + "/" + file.getName() + "\"),\n" +
                 "        file:serialize-binary(util:string-to-binary($data),\"" + file.getPath() + "/" + file.getName() + "\")\n" +
                 "    )\n" +
                 "else\n" +

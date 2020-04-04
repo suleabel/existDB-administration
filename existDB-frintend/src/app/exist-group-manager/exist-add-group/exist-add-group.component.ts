@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../service/groups.service';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {MatDialogRef} from '@angular/material';
 
 @Component({

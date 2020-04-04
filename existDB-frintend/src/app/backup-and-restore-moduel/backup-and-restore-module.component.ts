@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {BackupRestoreService} from './service/backup-restore.service';
-import {NotificationService} from '../error-dialog/service/notification.service';
 import {BehaviorSubject} from 'rxjs';
 import {BackupEntity} from './model/BackupEntity';
 import {CreateBackupEntity} from './model/CreateBackupEntity';
 import {MatDialog} from '@angular/material';
 import {InformationDialogComponent} from './information-dialog/information-dialog.component';
 import {Router} from '@angular/router';
+import {NotificationService} from '../error-notification-module/service/notification.service';
 
 @Component({
     selector: 'app-backup-and-restore-module',
@@ -18,8 +18,8 @@ export class BackupAndRestoreModuleComponent implements OnInit {
     public isLoading2$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public rootLocation = '/exist/data/export';
     public backups: BackupEntity;
-    public displayedColumns: string[] = ['fileName', 'nrInSequence', 'date', 'incremental', 'previous', 'download', 'restore'];
-    public entity: CreateBackupEntity = {saveLocation: 'export', isZip: 'false', isIncremental: 'false'};
+    public displayedColumns: string[] = ['fileName', 'nrInSequence', 'date', 'incremental', 'previous', 'restore'];
+    public entity: CreateBackupEntity = {saveLocation: '/exist/data/export', isZip: 'false', isIncremental: 'false'};
     // public restoreURL = '/exist/apps/dashboard/bower_components/existdb-backup/modules/backup.xql?action=retrieve&archive=';
 
     constructor(
@@ -46,11 +46,11 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                 error => {
                     console.log(error.error.message);
                     this.notificationService.Error(error.error);
-                    // if (error.error.message.toLowerCase() === 'exerr:ERROR err:XPST0081 Invalid qname backups:list'.toLowerCase()) {
+                    // if (error-page.error-page.message.toLowerCase() === 'exerr:ERROR err:XPST0081 Invalid qname backups:list'.toLowerCase()) {
                     //     this.notificationService.Error2('Install backup module in package manager!!');
                     //     this.router.navigate(['home']);
                     // } else {
-                    //     this.notificationService.Error(error.error);
+                    //     this.notificationService.Error(error-page.error-page);
                     // }
                 });
     }
@@ -91,7 +91,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                     width: '50%',
                     height: 'auto',
                     maxHeight: '80%',
-                    data: {res: data}
+                    data: {res: data.response}
                 });
                 dialogRef.afterClosed().subscribe(result => {
                     this.loadBackups(this.rootLocation);
@@ -113,7 +113,7 @@ export class BackupAndRestoreModuleComponent implements OnInit {
                 const dialogRef = this.dialog.open(InformationDialogComponent, {
                     width: '50%',
                     height: '80%',
-                    data: {res: data}
+                    data: {res: data.response}
                 });
                 dialogRef.afterClosed().subscribe(result => {
                     this.loadBackups(this.rootLocation);

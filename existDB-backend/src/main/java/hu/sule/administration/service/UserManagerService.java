@@ -27,20 +27,20 @@ public class UserManagerService {
 
     private static final Logger logger = LoggerFactory.getLogger(ExistDbCredentialsService.class);
 
-    public ArrayList<ExistDBUser> listUsers() throws XMLDBException, JDOMException, IOException {
+    public ArrayList<ExistDBUser> listUsers() throws JDOMException, IOException {
         return mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
     }
 
-    public String createUser(ExistDBUser user) throws XMLDBException {
+    public String createUser(ExistDBUser user) {
         logger.info("try to create user:" + user.toString());
         return existDbUserManagerQueries.createUser(ExistDbCredentialsService.getDetails(), user);
     }
 
-    public String deleteUser(String username) throws XMLDBException {
+    public String deleteUser(String username) {
         return existDbUserManagerQueries.deleteUser(ExistDbCredentialsService.getDetails(), username);
     }
 
-    public String editUser(ExistDBUser user) throws XMLDBException, JDOMException, IOException {
+    public String editUser(ExistDBUser user) throws JDOMException, IOException {
         editUserGroups(user);
         return existDbUserManagerQueries.editUser(ExistDbCredentialsService.getDetails(), user);
     }
@@ -49,11 +49,11 @@ public class UserManagerService {
         return existDbUserManagerQueries.isAdminAccess(ExistDbCredentialsService.getDetails());
     }
 
-    public List<String> getUsersNames() throws XMLDBException {
+    public List<String> getUsersNames() {
         return Arrays.asList(existDbUserManagerQueries.getUsersNames(ExistDbCredentialsService.getDetails()).split("\n"));
     }
 
-    private void editUserGroups(ExistDBUser user) throws XMLDBException, JDOMException, IOException {
+    private void editUserGroups(ExistDBUser user)throws JDOMException, IOException {
         ArrayList<ExistDBUser> existDBUsers = mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
         for (ExistDBUser existDBUser : existDBUsers) {
             if (existDBUser.getUsername().equals(user.getUsername())) {

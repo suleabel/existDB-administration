@@ -1,6 +1,6 @@
 package hu.sule.administration.util;
 
-import hu.sule.administration.exceptions.CustomeException;
+import hu.sule.administration.exceptions.CustomException;
 import hu.sule.administration.model.ExistDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +36,9 @@ public class Util {
             result = execXQuery(query, collection);
         } catch (Exception e) {
             if(e.getMessage().equals("")){
-                throw new CustomeException("no error message","stringResultQuery","XMLDBException");
+                throw new CustomException("no error message","stringResultQuery","XMLDBException", e.getStackTrace());
             }
-            System.out.println(e.getMessage() + " stringResultQuery " + " XMLDBException");
-            throw new CustomeException(e.getMessage(),"stringResultQuery","XMLDBException");
+            throw new CustomException(e.getMessage(),"stringResultQuery","XMLDBException", e.getStackTrace());
         } finally {
             try {
                 closeCollection(collection);
@@ -59,10 +58,9 @@ public class Util {
             result = !execXQuery(query, collection).equals("false");
         } catch (XMLDBException e) {
             if(e.getMessage().equals("")){
-                throw new CustomeException("no error message","booleanResultQuery","XMLDBException");
+                throw new CustomException("no error message","booleanResultQuery","XMLDBException", e.getStackTrace());
             }
-            System.out.println(e.getMessage() + " booleanResultQuery " + " XMLDBException");
-            throw new CustomeException(e.getMessage(),"booleanResultQuery","XMLDBException");
+            throw new CustomException(e.getMessage(),"booleanResultQuery","XMLDBException", e.getStackTrace());
         } finally {
             try {
                 closeCollection(collection);
@@ -93,45 +91,10 @@ public class Util {
             }
         } catch (XMLDBException e) {
             if(e.getMessage().equals("")){
-                throw new CustomeException("no error message","execXQuery","XMLDBException");
+                throw new CustomException("no error message","execXQuery","XMLDBException", e.getStackTrace());
             }
-            System.out.println("query: "+ query + ", " + e.getMessage() + " execXQuery " + " XMLDBException");
-            throw new CustomeException(e.getMessage(),"execXQuery","XMLDBException");
+            throw new CustomException(e.getMessage(),"execXQuery","XMLDBException", e.getStackTrace());
         }
         return sb.toString().trim();
     }
-
-//    public String execXQuery(String query, Collection collection) throws XMLDBException {
-//        StringBuilder sb = new StringBuilder();
-//        XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
-//        service.setProperty(OutputKeys.INDENT, "yes");
-//        service.setProperty(OutputKeys.ENCODING, "UTF-16");
-//        CompiledExpression compiled = service.compile(query);
-//        ResourceSet result = service.execute(compiled);
-//        for (int i = 0; i < (int) result.getSize(); i++) {
-//            XMLResource r = (XMLResource) result.getResource((long) i);
-//            sb.append(r.getContent().toString()).append("\n");
-//        }
-//        return sb.toString().trim();
-//    }
-//
-//    public String stringResultQuery(ExistDetails details, String query) throws XMLDBException {
-//        Collection old = collection;
-//        closeCollection(collection);
-//        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
-//        String result = execXQuery(query, collection);
-//        closeCollection(collection);
-//        collection = old;
-//        return result;
-//    }
-//
-//    public boolean booleanResultQuery(ExistDetails details, String query) throws XMLDBException{
-//        Collection old = collection;
-//        boolean result = false;
-//        collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection(), details.getUsername(), details.getPassword());
-//        result = !execXQuery(query, collection).equals("false");
-//        closeCollection(collection);
-//        collection = old;
-//        return result;
-//    }
 }

@@ -55,7 +55,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<!--existDb-->
 		<dependency>
 			<groupId>xmldb</groupId>
@@ -88,14 +87,12 @@
 			<version>1.4.1</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
 		<dependency>
 			<groupId>org.jdom</groupId>
 			<artifactId>jdom2</artifactId>
 			<version>2.0.6</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -119,11 +116,12 @@
 			<scope>provided</scope>
 		</dependency>
 
-
-
-
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<finalName>existDB-backend</finalName>
 		<plugins>
@@ -151,7 +149,6 @@
 				</configuration>
 			</plugin>
 
-
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -172,7 +169,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 

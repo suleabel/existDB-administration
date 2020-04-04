@@ -21,7 +21,7 @@ export class FileManagerService {
     }
 
     public getRootDirectory(): Observable<any> {
-        return this.http.get(this.baseUrl + 'getRootDirectory', {responseType: 'text'});
+        return this.http.get(this.baseUrl + 'getRootDirectory', httpOptions);
     }
 
     public getDirectoryContent(url: string): Observable<any> {
@@ -29,7 +29,7 @@ export class FileManagerService {
     }
 
     public readFile(url: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'readFile', url, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'readFile', url, httpOptions);
     }
 
     public makeDir(data: StoreDirOrFileModel): Observable<any> {

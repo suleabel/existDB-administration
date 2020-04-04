@@ -35,31 +35,31 @@ export class FileExplorerService {
     }
 
     public saveResource(res: StoreResourceModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'store', res, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'store', res, httpOptions);
     }
 
     public editResource(res: StoreResourceModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'saveEdit', res, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'saveEdit', res, httpOptions);
     }
 
     public createDir(col: StoreResourceModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'createDir', col, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'createDir', col, httpOptions);
     }
 
     public deleteResource(cred: Credentials): Observable<any> {
-        return this.http.post(this.baseUrl + 'deleteRes', cred, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'deleteRes', cred, httpOptions);
     }
 
     public deleteCollection(cred: Credentials): Observable<any> {
-        return this.http.post(this.baseUrl + 'deleteColl', cred, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'deleteColl', cred, httpOptions);
     }
 
-    public editFileCredentials(cred: Credentials): Observable<any> {
-        return this.http.post(this.baseUrl + 'editResCred', cred, {responseType: 'text'});
+    public editResCredentials(cred: Credentials): Observable<any> {
+        return this.http.post(this.baseUrl + 'editResCred', cred, httpOptions);
     }
 
     public evalXqueryFromPath(url: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'evalXqueryasPath', url, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'evalXqueryasPath', url, httpOptions);
     }
 
     public evalXqueryFromString(query: string): Observable<any> {
@@ -67,7 +67,7 @@ export class FileExplorerService {
     }
 
     public unlockResource(url: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'unlockResource', url, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'unlockResource', url, httpOptions);
     }
 
 

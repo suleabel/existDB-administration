@@ -27,18 +27,18 @@ public class FileManagerController {
     private FileExplorerService fileExplorerService;
 
     @RequestMapping("/getDirectoryContent")
-    public List<FileManagerEntity> getDirectoryContent(HttpEntity<String> httpEntity) throws XMLDBException {
+    public List<FileManagerEntity> getDirectoryContent(HttpEntity<String> httpEntity) {
         return fileExplorerService.getDirectoryContent(httpEntity.getBody());
     }
 
     @RequestMapping("/getRootDirectory")
-    public String getRootDirectory() throws XMLDBException{
-        return fileExplorerService.getRootDirectory();
+    public ResponseEntity<String> getRootDirectory() {
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.getRootDirectory() + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/readFile")
-    public String readFileContent(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException {
-        return fileExplorerService.getFileContent(httpEntity.getBody());
+    public ResponseEntity<String> readFileContent(HttpEntity<String> httpEntity) throws JDOMException, IOException {
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.getFileContent(httpEntity.getBody()) + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/makeDir")

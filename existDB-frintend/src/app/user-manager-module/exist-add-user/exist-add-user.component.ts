@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {MatDialogRef, MatSnackBar} from '@angular/material';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 
 @Component({
   selector: 'app-exist-add-user',

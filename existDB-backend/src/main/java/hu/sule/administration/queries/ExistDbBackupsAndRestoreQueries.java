@@ -26,15 +26,22 @@ public class ExistDbBackupsAndRestoreQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String createBackup2(ExistDetails details, CreateBackupEntity createBackupEntity) {
+    public String createBackup(ExistDetails details, CreateBackupEntity createBackupEntity) {
         String query = "xquery version '3.1';\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
-                "        system:export(\"/exist/data/export\", " + createBackupEntity.getIsIncremental() + "(), " + createBackupEntity.getIsZip() + "())\n" +
+                "        let $dir := \"" + createBackupEntity.getSaveLocation() + "\"\n" +
+                "        return(\n" +
+                "            if(file:exists($dir)) then\n" +
+                "            system:export($dir, " + createBackupEntity.getIsIncremental() + "(), " + createBackupEntity.getIsZip() + "())\n" +
+                "        else (\n" +
+                "            file:mkdirs($dir),\n" +
+                "            system:export($dir, " + createBackupEntity.getIsIncremental() + "(), " + createBackupEntity.getIsZip() + "())   \n" +
+                "        )\n" +
+                "            )\n" +
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
         return util.stringResultQuery(details,query);
     }
 

@@ -28,7 +28,7 @@ export class DialogService {
         return this.dialog.open(ErrorDialogComponent, {
             width: 'auto',
             minWidth: '300px',
-            panelClass: 'error-dialog-container',
+            panelClass: 'error-page-dialog-container',
             disableClose: false,
             data: {
                 error: msg
@@ -40,7 +40,7 @@ export class DialogService {
         return this.dialog.open(QueryResultDialogComponent, {
             width: 'auto',
             minWidth: '300px',
-            panelClass: 'error-dialog-container',
+            panelClass: 'error-page-dialog-container',
             disableClose: false,
             data: {
                 res: result

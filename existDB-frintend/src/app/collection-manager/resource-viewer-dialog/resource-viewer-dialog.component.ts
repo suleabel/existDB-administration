@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {FileExplorerService} from '../service/file-explorer.service';
 import {Credentials} from '../model/Credentials';
 import {StoreResourceModel} from '../model/StoreResourceModel';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {EvalResultViewerComponent} from '../eval-result-viewer/eval-result-viewer.component';
 import {XmlParserService} from '../service/xml-parser.service';
@@ -77,7 +77,7 @@ export class ResourceViewerDialogComponent implements OnInit {
     private save(saveRes: StoreResourceModel) {
         this.fileExplorerService.editResource(saveRes)
             .subscribe(data => {
-                    this.notificationService.success('Saved: ' + data);
+                    this.notificationService.success('Saved');
                 },
                 error => {
                     this.notificationService.Error(error.error);
@@ -91,7 +91,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                     const dialogRef = this.dialog.open(EvalResultViewerComponent, {
                         width: '80%',
                         height: 'auto',
-                        data: {res: result}
+                        data: {res: result.response}
                     });
                     dialogRef.afterClosed().subscribe();
                 },

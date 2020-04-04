@@ -22,22 +22,26 @@ public class UserManagerController {
     private UserManagerService userManagerService;
 
     @RequestMapping("/getUsers")
-    public ResponseEntity<ArrayList<ExistDBUser>> GetUsers() throws XMLDBException, JDOMException, IOException {
+    public ResponseEntity<ArrayList<ExistDBUser>> GetUsers() throws  JDOMException, IOException {
         return new ResponseEntity<>(userManagerService.listUsers(), HttpStatus.OK);
     }
 
     @RequestMapping("getUsersNames")
-    public List<String> getUsersNames() throws XMLDBException {return userManagerService.getUsersNames();}
+    public ResponseEntity<List<String>> getUsersNames() {return new ResponseEntity<>(userManagerService.getUsersNames(),HttpStatus.OK);}
 
     @RequestMapping("/deleteUser")
-    public String deleteUser(@RequestBody String username) throws XMLDBException{ return userManagerService.deleteUser(username); }
+    public ResponseEntity<String> deleteUser(@RequestBody String username) {
+        return new ResponseEntity<>("{\"response\":\"" + userManagerService.deleteUser(username) + "\"}",HttpStatus.OK);
+    }
 
     @RequestMapping("/createUser")
-    public String createUser(@RequestBody ExistDBUser user) throws XMLDBException{
-        return userManagerService.createUser(user);
+    public ResponseEntity<String> createUser(@RequestBody ExistDBUser user) {
+        return new ResponseEntity<>("{\"response\":\"" + userManagerService.createUser(user) + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/editUser")
-    public String editUser(@RequestBody ExistDBUser user) throws XMLDBException, JDOMException, IOException { return userManagerService.editUser(user); }
+    public ResponseEntity<String> editUser(@RequestBody ExistDBUser user) throws JDOMException, IOException {
+        return new ResponseEntity<>("{\"response\":\"" + userManagerService.editUser(user) + "\"}",HttpStatus.OK);
+    }
 
 }

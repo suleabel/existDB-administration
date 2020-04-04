@@ -41,7 +41,6 @@
                                     </div>
                                 </div>
                                 <div class="card-body" *ngIf="!(isLoading2$ | async)">
-                                    <label>Not working fine</label>
                                     <label for="location2">Location:</label>
                                     <input id="location2" type="text" [(ngModel)]="entity.saveLocation">
                                     <label for="isZip"></label>
@@ -101,15 +100,6 @@
                                             <th mat-header-cell *matHeaderCellDef>previous</th>
                                             <td mat-cell *matCellDef="let element">
                                                 <label>{{element.previous}}</label>
-                                            </td>
-                                        </ng-container>
-
-                                        <ng-container matColumnDef="download">
-                                            <th mat-header-cell *matHeaderCellDef>download</th>
-                                            <td mat-cell *matCellDef="let element">
-                                                <button *ngIf="element.downloadable" class="btn btn-success" disabled>
-                                                    <a href="" >Download</a>
-                                                </button>
                                             </td>
                                         </ng-container>
 

@@ -39,7 +39,7 @@ import { NgxEditorModule } from 'ngx-editor';
 import { UserManagerComponent } from './user-manager-module/user-manager.component';
 import {httpInterceptorProvider} from './auth-module/auth-interceptor';
 import {AuthGuardService} from './auth-module/auth-guard.service';
-import { ErrorComponent } from './errors-module/error/error.component';
+import { ErrorPageComponent } from './error-notification-module/error-page/error-page.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ExistUsersListComponent } from './user-manager-module/exist-users-list/exist-users-list.component';
 import { ExistUsersEditDetailsComponent } from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
@@ -56,7 +56,7 @@ import { TriggersManagerComponent } from './triggers-manager/triggers-manager.co
 import { CollectionsDialogComponent } from './triggers-manager/collections-dialog/collections-dialog.component';
 import { CreateDirDialogComponent } from './collection-manager/create-dir-dialog/create-dir-dialog.component';
 import { ResourceViewerDialogComponent } from './collection-manager/resource-viewer-dialog/resource-viewer-dialog.component';
-import { ConfirmDialogComponent } from './error-dialog/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from './error-notification-module/confirm-dialog/confirm-dialog.component';
 import { XmlFileViewerComponent } from './triggers-manager/xml-file-viewer/xml-file-viewer.component';
 import { AddTriggerComponent } from './triggers-manager/add-trigger/add-trigger.component';
 import { VersionManagementModuleComponent } from './version-management-module/version-management-module.component';
@@ -70,14 +70,14 @@ import { CreateNewResourceComponent } from './collection-manager/create-new-reso
 import { InformationDialogComponent } from './backup-and-restore-moduel/information-dialog/information-dialog.component';
 import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file/browse-xquery-file.component';
 import { EvalResultViewerComponent } from './collection-manager/eval-result-viewer/eval-result-viewer.component';
-import { ErrorDialogComponent } from './error-dialog/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from './error-notification-module/error-dialog/error-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import {TypeaheadModule} from 'ngx-bootstrap';
 import { ViewChangesDialogComponent } from './version-management-module/view-changes-dialog/view-changes-dialog.component';
 import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-dialog.component';
 import { CreateNewFileComponent } from './file-manager/create-new-file/create-new-file.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component';
-import { QueryResultDialogComponent } from './error-dialog/query-result-dialog/query-result-dialog.component';
+import { QueryResultDialogComponent } from './error-notification-module/query-result-dialog/query-result-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +85,7 @@ import { QueryResultDialogComponent } from './error-dialog/query-result-dialog/q
     LoginPageComponent,
     TopBarComponent,
     UserManagerComponent,
-    ErrorComponent,
+    ErrorPageComponent,
     ExistUsersListComponent,
     ExistUsersEditDetailsComponent,
     ExistGroupListComponent,

@@ -2,12 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
 import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
-import {DialogService} from '../../error-dialog/service/dialog.service';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {DialogService} from '../../error-notification-module/service/dialog.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {ExistUserModel} from '../model/existUser.model';
 import {ExistAddUserComponent} from '../exist-add-user/exist-add-user.component';
-import {stringify} from 'querystring';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-exist-users-list',

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FileManagerService} from '../service/file-manager.service';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 
 @Component({
     selector: 'app-file-viewer-dialog',
@@ -29,7 +29,7 @@ export class FileViewerDialogComponent implements OnInit {
     readFile(fullPath) {
         this.fileManagerService.readFile(fullPath)
             .subscribe(data => {
-                    this.content = data;
+                    this.content = data.response;
                 }, error => {
                     this.notificationService.Error(error.error);
                 }

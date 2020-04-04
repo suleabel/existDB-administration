@@ -4,10 +4,10 @@ import {FileManagerService} from './service/file-manager.service';
 import {BehaviorSubject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {FileViewerDialogComponent} from './file-viewer-dialog/file-viewer-dialog.component';
-import {NotificationService} from '../error-dialog/service/notification.service';
 import {MakeDirDialogComponent} from './make-dir-dialog/make-dir-dialog.component';
 import {StoreDirOrFileModel} from './model/StoreDirOrFileModel';
 import {CreateNewFileComponent} from './create-new-file/create-new-file.component';
+import {NotificationService} from '../error-notification-module/service/notification.service';
 
 @Component({
     selector: 'app-file-manager',
@@ -59,8 +59,7 @@ export class FileManagerComponent implements OnInit {
     getRootDir() {
         this.fileManagerService.getRootDirectory()
             .subscribe(data => {
-                    console.log(data);
-                    this.root = data;
+                    this.root = data.response;
                     this.selectedDir = this.root;
                     this.loadData(this.root);
                 },
@@ -161,6 +160,7 @@ export class FileManagerComponent implements OnInit {
                 };
                 this.fileManagerService.makeDir(dir).subscribe(
                     data => {
+                        this.loadData(this.selectedDir);
                         this.notificationService.success('Directory created');
                     },
                     error => {

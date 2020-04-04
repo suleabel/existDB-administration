@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {EditTriggerModel} from '../model/EditTriggerModel';
-import {DialogService} from '../../error-dialog/service/dialog.service';
+import {DialogService} from '../../error-notification-module/service/dialog.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TriggersService} from '../service/triggers.service';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 import {BrowseXqueryFileComponent} from '../browse-xquery-file/browse-xquery-file.component';
 import {BehaviorSubject} from 'rxjs';

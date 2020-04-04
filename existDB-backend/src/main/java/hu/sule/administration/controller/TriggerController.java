@@ -7,6 +7,8 @@ import hu.sule.administration.service.TriggerService;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,33 +27,28 @@ public class TriggerController {
     TriggerService triggerService;
 
     @RequestMapping("initTriggersDefaultDir")
-    public void initTriggerDirIfNotExist() throws XMLDBException {
+    public void initTriggerDirIfNotExist() {
         triggerService.InitTriggerDir();
     }
 
     @RequestMapping("initTriggerConfig")
-    public String initTriggerConfig(HttpEntity<String> httpEntity) throws XMLDBException{
-        return triggerService.initTriggerConfig(httpEntity.getBody());
+    public ResponseEntity<String> initTriggerConfig(HttpEntity<String> httpEntity) {
+        return new ResponseEntity<>("{\"response\":\"" + triggerService.initTriggerConfig(httpEntity.getBody()) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("addTrigger")
-    public String addTrigger(@RequestBody EditTriggerModel editTriggerModel) throws XMLDBException {
-        return triggerService.addTrigger(editTriggerModel);
+    public ResponseEntity<String> addTrigger(@RequestBody EditTriggerModel editTriggerModel) {
+        return new ResponseEntity<>("{\"response\":\"" + triggerService.addTrigger(editTriggerModel) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("editTrigger")
-    public String saveEdit(@RequestBody ForStoreResourceAndColl storeResource) throws XMLDBException{
-        return triggerService.editTrigger(storeResource);
+    public ResponseEntity<String> saveEdit(@RequestBody ForStoreResourceAndColl storeResource){
+        return new ResponseEntity<>("{\"response\":\"" + triggerService.editTrigger(storeResource) + "\"}",HttpStatus.OK);
     }
 
-//    @RequestMapping("getTriggers")
-//    public List<TriggerModel> getTriggers(HttpEntity<String> httpEntity){
-//        return triggerService.getTriggers(httpEntity.getBody());
-//    }
-
     @RequestMapping("getTriggersConfig")
-    public ArrayList<ExistCollectionManagerModel> getTriggerConfigurations(HttpEntity<String> httpEntity) throws XMLDBException, JDOMException, IOException{
-        return triggerService.getTriggerConfiguration(httpEntity.getBody());
+    public ResponseEntity<ArrayList<ExistCollectionManagerModel>> getTriggerConfigurations(HttpEntity<String> httpEntity) throws IOException{
+        return new ResponseEntity<>(triggerService.getTriggerConfiguration(httpEntity.getBody()),HttpStatus.OK);
     }
 
 

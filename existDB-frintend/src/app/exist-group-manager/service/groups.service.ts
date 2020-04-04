@@ -14,30 +14,29 @@ const httpOptions = {
 export class GroupsService {
     private selectedGroup: ExistGroupModel = null;
     /* tslint:disable:no-string-literal */
-    private baseURL = window['cfgApiBaseUrl'] + '/exist/';
+    private baseURL = window['cfgApiBaseUrl'] + '/groups/';
     /* tslint:enable:no-string-literal */
     constructor(private http: HttpClient) {
     }
 
     public getExistGroups(): Observable<any> {
-        return this.http.get(this.baseURL + 'getGroups');
+        return this.http.get(this.baseURL + 'getGroups', httpOptions);
     }
 
     public addGroupToExist(groupModel: ExistGroupModel): Observable<any> {
-        console.log(stringify(groupModel));
-        return this.http.post(this.baseURL + 'createGroup', groupModel, {responseType: 'text'});
+        return this.http.post(this.baseURL + 'createGroup', groupModel, httpOptions);
     }
 
     public deleteGroup(group: string): Observable<any> {
-        return this.http.post(this.baseURL + 'deleteGroup', group, {responseType: 'text'});
+        return this.http.post(this.baseURL + 'deleteGroup', group, httpOptions);
     }
 
     public getUsersNames(): Observable<any> {
-        return this.http.get(this.baseURL + 'getUsersNames');
+        return this.http.get(this.baseURL + 'getUsersNames', httpOptions);
     }
 
     public editGroups(group: ExistGroupModel): Observable<any> {
-        return this.http.post(this.baseURL + 'editGroup', group, {responseType: 'text'});
+        return this.http.post(this.baseURL + 'editGroup', group, httpOptions);
     }
 
     public getSelectedGroup() {

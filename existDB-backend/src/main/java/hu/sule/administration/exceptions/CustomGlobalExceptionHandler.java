@@ -1,6 +1,6 @@
 package hu.sule.administration.exceptions;
 
-import hu.sule.administration.xsdGenerator.XMLIsNotValidException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jdom2.JDOMException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,49 +24,49 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     @ExceptionHandler({Exception.class})
     public ResponseEntity<CustomErrorResponse> customExceptionHandle(Exception e, HttpServletRequest request) {
         CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"Exception", e.getMessage(),request.getRequestURL().toString());
-        logger.error("Exception: " + errors.toString());
+        logger.error("Exception: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler({CustomeException.class})
-    public ResponseEntity<CustomErrorResponse> customExceptionHandle(CustomeException e, HttpServletRequest request) {
-        CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"CustomeException", e.getSubType(),e.getLocation(),e.getMessage(),request.getRequestURL().toString());
-        logger.error("CustomeException: " + errors.toString());
+    @ExceptionHandler({CustomException.class})
+    public ResponseEntity<CustomErrorResponse> customExceptionHandle(CustomException e, HttpServletRequest request) {
+        CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"CustomException", e.getSubType(),e.getLocation(),e.getMessage(),request.getRequestURL().toString());
+        logger.error("CustomException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({IOException.class})
     public ResponseEntity<CustomErrorResponse> customIOExceptionHandle(IOException e, HttpServletRequest request) {
         CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"IOException", e.getMessage(),request.getRequestURL().toString());
-        logger.error("IOException: " + errors.toString());
+        logger.error("IOException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({XMLDBException.class})
     public ResponseEntity<CustomErrorResponse> customXMLDBExceptionHandle(XMLDBException e, HttpServletRequest request) {
         CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"XMLDBException", e.getMessage(), request.getRequestURL().toString());
-        logger.error("XMLDBException: " + errors.toString());
+        logger.error("XMLDBException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({JDOMException.class})
     public ResponseEntity<CustomErrorResponse> customJDOMExceptionHandle(JDOMException e, HttpServletRequest request) {
         CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"JDOMException", e.getMessage(), request.getRequestURL().toString());
-        logger.error("JDOMException: " + errors.toString());
+        logger.error("JDOMException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({SAXException.class})
     public ResponseEntity<CustomErrorResponse> customSAXExceptionHandle(SAXException e, HttpServletRequest request) {
         CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"SAXException", e.getMessage(), request.getRequestURL().toString());
-        logger.error("SAXException: " + errors.toString());
+        logger.error("SAXException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({XMLIsNotValidException.class})
     public ResponseEntity<CustomErrorResponse> customXMLIsNotValidExceptionHandle(XMLIsNotValidException e, HttpServletRequest request) {
         CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"XMLIsNotValidException", e.getMessage(), request.getRequestURL().toString());
-        logger.error("XMLIsNotValidException: " + errors.toString());
+        logger.error("XMLIsNotValidException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

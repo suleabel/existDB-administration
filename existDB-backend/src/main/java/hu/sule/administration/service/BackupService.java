@@ -31,15 +31,15 @@ public class BackupService {
 
     private static final Logger logger = LoggerFactory.getLogger(BackupService.class);
 
-    public ArrayList<BackupEntity> getBackups(String url) throws XMLDBException, IOException, JDOMException {
+    public ArrayList<BackupEntity> getBackups(String url) throws IOException, JDOMException {
         return mapBackups(existDbBackupsAndRestoreQueries.getBackups(ExistDbCredentialsService.getDetails(), url));
     }
 
-    public String createBackup(CreateBackupEntity createBackupEntity) throws JDOMException, IOException, XMLDBException {
-        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbBackupsAndRestoreQueries.createBackup2(ExistDbCredentialsService.getDetails(), createBackupEntity))));
+    public String createBackup(CreateBackupEntity createBackupEntity) throws JDOMException, IOException {
+        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbBackupsAndRestoreQueries.createBackup(ExistDbCredentialsService.getDetails(), createBackupEntity))));
     }
 
-    public String restoreBackup(String name) throws JDOMException, IOException, XMLDBException {
+    public String restoreBackup(String name) throws JDOMException, IOException {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbBackupsAndRestoreQueries.restoreBackup(ExistDbCredentialsService.getDetails(), name))));
 
     }
@@ -57,7 +57,6 @@ public class BackupService {
                 BackupEntity backupEntity = new BackupEntity();
                 backupEntity.setFileName(backup.getAttributeValue("file"));
                 backupEntity.setDownloadable(backupEntity.getFileName().contains(".zip"));
-                backupEntity.setDownloadLink("http://" + ExistDbCredentialsService.getDetails().getIp() + "/exist/apps/dashboard/bower_components/existdb-backup/modules/backup.xql?action=retrieve&archive=" + backupEntity.getFileName());
                 for (Element detail: details) {
                     switch(detail.getName()){
                         case "nr-in-sequence":

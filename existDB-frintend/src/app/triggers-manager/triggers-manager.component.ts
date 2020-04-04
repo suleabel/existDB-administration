@@ -3,7 +3,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {CollectionsDialogComponent} from './collections-dialog/collections-dialog.component';
 import {TriggersService} from './service/triggers.service';
 import {XmlFileViewerComponent} from './xml-file-viewer/xml-file-viewer.component';
-import {NotificationService} from '../error-dialog/service/notification.service';
+import {NotificationService} from '../error-notification-module/service/notification.service';
 import {BehaviorSubject} from 'rxjs';
 import {Credentials} from '../collection-manager/model/Credentials';
 import {FileExplorerService} from '../collection-manager/service/file-explorer.service';

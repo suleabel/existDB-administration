@@ -18,11 +18,11 @@ export class XmlToXsdService {
 constructor(private http: HttpClient) { }
 
 public sendXml(xmlString: string): Observable<any> {
-    return this.http.post(this.baseURL + 'createXsd', xmlString, {responseType: 'text'});
+    return this.http.post(this.baseURL + 'createXsd', xmlString, httpOptions);
 }
 
 public saveXsd(xsdString: StoreResourceModel): Observable<any> {
-    return this.http.post(this.baseURL + 'saveXsd', xsdString, {responseType: 'text'});
+    return this.http.post(this.baseURL + 'saveXsd', xsdString, httpOptions);
 }
 
 }

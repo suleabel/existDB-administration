@@ -20,27 +20,27 @@ export class UserService {
 
   // exist
   public getExistUsers(): Observable<any> {
-    return this.http.get(this.baseUrlForExist + 'getUsers');
+    return this.http.get(this.baseUrlForExist + 'getUsers', httpOptions);
   }
 
   // exist
   public getGroupsNames(): Observable<any> {
-    return this.http.get(this.baseUrlForExist + 'getGroupsNames');
+    return this.http.get(this.baseUrlForExist + 'getGroupsNames', httpOptions);
   }
 
   // exist
   public addUserToExist(user: ExistUserModel): Observable<any> {
-    return this.http.post(this.baseUrlForExist + 'createUser', user, {responseType: 'text'});
+    return this.http.post(this.baseUrlForExist + 'createUser', user, httpOptions);
   }
 
   // exist
   public editUser(user: ExistUserModel): Observable<any> {
-    return this.http.post(this.baseUrlForExist + 'editUser', user, {responseType: 'text'});
+    return this.http.post(this.baseUrlForExist + 'editUser', user, httpOptions);
   }
 
   // exist
   public deleteUser(username: string): Observable<any> {
-    return this.http.post(this.baseUrlForExist + 'deleteUser', username, {responseType: 'text'});
+    return this.http.post(this.baseUrlForExist + 'deleteUser', username, httpOptions);
   }
 
   // exist

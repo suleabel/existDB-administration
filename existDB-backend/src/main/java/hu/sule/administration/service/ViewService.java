@@ -27,8 +27,8 @@ public class ViewService {
     @Autowired
     private CollectionService collectionService;
 
-    public void createViewTrigger(ViewCreateModel viewCreateModel)throws XMLDBException {
-        //TODO meg lehetne keresni a meneneti doc ok legkissebb tözös kollekcióját de nincs rá ötletem, hogy hogyan
+    public void createViewTrigger(ViewCreateModel viewCreateModel) {
+        //TODO meg lehetne keresni a meneneti doc ok legkissebb közös kollekcióját de nincs rá ötletem, hogy hogyan
         String triggerConfigLocation = "/db/system/config/db";
         String trigger_name = "/db/view_triggers/trigger_for_" + viewCreateModel.getViewName().replace(".xml", ".xql");
         ArrayList<String> docs = getDocs(viewCreateModel.getQueryExpression());

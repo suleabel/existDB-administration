@@ -23,7 +23,7 @@ public class ViewController {
     private ViewService viewService;
 
     @RequestMapping("/createView")
-    public ResponseEntity<String> createVire(@RequestBody ViewCreateModel viewCreateModel) throws IOException, JDOMException, XMLDBException {
+    public ResponseEntity<String> createVire(@RequestBody ViewCreateModel viewCreateModel) {
         viewService.createViewTrigger(viewCreateModel);
         return new ResponseEntity<>("{\"response\":\"test\"}",HttpStatus.OK);
     }

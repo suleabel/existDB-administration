@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {Credentials} from '../../collection-manager/model/Credentials';
 import {VersionManagementService} from '../service/version-management.service';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {VersionsModel} from '../model/VersionsModel';
 import {ReversionsModel} from '../model/ReversionsModel';
 import {GetDiffByRevModel} from '../model/GetDiffByRevModel';

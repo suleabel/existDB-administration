@@ -1,5 +1,6 @@
 package hu.sule.administration.xsdGenerator;
 
+import hu.sule.administration.exceptions.XMLIsNotValidException;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.service.CollectionService;
 import org.exolab.castor.xml.schema.Schema;
@@ -47,7 +48,6 @@ public class XMLtoXSDService {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
     }
 
-    //TODO kivételkezelés átalakítása
     private boolean validateXML(String xml) {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(false);

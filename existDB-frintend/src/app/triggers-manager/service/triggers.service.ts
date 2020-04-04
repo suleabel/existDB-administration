@@ -24,15 +24,15 @@ export class TriggersService {
     }
 
     public addTrigger(data: EditTriggerModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'addTrigger', data, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'addTrigger', data, httpOptions);
     }
 
     public editTrigger(res: StoreResourceModel): Observable<any> {
-        return this.http.post(this.baseUrl + 'editTrigger', res, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'editTrigger', res, httpOptions);
     }
 
     public initializeTriggerConfig(): Observable<any> {
-        return this.http.post(this.baseUrl + 'initTriggerConfig', this.selectedCollection, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'initTriggerConfig', this.selectedCollection, httpOptions);
     }
 
     // public getTriggers(url: string): Observable<any> {

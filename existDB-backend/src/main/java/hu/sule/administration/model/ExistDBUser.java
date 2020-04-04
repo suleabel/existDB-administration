@@ -27,7 +27,7 @@ public class ExistDBUser implements Serializable {
         this.primaryGroup = primaryGroup;
         this.fullName = fullName;
         this.desc = desc;
-        Default = aDefault;
+        this.Default = aDefault;
         this.enabled = enabled;
     }
     public String getGroupsAsString(){

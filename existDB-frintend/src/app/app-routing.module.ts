@@ -5,7 +5,7 @@ import {HomePageComponent} from './home-page-module/home-page/home-page.componen
 import {UserManagerComponent} from './user-manager-module/user-manager.component';
 import {AuthGuardService} from './auth-module/auth-guard.service';
 import {AppComponent} from './app.component';
-import {ErrorComponent} from './errors-module/error/error.component';
+import {ErrorPageComponent} from './error-notification-module/error-page/error-page.component';
 import {ExistUsersEditDetailsComponent} from './user-manager-module/exist-users-edit-details/exist-users-edit-details.component';
 import {ExistGroupManagerComponent} from './exist-group-manager/exist-group-manager.component';
 import {ExistGroupDetailsComponent} from './exist-group-manager/exist-group-details/exist-group-details.component';
@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'exist-group-manager', component: ExistGroupManagerComponent, canActivate: [AuthGuardService]},
   {path: 'exist-user-edit-details', component: ExistUsersEditDetailsComponent, canActivate: [AuthGuardService]},
   {path: 'exist-group-edit-details', component: ExistGroupDetailsComponent, canActivate: [AuthGuardService]},
-  {path: 'error', component: ErrorComponent},
+  {path: 'error', component: ErrorPageComponent},
   {path: 'xml2xsd', component: XmlToXsdComponent, canActivate: [AuthGuardService]},
   {path: 'create-xquery', component: CreateXqueryComponent, canActivate: [AuthGuardService]},
   {path: 'file-credentials', component: FileCredentialsComponent, canActivate: [AuthGuardService]},

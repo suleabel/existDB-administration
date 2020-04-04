@@ -29,23 +29,23 @@ public class GroupManagerService {
 
     private static final Logger logger = LoggerFactory.getLogger(GroupManagerService.class);
 
-    public ArrayList<ExistDBGroup> listGroups() throws XMLDBException, JDOMException, IOException {
+    public ArrayList<ExistDBGroup> listGroups() throws JDOMException, IOException {
         return mapGroupsQueryResult(existDbGroupManagerQueries.getGroups2(ExistDbCredentialsService.getDetails()));
     }
 
-    public String createGroup(ExistDBGroup group) throws XMLDBException {
+    public String createGroup(ExistDBGroup group) {
         return existDbGroupManagerQueries.createGroup(ExistDbCredentialsService.getDetails(), group);
     }
 
-    public String deleteGroup(String group) throws XMLDBException {
+    public String deleteGroup(String group) {
         return existDbGroupManagerQueries.deleteGroup(ExistDbCredentialsService.getDetails(), group);
     }
 
-    public String editGroup(ExistDBGroup group) throws XMLDBException {
+    public String editGroup(ExistDBGroup group) {
         return existDbGroupManagerQueries.editGroup(ExistDbCredentialsService.getDetails(), group);
     }
 
-    public List<String> getGroupsName() throws XMLDBException {
+    public List<String> getGroupsName() {
         return Arrays.asList(existDbGroupManagerQueries.getGroupsNames(ExistDbCredentialsService.getDetails()).split("\n"));
     }
 

@@ -1,5 +1,5 @@
 package hu.sule.administration.service;
-import hu.sule.administration.exceptions.CustomeException;
+import hu.sule.administration.exceptions.CustomException;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
-import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -39,7 +38,7 @@ public class TriggerService {
 
     private static final Logger logger = LoggerFactory.getLogger(TriggerService.class);
 
-    public void InitTriggerDir() throws XMLDBException {
+    public void InitTriggerDir() {
         String triggerDir = "triggerQueries";
         if(!Arrays.asList(existDbCollectionManagerQueries.getCollectionContent(ExistDbCredentialsService.getDetails()
                 , "/db").split("\n")).contains(triggerDir)){
@@ -48,7 +47,7 @@ public class TriggerService {
         }
     }
 
-    public String initTriggerConfig(String path) throws XMLDBException {
+    public String initTriggerConfig(String path) {
         String configRoot = "/db/system/config";
         StringBuilder testedPath = new StringBuilder(configRoot);
         String[] pathParts = path.split("/");
@@ -64,7 +63,7 @@ public class TriggerService {
         return existDBTriggerQueries.initTriggerConfig(ExistDbCredentialsService.getDetails(), path);
     }
 
-    public String addTrigger(EditTriggerModel editTriggerModel) throws XMLDBException {
+    public String addTrigger(EditTriggerModel editTriggerModel) {
         return addTriggerToConfiguration(editTriggerModel, editTriggerModel.getPath());
     }
 
@@ -75,9 +74,9 @@ public class TriggerService {
         try{
             doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url + "/collection.xconf").getContent())));
         }catch (JDOMException e){
-            throw new CustomeException(e.getMessage(),"addTriggerToConfiguration","JDOMException");
+            throw new CustomException(e.getMessage(),"addTriggerToConfiguration","JDOMException", e.getStackTrace());
         }catch (IOException e){
-            throw new CustomeException(e.getMessage(),"addTriggerToConfiguration","IOException");
+            throw new CustomException(e.getMessage(),"addTriggerToConfiguration","IOException", e.getStackTrace());
         }
         if(doc != null) {
 
@@ -112,61 +111,16 @@ public class TriggerService {
         }
     }
 
-//    public List<TriggerModel> getTriggers(String url) throws XMLDBException {
-//        List<TriggerModel> triggersList = new ArrayList<>();
-//        SAXBuilder saxBuilder = new SAXBuilder();
-//        Document doc = null;
-//        try {
-//            doc = saxBuilder.build(new InputSource(new StringReader(collectionService.readFile(url).getContent())));
-//        } catch (JDOMException | IOException e){
-//            logger.error("SAXBuilder exception: " + e.getMessage()) ;
-//        }
-//        if(doc != null) {
-//            Element collection = doc.getRootElement();
-//            List<Element> triggers = collection.getChildren().get(0).getChildren();
-//            for (Element trigger: triggers) {
-//                Element parameter = trigger.getChild("parameter");
-//                TriggerModel triggerModel = new TriggerModel();
-//                if(trigger.getAttributeValue("event") != null){
-//                    triggerModel.setEvent(Arrays.asList(trigger.getAttributeValue("event").split(",")));
-//                } else {
-//                    triggerModel.setEvent(new ArrayList<>());
-//                }
-//                if(trigger.getAttributeValue("class") != null){
-//                    triggerModel.settClass(trigger.getAttributeValue("class"));
-//                }
-//                else {
-//                    triggerModel.settClass("");
-//                }
-//                if(parameter != null){
-//                    if(parameter.getAttributeValue("name") != null){
-//                        triggerModel.setName(parameter.getAttributeValue("name"));
-//                    }else{
-//                        triggerModel.setName("");
-//                    }
-//                    if(parameter.getAttributeValue("value") != null){
-//                       triggerModel.setValue(parameter.getAttributeValue("value"));
-//                    }else{
-//                        triggerModel.setValue("");
-//                    }
-//                }
-//                triggersList.add(triggerModel);
-//            }
-//        }
-//        System.out.println(triggersList);
-//        return triggersList;
-//    }
-
-    public ArrayList<ExistCollectionManagerModel> getTriggerConfiguration(String url) throws XMLDBException, JDOMException, IOException {
+    public ArrayList<ExistCollectionManagerModel> getTriggerConfiguration(String url) throws IOException {
         return collectionService.getFileManagerContentByCollection(url);
     }
 
-    private boolean configIsAvailable(String path) throws XMLDBException {
+    private boolean configIsAvailable(String path) {
         return existDBTriggerQueries.triggerConfigIsAvailable(ExistDbCredentialsService.getDetails(), path);
     }
 
 
-    public String editTrigger(ForStoreResourceAndColl storeResource) throws XMLDBException {
+    public String editTrigger(ForStoreResourceAndColl storeResource) {
         return existDBTriggerQueries.saveEditedTrigger(ExistDbCredentialsService.getDetails(), storeResource.getUrl(), String.join("\n", storeResource.getContent()).replaceAll("\"","'"));
     }
 }

@@ -33,7 +33,7 @@ public class CollectionService {
 
     private static final Logger logger = LoggerFactory.getLogger(CollectionService.class);
 
-    public ArrayList<ExistCollectionManagerModel> getFileManagerCollectionsByCollection(String collection) throws XMLDBException, JDOMException, IOException {
+    public ArrayList<ExistCollectionManagerModel> getFileManagerCollectionsByCollection(String collection) throws IOException {
             ArrayList<ExistCollectionManagerModel> collections = new ArrayList<>();
         for (ExistCollectionManagerModel col: mapCollectionQueryResult(existDbCollectionManagerQueries.getCollectionContent2(ExistDbCredentialsService.getDetails(), collection))) {
             if(!col.isResource())
@@ -42,43 +42,43 @@ public class CollectionService {
         return collections;
     }
 
-    public ArrayList<ExistCollectionManagerModel> getFileManagerContentByCollection(String collection) throws XMLDBException, JDOMException, IOException {
+    public ArrayList<ExistCollectionManagerModel> getFileManagerContentByCollection(String collection) throws IOException {
         return mapCollectionQueryResult(existDbCollectionManagerQueries.getCollectionContent2(ExistDbCredentialsService.getDetails(), collection));
     }
 
-    public String createDir(ForStoreResourceAndColl storeResource) throws XMLDBException {
+    public String createDir(ForStoreResourceAndColl storeResource) {
         return existDbCollectionManagerQueries.createCollection(ExistDbCredentialsService.getDetails(), storeResource);
     }
 
-    public String Store(ForStoreResourceAndColl forStoreResourceAndColl) throws XMLDBException {
+    public String Store(ForStoreResourceAndColl forStoreResourceAndColl) {
         return existDbCollectionManagerQueries.saveResource(ExistDbCredentialsService.getDetails(), forStoreResourceAndColl);
     }
 
-    public String saveEditedRes(ForStoreResourceAndColl forStoreResourceAndColl) throws XMLDBException {
+    public String saveEditedRes(ForStoreResourceAndColl forStoreResourceAndColl) {
         return existDbCollectionManagerQueries.saveEditedRes(ExistDbCredentialsService.getDetails(), forStoreResourceAndColl);
     }
 
-    public String deleteFile(ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
+    public String deleteFile(ExistCollectionManagerModel existCollectionManagerModel) {
         return existDbCollectionManagerQueries.deleteResource(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
-    public String deleteCollection(ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
+    public String deleteCollection(ExistCollectionManagerModel existCollectionManagerModel) {
         return existDbCollectionManagerQueries.removeCollection(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
-    public String editResCred(ExistCollectionManagerModel existCollectionManagerModel) throws XMLDBException {
+    public String editResCred(ExistCollectionManagerModel existCollectionManagerModel) {
         return existDbCollectionManagerQueries.editResCred(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
-    public String evalXqueryasString(String query) throws XMLDBException {
+    public String evalXqueryasString(String query) {
         return existDbCollectionManagerQueries.evalXqueryasString(ExistDbCredentialsService.getDetails(),query.replaceAll("\"","'"));
     }
 
-    public String evalXqueryasPath(String query) throws XMLDBException, IOException, JDOMException{
+    public String evalXqueryasPath(String query) throws IOException, JDOMException{
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbCollectionManagerQueries.evalXqueryasPath(ExistDbCredentialsService.getDetails(),query))));
     }
 
-    public String unlockResource(String url) throws XMLDBException{
+    public String unlockResource(String url){
         return existDbCollectionManagerQueries.unlockResource(ExistDbCredentialsService.getDetails(), url);
     }
 
@@ -116,24 +116,4 @@ public class CollectionService {
         }
         return collectionManagerModels;
     }
-
-
-
-
-//    public List<String> getCollectionFree(String collection) {
-//        List<String> collectionTree = new ArrayList<>();
-//        collectionTree.add(collection);
-//        for (String col : getCollectionChilds(collection)) {
-//            collectionTree.addAll(getCollectionFree(col));
-//        }
-//        return collectionTree;
-//    }
-//
-//    public List<String> getCollectionChilds(String col) {
-//        List<String> result = new ArrayList<>();
-//        for (String child : Arrays.asList(existDbCollectionManagerQueries.getCollectionContent(ExistDbCredentialsService.getDetails(), col).split("\n"))) {
-//            result.add(col + "/" + child);
-//        }
-//        return result;
-//    }
 }

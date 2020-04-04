@@ -1,11 +1,9 @@
 package hu.sule.administration.service;
 
-import hu.sule.administration.exceptions.CustomeException;
 import hu.sule.administration.model.FileManagerEntity;
 import hu.sule.administration.model.SerializeFile;
 import hu.sule.administration.model.StoreDirOrFileModel;
 import hu.sule.administration.queries.ExistDbFileExplorerQueries;
-import hu.sule.administration.xsdGenerator.SimpleErrorHandler;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -16,12 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xmldb.api.base.XMLDBException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -34,7 +27,7 @@ public class FileExplorerService {
 
     private static final Logger logger = LoggerFactory.getLogger(FileExplorerService.class);
 
-    public List<FileManagerEntity> getDirectoryContent(String dirname) throws XMLDBException {
+    public List<FileManagerEntity> getDirectoryContent(String dirname) {
         List<FileManagerEntity> fileManagerEntities = new ArrayList<>();
         SAXBuilder saxBuilder = new SAXBuilder();
         Document doc = null;
@@ -60,11 +53,11 @@ public class FileExplorerService {
         return fileManagerEntities;
     }
 
-    public String getRootDirectory() throws XMLDBException {
+    public String getRootDirectory() {
         return existDbFileExplorerQueries.getRootDirectory(ExistDbCredentialsService.getDetails());
     }
 
-    public String getFileContent(String url) throws XMLDBException, JDOMException, IOException {
+    public String getFileContent(String url) throws JDOMException, IOException {
         // XML 1.0
         // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
         String xml10pattern = "[^"

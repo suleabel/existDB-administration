@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {TriggersService} from '../service/triggers.service';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {Credentials} from '../../collection-manager/model/Credentials';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 

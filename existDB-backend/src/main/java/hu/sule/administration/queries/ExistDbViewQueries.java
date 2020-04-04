@@ -1,16 +1,10 @@
 package hu.sule.administration.queries;
 
-import hu.sule.administration.model.ExistDetails;
 import hu.sule.administration.model.ViewCreateModel;
-import hu.sule.administration.util.Util;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ExistDbViewQueries {
-
-    @Autowired
-    private Util util;
 
     public String genViewTrigger(ViewCreateModel viewCreateModel, String condition){
         return "xquery version \"3.1\";\n" +
@@ -44,21 +38,4 @@ public class ExistDbViewQueries {
                 "        )\n" +
                 "};";
     }
-
-//    public String storeViewTrigger(ExistDetails details, String triggerString, String trigger_name){
-//        String query = "xquery version \"3.1\";\n" +
-//                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
-//                "    (\n" +
-//                "        if(xmldb:collection-available(\"/db/view_triggers\"))then\n" +
-//                "            xmldb:store(\"/db/view_triggers\", \"" + trigger_name + "\", " + triggerString.replace("\"", "'") + ", \"application/xquery\")\n" +
-//                "        else(\n" +
-//                "            xmldb:create-collection(\"/db\", \"view_triggers\"),\n" +
-//                "            xmldb:store(\"/db/view_triggers\", \"" + trigger_name + "\", " + triggerString.replace("\"", "'") + ", \"application/xquery\")\n" +
-//                "        ),\n" +
-//                "        sm:chmod(xs:anyURI(concat(\"/db/view_triggers\",\"/\",\"test_trigger.xql\")), \"u+x,g+x,o+x\")\n" +
-//                "    )\n" +
-//                "else\n" +
-//                "false()";
-//        return util.stringResultQuery(details, query);
-//    }
 }

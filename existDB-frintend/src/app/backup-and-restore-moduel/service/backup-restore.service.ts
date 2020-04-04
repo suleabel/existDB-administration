@@ -22,10 +22,10 @@ export class BackupRestoreService {
     }
 
     public createBackup(entity: CreateBackupEntity): Observable<any> {
-        return this.http.post(this.baseUrl + 'createBackup', entity, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'createBackup', entity, httpOptions);
     }
 
     public restoreBackup(path: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'restoreBackup', path, {responseType: 'text'});
+        return this.http.post(this.baseUrl + 'restoreBackup', path, httpOptions);
     }
 }

@@ -4,7 +4,7 @@ import {GroupsService} from '../service/groups.service';
 import {ExistGroupModel} from '../model/existGroup.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {stringify} from 'querystring';
-import {NotificationService} from '../../error-dialog/service/notification.service';
+import {NotificationService} from '../../error-notification-module/service/notification.service';
 
 @Component({
     selector: 'app-exist-group-details',
@@ -47,7 +47,7 @@ export class ExistGroupDetailsComponent implements OnInit {
         }
         this.groupService.editGroups(this.editGroupsData)
             .subscribe(data => {
-                    console.log('edit group return value: ' + data);
+                    console.log('Saved');
                     this.notificationService.success('Success');
                 },
                 error => {

@@ -37,7 +37,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401 || err.status === 403) {
-          console.log('error massage: ' + err.error.message);
+          console.log('error-page massage: ' + err.error.message);
           if (err.error.message === 'Username or password is incorrect') {
             console.log('Username or password is incorrect');
           } else {
@@ -47,14 +47,14 @@ export class AuthInterceptor implements HttpInterceptor {
           }
         } else if (err.status === 0) {
           console.log('ERR_CONNECTION_REFUSED');
-          // location.href = '/error';
+          // location.href = '/error-page';
         }
         // else if (err.status === 200) {
-        //   console.log(err.error.text);
+        //   console.log(err.error-page.text);
         // }
         // if (err.status === 400) {
         //   // location.href = '/register';
-        //   console.log('error, massage: ' + err.error.message);
+        //   console.log('error-page, massage: ' + err.error-page.message);
         // }
       }
     }));
