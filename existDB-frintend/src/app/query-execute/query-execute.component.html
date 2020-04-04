@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <div class="card-deck">
+        <div class=" col-12">
+            <div class="card">
+                <div class="card-header font-weight-bold">
+                    Execute xQuery
+                </div>
+                <div class="card-body">
+                    <label for="queryExpression" >xQuery:</label>
+                    <textarea matInput id="queryExpression" class="form-control" rows="10" [(ngModel)]="query"></textarea>
+                    <div class="buttons">
+                        <button class="btn btn-success" (click)="onExecute()">Check</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

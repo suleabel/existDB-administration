@@ -19,6 +19,7 @@ import {FileManagerComponent} from './file-manager/file-manager.component';
 import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backup-and-restore-module.component';
 import {CreateNewResourceComponent} from './collection-manager/create-new-resource/create-new-resource.component';
 import {ViewManagerComponent} from './view-manager/view-manager.component';
+import {QueryExecuteComponent} from './query-execute/query-execute.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: 'backup-and-restore-module', component: BackupAndRestoreModuleComponent, canActivate: [AuthGuardService]},
   {path: 'create-new-resource', component: CreateNewResourceComponent, canActivate: [AuthGuardService]},
   {path: 'view-manager', component: ViewManagerComponent, canActivate: [AuthGuardService]},
+  {path: 'execute-xQuery', component: QueryExecuteComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];

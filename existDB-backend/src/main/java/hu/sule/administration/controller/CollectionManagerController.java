@@ -73,7 +73,8 @@ public class CollectionManagerController {
 
     @RequestMapping("/evalXqueryasString")
     public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) {
-        return new ResponseEntity<>("{\"response\":\"" + collectionService.evalXqueryasString(httpEntity.getBody()) + "\"}", HttpStatus.OK);
+        System.out.println(collectionService.evalXqueryasString(httpEntity.getBody()));
+        return new ResponseEntity<>("{\"response\":\"" + collectionService.evalXqueryasString(httpEntity.getBody()).replaceAll("\"","'") + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/evalXqueryasPath")

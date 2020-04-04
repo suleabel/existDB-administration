@@ -15,11 +15,9 @@ export class FileExplorerService {
     /* tslint:disable:no-string-literal */
     private baseUrl = window['cfgApiBaseUrl'] + '/collection/';
     /* tslint:enable:no-string-literal */
-    private selectedResourceCredentials: Credentials;
     private OpenedFile: Credentials;
 
     constructor(private http: HttpClient) {
-
     }
 
     public getCollection(collection: string): Observable<any> {
@@ -56,14 +54,6 @@ export class FileExplorerService {
 
     public editResCredentials(cred: Credentials): Observable<any> {
         return this.http.post(this.baseUrl + 'editResCred', cred, httpOptions);
-    }
-
-    public evalXqueryFromPath(url: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'evalXqueryasPath', url, httpOptions);
-    }
-
-    public evalXqueryFromString(query: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'evalXqueryasString', query, httpOptions);
     }
 
     public unlockResource(url: string): Observable<any> {

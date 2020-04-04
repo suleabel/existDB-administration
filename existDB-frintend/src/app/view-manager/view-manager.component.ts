@@ -3,7 +3,7 @@ import {ViewServiceService} from './service/view-service.service';
 import {CreateViewModel} from './model/CreateViewModel';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationService} from '../error-notification-module/service/notification.service';
-import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
+import {QueryService} from '../query-execute/service/query.service';
 
 @Component({
     selector: 'app-view-manager',
@@ -18,7 +18,7 @@ export class ViewManagerComponent implements OnInit {
     constructor(private viewService: ViewServiceService,
                 private notificationService: NotificationService,
                 private formBuilder: FormBuilder,
-                private fileExplorerService: FileExplorerService) {
+                private queryService: QueryService) {
     }
 
     ngOnInit() {
@@ -38,7 +38,7 @@ export class ViewManagerComponent implements OnInit {
     }
 
     onCheck() {
-        this.fileExplorerService.evalXqueryFromString(this.viewForm.value.queryExpression).subscribe(
+        this.queryService.evalXqueryFromString(this.viewForm.value.queryExpression).subscribe(
             data => {
                 this.notificationService.result(data.response);
                 this.queryIsChecked = true;

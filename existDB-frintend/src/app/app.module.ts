@@ -78,6 +78,7 @@ import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-
 import { CreateNewFileComponent } from './file-manager/create-new-file/create-new-file.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { QueryResultDialogComponent } from './error-notification-module/query-result-dialog/query-result-dialog.component';
+import { QueryExecuteComponent } from './query-execute/query-execute.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -123,6 +124,7 @@ import { QueryResultDialogComponent } from './error-notification-module/query-re
       CreateNewFileComponent,
       ViewManagerComponent,
       QueryResultDialogComponent,
+      QueryExecuteComponent,
   ],
     imports: [
         BrowserModule,

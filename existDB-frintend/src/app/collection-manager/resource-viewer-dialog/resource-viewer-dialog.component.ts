@@ -7,6 +7,7 @@ import {NotificationService} from '../../error-notification-module/service/notif
 import {DomSanitizer} from '@angular/platform-browser';
 import {EvalResultViewerComponent} from '../eval-result-viewer/eval-result-viewer.component';
 import {XmlParserService} from '../service/xml-parser.service';
+import {QueryService} from '../../query-execute/service/query.service';
 
 @Component({
     selector: 'app-resource-viewer-dialog',
@@ -23,6 +24,7 @@ export class ResourceViewerDialogComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<ResourceViewerDialogComponent>,
                 private fileExplorerService: FileExplorerService,
+                private queryService: QueryService,
                 private notificationService: NotificationService,
                 private sanitizer: DomSanitizer,
                 private dialog: MatDialog) {
@@ -85,7 +87,7 @@ export class ResourceViewerDialogComponent implements OnInit {
     }
 
     eval() {
-        this.fileExplorerService.evalXqueryFromPath(this.openedFile.path + '/' + this.openedFile.name)
+        this.queryService.evalXqueryFromPath(this.openedFile.path + '/' + this.openedFile.name)
             .subscribe(result => {
                     this.notificationService.success('Success');
                     const dialogRef = this.dialog.open(EvalResultViewerComponent, {
