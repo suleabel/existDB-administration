@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {TriggersService} from '../service/triggers.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
@@ -69,21 +69,7 @@ export class CollectionsDialogComponent implements OnInit {
                     this.notificationService.Error(error.error);
                 });
     }
-
-    createTriggerHere() {
-        this.triggerService.selectedCollection = this.selectedDirectory;
-        this.triggerService.initializeTriggerConfig()
-            .subscribe(
-            data => {
-                this.notificationService.success('Success');
-            }, error => {
-                    this.notificationService.Error(error.error);
-                }
-        );
-        this.dialogRef.close();
-    }
     onClose() {
-        this.triggerService.selectedCollection = undefined;
         this.dialogRef.close();
     }
 

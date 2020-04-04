@@ -13,17 +13,17 @@
             </div>
             <div *ngIf="!(isLoading$ | async)">
                 <div class="card-body" *ngIf="!isEdit">
-                    <label>{{openedFile.path + '/' + openedFile.name}}</label>
+                    <label>{{data.fileData.path + '/' + data.fileData.name}}</label>
                     <pre>
                     <code [highlight]="viewResult" [lineNumbers]="true"></code>
                 </pre>
-                    <button class="btn btn-success" (click)="onAddTrigger()">Add trigger</button>
+                    <button class="btn btn-success" (click)="onAddTrigger(data.fileData)">Add trigger</button>
                     <button class="btn btn-success" (click)="onEdit()">Edit</button>
                     <button class="btn btn-success" (click)="onClose()">Close</button>
                 </div>
 
                 <div class="card-body" *ngIf="isEdit">
-                    <label for="editor">{{openedFile.name}}</label>
+                    <label for="editor">{{data.fileData.name}}</label>
                     <label>isBinary: {{isBinary}}</label>
                     <textarea id="editor" [(ngModel)]="editedContent" rows="4"></textarea>
                     <button class="btn btn-success" (click)="onClose()">Close</button>

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {EditTriggerModel} from '../model/EditTriggerModel';
 import {DialogService} from '../../error-notification-module/service/dialog.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -21,10 +21,10 @@ export class AddTriggerComponent implements OnInit {
     public triggerName = ['url', 'query'];
     public triggerClass = 'org.exist.collections.triggers.XQueryTrigger';
     public tempFormData = {event: '', tClass: this.triggerClass, name: 'url', value: ''};
-    public openedFile;
     public query: string;
 
     constructor(public dialogRef: MatDialogRef<AddTriggerComponent>,
+                @Inject(MAT_DIALOG_DATA) public data,
                 private fileExplorerService: FileExplorerService,
                 private notificationService: NotificationService,
                 private triggerService: TriggersService,
@@ -34,7 +34,6 @@ export class AddTriggerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.openedFile = this.fileExplorerService.openedFile;
         this.buildForm(this.tempFormData);
     }
 
@@ -67,29 +66,15 @@ export class AddTriggerComponent implements OnInit {
             this.isLoading$.next(true);
             if (res) {
                 const trigCredCont: EditTriggerModel = {
-                    path: this.openedFile.path,
-                    fName: this.openedFile.name,
+                    path: this.data.fileData.path,
+                    fName: this.data.fileData.name,
                     event: this.triggerForm.value.event,
                     tClass: this.triggerForm.value.tClass,
                     name: this.triggerForm.value.name,
                     value: this.triggerForm.value.value,
                     isOverwrite: this.triggerForm.value.overwrite.toString(),
                 };
-                console.log(trigCredCont);
-                this.triggerService.addTrigger(trigCredCont)
-                    .subscribe(
-                        data => {
-                            this.notificationService.success('Success');
-                            console.log('success');
-                            this.isLoading$.next(false);
-                            this.dialogRef.close();
-                        },
-                        error => {
-                            this.notificationService.Error(error.error);
-                            console.log('Error');
-                            this.isLoading$.next(false);
-                        }
-                    );
+                this.dialogRef.close(trigCredCont);
             }
         });
     }

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileExplorerService} from './service/file-explorer.service';
 import {Router} from '@angular/router';
 import {Credentials} from './model/Credentials';
-import {MatDialog, MatDialogConfig, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {ResourceViewerDialogComponent} from './resource-viewer-dialog/resource-viewer-dialog.component';
 import {NotificationService} from '../error-notification-module/service/notification.service';
 import {StoreResourceModel} from './model/StoreResourceModel';
@@ -220,11 +220,12 @@ export class CollectionManagerComponent implements OnInit {
     }
 
     view(resCred: Credentials) {
-        this.fileExplorerService.openedFile = resCred;
-        const dialogDirNameConfig = new MatDialogConfig();
-        dialogDirNameConfig.disableClose = true;
-        dialogDirNameConfig.autoFocus = true;
-        dialogDirNameConfig.width = '60%';
-        this.dialog.open(ResourceViewerDialogComponent, dialogDirNameConfig);
+        const dialogRef = this.dialog.open(ResourceViewerDialogComponent, {
+            width: '80%',
+            height: 'auto',
+            maxHeight: '80%',
+            data: {fileData: resCred, url: this.selectedDirectory}
+        });
+        dialogRef.afterClosed().subscribe();
     }
 }

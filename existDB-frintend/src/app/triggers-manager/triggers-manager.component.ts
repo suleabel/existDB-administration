@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
 import {CollectionsDialogComponent} from './collections-dialog/collections-dialog.component';
 import {TriggersService} from './service/triggers.service';
 import {XmlFileViewerComponent} from './xml-file-viewer/xml-file-viewer.component';
@@ -76,14 +76,14 @@ export class TriggersManagerComponent implements OnInit {
         }
     }
 
-    view(resName: Credentials) {
-        console.log(resName);
-        this.fileExplorerService.openedFile = resName;
-        const dialogDirNameConfig = new MatDialogConfig();
-        dialogDirNameConfig.disableClose = true;
-        dialogDirNameConfig.autoFocus = true;
-        dialogDirNameConfig.width = '60%';
-        this.dialog.open(XmlFileViewerComponent, dialogDirNameConfig);
+    view(resCred: Credentials) {
+        const dialogRef = this.dialog.open(XmlFileViewerComponent, {
+            width: '80%',
+            height: 'auto',
+            maxHeight: '80%',
+            data: {fileData: resCred}
+        });
+        dialogRef.afterClosed().subscribe();
     }
 
     backToRoot() {
@@ -91,20 +91,27 @@ export class TriggersManagerComponent implements OnInit {
         this.loadData(this.triggersRootConfigurationLocation);
     }
 
-    openDialog() {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.width = '60%';
-        this.dialog.open(CollectionsDialogComponent, dialogConfig).afterClosed().subscribe(
-          data => {
-                this.loadData(this.triggersRootConfigurationLocation);
+    onInitConf() {
+        const dialogRef = this.dialog.open(CollectionsDialogComponent, {
+            width: '80%',
+            height: 'auto',
+            maxHeight: '80%',
+        });
+        dialogRef.afterClosed().subscribe(
+            data => {
+                console.log(data);
+                this.triggerService.initializeTriggerConfig(data)
+                    .subscribe(
+                        result => {
+                            this.notificationService.success('Success');
+                            this.loadData(this.triggersRootConfigurationLocation);
+                        }, error => {
+                            this.notificationService.Error(error.error);
+                            this.loadData(this.triggersRootConfigurationLocation);
+                        }
+                    );
             }
         );
-    }
-
-    getSelectedCollection() {
-        console.log(this.triggerService.selectedCollection);
     }
 
 }

@@ -25,7 +25,6 @@ public class ExecuteQueryController {
 
     @RequestMapping("/evalXqueryasString")
     public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) {
-        System.out.println(queryService.evalXqueryasString(httpEntity.getBody()));
         return new ResponseEntity<>("{\"response\":\"" + queryService.evalXqueryasString(httpEntity.getBody()) + "\"}", HttpStatus.OK);
     }
 

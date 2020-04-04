@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {FileExplorerService} from '../service/file-explorer.service';
-import {Credentials} from '../model/Credentials';
 import {StoreResourceModel} from '../model/StoreResourceModel';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -17,12 +16,13 @@ import {QueryService} from '../../query-execute/service/query.service';
 export class ResourceViewerDialogComponent implements OnInit {
     public originalContent: string;
     public isBinary: boolean;
-    public openedFile: Credentials;
     public isEdit = false;
     public editedContent = '';
     public fileUrl;
+    public fullPath: string;
 
     constructor(public dialogRef: MatDialogRef<ResourceViewerDialogComponent>,
+                @Inject(MAT_DIALOG_DATA) public data,
                 private fileExplorerService: FileExplorerService,
                 private queryService: QueryService,
                 private notificationService: NotificationService,
@@ -31,8 +31,13 @@ export class ResourceViewerDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.openedFile = this.fileExplorerService.openedFile;
-        this.fileExplorerService.getResContent(this.fileExplorerService.openedFile.path + '/' + this.fileExplorerService.openedFile.name)
+        this.fullPath = this.data.fileData.path + '/' + this.data.fileData.name;
+        this.readFile(this.fullPath);
+        console.log(this.fullPath);
+    }
+
+    readFile(path: string) {
+        this.fileExplorerService.getResContent(path)
             .subscribe(
                 data => {
                     this.originalContent = data.content;
@@ -56,11 +61,11 @@ export class ResourceViewerDialogComponent implements OnInit {
 
     onSave() {
         const saveRes: StoreResourceModel = {
-            url: this.openedFile.path,
-            fileName: this.openedFile.name,
+            url: this.data.fileData.path,
+            fileName: this.data.fileData.name,
             content: this.editedContent,
             isBinary: this.isBinary,
-            mime: this.openedFile.mime
+            mime: this.data.fileData.mime
         };
         if (saveRes.mime === 'application/xml') {
             const result = XmlParserService.validateXML(saveRes.content);
@@ -70,7 +75,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                 this.notificationService.Error2(result);
             }
         } else {
-           this.save(saveRes);
+            this.save(saveRes);
         }
         this.isEdit = false;
         this.dialogRef.close();
@@ -87,7 +92,7 @@ export class ResourceViewerDialogComponent implements OnInit {
     }
 
     eval() {
-        this.queryService.evalXqueryFromPath(this.openedFile.path + '/' + this.openedFile.name)
+        this.queryService.evalXqueryFromPath(this.fullPath)
             .subscribe(result => {
                     this.notificationService.success('Success');
                     const dialogRef = this.dialog.open(EvalResultViewerComponent, {

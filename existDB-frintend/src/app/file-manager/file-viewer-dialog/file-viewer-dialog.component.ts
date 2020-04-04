@@ -22,7 +22,6 @@ export class FileViewerDialogComponent implements OnInit {
 
     ngOnInit() {
         this.fullPath = this.data.url + '/' + this.data.fileData.name;
-        console.log(this.fullPath);
         this.readFile(this.fullPath);
     }
 
@@ -51,7 +50,7 @@ export class FileViewerDialogComponent implements OnInit {
         };
         this.fileManagerService.editFile(fileCred).subscribe(
             result => {
-                this.notificationService.success('Success');
+                this.notificationService.success('Saved');
                 this.isEdit = false;
                 this.readFile(this.fullPath);
             },

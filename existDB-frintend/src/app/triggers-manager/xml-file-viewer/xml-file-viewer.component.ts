@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 import {DialogService} from '../../error-notification-module/service/dialog.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {AddTriggerComponent} from '../add-trigger/add-trigger.component';
 import {TriggersService} from '../service/triggers.service';
-import {Credentials} from '../../collection-manager/model/Credentials';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 import {StoreResourceModel} from '../../collection-manager/model/StoreResourceModel';
 import {BehaviorSubject} from 'rxjs';
 import {XmlParserService} from '../../collection-manager/service/xml-parser.service';
+import {ResourceViewerDialogComponent} from "../../collection-manager/resource-viewer-dialog/resource-viewer-dialog.component";
+import {Credentials} from "../../collection-manager/model/Credentials";
 
 @Component({
     selector: 'app-xml-file-viewer',
@@ -19,12 +20,12 @@ export class XmlFileViewerComponent implements OnInit {
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public viewResult: string;
     public isBinary: boolean;
-    public openedFile: Credentials;
     public isEdit = false;
     public editedContent = '';
     public fullPath: string;
 
     constructor(public dialogRef: MatDialogRef<XmlFileViewerComponent>,
+                @Inject(MAT_DIALOG_DATA) public data,
                 private fileExplorerService: FileExplorerService,
                 private triggerService: TriggersService,
                 private dialogService: DialogService,
@@ -33,12 +34,9 @@ export class XmlFileViewerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.openedFile = this.fileExplorerService.openedFile;
-        this.fullPath = this.openedFile.path + '/' + this.openedFile.name;
+        this.fullPath = this.data.fileData.path + '/' + this.data.fileData.name;
         this.readContent(this.fullPath);
-
     }
-
     readContent(path) {
         this.fileExplorerService.getResContent(path)
             .subscribe(
@@ -61,13 +59,12 @@ export class XmlFileViewerComponent implements OnInit {
 
     onSave() {
         const saveRes: StoreResourceModel = {
-            url: this.openedFile.path,
-            fileName: this.openedFile.name,
+            url: this.data.fileData.path,
+            fileName: this.data.fileData.name,
             content: this.editedContent,
             isBinary: this.isBinary,
             mime: 'application/xml'
         };
-        console.log(saveRes);
         this.isLoading$.next(true);
         if (saveRes.mime === 'application/xml') {
             const result = XmlParserService.validateXML(saveRes.content);
@@ -93,16 +90,31 @@ export class XmlFileViewerComponent implements OnInit {
                     this.notificationService.Error(error.error);
                 });
     }
-
-    // TODO át kell írni a másik dialog open be
-    onAddTrigger() {
-        const dialogDirNameConfig = new MatDialogConfig();
-        dialogDirNameConfig.disableClose = true;
-        dialogDirNameConfig.autoFocus = true;
-        dialogDirNameConfig.width = '50%';
-        this.dialog.open(AddTriggerComponent, dialogDirNameConfig);
+    onAddTrigger(resCred: Credentials) {
+        const dialogRef = this.dialog.open(AddTriggerComponent, {
+            width: '50%',
+            height: 'auto',
+            maxHeight: '80%',
+            data: {fileData: resCred}
+        });
+        dialogRef.afterClosed().subscribe(
+            result => {
+                this.triggerService.addTrigger(result)
+                    .subscribe(
+                        data => {
+                            this.notificationService.success('Success');
+                            this.isLoading$.next(false);
+                            this.readContent(this.fullPath);
+                        },
+                        error => {
+                            this.notificationService.Error(error.error);
+                            console.log('Error');
+                            this.isLoading$.next(false);
+                        }
+                    );
+            }
+        );
     }
-
     onClose() {
         this.dialogRef.close();
     }

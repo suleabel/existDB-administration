@@ -60,12 +60,4 @@ export class FileExplorerService {
         return this.http.post(this.baseUrl + 'unlockResource', url, httpOptions);
     }
 
-
-    get openedFile(): Credentials {
-        return this.OpenedFile;
-    }
-
-    set openedFile(value: Credentials) {
-        this.OpenedFile = value;
-    }
 }

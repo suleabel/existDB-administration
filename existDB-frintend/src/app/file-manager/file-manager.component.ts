@@ -49,7 +49,6 @@ export class FileManagerComponent implements OnInit {
                     this.content = res;
                     this.content.unshift(backElement);
                     this.isLoading$.next(false);
-                    console.log(this.content);
                 },
                 error => {
                     this.notificationService.Error(error.error);
@@ -73,7 +72,6 @@ export class FileManagerComponent implements OnInit {
     }
 
     aClick(col: string) {
-        console.log(col);
         if (col === '..') {
             this.back();
         } else {
@@ -114,11 +112,9 @@ export class FileManagerComponent implements OnInit {
                 console.log(result);
                 this.fileManagerService.serializeFile(result).subscribe(
                     data => {
-                        console.log(data);
                         this.notificationService.success('Success');
                         this.loadData(this.selectedDir);
                     }, error => {
-                        console.log(error);
                         this.notificationService.Error(error.error);
                     }
                 );
@@ -149,8 +145,6 @@ export class FileManagerComponent implements OnInit {
             height: 'auto'
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log(selectedDir);
-            console.log(result);
             if (result === '' || result === null || result === undefined) {
                 this.notificationService.warn('Collection name is empty');
             } else {
@@ -164,7 +158,6 @@ export class FileManagerComponent implements OnInit {
                         this.notificationService.success('Directory created');
                     },
                     error => {
-                        console.log(error);
                         this.notificationService.Error(error.error);
                     }
                 );
