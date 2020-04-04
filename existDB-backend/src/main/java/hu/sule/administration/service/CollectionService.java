@@ -70,13 +70,7 @@ public class CollectionService {
         return existDbCollectionManagerQueries.editResCred(ExistDbCredentialsService.getDetails(), existCollectionManagerModel);
     }
 
-    public String evalXqueryasString(String query) {
-        return existDbCollectionManagerQueries.evalXqueryasString(ExistDbCredentialsService.getDetails(),query.replaceAll("\"","'"));
-    }
 
-    public String evalXqueryasPath(String query) throws IOException, JDOMException{
-        return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbCollectionManagerQueries.evalXqueryasPath(ExistDbCredentialsService.getDetails(),query))));
-    }
 
     public String unlockResource(String url){
         return existDbCollectionManagerQueries.unlockResource(ExistDbCredentialsService.getDetails(), url);

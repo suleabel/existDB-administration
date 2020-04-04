@@ -207,28 +207,6 @@ public class ExistDbCollectionManagerQueries {
         return util.booleanResultQuery(details, query);
     }
 
-    public String evalXqueryasString(ExistDetails details, String query) {
-        String xquery = "xquery version '3.1';\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
-                "    (\n" +
-                "        util:eval(\"" + query + "\")\n" +
-                "    )\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, xquery);
-    }
-
-    public String evalXqueryasPath(ExistDetails details, String url) {
-        String xquery = "xquery version '3.1';\n" +
-                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
-                "    (\n" +
-                "        util:eval(xs:anyURI(\"" + url + "\"))\n" +
-                "    )\n" +
-                "else\n" +
-                "false()";
-        return util.stringResultQuery(details, xquery);
-    }
-
     public String unlockResource(ExistDetails details, String url) {
         String path = url.substring(0,url.lastIndexOf("/"));
         String resource = url.substring(url.lastIndexOf("/")+1);

@@ -71,17 +71,6 @@ public class CollectionManagerController {
         return new ResponseEntity<>("{\"response\":\"" + collectionService.editResCred(existCollectionManagerModel) + "\"}", HttpStatus.OK);
     }
 
-    @RequestMapping("/evalXqueryasString")
-    public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) {
-        System.out.println(collectionService.evalXqueryasString(httpEntity.getBody()));
-        return new ResponseEntity<>("{\"response\":\"" + collectionService.evalXqueryasString(httpEntity.getBody()).replaceAll("\"","'") + "\"}", HttpStatus.OK);
-    }
-
-    @RequestMapping("/evalXqueryasPath")
-    public ResponseEntity<String> evalXqueryasPath(HttpEntity<String> httpEntity) throws JDOMException, IOException {
-        return new ResponseEntity<>("{\"response\":\"" + collectionService.evalXqueryasPath(httpEntity.getBody()) + "\"}", HttpStatus.OK);
-    }
-
     @RequestMapping("/unlockResource")
     public ResponseEntity<String> unlockResource(HttpEntity<String> httpEntity) {
         return new ResponseEntity<>("{\"response\":\"" + collectionService.unlockResource(httpEntity.getBody()) + "\"}", HttpStatus.OK);

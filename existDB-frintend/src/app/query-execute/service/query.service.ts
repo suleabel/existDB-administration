@@ -11,7 +11,7 @@ const httpOptions = {
 })
 export class QueryService {
     /* tslint:disable:no-string-literal */
-    private baseUrl = window['cfgApiBaseUrl'] + '/collection/';
+    private baseUrl = window['cfgApiBaseUrl'] + '/query/';
 
     /* tslint:enable:no-string-literal */
 
