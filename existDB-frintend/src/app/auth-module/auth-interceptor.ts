@@ -43,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (err.status === 401 || err.status === 403) {
           if (err.error.message === 'Username or password is incorrect') {
             this.notificationService.Error2(err.error.message);
-          } else if (err.error.message === 'Other error - Authentication failed!!') {
+          } else if (err.error.message === 'Other error - Authentication failed!') {
             this.router.navigate(['/login']);
           } else {
             this.notificationService.Error2(err.error.message);

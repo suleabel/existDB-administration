@@ -24,13 +24,13 @@ export class FooterComponent implements OnInit {
                 this.serverVersion.next(data.response);
             },
             error => {
-                console.log(error);
+                console.log(error.error);
             });
         this.authService.getServerIp().subscribe(data => {
                 this.serverIp.next(data.response.toLowerCase());
             },
             error => {
-                console.log(error);
+                console.log(error.error);
             });
     }
 
