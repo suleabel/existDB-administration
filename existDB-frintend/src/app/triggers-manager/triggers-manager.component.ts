@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatSort, MatTableDataSource} from '@angular/material';
 import {CollectionsDialogComponent} from './collections-dialog/collections-dialog.component';
 import {TriggersService} from './service/triggers.service';
 import {XmlFileViewerComponent} from './xml-file-viewer/xml-file-viewer.component';
@@ -16,7 +16,8 @@ import {FileExplorerService} from '../collection-manager/service/file-explorer.s
 export class TriggersManagerComponent implements OnInit {
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     private triggersRootConfigurationLocation = '/db/system/config/db';
-    public collections: Credentials[];
+    public TableData: any;
+    public element: Credentials;
     public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date'];
 
     constructor(
@@ -25,6 +26,9 @@ export class TriggersManagerComponent implements OnInit {
         private fileExplorerService: FileExplorerService,
         private notificationService: NotificationService) {
     }
+
+    // @ts-ignore
+    @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
         this.loadData(this.triggersRootConfigurationLocation);
@@ -35,20 +39,21 @@ export class TriggersManagerComponent implements OnInit {
         this.triggerService.getTriggerConfigs(path)
             .subscribe(
                 res => {
-                    const backElement = {
-                        name: '..',
-                        path: '',
-                        owner: '',
-                        group: '',
-                        mode: '',
-                        date: '',
-                        mime: '',
-                        locked: '',
-                        resource: false,
-                        triggerConfigAvailable: false
-                    };
-                    this.collections = res;
-                    this.collections.unshift(backElement);
+                    // const backElement = {
+                    //     name: '..',
+                    //     path: '',
+                    //     owner: '',
+                    //     group: '',
+                    //     mode: '',
+                    //     date: '',
+                    //     mime: '',
+                    //     locked: '',
+                    //     resource: false,
+                    //     triggerConfigAvailable: false
+                    // };
+                    this.TableData = new MatTableDataSource(res);
+                    this.TableData.sort = this.sort;
+                    // this.collections.unshift(backElement);
                     this.isLoading$.next(false);
                 },
                 error => {
@@ -100,16 +105,21 @@ export class TriggersManagerComponent implements OnInit {
         dialogRef.afterClosed().subscribe(
             data => {
                 console.log(data);
-                this.triggerService.initializeTriggerConfig(data)
-                    .subscribe(
-                        result => {
-                            this.notificationService.success('Success');
-                            this.loadData(this.triggersRootConfigurationLocation);
-                        }, error => {
-                            this.notificationService.Error(error.error);
-                            this.loadData(this.triggersRootConfigurationLocation);
-                        }
-                    );
+                if (data === null || data === undefined || data === '') {
+                    this.notificationService.success('No selected collection');
+                } else {
+                    this.triggerService.initializeTriggerConfig(data)
+                        .subscribe(
+                            result => {
+                                this.notificationService.success('Success');
+                                this.loadData(this.triggersRootConfigurationLocation);
+                            }, error => {
+                                this.notificationService.Error(error.error);
+                                this.loadData(this.triggersRootConfigurationLocation);
+                            }
+                        );
+                }
+
             }
         );
     }

@@ -1,6 +1,5 @@
 package hu.sule.administration.controller;
 
-import hu.sule.administration.service.CollectionService;
 import hu.sule.administration.service.QueryService;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +17,20 @@ import java.io.IOException;
 @RequestMapping("/query/")
 
 public class ExecuteQueryController {
+    private QueryService queryServiceImpl;
 
     @Autowired
-    private QueryService queryService;
-
+    public void setQueryServiceImpl(QueryService queryServiceImpl) {
+        this.queryServiceImpl = queryServiceImpl;
+    }
 
     @RequestMapping("/evalXqueryasString")
-    public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) {
-        return new ResponseEntity<>("{\"response\":\"" + queryService.evalXqueryasString(httpEntity.getBody()) + "\"}", HttpStatus.OK);
+    public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) throws JDOMException, IOException  {
+        return new ResponseEntity<>(queryServiceImpl.evalXqueryasString(httpEntity.getBody()), HttpStatus.OK);
     }
 
     @RequestMapping("/evalXqueryasPath")
     public ResponseEntity<String> evalXqueryasPath(HttpEntity<String> httpEntity) throws JDOMException, IOException {
-        return new ResponseEntity<>("{\"response\":\"" + queryService.evalXqueryasPath(httpEntity.getBody()) + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>(queryServiceImpl.evalXqueryasPath(httpEntity.getBody()), HttpStatus.OK);
     }
 }

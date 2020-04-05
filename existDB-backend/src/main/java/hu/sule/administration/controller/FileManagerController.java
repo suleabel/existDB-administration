@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,42 +22,46 @@ import java.util.List;
 @RequestMapping("/fileManager/")
 public class FileManagerController {
 
+    private FileExplorerService fileExplorerServiceImpl;
+
     @Autowired
-    private FileExplorerService fileExplorerService;
+    public void setFileExplorerServiceImpl(FileExplorerService fileExplorerServiceImpl) {
+        this.fileExplorerServiceImpl = fileExplorerServiceImpl;
+    }
 
     @RequestMapping("/getDirectoryContent")
     public List<FileManagerEntity> getDirectoryContent(HttpEntity<String> httpEntity) {
-        return fileExplorerService.getDirectoryContent(httpEntity.getBody());
+        return fileExplorerServiceImpl.getDirectoryContent(httpEntity.getBody());
     }
 
     @RequestMapping("/getRootDirectory")
     public ResponseEntity<String> getRootDirectory() {
-        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.getRootDirectory() + "\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerServiceImpl.getRootDirectory() + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/readFile")
     public ResponseEntity<String> readFileContent(HttpEntity<String> httpEntity) throws JDOMException, IOException {
-        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.getFileContent(httpEntity.getBody()) + "\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerServiceImpl.getFileContent(httpEntity.getBody()) + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/makeDir")
     public ResponseEntity<String> makeDir(@RequestBody StoreDirOrFileModel storeDirOrFileModel) {
-        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.makeDir(storeDirOrFileModel) + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerServiceImpl.makeDir(storeDirOrFileModel) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/delete")
     public ResponseEntity<String> delete(@RequestBody StoreDirOrFileModel storeDirOrFileModel) {
-        return new ResponseEntity<>("{\"response\":\"" +fileExplorerService.delete(storeDirOrFileModel) + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerServiceImpl.delete(storeDirOrFileModel) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/editFile")
     public ResponseEntity<String> editFile(@RequestBody SerializeFile file){
-        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.editFile(file) + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerServiceImpl.editFile(file) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/serializeFile")
     public ResponseEntity<String> serializeFile(@RequestBody SerializeFile file){
-        return new ResponseEntity<>("{\"response\":\"" + fileExplorerService.createFile(file) + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + fileExplorerServiceImpl.createFile(file) + "\"}", HttpStatus.OK);
     }
 }
 

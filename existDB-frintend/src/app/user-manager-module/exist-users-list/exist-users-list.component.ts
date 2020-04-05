@@ -9,9 +9,9 @@ import {ExistAddUserComponent} from '../exist-add-user/exist-add-user.component'
 import {BehaviorSubject} from 'rxjs';
 
 @Component({
-  selector: 'app-exist-users-list',
-  templateUrl: './exist-users-list.component.html',
-  styleUrls: ['./exist-users-list.component.sass']
+    selector: 'app-exist-users-list',
+    templateUrl: './exist-users-list.component.html',
+    styleUrls: ['./exist-users-list.component.sass']
 })
 export class ExistUsersListComponent implements OnInit {
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -34,7 +34,6 @@ export class ExistUsersListComponent implements OnInit {
                 private dialogService: DialogService,
                 private notificationService: NotificationService) {
     }
-
     // @ts-ignore
     @ViewChild(MatPaginator) paginator: MatPaginator;
     // @ts-ignore
@@ -49,12 +48,10 @@ export class ExistUsersListComponent implements OnInit {
         this.userService.getExistUsers()
             .subscribe(
                 res => {
-                    this.UsersData = new MatTableDataSource();
-                    this.UsersData.data = res;
+                    this.UsersData = new MatTableDataSource(res);
                     this.UsersData.sort = this.sort;
                     this.UsersData.paginator = this.paginator;
                     this.isLoading$.next(false);
-                    console.log(this.UsersData.data);
                 },
                 error => {
                     this.notificationService.Error(error.error);

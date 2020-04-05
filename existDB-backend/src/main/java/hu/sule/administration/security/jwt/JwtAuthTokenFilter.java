@@ -1,6 +1,6 @@
 package hu.sule.administration.security.jwt;
 
-import hu.sule.administration.service.ExistDbCredentialsService;
+import hu.sule.administration.service.impl.ExistDbCredentialsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             if (jwt != null && tokenProvider.validateJwtToken(jwt, request)) {
                 String username = tokenProvider.getUserNameFromJwtToken(jwt);
                 //UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(username, ExistDbCredentialsService.getDetailsPass());
+                Authentication authentication = new UsernamePasswordAuthenticationToken(username, ExistDbCredentialsServiceImpl.getDetailsPass());
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

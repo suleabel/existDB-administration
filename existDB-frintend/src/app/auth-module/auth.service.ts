@@ -43,6 +43,10 @@ export class AuthService {
         return this.loggedIn.asObservable();
     }
 
+    public setLogout() {
+        this.loggedIn.next(false);
+    }
+
     public logout() {
         this.loggedIn.next(false);
         this.token.signOut();

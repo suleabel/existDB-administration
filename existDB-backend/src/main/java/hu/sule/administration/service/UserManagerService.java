@@ -1,101 +1,22 @@
 package hu.sule.administration.service;
 
 import hu.sule.administration.model.ExistDBUser;
-import hu.sule.administration.queries.ExistDbUserManagerQueries;
-import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xml.sax.InputSource;
 import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class UserManagerService {
-
-    @Autowired
-    private ExistDbUserManagerQueries existDbUserManagerQueries;
-
-    private static final Logger logger = LoggerFactory.getLogger(ExistDbCredentialsService.class);
-
-    public ArrayList<ExistDBUser> listUsers() throws JDOMException, IOException {
-        return mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
-    }
-
-    public String createUser(ExistDBUser user) {
-        logger.info("try to create user:" + user.toString());
-        return existDbUserManagerQueries.createUser(ExistDbCredentialsService.getDetails(), user);
-    }
-
-    public String deleteUser(String username) {
-        return existDbUserManagerQueries.deleteUser(ExistDbCredentialsService.getDetails(), username);
-    }
-
-    public String editUser(ExistDBUser user) throws JDOMException, IOException {
-        editUserGroups(user);
-        return existDbUserManagerQueries.editUser(ExistDbCredentialsService.getDetails(), user);
-    }
-
-    public boolean isAdmin() throws XMLDBException {
-        return existDbUserManagerQueries.isAdminAccess(ExistDbCredentialsService.getDetails());
-    }
-
-    public List<String> getUsersNames() {
-        return Arrays.asList(existDbUserManagerQueries.getUsersNames(ExistDbCredentialsService.getDetails()).split("\n"));
-    }
-
-    private void editUserGroups(ExistDBUser user)throws JDOMException, IOException {
-        ArrayList<ExistDBUser> existDBUsers = mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsService.getDetails()));
-        for (ExistDBUser existDBUser : existDBUsers) {
-            if (existDBUser.getUsername().equals(user.getUsername())) {
-                List<String> oldGroups = existDBUser.getGroups();
-                oldGroups.remove(existDBUser.getPrimaryGroup());
-                List<String> newGroups = user.getGroups();
-                newGroups.remove(user.getPrimaryGroup());
-                for (String group : oldGroups) {
-                    existDbUserManagerQueries.removeUserFromGroup(ExistDbCredentialsService.getDetails(), existDBUser.getUsername(), group);
-                }
-                for (String group : newGroups) {
-                    existDbUserManagerQueries.addUserToGroup(ExistDbCredentialsService.getDetails(), existDBUser.getUsername(), group);
-                }
-            }
-        }
-    }
-
-    private ArrayList<ExistDBUser> mapUsersQueryResult(String input) throws JDOMException, IOException {
-        ArrayList<ExistDBUser> existDBUsers = new ArrayList<>();
-        ExistDBUser existDBUser;
-        ArrayList<String> userGroups;
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document doc = null;
-        doc = saxBuilder.build(new InputSource(new StringReader(input)));
-        if (doc != null) {
-            Element result = doc.getRootElement();
-            List<Element> users = result.getChildren();
-            for (Element user : users) {
-                userGroups = new ArrayList<>();
-                existDBUser = new ExistDBUser(
-                        user.getChildText("username"), user.getChildText("umask"), user.getChildText("primaryGroups"),
-                        user.getChildText("fullName"), user.getChildText("desc"), existDbUserManagerQueries.isDefaultUser(user.getChildText("username")), true);
-                Element groups = user.getChild("groups");
-                List<Element> groupList = groups.getChildren();
-                for (Element group : groupList) {
-                    userGroups.add(group.getValue());
-                }
-                existDBUser.setGroups(userGroups);
-                existDBUsers.add(existDBUser);
-            }
-        }
-        return existDBUsers;
-    }
-
+public interface UserManagerService {
+    ArrayList<ExistDBUser> listUsers() throws JDOMException, IOException;
+    String createUser(ExistDBUser user);
+    String deleteUser(String username);
+    String editUser(ExistDBUser user) throws JDOMException, IOException;
+    boolean isAdmin() throws XMLDBException;
+    List<String> getUsersNames();
+    void editUserGroups(ExistDBUser user)throws JDOMException, IOException;
+    ArrayList<ExistDBUser> mapUsersQueryResult(String input) throws JDOMException, IOException;
 }

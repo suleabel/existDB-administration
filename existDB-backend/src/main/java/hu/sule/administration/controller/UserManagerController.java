@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,30 +17,34 @@ import java.util.List;
 @RequestMapping("/exist/")
 public class UserManagerController {
 
+    private UserManagerService userManagerServiceImpl;
+
     @Autowired
-    private UserManagerService userManagerService;
+    public void setUserManagerServiceImpl(UserManagerService userManagerServiceImpl) {
+        this.userManagerServiceImpl = userManagerServiceImpl;
+    }
 
     @RequestMapping("/getUsers")
     public ResponseEntity<ArrayList<ExistDBUser>> GetUsers() throws  JDOMException, IOException {
-        return new ResponseEntity<>(userManagerService.listUsers(), HttpStatus.OK);
+        return new ResponseEntity<>(userManagerServiceImpl.listUsers(), HttpStatus.OK);
     }
 
     @RequestMapping("getUsersNames")
-    public ResponseEntity<List<String>> getUsersNames() {return new ResponseEntity<>(userManagerService.getUsersNames(),HttpStatus.OK);}
+    public ResponseEntity<List<String>> getUsersNames() {return new ResponseEntity<>(userManagerServiceImpl.getUsersNames(),HttpStatus.OK);}
 
     @RequestMapping("/deleteUser")
     public ResponseEntity<String> deleteUser(@RequestBody String username) {
-        return new ResponseEntity<>("{\"response\":\"" + userManagerService.deleteUser(username) + "\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + userManagerServiceImpl.deleteUser(username) + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/createUser")
     public ResponseEntity<String> createUser(@RequestBody ExistDBUser user) {
-        return new ResponseEntity<>("{\"response\":\"" + userManagerService.createUser(user) + "\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + userManagerServiceImpl.createUser(user) + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/editUser")
     public ResponseEntity<String> editUser(@RequestBody ExistDBUser user) throws JDOMException, IOException {
-        return new ResponseEntity<>("{\"response\":\"" + userManagerService.editUser(user) + "\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + userManagerServiceImpl.editUser(user) + "\"}",HttpStatus.OK);
     }
 
 }

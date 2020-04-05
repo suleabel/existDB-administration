@@ -12,13 +12,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
+
+    private UserManagerService UserManagerServiceImpl;
+
     @Autowired
-    private UserManagerService UserManagerService;
+    public void setUserManagerServiceImpl(UserManagerService userManagerServiceImpl) {
+        UserManagerServiceImpl = userManagerServiceImpl;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try{
-            boolean isAdminAccess = UserManagerService.isAdmin();
+            boolean isAdminAccess = UserManagerServiceImpl.isAdmin();
             if(isAdminAccess){
                 return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials().toString());
             } else {

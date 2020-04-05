@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {VersionManagementService} from './service/version-management.service';
 import {NotificationService} from '../error-notification-module/service/notification.service';
 import {BehaviorSubject} from 'rxjs';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {Credentials} from '../collection-manager/model/Credentials';
 import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
 import {ViewHistoryComponent} from './view-history/view-history.component';
@@ -16,7 +16,8 @@ export class VersionManagementModuleComponent implements OnInit {
     public versionIsAvailable$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public selectedDirectory = '/db';
-    public collections: Credentials[];
+    public element: Credentials;
+    public TableData: any;
     public displayedColumns: string[] = ['name', 'resource', 'view'];
 
     constructor(private versionManagementService: VersionManagementService,
@@ -24,6 +25,9 @@ export class VersionManagementModuleComponent implements OnInit {
                 private fileExplorerService: FileExplorerService,
                 private dialog: MatDialog) {
     }
+
+    // @ts-ignore
+    @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
         this.checkVersionManagementIsEnabled();
@@ -37,14 +41,15 @@ export class VersionManagementModuleComponent implements OnInit {
         this.isLoading$.next(true);
         this.versionManagementService.versionManagerIsActivated()
             .subscribe(data => {
-                this.versionIsAvailable$.next(data);
+                this.versionIsAvailable$.next(data.response);
                 this.isLoading$.next(false);
             }, error => {
                 this.isLoading$.next(false);
-                if (error.error.message !== 'no error-page message') {
+                if (error.error.message !== 'no error message') {
                     this.notificationService.Error(error.error);
                 } else {
                     console.log(error.error);
+                    // TODO dodgy exception mask
                     this.checkVersionManagementIsEnabled();
                 }
             });
@@ -65,25 +70,27 @@ export class VersionManagementModuleComponent implements OnInit {
         this.fileExplorerService.getCollection(path)
             .subscribe(
                 res => {
-                    const backElement = {
-                        name: '..',
-                        path: '',
-                        owner: '',
-                        group: '',
-                        mode: '',
-                        date: '',
-                        mime: '',
-                        locked: '',
-                        writable: false,
-                        resource: false,
-                        triggerConfigAvailable: false
-                    };
-                    this.collections = res;
-                    this.collections.unshift(backElement);
-                    // console.log('content: ' + this.collections);
+                    // const backElement = {
+                    //     name: '..',
+                    //     path: '',
+                    //     owner: '',
+                    //     group: '',
+                    //     mode: '',
+                    //     date: '',
+                    //     mime: '',
+                    //     locked: '',
+                    //     writable: false,
+                    //     resource: false,
+                    //     triggerConfigAvailable: false
+                    // };
+                    this.TableData = new MatTableDataSource(res);
+                    this.TableData.sort = this.sort;
+                    // this.collections.unshift(backElement);
                 },
                 error => {
-                    if (error.error.message !== 'no error-page message') {
+                    console.log(error);
+                    // TODO dodgy exception mask
+                    if (error.error.message !== 'no error message') {
                         this.notificationService.Error(error.error);
                     } else {
                         console.log(error.error);
@@ -118,11 +125,11 @@ export class VersionManagementModuleComponent implements OnInit {
     }
 
     private getVersions(element) {
-        console.log(element.name);
         if (element.name.includes('xml')) {
             const dialogRef = this.dialog.open(ViewHistoryComponent, {
                 width: '60%',
                 height: 'auto',
+                maxHeight: '80%',
                 data: {res: element}
             });
             dialogRef.afterClosed().subscribe(result => {

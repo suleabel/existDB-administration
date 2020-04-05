@@ -20,7 +20,6 @@ import {FileCredentialsComponent} from './file-credentials/file-credentials.comp
 export class CollectionManagerComponent implements OnInit {
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public selectedDirectory = '/db';
-    public openedFile: string;
     public collections: any;
     public element: Credentials;
     public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date', 'delete', 'view',
@@ -44,23 +43,21 @@ export class CollectionManagerComponent implements OnInit {
         this.fileExplorerService.getCollection(path)
             .subscribe(
                 res => {
-                    const backElement: Credentials = {
-                        name: '..',
-                        path: '',
-                        owner: '',
-                        group: '',
-                        mode: '',
-                        date: '',
-                        mime: '',
-                        locked: '',
-                        resource: false,
-                        triggerConfigAvailable: false
-                    };
-                    this.collections = new MatTableDataSource();
-                    this.collections.data = res;
-                    console.log(res);
+                    // const backElement: Credentials = {
+                    //     name: '..',
+                    //     path: '',
+                    //     owner: '',
+                    //     group: '',
+                    //     mode: '',
+                    //     date: '',
+                    //     mime: '',
+                    //     locked: '',
+                    //     resource: false,
+                    //     triggerConfigAvailable: false
+                    // };
+                    this.collections = new MatTableDataSource(res);
                     this.collections.sort = this.sort;
-                    this.collections.data.unshift(backElement);
+                    // this.collections.data.unshift(backElement);
                     this.isLoading$.next(false);
                 },
                 error => {

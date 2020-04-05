@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.xmldb.api.base.XMLDBException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,31 +20,35 @@ import java.util.List;
 @RequestMapping("/groups/")
 public class GroupManagerController {
 
+    private GroupManagerService groupManagerServiceImpl;
+
     @Autowired
-    private GroupManagerService groupManagerService;
+    public void setGroupManagerServiceImpl(GroupManagerService groupManagerServiceImpl) {
+        this.groupManagerServiceImpl = groupManagerServiceImpl;
+    }
 
     @RequestMapping("/getGroups")
     public ResponseEntity<ArrayList<ExistDBGroup>> getGroups() throws JDOMException, IOException {
-        return new ResponseEntity<>(groupManagerService.listGroups(),HttpStatus.OK);
+        return new ResponseEntity<>(groupManagerServiceImpl.listGroups(),HttpStatus.OK);
     }
 
     @RequestMapping("/getGroupsNames")
     public ResponseEntity<List<String>> getGroupsName() {
-        return new ResponseEntity<>(groupManagerService.getGroupsName(), HttpStatus.OK);
+        return new ResponseEntity<>(groupManagerServiceImpl.getGroupsName(), HttpStatus.OK);
     }
 
     @RequestMapping("/createGroup")
     public ResponseEntity<String> createGroup(@RequestBody ExistDBGroup group)  {
-        return new ResponseEntity<>("{\"response\":\"" + groupManagerService.createGroup(group) + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + groupManagerServiceImpl.createGroup(group) + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/deleteGroup")
     public ResponseEntity<String> deleteGroup(@RequestBody String groupName) {
-        return new ResponseEntity<>("{\"response\":\"" + groupManagerService.deleteGroup(groupName) + "\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + groupManagerServiceImpl.deleteGroup(groupName) + "\"}",HttpStatus.OK);
     }
 
     @RequestMapping("/editGroup")
     public ResponseEntity<String> editGroup(@RequestBody ExistDBGroup group) {
-        return new ResponseEntity<>("{\"response\":\"" + groupManagerService.editGroup(group) + "\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + groupManagerServiceImpl.editGroup(group) + "\"}",HttpStatus.OK);
     }
 }

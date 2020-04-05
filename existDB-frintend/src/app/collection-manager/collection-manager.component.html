@@ -5,17 +5,10 @@
                 <div class="card-header  font-weight-bold">
                     Collection manager
                 </div>
-                <div class="card-body loading" *ngIf="isLoading$ | async">
-                    <div class="text-center">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-body" *ngIf="!(isLoading$ | async)">
+                <div class="card-body">
                     <div>
                         <button class="btn btn-success rootButton" (click)="backToRoot()">Back To Root</button>
+                        <button class="btn btn-success rootButton" (click)="back()">Back</button>
                         <button class="btn btn-success rootButton" (click)="newXquery(selectedDirectory)" [disabled]="false">New XQuery
                         </button>
                         <button class="btn btn-success rootButton" (click)="newResource(selectedDirectory)" [disabled]="false">New
@@ -112,6 +105,13 @@
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                             </mat-table>
+                            <div class="loading" *ngIf="isLoading$ | async">
+                                <div class="text-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

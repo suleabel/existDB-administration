@@ -21,7 +21,6 @@ public class Util {
 
     public void initDatabaseDriver(String driver) throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
         Class aClass = Class.forName(driver);
-        System.out.println("aClass.getGroupName() = " + aClass.getName());
         Database database = (Database) aClass.newInstance();
         database.setProperty("create-database", "true");
         DatabaseManager.registerDatabase(database);
@@ -29,7 +28,7 @@ public class Util {
 
     public String stringResultQuery(ExistDetails details, String query) {
         Collection old = collection;
-        String result = null;
+        String result = "";
         try {
             closeCollection(collection);
             collection = DatabaseManager.getCollection(details.getUrl() + details.getCollection());
@@ -37,8 +36,9 @@ public class Util {
         } catch (Exception e) {
             if(e.getMessage().equals("")){
                 throw new CustomException("no error message","stringResultQuery","XMLDBException", e.getStackTrace());
+            } else {
+                throw new CustomException(e.getMessage(),"stringResultQuery","XMLDBException", e.getStackTrace());
             }
-            throw new CustomException(e.getMessage(),"stringResultQuery","XMLDBException", e.getStackTrace());
         } finally {
             try {
                 closeCollection(collection);
@@ -92,8 +92,9 @@ public class Util {
         } catch (XMLDBException e) {
             if(e.getMessage().equals("")){
                 throw new CustomException("no error message","execXQuery","XMLDBException", e.getStackTrace());
+            } else {
+                throw new CustomException(e.getMessage(),"execXQuery","XMLDBException", e.getStackTrace());
             }
-            throw new CustomException(e.getMessage(),"execXQuery","XMLDBException", e.getStackTrace());
         }
         return sb.toString().trim();
     }

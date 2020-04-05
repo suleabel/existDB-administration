@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -68,6 +69,13 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"XMLIsNotValidException", e.getMessage(), request.getRequestURL().toString());
         logger.error("XMLIsNotValidException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler({BadCredentialsException.class})
+    public ResponseEntity<CustomErrorResponse> badCredentialsExceptionHandle(BadCredentialsException e, HttpServletRequest request) {
+        CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.UNAUTHORIZED.value(), "BadCredentialsException", e.getMessage(), request.getRequestURI().toString());
+        logger.error("BadCredentialsException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
+        return new ResponseEntity<>(errors, HttpStatus.UNAUTHORIZED);
     }
 
 

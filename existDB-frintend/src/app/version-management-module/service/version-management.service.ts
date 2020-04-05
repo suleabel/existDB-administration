@@ -32,11 +32,11 @@ export class VersionManagementService {
     }
 
     public getDiffByRev(data: GetDiffByRevModel): Observable<any> {
-        return this.http.post(this.baseUrlForExist + 'getDiffByRev', data, {responseType: 'text'});
+         return this.http.post(this.baseUrlForExist + 'getDiffByRev', data, {responseType: 'text'});
     }
 
     public restoreResByRev(data: GetDiffByRevModel): Observable<any> {
-        return this.http.post(this.baseUrlForExist + 'restoreResByRev', data, {responseType: 'text'});
+        return this.http.post(this.baseUrlForExist + 'restoreResByRev', data, httpOptions);
     }
 
 }

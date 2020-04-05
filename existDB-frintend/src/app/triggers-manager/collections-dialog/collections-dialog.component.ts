@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialogRef, MatSort, MatTableDataSource} from '@angular/material';
 import {TriggersService} from '../service/triggers.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {Credentials} from '../../collection-manager/model/Credentials';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
     selector: 'app-collections-dialog',
@@ -11,8 +12,10 @@ import {FileExplorerService} from '../../collection-manager/service/file-explore
     styleUrls: ['./collections-dialog.component.sass']
 })
 export class CollectionsDialogComponent implements OnInit {
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public selectedDirectory = '/db';
-    public collections: Credentials[];
+    public element: Credentials;
+    public TableData: any;
     public displayedColumns: string[] = ['name', 'resource', 'owner', 'group', 'mode', 'date'];
 
     constructor(public dialogRef: MatDialogRef<CollectionsDialogComponent>,
@@ -20,6 +23,9 @@ export class CollectionsDialogComponent implements OnInit {
                 private fileExplorerService: FileExplorerService,
                 private notificationService: NotificationService) {
     }
+
+    // @ts-ignore
+    @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
         this.loadData(this.selectedDirectory);
@@ -48,27 +54,31 @@ export class CollectionsDialogComponent implements OnInit {
     }
 
     loadData(path: string) {
+        this.isLoading$.next(true);
         this.fileExplorerService.getOnlyCollections(path)
             .subscribe(data => {
-                    const backElement = {
-                        name: '..',
-                        path: '',
-                        owner: '',
-                        group: '',
-                        mode: '',
-                        date: '',
-                        mime: '',
-                        locked: '',
-                        resource: false,
-                        triggerConfigAvailable: false
-                    };
-                    this.collections = data;
-                    this.collections.unshift(backElement);
+                    // const backElement = {
+                    //     name: '..',
+                    //     path: '',
+                    //     owner: '',
+                    //     group: '',
+                    //     mode: '',
+                    //     date: '',
+                    //     mime: '',
+                    //     locked: '',
+                    //     resource: false,
+                    //     triggerConfigAvailable: false
+                    // };
+                    this.TableData = new MatTableDataSource(data);
+                    this.TableData.sort = this.sort;
+                    this.isLoading$.next(false);
+                    // this.collections.unshift(backElement);
                 },
                 error => {
                     this.notificationService.Error(error.error);
                 });
     }
+
     onClose() {
         this.dialogRef.close();
     }

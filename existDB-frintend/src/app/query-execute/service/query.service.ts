@@ -19,10 +19,10 @@ export class QueryService {
     }
 
     public evalXqueryFromPath(url: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'evalXqueryasPath', url, httpOptions);
+        return this.http.post(this.baseUrl + 'evalXqueryasPath', url, {responseType: 'text'});
     }
 
     public evalXqueryFromString(query: string): Observable<any> {
-        return this.http.post(this.baseUrl + 'evalXqueryasString', query, httpOptions);
+        return this.http.post(this.baseUrl + 'evalXqueryasString', query, {responseType: 'text'});
     }
 }

@@ -20,31 +20,36 @@ import java.io.IOException;
 @RequestMapping("/version")
 public class VersionManagerController {
 
+    private VersionManagerService versionManagerServiceImpl;
+
     @Autowired
-    private VersionManagerService versionManagerService;
+    public void setVersionManagerServiceImpl(VersionManagerService versionManagerServiceImpl) {
+        this.versionManagerServiceImpl = versionManagerServiceImpl;
+    }
 
     @RequestMapping("/isEnabled")
     public ResponseEntity<String> versionManagerIsEnabled() throws IOException {
-        return new ResponseEntity<>(versionManagerService.isEnabled(), HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + versionManagerServiceImpl.isEnabled() + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/enableVersionManagement")
     public ResponseEntity<String> enableVersionManagement() {
-        return new ResponseEntity<>(versionManagerService.enableVersioning(), HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + versionManagerServiceImpl.enableVersioning() + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/getResHistory")
     public ResponseEntity<VersionsModel> getHistory(HttpEntity<String> httpEntity) throws JDOMException, IOException {
-        return new ResponseEntity<>(versionManagerService.getHistory(httpEntity.getBody()), HttpStatus.OK);
+        return new ResponseEntity<>(versionManagerServiceImpl.getHistory(httpEntity.getBody()), HttpStatus.OK);
     }
 
     @RequestMapping("/getDiffByRev")
     public ResponseEntity<String> getDiffByRev(@RequestBody VersionByRevModel versionByRevModel) throws IOException, JDOMException{
-        return new ResponseEntity<>(versionManagerService.getDiffByRev(versionByRevModel), HttpStatus.OK);
+        //TODO direkt ilyen ne piszkáld
+        return new ResponseEntity<>(versionManagerServiceImpl.getDiffByRev(versionByRevModel).replaceAll("\"", "'"), HttpStatus.OK);
     }
 
     @RequestMapping("/restoreResByRev")
     public ResponseEntity<String> restoreResByRev(@RequestBody VersionByRevModel versionByRevModel) throws IOException, JDOMException{
-        return new ResponseEntity<>(versionManagerService.resotreResByRev(versionByRevModel), HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + versionManagerServiceImpl.resotreResByRev(versionByRevModel) + "\"}", HttpStatus.OK);
     }
 }

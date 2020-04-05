@@ -40,7 +40,6 @@ export class NotificationService {
     }
 
     result(result) {
-        console.log(result);
         this.dialogService.openResponseDialog(result);
     }
 

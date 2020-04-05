@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NotificationService} from '../error-notification-module/service/notification.service';
 import {QueryService} from './service/query.service';
+import {ErrorModel} from '../error-notification-module/model/ErrorModel';
 
 @Component({
     selector: 'app-query-execute',
@@ -22,11 +23,11 @@ export class QueryExecuteComponent implements OnInit {
     onExecute() {
         this.queryService.evalXqueryFromString(this.query).subscribe(
             result => {
-                this.notificationService.result(result.response);
+                this.notificationService.result(result);
             },
             error => {
-                console.log(error);
-                this.notificationService.Error(error.error);
+                const jsonError: ErrorModel = JSON.parse(error.error);
+                this.notificationService.Error(jsonError);
             }
         );
     }

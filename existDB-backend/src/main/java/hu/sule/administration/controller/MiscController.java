@@ -14,16 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/misc/")
 public class MiscController {
 
+    private MiscService miscServiceImpl;
+
     @Autowired
-    private MiscService miscService;
+    public void setMiscServiceImpl(MiscService miscServiceImpl) {
+        this.miscServiceImpl = miscServiceImpl;
+    }
 
     @RequestMapping("/getVersion")
     public ResponseEntity<String> getVersion(){
-        return new ResponseEntity<>("{\"response\":\"" + miscService.getDbVersion() + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + miscServiceImpl.getDbVersion() + "\"}", HttpStatus.OK);
     }
 
     @RequestMapping("/getServerIp")
     public ResponseEntity<String> getServerIp(){
-        return new ResponseEntity<>("{\"response\":\"" + miscService.getServerIp() + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + miscServiceImpl.getServerIp() + "\"}", HttpStatus.OK);
     }
 }

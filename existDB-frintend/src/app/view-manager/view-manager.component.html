@@ -30,13 +30,20 @@
                         <div class="form-group">
                             <mat-form-field>
                                 <label for="queryExpression" class="control-label">Query</label>
-                                <textarea matInput id="queryExpression" class="form-control" formControlName="queryExpression" rows="10"></textarea>
+                                <textarea matInput id="queryExpression" type="textarea" class="form-control" formControlName="queryExpression" rows="10"></textarea>
                             </mat-form-field>
                             <mat-error *ngIf="queryExpression.invalid && queryExpression.touched">
                                 Query expression is required
                             </mat-error>
                         </div>
                     </form>
+                    <div class="loading" *ngIf="isLoading$ | async">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
                     <button class="btn btn-success" (click)="onCheck()">Check</button>
                     <button matTooltip="Save after checked (valid)" class="btn btn-success" (click)="onSave()" [disabled]="!queryIsChecked">Save</button>
                 </div>

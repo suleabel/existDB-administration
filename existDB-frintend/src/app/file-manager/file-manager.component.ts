@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileManagerEntity} from './model/FileManagerEntity';
 import {FileManagerService} from './service/file-manager.service';
 import {BehaviorSubject} from 'rxjs';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {FileViewerDialogComponent} from './file-viewer-dialog/file-viewer-dialog.component';
 import {MakeDirDialogComponent} from './make-dir-dialog/make-dir-dialog.component';
 import {StoreDirOrFileModel} from './model/StoreDirOrFileModel';
@@ -15,17 +15,22 @@ import {NotificationService} from '../error-notification-module/service/notifica
     styleUrls: ['./file-manager.component.sass']
 })
 export class FileManagerComponent implements OnInit {
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public TableData: any;
+    public element: FileManagerEntity;
+    // public content: FileManagerEntity[];
+    public selectedDir: string;
+    public root: string;
+    public displayedColumns: string[] = ['name', 'isFile', 'size', 'humanSize', 'modified', 'hidden', 'canRead', 'canWrite', 'view', 'delete'];
+
 
     constructor(private fileManagerService: FileManagerService,
                 private dialog: MatDialog,
                 private notificationService: NotificationService) {
     }
 
-    public content: FileManagerEntity[];
-    public selectedDir: string;
-    public root: string;
-    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public displayedColumns: string[] = ['name', 'isFile', 'size', 'humanSize', 'modified', 'hidden', 'canRead', 'canWrite', 'view', 'delete'];
+    // @ts-ignore
+    @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
         this.getRootDir();
@@ -36,18 +41,19 @@ export class FileManagerComponent implements OnInit {
         this.fileManagerService.getDirectoryContent(url)
             .subscribe(
                 res => {
-                    const backElement = {
-                        isFile: false,
-                        name: '..',
-                        size: '',
-                        humanSize: '',
-                        modified: '',
-                        hidden: false,
-                        canRead: true,
-                        canWrite: true,
-                    };
-                    this.content = res;
-                    this.content.unshift(backElement);
+                    // const backElement = {
+                    //     isFile: false,
+                    //     name: '..',
+                    //     size: '',
+                    //     humanSize: '',
+                    //     modified: '',
+                    //     hidden: false,
+                    //     canRead: true,
+                    //     canWrite: true,
+                    // };
+                    this.TableData = new MatTableDataSource(res);
+                    this.TableData.sort = this.sort;
+                    // this.content.unshift(backElement);
                     this.isLoading$.next(false);
                 },
                 error => {

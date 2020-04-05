@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
-    private AuthenticationService authenticationService;
+    private AuthenticationService authenticationServiceImpl;
 
     @Autowired
-    public void setAuthenticationService(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
+    public void setAuthenticationService(AuthenticationService authenticationServiceImpl) {
+        this.authenticationServiceImpl = authenticationServiceImpl;
     }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-        return authenticationService.signInUser(loginRequest);
+        return authenticationServiceImpl.signInUser(loginRequest);
     }
 
 }

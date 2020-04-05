@@ -4,6 +4,8 @@ import {CreateViewModel} from './model/CreateViewModel';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationService} from '../error-notification-module/service/notification.service';
 import {QueryService} from '../query-execute/service/query.service';
+import {ErrorModel} from '../error-notification-module/model/ErrorModel';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
     selector: 'app-view-manager',
@@ -11,6 +13,7 @@ import {QueryService} from '../query-execute/service/query.service';
     styleUrls: ['./view-manager.component.sass']
 })
 export class ViewManagerComponent implements OnInit {
+    public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public viewData: CreateViewModel;
     public viewForm: FormGroup;
     public queryIsChecked = false;
@@ -29,22 +32,30 @@ export class ViewManagerComponent implements OnInit {
         this.viewForm = this.formBuilder.group({
             viewCollection: ['', Validators.required],
             viewName: ['', Validators.required],
-            queryExpression: ['', Validators.required],
+            queryExpression: ['xquery version "3.1";', Validators.required],
         });
     }
 
     onSave() {
-        console.log(this.viewForm.value);
+        this.isLoading$.next(true);
+        this.viewService.createView(this.viewForm.value).subscribe(data => {
+                this.notificationService.success('View saved, database is reindex');
+                this.isLoading$.next(false);
+            },
+            error => {
+                this.notificationService.Error(error.error);
+            });
     }
 
     onCheck() {
         this.queryService.evalXqueryFromString(this.viewForm.value.queryExpression).subscribe(
             data => {
-                this.notificationService.result(data.response);
+                this.notificationService.result(data);
                 this.queryIsChecked = true;
             },
             error => {
-                this.notificationService.Error(error.error);
+                const jsonError: ErrorModel = JSON.parse(error.error);
+                this.notificationService.Error(jsonError);
             }
         );
     }

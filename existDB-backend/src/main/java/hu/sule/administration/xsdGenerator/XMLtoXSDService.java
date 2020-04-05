@@ -30,7 +30,7 @@ public class XMLtoXSDService {
     private static final Logger logger = LoggerFactory.getLogger(XMLtoXSDService.class);
 
     @Autowired
-    private CollectionService collectionService;
+    private CollectionService collectionServiceImpl;
 
     public String convert(String xml) throws JDOMException, IOException, XMLIsNotValidException, SAXException  {
         XMLInstance2Schema xmlInstance2Schema = new XMLInstance2Schema();
@@ -71,7 +71,7 @@ public class XMLtoXSDService {
     }
 
     public String saveXsd(ForStoreResourceAndColl storeResource) throws XMLDBException {
-        return collectionService.Store(storeResource);
+        return collectionServiceImpl.Store(storeResource);
     }
 
 }

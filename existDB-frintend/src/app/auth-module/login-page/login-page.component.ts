@@ -23,6 +23,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.setLogout();
     this.loginForm = this.formBuilder.group({
       username: ['', [
           Validators.required
@@ -68,7 +69,6 @@ export class LoginPageComponent implements OnInit {
       error => {
         this.errorMessage = error.error.message;
         console.log('Login errorMessage  ' + this.errorMessage);
-        // this.loginForm.reset();
         this.isLoading$.next(false);
       }
     );

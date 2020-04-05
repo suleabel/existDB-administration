@@ -7,6 +7,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {EvalResultViewerComponent} from '../eval-result-viewer/eval-result-viewer.component';
 import {XmlParserService} from '../service/xml-parser.service';
 import {QueryService} from '../../query-execute/service/query.service';
+import {ErrorModel} from '../../error-notification-module/model/ErrorModel';
 
 @Component({
     selector: 'app-resource-viewer-dialog',
@@ -98,12 +99,13 @@ export class ResourceViewerDialogComponent implements OnInit {
                     const dialogRef = this.dialog.open(EvalResultViewerComponent, {
                         width: '80%',
                         height: 'auto',
-                        data: {res: result.response}
+                        data: {res: result}
                     });
                     dialogRef.afterClosed().subscribe();
                 },
                 error => {
-                    this.notificationService.Error(error.error);
+                    const jsonError: ErrorModel = JSON.parse(error.error);
+                    this.notificationService.Error(jsonError);
                 });
     }
 
