@@ -13,34 +13,35 @@ const httpOptions = {
 export class UserService {
   private selectedExistUser: ExistUserModel = null;
   /* tslint:disable:no-string-literal */
-  private baseUrlForExist = window['cfgApiBaseUrl'] + '/exist/';
+  private baseUrlForUsers = window['cfgApiBaseUrl'] + '/userManager/';
+  private baseUrlForGroups = window['cfgApiBaseUrl'] + '/groups/';
   /* tslint:enable:no-string-literal */
   constructor(private http: HttpClient) {
   }
 
   // exist
   public getExistUsers(): Observable<any> {
-    return this.http.get(this.baseUrlForExist + 'getUsers', httpOptions);
+    return this.http.get(this.baseUrlForUsers + 'getUsers', httpOptions);
   }
 
   // exist
   public getGroupsNames(): Observable<any> {
-    return this.http.get(this.baseUrlForExist + 'getGroupsNames', httpOptions);
+    return this.http.get(this.baseUrlForGroups + 'getGroupsNames', httpOptions);
   }
 
   // exist
   public addUserToExist(user: ExistUserModel): Observable<any> {
-    return this.http.post(this.baseUrlForExist + 'createUser', user, httpOptions);
+    return this.http.post(this.baseUrlForUsers + 'createUser', user, httpOptions);
   }
 
   // exist
   public editUser(user: ExistUserModel): Observable<any> {
-    return this.http.post(this.baseUrlForExist + 'editUser', user, httpOptions);
+    return this.http.post(this.baseUrlForUsers + 'editUser', user, httpOptions);
   }
 
   // exist
   public deleteUser(username: string): Observable<any> {
-    return this.http.post(this.baseUrlForExist + 'deleteUser', username, httpOptions);
+    return this.http.post(this.baseUrlForUsers + 'deleteUser', username, httpOptions);
   }
 
   // exist

@@ -15,6 +15,7 @@ export class GroupsService {
     private selectedGroup: ExistGroupModel = null;
     /* tslint:disable:no-string-literal */
     private baseURL = window['cfgApiBaseUrl'] + '/groups/';
+    private baseUrlforUsers = window['cfgApiBaseUrl'] + '/userManager/';
     /* tslint:enable:no-string-literal */
     constructor(private http: HttpClient) {
     }
@@ -32,7 +33,7 @@ export class GroupsService {
     }
 
     public getUsersNames(): Observable<any> {
-        return this.http.get(this.baseURL + 'getUsersNames', httpOptions);
+        return this.http.get(this.baseUrlforUsers + 'getUsersNames', httpOptions);
     }
 
     public editGroups(group: ExistGroupModel): Observable<any> {

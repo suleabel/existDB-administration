@@ -20,17 +20,27 @@ export class FooterComponent implements OnInit {
 
     ngOnInit() {
         this.username = TokenStorageService.getUsername();
+        this.getDBVersion();
+        this.getServerIp();
+    }
+
+    getDBVersion() {
         this.authService.getDbVersion().subscribe(data => {
                 this.serverVersion.next(data.response);
             },
             error => {
-                console.log(error.error);
+                // console.log(error.error);
+                this.getDBVersion();
             });
+    }
+
+    getServerIp() {
         this.authService.getServerIp().subscribe(data => {
                 this.serverIp.next(data.response.toLowerCase());
             },
             error => {
-                console.log(error.error);
+                // console.log(error.error);
+                this.getServerIp();
             });
     }
 

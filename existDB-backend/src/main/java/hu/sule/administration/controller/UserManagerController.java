@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/exist/")
+@RequestMapping("/userManager/")
 public class UserManagerController {
 
     private UserManagerService userManagerServiceImpl;
