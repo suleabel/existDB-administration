@@ -62,7 +62,6 @@ export class CollectionManagerComponent implements OnInit {
                 },
                 error => {
                     this.notificationService.Error(error.error);
-                    this.backToRoot();
                 });
     }
 

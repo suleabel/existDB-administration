@@ -38,9 +38,24 @@ public class ExistDbViewQueries {
                 "        if (not(doc-available($view_full_path))) then\n" +
                 "            xmldb:store($collection, $doc-name, <view>{$view_content}</view>)\n" +
                 "        else (\n" +
+                "            local:log-event($view_full_path),\n"+
                 "            xmldb:remove($collection, $doc-name),\n" +
                 "            xmldb:store($collection, $doc-name, <view>{$view_content}</view>)\n" +
                 "            )\n" +
+                "        )\n" +
+                "};\n" +
+                "declare function local:log-event($view_full_path as xs:string) {\n" +
+                "    let $log-collection := \"/db\"\n" +
+                "    let $log := \"view-triggers-log.xml\"\n" +
+                "    let $log-uri := concat($log-collection, \"/\", $log)\n" +
+                "    return\n" +
+                "        (\n" +
+                "        if (not(doc-available($log-uri))) then\n" +
+                "            xmldb:store($log-collection, $log, <viewTriggers/>)\n" +
+                "        else ()\n" +
+                "        ,\n" +
+                "        (: log the trigger details to the log file :)\n" +
+                "        update insert <viewTrigger viewTrigger='{$view_full_path}' timestamp=\"{current-dateTime()}\"/> into doc($log-uri)/viewTriggers\n" +
                 "        )\n" +
                 "};";
     }
