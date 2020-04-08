@@ -21,4 +21,8 @@ export class ViewServiceService {
     public createView(data: CreateViewModel): Observable<any> {
         return this.http.post(this.baseUrl + 'createView', data, httpOptions);
     }
+
+    public getCreatedViews(): Observable<any> {
+        return this.http.get(this.baseUrl + 'getCreatedViews', httpOptions);
+    }
 }

@@ -118,7 +118,7 @@ public class TriggerServiceImpl implements TriggerService {
         }
     }
 
-    public ArrayList<ExistCollectionManagerModel> getTriggerConfiguration(String url) throws IOException {
+    public ArrayList<ExistCollectionManagerModel> getTriggerConfiguration(String url) throws IOException, JDOMException {
         return collectionServiceImpl.getFileManagerContentByCollection(url);
     }
 

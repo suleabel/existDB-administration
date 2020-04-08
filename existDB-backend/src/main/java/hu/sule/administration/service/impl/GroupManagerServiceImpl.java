@@ -4,6 +4,7 @@ import hu.sule.administration.model.ExistDBGroup;
 import hu.sule.administration.queries.ExistDbGroupManagerQueries;
 import hu.sule.administration.service.GroupManagerService;
 import hu.sule.administration.service.impl.ExistDbCredentialsServiceImpl;
+import hu.sule.administration.util.Mappers;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -27,7 +28,11 @@ public class GroupManagerServiceImpl implements GroupManagerService {
     private ExistDbGroupManagerQueries existDbGroupManagerQueries;
 
     public ArrayList<ExistDBGroup> listGroups() throws JDOMException, IOException {
-        return mapGroupsQueryResult(existDbGroupManagerQueries.getGroups2(ExistDbCredentialsServiceImpl.getDetails()));
+        ArrayList<ExistDBGroup> groups = Mappers.mapGroupsQueryResult(existDbGroupManagerQueries.getGroups2(ExistDbCredentialsServiceImpl.getDetails()));
+        for (ExistDBGroup group: groups) {
+            group.setDefault(existDbGroupManagerQueries.isDefaultGroup(group.getGroupName()));
+        }
+        return groups;
     }
 
     public String createGroup(ExistDBGroup group) {
@@ -44,30 +49,5 @@ public class GroupManagerServiceImpl implements GroupManagerService {
 
     public List<String> getGroupsName() {
         return Arrays.asList(existDbGroupManagerQueries.getGroupsNames(ExistDbCredentialsServiceImpl.getDetails()).split("\n"));
-    }
-
-    public ArrayList<ExistDBGroup> mapGroupsQueryResult(String input) throws JDOMException, IOException {
-        ArrayList<ExistDBGroup> existDBGroups = new ArrayList<>();
-        ExistDBGroup existDBGroup;
-        ArrayList<String> groupMembers;
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document doc = null;
-        doc = saxBuilder.build(new InputSource(new StringReader(input)));
-        if (doc != null) {
-            Element result = doc.getRootElement();
-            List<Element> groups = result.getChildren();
-            for (Element group : groups) {
-                groupMembers = new ArrayList<>();
-                existDBGroup = new ExistDBGroup(group.getChildText("name"), group.getChildText("manager"), group.getChildText("desc"), existDbGroupManagerQueries.isDefaultGroup(group.getChildText("name")));
-                Element members = group.getChild("groupMembers");
-                List<Element> membersList = members.getChildren();
-                for (Element member : membersList) {
-                    groupMembers.add(member.getValue());
-                }
-                existDBGroup.setGroupMembers(groupMembers);
-                existDBGroups.add(existDBGroup);
-            }
-        }
-        return existDBGroups;
     }
 }

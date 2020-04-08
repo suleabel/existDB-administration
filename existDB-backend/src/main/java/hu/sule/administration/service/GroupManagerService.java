@@ -14,5 +14,4 @@ public interface GroupManagerService {
     String deleteGroup(String group);
     String editGroup(ExistDBGroup group);
     List<String> getGroupsName();
-    ArrayList<ExistDBGroup> mapGroupsQueryResult(String input) throws JDOMException, IOException;
 }

@@ -5,6 +5,7 @@ import hu.sule.administration.model.SerializeFile;
 import hu.sule.administration.model.StoreDirOrFileModel;
 import hu.sule.administration.queries.ExistDbFileExplorerQueries;
 import hu.sule.administration.service.FileExplorerService;
+import hu.sule.administration.util.Mappers;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -28,30 +29,9 @@ public class FileExplorerServiceImpl implements FileExplorerService {
 
     private static final Logger logger = LoggerFactory.getLogger(FileExplorerServiceImpl.class);
 
-    public List<FileManagerEntity> getDirectoryContent(String dirname) {
-        List<FileManagerEntity> fileManagerEntities = new ArrayList<>();
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document doc = null;
-        Namespace ns = Namespace.getNamespace("http://exist-db.org/collection-config/1.0");
-        try {
-            doc = saxBuilder.build(new InputSource(new StringReader(existDbFileExplorerQueries.getDirectoryContent(ExistDbCredentialsServiceImpl.getDetails(), dirname))));
-        } catch (JDOMException | IOException e) {
-            logger.error("SAXBuilder exception: " + e.getMessage());
-        }
-        if (doc != null) {
-            Element list = doc.getRootElement();
-            List<Element> content = list.getChildren();
-            for (Element file : content) {
-                FileManagerEntity fme = null;
-                if (file.getName().equals("file")) {
-                    fme = new FileManagerEntity(true, file.getAttributeValue("name"), file.getAttributeValue("size"), file.getAttributeValue("human-size"), file.getAttributeValue("modified"), file.getAttributeValue("hidden").equals("true"), file.getAttributeValue("canRead").equals("true"), file.getAttributeValue("canWrite").equals("true"));
-                } else if (file.getName().equals("directory")) {
-                    fme = new FileManagerEntity(false, file.getAttributeValue("name"), file.getAttributeValue("size"), file.getAttributeValue("human-size"), file.getAttributeValue("modified"), file.getAttributeValue("hidden").equals("true"), file.getAttributeValue("canRead").equals("true"), file.getAttributeValue("canWrite").equals("true"));
-                }
-                fileManagerEntities.add(fme);
-            }
-        }
-        return fileManagerEntities;
+    public List<FileManagerEntity> getDirectoryContent(String dirname) throws IOException, JDOMException {
+        return Mappers.mapFileManagerContant(existDbFileExplorerQueries.getDirectoryContent(ExistDbCredentialsServiceImpl.getDetails(), dirname));
+
     }
 
     public String getRootDirectory() {

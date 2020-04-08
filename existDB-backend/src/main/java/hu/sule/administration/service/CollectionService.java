@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @Service
 public interface CollectionService {
 
-    ArrayList<ExistCollectionManagerModel> getFileManagerCollectionsByCollection(String collection) throws IOException;
-    ArrayList<ExistCollectionManagerModel> getFileManagerContentByCollection(String collection) throws IOException;
+    ArrayList<ExistCollectionManagerModel> getFileManagerCollectionsByCollection(String collection) throws IOException, JDOMException;
+    ArrayList<ExistCollectionManagerModel> getFileManagerContentByCollection(String collection) throws IOException, JDOMException;
     String createDir(ForStoreResourceAndColl storeResource);
     String Store(ForStoreResourceAndColl forStoreResourceAndColl);
     String saveEditedRes(ForStoreResourceAndColl forStoreResourceAndColl);
@@ -21,7 +21,6 @@ public interface CollectionService {
     String editResCred(ExistCollectionManagerModel existCollectionManagerModel);
     String unlockResource(String url);
     ResourceReadModel readFile(String url) throws JDOMException, IOException;
-    ArrayList<ExistCollectionManagerModel> mapCollectionQueryResult(String input) throws IOException;
     boolean resourceIsAvailable(String path);
     boolean collectionIsAvailable(String path);
 

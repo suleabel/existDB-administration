@@ -14,5 +14,4 @@ public interface VersionManagerService {
     VersionsModel getHistory(String path) throws JDOMException, IOException;
     String getDiffByRev(VersionByRevModel versionByRevModel) throws IOException, JDOMException;
     String resotreResByRev(VersionByRevModel versionByRevModel) throws IOException, JDOMException;
-    VersionsModel mapVersions(String input) throws JDOMException, IOException;
 }

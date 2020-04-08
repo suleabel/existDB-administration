@@ -25,12 +25,12 @@ public class ExecuteQueryController {
     }
 
     @RequestMapping("/evalXqueryasString")
-    public ResponseEntity<String> evalXqueryasString(HttpEntity<String> httpEntity) throws JDOMException, IOException  {
-        return new ResponseEntity<>(queryServiceImpl.evalXqueryasString(httpEntity.getBody()), HttpStatus.OK);
+    public ResponseEntity<String> evalXqueryAsString(HttpEntity<String> httpEntity) throws JDOMException, IOException  {
+        return new ResponseEntity<>(queryServiceImpl.evalXqueryAsString(httpEntity.getBody()), HttpStatus.OK);
     }
 
     @RequestMapping("/evalXqueryasPath")
-    public ResponseEntity<String> evalXqueryasPath(HttpEntity<String> httpEntity) throws JDOMException, IOException {
-        return new ResponseEntity<>(queryServiceImpl.evalXqueryasPath(httpEntity.getBody()), HttpStatus.OK);
+    public ResponseEntity<String> evalXqueryAsPath(HttpEntity<String> httpEntity) throws JDOMException, IOException {
+        return new ResponseEntity<>(queryServiceImpl.evalXqueryAsPath(httpEntity.getBody()), HttpStatus.OK);
     }
 }

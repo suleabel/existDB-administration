@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter</title>
+    <author>J K. Rowling</author>
+    <year>2005</year>
+    <price>29.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter12</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter12</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter12</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter20</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter20</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter21</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter21</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter22</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter22</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+  <book category="CHILDREN">
+    <title lang="en">Harry Potter22</title>
+    <author>J K. Rowling</author>
+    <year>20012</year>
+    <price>9.99</price>
+  </book>
+</view>

@@ -1,6 +1,7 @@
 package hu.sule.administration.service.impl;
 
 import hu.sule.administration.exceptions.CustomException;
+import hu.sule.administration.model.CreatedViewModel;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.model.ViewCreateModel;
@@ -9,9 +10,17 @@ import hu.sule.administration.service.CollectionService;
 import hu.sule.administration.service.ExistDbCredentialsService;
 import hu.sule.administration.service.TriggerService;
 import hu.sule.administration.service.ViewService;
+import hu.sule.administration.util.Mappers;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xml.sax.InputSource;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +31,7 @@ import java.util.regex.Pattern;
 
 @Service
 public class ViewServiceImpl implements ViewService {
+
     private ExistDbViewQueries existDbViewQueries;
     private TriggerService triggerServiceImpl;
     private CollectionService collectionServiceImpl;
@@ -48,7 +58,7 @@ public class ViewServiceImpl implements ViewService {
         createViewLog(viewCreateModel, trigger_name);
 
     }
-
+    @Override
     public void createAndSaveViewQuery(ViewCreateModel viewCreateModel, String trigger_name){
         viewCreateModel.setQueryExpression(viewCreateModel.getQueryExpression().replaceAll("xquery version \"3.1\";",""));
         String ifCondition = genCondition(getDocs(viewCreateModel.getQueryExpression()));
@@ -58,7 +68,7 @@ public class ViewServiceImpl implements ViewService {
         }
         collectionServiceImpl.Store(new ForStoreResourceAndColl(viewTriggerLocation, trigger_name,existDbViewQueries.genViewTrigger(viewCreateModel, ifCondition),"application/xquery",true));
     }
-
+    @Override
     public void addTriggerToConfiguration(String trigger_name){
         String triggerConfigLocation = "/db/system/config/db";
         List<String> events = new ArrayList<>();
@@ -69,7 +79,7 @@ public class ViewServiceImpl implements ViewService {
             throw new CustomException("Target collection.xconf is not available, Please initialize it in trigger manager","createViewTrigger","null");
         }
     }
-
+    @Override
     public void createViewLog(ViewCreateModel viewCreateModel, String trigger_name){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
@@ -77,6 +87,11 @@ public class ViewServiceImpl implements ViewService {
         if(!existDbViewQueries.logViewCreation(ExistDbCredentialsServiceImpl.getDetails() ,viewCreateModel, triggerConfigLocation, trigger_name, ExistDbCredentialsServiceImpl.getDetails().getUsername(), dateFormat.format(date))){
             throw new CustomException("view creation log is not succeeded","createViewTrigger","null");
         }
+    }
+
+    @Override
+    public ArrayList<CreatedViewModel> getCreatedViews() throws JDOMException, IOException {
+        return Mappers.mapCreatedViewModel(collectionServiceImpl.readFile("/db/createdViews.xml").getContent());
     }
 
     @Override

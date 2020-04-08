@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 @Service
 public interface FileExplorerService {
-    List<FileManagerEntity> getDirectoryContent(String dirname);
+    List<FileManagerEntity> getDirectoryContent(String dirname) throws IOException, JDOMException;
     String getRootDirectory();
     String getFileContent(String url) throws JDOMException, IOException;
     String makeDir(StoreDirOrFileModel storeDirOrFileModel);

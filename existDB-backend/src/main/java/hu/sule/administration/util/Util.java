@@ -2,16 +2,25 @@ package hu.sule.administration.util;
 
 import hu.sule.administration.exceptions.CustomException;
 import hu.sule.administration.model.ExistDetails;
+import hu.sule.administration.xsdGenerator.SimpleErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XQueryService;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
+import java.io.IOException;
+import java.io.StringReader;
 
 @Component
 public class Util {

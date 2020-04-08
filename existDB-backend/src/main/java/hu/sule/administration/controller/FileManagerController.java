@@ -30,7 +30,7 @@ public class FileManagerController {
     }
 
     @RequestMapping("/getDirectoryContent")
-    public List<FileManagerEntity> getDirectoryContent(HttpEntity<String> httpEntity) {
+    public List<FileManagerEntity> getDirectoryContent(HttpEntity<String> httpEntity) throws IOException, JDOMException{
         return fileExplorerServiceImpl.getDirectoryContent(httpEntity.getBody());
     }
 

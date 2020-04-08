@@ -4,6 +4,7 @@ import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.service.TriggerService;
+import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -49,7 +50,7 @@ public class TriggerController {
     }
 
     @RequestMapping("getTriggersConfig")
-    public ResponseEntity<ArrayList<ExistCollectionManagerModel>> getTriggerConfigurations(HttpEntity<String> httpEntity) throws IOException{
+    public ResponseEntity<ArrayList<ExistCollectionManagerModel>> getTriggerConfigurations(HttpEntity<String> httpEntity) throws IOException, JDOMException {
         return new ResponseEntity<>(triggerServiceImpl.getTriggerConfiguration(httpEntity.getBody()),HttpStatus.OK);
     }
 

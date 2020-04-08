@@ -4,6 +4,7 @@ import hu.sule.administration.model.BackupEntity;
 import hu.sule.administration.model.CreateBackupEntity;
 import hu.sule.administration.queries.ExistDbBackupsAndRestoreQueries;
 import hu.sule.administration.service.BackupService;
+import hu.sule.administration.util.Mappers;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -26,7 +27,7 @@ public class BackupServiceImpl implements BackupService {
     private ExistDbBackupsAndRestoreQueries existDbBackupsAndRestoreQueries;
 
     public ArrayList<BackupEntity> getBackups(String url) throws IOException, JDOMException {
-        return mapBackups(existDbBackupsAndRestoreQueries.getBackups(ExistDbCredentialsServiceImpl.getDetails(), url));
+        return Mappers.mapBackups(existDbBackupsAndRestoreQueries.getBackups(ExistDbCredentialsServiceImpl.getDetails(), url));
     }
 
     public String createBackup(CreateBackupEntity createBackupEntity) throws JDOMException, IOException {
@@ -36,40 +37,5 @@ public class BackupServiceImpl implements BackupService {
     public String restoreBackup(String name) throws JDOMException, IOException {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbBackupsAndRestoreQueries.restoreBackup(ExistDbCredentialsServiceImpl.getDetails(), name))));
 
-    }
-
-    public ArrayList<BackupEntity> mapBackups(String input) throws JDOMException, IOException {
-        ArrayList<BackupEntity> backupEntities = new ArrayList<>();
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document doc = null;
-        doc = saxBuilder.build(new InputSource(new StringReader(input)));
-        if(doc != null) {
-            Element directory = doc.getRootElement();
-            List<Element> backups = directory.getChildren();
-            for (Element backup: backups) {
-                List<Element> details = backup.getChildren();
-                BackupEntity backupEntity = new BackupEntity();
-                backupEntity.setFileName(backup.getAttributeValue("file"));
-                backupEntity.setDownloadable(backupEntity.getFileName().contains(".zip"));
-                for (Element detail: details) {
-                    switch(detail.getName()){
-                        case "nr-in-sequence":
-                            backupEntity.setNrInSequence(detail.getValue());
-                            break;
-                        case "date":
-                            backupEntity.setDate(detail.getValue());
-                            break;
-                        case "previous":
-                            backupEntity.setPrevious(detail.getValue());
-                            break;
-                        case "incremental":
-                            backupEntity.setIncremental(detail.getValue());
-                            break;
-                    }
-                }
-                backupEntities.add(backupEntity);
-            }
-        }
-        return backupEntities;
     }
 }

@@ -4,6 +4,7 @@ import hu.sule.administration.model.ExistDBUser;
 import hu.sule.administration.queries.ExistDbUserManagerQueries;
 import hu.sule.administration.service.UserManagerService;
 import hu.sule.administration.service.impl.ExistDbCredentialsServiceImpl;
+import hu.sule.administration.util.Mappers;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -31,7 +32,11 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     @Override
     public ArrayList<ExistDBUser> listUsers() throws JDOMException, IOException {
-        return mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsServiceImpl.getDetails()));
+        ArrayList<ExistDBUser> users = Mappers.mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsServiceImpl.getDetails()));
+        for (ExistDBUser user: users) {
+            user.setDefault(existDbUserManagerQueries.isDefaultUser(user.getUsername()));
+        }
+        return users;
     }
 
     @Override
@@ -63,7 +68,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     @Override
     public void editUserGroups(ExistDBUser user)throws JDOMException, IOException {
-        ArrayList<ExistDBUser> existDBUsers = mapUsersQueryResult(existDbUserManagerQueries.getUsersData(ExistDbCredentialsServiceImpl.getDetails()));
+        ArrayList<ExistDBUser> existDBUsers = listUsers();
         for (ExistDBUser existDBUser : existDBUsers) {
             if (existDBUser.getUsername().equals(user.getUsername())) {
                 List<String> oldGroups = existDBUser.getGroups();
@@ -79,33 +84,4 @@ public class UserManagerServiceImpl implements UserManagerService {
             }
         }
     }
-
-    @Override
-    public ArrayList<ExistDBUser> mapUsersQueryResult(String input) throws JDOMException, IOException {
-        ArrayList<ExistDBUser> existDBUsers = new ArrayList<>();
-        ExistDBUser existDBUser;
-        ArrayList<String> userGroups;
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document doc = null;
-        doc = saxBuilder.build(new InputSource(new StringReader(input)));
-        if (doc != null) {
-            Element result = doc.getRootElement();
-            List<Element> users = result.getChildren();
-            for (Element user : users) {
-                userGroups = new ArrayList<>();
-                existDBUser = new ExistDBUser(
-                        user.getChildText("username"), user.getChildText("umask"), user.getChildText("primaryGroups"),
-                        user.getChildText("fullName"), user.getChildText("desc"), existDbUserManagerQueries.isDefaultUser(user.getChildText("username")), true);
-                Element groups = user.getChild("groups");
-                List<Element> groupList = groups.getChildren();
-                for (Element group : groupList) {
-                    userGroups.add(group.getValue());
-                }
-                existDBUser.setGroups(userGroups);
-                existDBUsers.add(existDBUser);
-            }
-        }
-        return existDBUsers;
-    }
-
 }

@@ -13,5 +13,4 @@ public interface BackupService {
     ArrayList<BackupEntity> getBackups(String url) throws IOException, JDOMException;
     String createBackup(CreateBackupEntity createBackupEntity) throws JDOMException, IOException;
     String restoreBackup(String name) throws JDOMException, IOException;
-    ArrayList<BackupEntity> mapBackups(String input) throws JDOMException, IOException;
 }

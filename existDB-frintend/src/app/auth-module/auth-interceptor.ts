@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // @ts-ignore
     return next.handle(authReq).pipe(tap((event: HttpEvent) => {
       if (event instanceof HttpResponse) {
-        console.log('Service Response thr Interceptor');
+        // console.log('Service Response thr Interceptor');
       }
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
@@ -55,9 +55,6 @@ export class AuthInterceptor implements HttpInterceptor {
           this.router.navigate(['/error-page']);
           // location.href = '/error-page';
         }
-        // else if (err.status === 200) {
-        //   console.log(err.error-page.text);
-        // }
         // if (err.status === 400) {
         //   // location.href = '/register';
         //   console.log('error-page, massage: ' + err.error-page.message);

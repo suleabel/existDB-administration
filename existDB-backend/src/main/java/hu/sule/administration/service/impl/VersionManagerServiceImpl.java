@@ -6,6 +6,7 @@ import hu.sule.administration.queries.ExistDbVersionManagementQueries;
 import hu.sule.administration.service.CollectionService;
 import hu.sule.administration.service.TriggerService;
 import hu.sule.administration.service.VersionManagerService;
+import hu.sule.administration.util.Mappers;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -78,9 +79,6 @@ public class VersionManagerServiceImpl implements VersionManagerService {
         events.add("update");
         events.add("copy");
         events.add("move");
-//        if(triggerService.addTriggerToConfiguration(new TriggerModel(new ArrayList<>(),"org.exist.collections.triggers.HistoryTrigger","",""), "/db/system/config/db").equals("Failure!")){
-//            return "Failure!";
-//        }
         if(triggerServiceImpl.addTriggerToConfiguration(new EditTriggerModel(events, "org.exist.versioning.VersioningTrigger", "overwrite", "yes"), "/db/system/config/db").equals("Failure!")){
             return "Failure!";
         }
@@ -88,7 +86,7 @@ public class VersionManagerServiceImpl implements VersionManagerService {
     }
 
     public VersionsModel getHistory(String path) throws JDOMException, IOException {
-        return mapVersions(existDbVersionManagementQueries.getResHistory(ExistDbCredentialsServiceImpl.getDetails(), path));
+        return Mappers.mapVersions(existDbVersionManagementQueries.getResHistory(ExistDbCredentialsServiceImpl.getDetails(), path));
     }
 
     public String getDiffByRev(VersionByRevModel versionByRevModel) throws IOException, JDOMException{
@@ -97,32 +95,5 @@ public class VersionManagerServiceImpl implements VersionManagerService {
 
     public String resotreResByRev(VersionByRevModel versionByRevModel) throws IOException, JDOMException{
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbVersionManagementQueries.restoreDocByRev(ExistDbCredentialsServiceImpl.getDetails(), versionByRevModel))));
-    }
-
-    public VersionsModel mapVersions(String input) throws JDOMException, IOException {
-        VersionsModel versionsModel = new VersionsModel();
-        ArrayList<ReversionsModel> reversionsModels = new ArrayList<>();
-        ReversionsModel reversionsModel;
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document doc = null;
-        doc = saxBuilder.build(new InputSource(new StringReader(input)));
-        if (doc != null) {
-            Element root = doc.getRootElement();
-            List<Element> data = root.getChildren();
-            for (Element node : data) {
-                if("document".equals(node.getName())){
-                    versionsModel.setDoc(node.getValue());
-                }
-                if("revisions".equals(node.getName())){
-                    List<Element> reversions = node.getChildren();
-                    for (Element reversion : reversions) {
-                        reversionsModel = new ReversionsModel(reversion.getAttributeValue("rev"),reversion.getChildren().get(0).getValue(),reversion.getChildren().get(1).getValue());
-                        reversionsModels.add(reversionsModel);
-                    }
-                }
-            }
-            versionsModel.setReversions(reversionsModels);
-        }
-        return versionsModel;
     }
 }

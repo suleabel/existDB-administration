@@ -30,12 +30,12 @@ public class CollectionManagerController {
     }
 
     @RequestMapping("/getOnlyCollections")
-    public ArrayList<ExistCollectionManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity) throws IOException{
+    public ArrayList<ExistCollectionManagerModel> getOnlyCollectionsByCollection(HttpEntity<String> httpEntity) throws IOException, JDOMException{
         return collectionServiceImpl.getFileManagerCollectionsByCollection(httpEntity.getBody());
     }
 
     @RequestMapping("/getAllContentByCollection")
-    public ArrayList<ExistCollectionManagerModel> getCollectionContent(HttpEntity<String> httpEntity) throws IOException{
+    public ArrayList<ExistCollectionManagerModel> getCollectionContent(HttpEntity<String> httpEntity) throws IOException, JDOMException{
         return collectionServiceImpl.getFileManagerContentByCollection(httpEntity.getBody());
     }
 

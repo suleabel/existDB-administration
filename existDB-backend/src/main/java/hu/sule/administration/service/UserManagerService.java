@@ -18,5 +18,4 @@ public interface UserManagerService {
     boolean isAdmin() throws XMLDBException;
     List<String> getUsersNames();
     void editUserGroups(ExistDBUser user)throws JDOMException, IOException;
-    ArrayList<ExistDBUser> mapUsersQueryResult(String input) throws JDOMException, IOException;
 }

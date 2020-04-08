@@ -104,17 +104,20 @@ export class TriggersManagerComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(
             data => {
-                console.log(data);
                 if (data === null || data === undefined || data === '') {
                     this.notificationService.success('No selected collection');
                 } else {
+
+                    this.isLoading$.next(true);
                     this.triggerService.initializeTriggerConfig(data)
                         .subscribe(
                             result => {
                                 this.notificationService.success('Success');
+                                this.isLoading$.next(false);
                                 this.loadData(this.triggersRootConfigurationLocation);
                             }, error => {
                                 this.notificationService.Error(error.error);
+                                this.isLoading$.next(false);
                                 this.loadData(this.triggersRootConfigurationLocation);
                             }
                         );
