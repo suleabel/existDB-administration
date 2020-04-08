@@ -64,6 +64,8 @@ export class LoginPageComponent implements OnInit {
         TokenStorageService.saveUsername(data.username);
         TokenStorageService.saveAuthorities(data.authorities);
         this.isLoading$.next(false);
+        this.authService.setDBVersion();
+        this.authService.setServerIp();
         this.router.navigate(['home']);
       },
       error => {
@@ -73,4 +75,20 @@ export class LoginPageComponent implements OnInit {
       }
     );
   }
+  //
+  // getDBVersion() {
+  //   this.authService.getDbVersion().subscribe(data => {
+  //       },
+  //       error => {
+  //         // console.log(error.error);
+  //       });
+  // }
+  //
+  // getServerIp() {
+  //   this.authService.getServerIp().subscribe(data => {
+  //       },
+  //       error => {
+  //         // console.log(error.error);
+  //       });
+  // }
 }

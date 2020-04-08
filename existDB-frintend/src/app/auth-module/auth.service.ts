@@ -5,6 +5,7 @@ import {JwtResponse} from './jwt-response';
 import {AuthLoginInfo} from './login-info';
 import {TokenStorageService} from './token-storage.service';
 import {Router} from '@angular/router';
+import {NotificationService} from '../error-notification-module/service/notification.service';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -21,14 +22,17 @@ export class AuthService {
     /* tslint:enable:no-string-literal */
     private Url: string;
     private User: string;
+    private ServerIp$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    private ServerVersion$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
     constructor(
         private http: HttpClient,
         private token: TokenStorageService,
-        private router: Router) {
+        private router: Router,
+        private notificationService: NotificationService) {
     }
 
-    attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
+    public attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
         this.Url = credentials.url;
         this.User = credentials.username;
         return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
@@ -40,7 +44,7 @@ export class AuthService {
         if (token !== null) {
             this.loggedIn.next(true);
         }
-        return this.loggedIn.asObservable();
+        return this.loggedIn;
     }
 
     public setLogout() {
@@ -53,13 +57,34 @@ export class AuthService {
         this.router.navigate(['/login']);
     }
 
-    public getDbVersion(): Observable<any> {
+    public getDBVersion(): Observable<any> {
         return this.http.get(this.miscUrl + '/getVersion', httpOptions);
+    }
+
+    public setDBVersion() {
+        this.getDBVersion().subscribe(
+            data => {
+                this.ServerVersion$.next(data.response);
+            }, error => {
+                this.notificationService.Error(error.error);
+            }
+        );
     }
 
     public getServerIp(): Observable<any> {
         return this.http.get(this.miscUrl + '/getServerIp', httpOptions);
     }
+
+    public setServerIp() {
+        this.getServerIp().subscribe(
+            data => {
+                this.ServerIp$.next(data.response.toLowerCase());
+            }, error => {
+                this.notificationService.Error(error.error);
+            }
+        );
+    }
+
 
     get url(): string {
         return this.Url;
@@ -67,5 +92,13 @@ export class AuthService {
 
     get user(): string {
         return this.User;
+    }
+
+    get serverIp(): BehaviorSubject<string>  {
+        return this.ServerIp$;
+    }
+
+    get serverVersion(): BehaviorSubject<string> {
+        return this.ServerVersion$;
     }
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './auth-module/auth.service';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 // @ts-ignore
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  isLoggedIn$: Observable<boolean>;
+  isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private authService: AuthService) {}
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;

@@ -9,39 +9,18 @@ import {BehaviorSubject} from 'rxjs';
     styleUrls: ['./footer.component.sass']
 })
 export class FooterComponent implements OnInit {
-    public serverVersion?: BehaviorSubject<string> = new BehaviorSubject('');
+    public serverVersion$: BehaviorSubject<string> = new BehaviorSubject('');
     public username: string;
-    public serverIp?: BehaviorSubject<string> = new BehaviorSubject('');
+    public serverIp$: BehaviorSubject<string> = new BehaviorSubject('');
 
     constructor(
-        private token: TokenStorageService,
         private authService: AuthService) {
     }
 
     ngOnInit() {
         this.username = TokenStorageService.getUsername();
-        this.getDBVersion();
-        this.getServerIp();
-    }
-
-    getDBVersion() {
-        this.authService.getDbVersion().subscribe(data => {
-                this.serverVersion.next(data.response);
-            },
-            error => {
-                // console.log(error.error);
-                this.getDBVersion();
-            });
-    }
-
-    getServerIp() {
-        this.authService.getServerIp().subscribe(data => {
-                this.serverIp.next(data.response.toLowerCase());
-            },
-            error => {
-                // console.log(error.error);
-                this.getServerIp();
-            });
+        this.serverVersion$ = this.authService.serverVersion;
+        this.serverIp$ = this.authService.serverIp;
     }
 
 }

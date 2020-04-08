@@ -4,6 +4,7 @@ import hu.sule.administration.exceptions.CustomException;
 import hu.sule.administration.model.ExistDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;
@@ -82,7 +83,7 @@ public class Util {
         try {
             XQueryService service = (XQueryService) collection.getService("XQueryService", "1.0");
             service.setProperty(OutputKeys.INDENT, "yes");
-            service.setProperty(OutputKeys.ENCODING, "UTF-16");
+            service.setProperty(OutputKeys.ENCODING, "UTF-8");
             CompiledExpression compiled = service.compile(query);
             ResourceSet result = service.execute(compiled);
             for (int i = 0; i < (int) result.getSize(); i++) {
@@ -93,6 +94,7 @@ public class Util {
             if(e.getMessage().equals("")){
                 throw new CustomException("no error message","execXQuery","XMLDBException", e.getStackTrace());
             } else {
+                System.out.println("failed method: \n" + query);
                 throw new CustomException(e.getMessage(),"execXQuery","XMLDBException", e.getStackTrace());
             }
         }

@@ -79,6 +79,7 @@ import { CreateNewFileComponent } from './file-manager/create-new-file/create-ne
 import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { QueryResultDialogComponent } from './error-notification-module/query-result-dialog/query-result-dialog.component';
 import { QueryExecuteComponent } from './query-execute/query-execute.component';
+import { ListViewsComponent } from './view-manager/list-views/list-views.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -125,6 +126,7 @@ import { QueryExecuteComponent } from './query-execute/query-execute.component';
       ViewManagerComponent,
       QueryResultDialogComponent,
       QueryExecuteComponent,
+      ListViewsComponent,
   ],
     imports: [
         BrowserModule,

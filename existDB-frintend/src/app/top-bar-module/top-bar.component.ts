@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth-module/auth.service';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-top-bar',

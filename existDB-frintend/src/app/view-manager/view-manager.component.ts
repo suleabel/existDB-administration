@@ -44,6 +44,7 @@ export class ViewManagerComponent implements OnInit {
             },
             error => {
                 this.notificationService.Error(error.error);
+                this.isLoading$.next(false);
             });
     }
 

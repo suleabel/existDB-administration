@@ -1,10 +1,16 @@
 package hu.sule.administration.queries;
 
+import hu.sule.administration.model.ExistDetails;
 import hu.sule.administration.model.ViewCreateModel;
+import hu.sule.administration.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ExistDbViewQueries {
+
+    @Autowired
+    private Util util;
 
     public String genViewTrigger(ViewCreateModel viewCreateModel, String condition){
         return "xquery version \"3.1\";\n" +
@@ -38,4 +44,27 @@ public class ExistDbViewQueries {
                 "        )\n" +
                 "};";
     }
+
+    public boolean logViewCreation(ExistDetails details, ViewCreateModel viewCreateModel, String configLocation, String queryName, String user, String time){
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        let $view-log-collection := '/db'\n" +
+                "        let $view-log := 'createdViews.xml'\n" +
+                "        let $view-log-uri := concat($view-log-collection, '/', $view-log)\n" +
+                "        return \n" +
+                "            (\n" +
+                "                if (not(doc-available($view-log-uri))) then\n" +
+                "                    xmldb:store($view-log-collection, $view-log, <views/>)\n" +
+                "                else (),\n" +
+                "            update insert <view user='" + user + "' date='" + time + "' config-location='" + configLocation + "' query-name='" + queryName + "' view-location='" + viewCreateModel.getViewCollection() + "/" + viewCreateModel.getViewName() + "'/> into doc($view-log-uri)/views,\n" +
+                "            true()\n" +
+                "            )\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.booleanResultQuery(details, query);
+    }
+
+
 }

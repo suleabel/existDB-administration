@@ -22,4 +22,7 @@ public interface CollectionService {
     String unlockResource(String url);
     ResourceReadModel readFile(String url) throws JDOMException, IOException;
     ArrayList<ExistCollectionManagerModel> mapCollectionQueryResult(String input) throws IOException;
+    boolean resourceIsAvailable(String path);
+    boolean collectionIsAvailable(String path);
+
 }

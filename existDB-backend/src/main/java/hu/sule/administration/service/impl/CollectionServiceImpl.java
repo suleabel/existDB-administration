@@ -5,6 +5,7 @@ import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.model.ResourceReadModel;
 import hu.sule.administration.queries.ExistDbCollectionManagerQueries;
 import hu.sule.administration.service.CollectionService;
+import hu.sule.administration.service.ExistDbCredentialsService;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -101,5 +102,15 @@ public class CollectionServiceImpl implements CollectionService {
             }
         }
         return collectionManagerModels;
+    }
+
+    @Override
+    public boolean resourceIsAvailable(String path) {
+        return existDbCollectionManagerQueries.resourceIsAvailable(ExistDbCredentialsServiceImpl.getDetails(), path);
+    }
+
+    @Override
+    public boolean collectionIsAvailable(String path) {
+        return existDbCollectionManagerQueries.collectionIsAvailable(ExistDbCredentialsServiceImpl.getDetails(), path);
     }
 }

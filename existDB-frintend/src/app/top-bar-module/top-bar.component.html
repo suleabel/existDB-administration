@@ -11,17 +11,18 @@
         <a class="nav-link" mat-button [routerLink]="'/collection-manager'"><h2>Collection Manager</h2></a>
         <a class="nav-link" mat-button [routerLink]="'/file_manager-component'"><h2>File Explorer</h2></a>
         <a class="nav-link" mat-button [routerLink]="'/trigger-manager'"><h2>Trigger Manager</h2></a>
-        <a class="nav-link" mat-button [routerLink]="'/view-manager'"><h2>View</h2></a>
+        <a mat-button [matMenuTriggerFor]="menu3"><h2>View</h2></a>
+        <mat-menu #menu3="matMenu">
+            <button mat-menu-item [routerLink]="'/view-manager'">Create view</button>
+            <button mat-menu-item [routerLink]="'/created-views-list'">List views</button>
+        </mat-menu>
         <a class="nav-link" mat-button [routerLink]="'/version-management'"><h2>Version Management</h2></a>
-
         <a mat-button [matMenuTriggerFor]="menu2"><h2>Tools</h2></a>
         <mat-menu #menu2="matMenu">
             <button mat-menu-item [routerLink]="'/execute-xQuery'">Execute query</button>
             <button mat-menu-item [routerLink]="'/xml2xsd'">Generate XSD from XML</button>
             <button mat-menu-item [routerLink]="'/backup-and-restore-module'">Backup</button>
         </mat-menu>
-
-
         <span class="example-fill-remaining-space"></span>
         <form class="form-inline my-2 my-lg-0">
             <a class="nav-link" mat-button (click)="onLogout()"><h2>Logout</h2></a>

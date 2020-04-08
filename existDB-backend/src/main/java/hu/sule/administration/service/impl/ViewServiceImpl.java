@@ -1,16 +1,21 @@
 package hu.sule.administration.service.impl;
 
+import hu.sule.administration.exceptions.CustomException;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.model.ViewCreateModel;
 import hu.sule.administration.queries.ExistDbViewQueries;
 import hu.sule.administration.service.CollectionService;
+import hu.sule.administration.service.ExistDbCredentialsService;
 import hu.sule.administration.service.TriggerService;
 import hu.sule.administration.service.ViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,16 +42,42 @@ public class ViewServiceImpl implements ViewService {
     @Override
     public void createViewTrigger(ViewCreateModel viewCreateModel) {
         //TODO meg lehetne keresni a meneneti doc ok legkissebb közös kollekcióját de nincs rá ötletem, hogy hogyan
-        viewCreateModel.setQueryExpression(viewCreateModel.getQueryExpression().replaceAll("xquery version \"3.1\";",""));
-        String triggerConfigLocation = "/db/system/config/db";
         String trigger_name = "/db/view_triggers/trigger_for_" + viewCreateModel.getViewName().replace(".xml", ".xql");
-        ArrayList<String> docs = getDocs(viewCreateModel.getQueryExpression());
+        createAndSaveViewQuery(viewCreateModel, trigger_name);
+        addTriggerToConfiguration(trigger_name);
+        createViewLog(viewCreateModel, trigger_name);
+
+    }
+
+    public void createAndSaveViewQuery(ViewCreateModel viewCreateModel, String trigger_name){
+        viewCreateModel.setQueryExpression(viewCreateModel.getQueryExpression().replaceAll("xquery version \"3.1\";",""));
+        String ifCondition = genCondition(getDocs(viewCreateModel.getQueryExpression()));
+        String  viewTriggerLocation = "/db/view_triggers";
+        if(!collectionServiceImpl.collectionIsAvailable(viewTriggerLocation)){
+            collectionServiceImpl.createDir(new ForStoreResourceAndColl("/db","view_triggers"));
+        }
+        collectionServiceImpl.Store(new ForStoreResourceAndColl(viewTriggerLocation, trigger_name,existDbViewQueries.genViewTrigger(viewCreateModel, ifCondition),"application/xquery",true));
+    }
+
+    public void addTriggerToConfiguration(String trigger_name){
+        String triggerConfigLocation = "/db/system/config/db";
         List<String> events = new ArrayList<>();
         events.add("update");
-        String ifCondition = genCondition(docs);
-        collectionServiceImpl.Store(new ForStoreResourceAndColl("/db/view_triggers", trigger_name,existDbViewQueries.genViewTrigger(viewCreateModel, ifCondition),"application/xquery",true));
-        triggerServiceImpl.addTrigger(new EditTriggerModel(triggerConfigLocation,"collection.xconf", events, "org.exist.collections.triggers.XQueryTrigger", "url",trigger_name,"false"));
-}
+        if(collectionServiceImpl.resourceIsAvailable(triggerConfigLocation + "/collection.xconf")) {
+            triggerServiceImpl.addTrigger(new EditTriggerModel(triggerConfigLocation,"collection.xconf", events, "org.exist.collections.triggers.XQueryTrigger", "url",trigger_name));
+        } else {
+            throw new CustomException("Target collection.xconf is not available, Please initialize it in trigger manager","createViewTrigger","null");
+        }
+    }
+
+    public void createViewLog(ViewCreateModel viewCreateModel, String trigger_name){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String triggerConfigLocation = "/db/system/config/db";
+        if(!existDbViewQueries.logViewCreation(ExistDbCredentialsServiceImpl.getDetails() ,viewCreateModel, triggerConfigLocation, trigger_name, ExistDbCredentialsServiceImpl.getDetails().getUsername(), dateFormat.format(date))){
+            throw new CustomException("view creation log is not succeeded","createViewTrigger","null");
+        }
+    }
 
     @Override
     public ArrayList<String> getDocs(String data){
@@ -64,10 +95,14 @@ public class ViewServiceImpl implements ViewService {
     public String genCondition(ArrayList<String> docs){
         String condition = "";
         List<String> modDocs = new ArrayList<>();
-        for (String doc: docs) {
-            modDocs.add("$uri eq \"" + doc + "\"");
+        if(docs.isEmpty()){
+            condition = "true()";
+        }else {
+            for (String doc: docs) {
+                modDocs.add("$uri eq \"" + doc + "\"");
+            }
+            condition = String.join(" or ", modDocs);
         }
-        condition = String.join(" or ", modDocs);
         return condition;
     }
 }

@@ -102,7 +102,7 @@ public class ExistDbCollectionManagerQueries {
                 "declare variable $isBinary := " + forStoreResourceAndColl.isBinary() + "();\n" +
                 "declare variable $mime := \"" + forStoreResourceAndColl.getMime() + "\";\n" +
                 "declare variable $path := string-join(($collection, \"/\", $resource),\"\");\n" +
-                "if(xmldb:login(\"/db/\" , \"admin\", \"\")) then\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\" , \"" + details.getUsername() + "\", \"" + details.getPassword() + "\")) then\n" +
                 "    (\n" +
                 "        if($isBinary) then\n" +
                 "            xmldb:store-as-binary($collection, $resource, $data)\n" +
@@ -219,5 +219,27 @@ public class ExistDbCollectionManagerQueries {
                 "else\n" +
                 "false()";
         return util.stringResultQuery(details,xquery);
+    }
+
+    public boolean resourceIsAvailable(ExistDetails details, String path){
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        doc-available(\"" + path + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.booleanResultQuery(details, query);
+    }
+
+    public boolean collectionIsAvailable(ExistDetails details, String path) {
+        String query = "xquery version \"3.1\";\n" +
+                "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
+                "    (\n" +
+                "        xmldb:collection-available(\"" + path + "\")\n" +
+                "    )\n" +
+                "else\n" +
+                "false()";
+        return util.booleanResultQuery(details, query);
     }
 }

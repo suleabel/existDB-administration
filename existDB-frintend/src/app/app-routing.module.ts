@@ -20,6 +20,7 @@ import {BackupAndRestoreModuleComponent} from './backup-and-restore-moduel/backu
 import {CreateNewResourceComponent} from './collection-manager/create-new-resource/create-new-resource.component';
 import {ViewManagerComponent} from './view-manager/view-manager.component';
 import {QueryExecuteComponent} from './query-execute/query-execute.component';
+import {ListViewsComponent} from './view-manager/list-views/list-views.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path: 'create-new-resource', component: CreateNewResourceComponent, canActivate: [AuthGuardService]},
   {path: 'view-manager', component: ViewManagerComponent, canActivate: [AuthGuardService]},
   {path: 'execute-xQuery', component: QueryExecuteComponent, canActivate: [AuthGuardService]},
+  {path: 'created-views-list', component: ListViewsComponent, canActivate: [AuthGuardService]},
   {path: '**', redirectTo: 'login'},
   {path: '', component: AppComponent}
 ];
