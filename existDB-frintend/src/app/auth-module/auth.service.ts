@@ -39,7 +39,6 @@ export class AuthService {
     }
 
     get isLoggedIn() {
-        // ha a token létezik
         const token = TokenStorageService.getToken();
         if (token !== null) {
             this.loggedIn.next(true);
