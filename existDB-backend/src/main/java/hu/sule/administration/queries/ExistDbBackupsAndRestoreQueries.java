@@ -53,7 +53,6 @@ public class ExistDbBackupsAndRestoreQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        System.out.println(query);
         return util.stringResultQuery(details,query);
     }
 }

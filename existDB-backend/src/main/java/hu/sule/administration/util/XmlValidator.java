@@ -29,14 +29,8 @@ public class XmlValidator {
             XMLReader reader = parser.getXMLReader();
             reader.setErrorHandler(new SimpleErrorHandler());
             reader.parse(new InputSource(new StringReader(xml)));
-        } catch (SAXException saxe) {
-            logger.error("SAXException during validation: " + saxe.getMessage());
-            return false;
-        } catch (ParserConfigurationException pce) {
-            logger.error("ParserConfigurationException during validation: " + pce.getMessage());
-            return false;
-        } catch (IOException ioe) {
-            logger.error("IOException during validation: " + ioe.getMessage());
+        } catch (SAXException | ParserConfigurationException | IOException e) {
+            logger.error("Exception during validation: " + e.getMessage());
             return false;
         }
         return true;

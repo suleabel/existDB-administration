@@ -15,6 +15,7 @@ import {ViewHistoryComponent} from './view-history/view-history.component';
 export class VersionManagementModuleComponent implements OnInit {
     public versionIsAvailable$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public isLoading2$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public selectedDirectory = '/db';
     public element: Credentials;
     public TableData: any;
@@ -31,17 +32,18 @@ export class VersionManagementModuleComponent implements OnInit {
 
     ngOnInit() {
         this.checkVersionManagementIsEnabled();
-        if (this.versionIsAvailable$) {
-            this.loadData(this.selectedDirectory);
-        }
     }
 
     private checkVersionManagementIsEnabled() {
-        this.versionIsAvailable$.next(false);
         this.isLoading$.next(true);
         this.versionManagementService.versionManagerIsActivated()
             .subscribe(data => {
-                this.versionIsAvailable$.next(data.response);
+                if (data.response === 'true') {
+                    this.versionIsAvailable$.next(true);
+                    if (this.versionIsAvailable$.value) {
+                        this.loadData(this.selectedDirectory);
+                    }
+                }
                 this.isLoading$.next(false);
             }, error => {
                 this.isLoading$.next(false);
@@ -49,7 +51,7 @@ export class VersionManagementModuleComponent implements OnInit {
                     this.notificationService.Error(error.error);
                 } else {
                     console.log(error.error);
-                    // TODO dodgy exception mask
+                    // TODO dodgy exception solution
                     this.checkVersionManagementIsEnabled();
                 }
             });
@@ -67,35 +69,22 @@ export class VersionManagementModuleComponent implements OnInit {
     }
 
     private loadData(path: string) {
+        this.isLoading2$.next(true);
         this.fileExplorerService.getCollection(path)
             .subscribe(
                 res => {
-                    // const backElement = {
-                    //     name: '..',
-                    //     path: '',
-                    //     owner: '',
-                    //     group: '',
-                    //     mode: '',
-                    //     date: '',
-                    //     mime: '',
-                    //     locked: '',
-                    //     writable: false,
-                    //     resource: false,
-                    //     triggerConfigAvailable: false
-                    // };
                     this.TableData = new MatTableDataSource(res);
                     this.TableData.sort = this.sort;
-                    // this.collections.unshift(backElement);
+                    this.isLoading2$.next(false);
                 },
                 error => {
-                    console.log(error);
                     // TODO dodgy exception mask
                     if (error.error.message !== 'no error message') {
                         this.notificationService.Error(error.error);
                     } else {
-                        console.log(error.error);
                         this.loadData(path);
                     }
+                    this.isLoading2$.next(false);
                     this.backToRoot();
                 });
     }
@@ -139,9 +128,5 @@ export class VersionManagementModuleComponent implements OnInit {
             this.notificationService.warn('This is not XML document!!');
         }
     }
-
-    // private deactivateVersionManagement() {
-    //     window.location.reload();
-    // }
 
 }

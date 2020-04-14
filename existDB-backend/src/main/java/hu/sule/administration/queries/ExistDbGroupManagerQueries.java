@@ -50,7 +50,7 @@ public class ExistDbGroupManagerQueries {
         return "Groups is not exist!";
     }
 
-    public String getGroups2(ExistDetails details) {
+    public String readGroups(ExistDetails details) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $METADATA_DESCRIPTION_KEY := xs:anyURI(\"http://exist-db.org/security/description\");\n" +

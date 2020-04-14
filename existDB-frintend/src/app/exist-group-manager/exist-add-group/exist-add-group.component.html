@@ -25,20 +25,6 @@
         </div>
         <div class="form-group">
             <mat-form-field>
-                <label for="groupMembers" class="control-label">groupMembers</label>
-                <mat-select id="groupMembers" class="form-control" formControlName="groupMembers"  multiple>
-                    <mat-option *ngFor="let group of existUsers" [value]="group">
-                        {{group}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-error *ngIf="groupMembers.invalid && groupMembers.touched">
-                One member is required
-            </mat-error>
-
-        </div>
-        <div class="form-group">
-            <mat-form-field>
                 <label for="desc" class="control-label">Desc</label>
                 <input matInput id="desc" type="text" class="form-control" formControlName="desc">
             </mat-form-field>

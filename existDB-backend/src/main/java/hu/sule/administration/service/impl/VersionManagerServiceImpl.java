@@ -93,7 +93,7 @@ public class VersionManagerServiceImpl implements VersionManagerService {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbVersionManagementQueries.getDifferencesByRev(ExistDbCredentialsServiceImpl.getDetails(), versionByRevModel))));
     }
 
-    public String resotreResByRev(VersionByRevModel versionByRevModel) throws IOException, JDOMException{
+    public String restoreResByRev(VersionByRevModel versionByRevModel) throws IOException, JDOMException{
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbVersionManagementQueries.restoreDocByRev(ExistDbCredentialsServiceImpl.getDetails(), versionByRevModel))));
     }
 }

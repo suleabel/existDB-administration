@@ -46,6 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else if (err.error.message === 'Other error - Authentication failed!') {
             this.router.navigate(['/login']);
           } else {
+            console.log('else error: ' + err.error.message);
             this.notificationService.Error2(err.error.message);
             this.token.signOut();
             this.router.navigate(['/login']);

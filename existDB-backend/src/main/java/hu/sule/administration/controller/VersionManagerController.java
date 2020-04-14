@@ -50,6 +50,6 @@ public class VersionManagerController {
 
     @RequestMapping("/restoreResByRev")
     public ResponseEntity<String> restoreResByRev(@RequestBody VersionByRevModel versionByRevModel) throws IOException, JDOMException{
-        return new ResponseEntity<>("{\"response\":\"" + versionManagerServiceImpl.resotreResByRev(versionByRevModel) + "\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"response\":\"" + versionManagerServiceImpl.restoreResByRev(versionByRevModel) + "\"}", HttpStatus.OK);
     }
 }

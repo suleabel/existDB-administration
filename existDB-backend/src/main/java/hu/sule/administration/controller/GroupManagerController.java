@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/groups/")
+@RequestMapping("/groupManager/")
 public class GroupManagerController {
 
     private GroupManagerService groupManagerServiceImpl;

@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ExistGroupModel} from '../model/existGroup.model';
-import {stringify} from 'querystring';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -14,7 +13,7 @@ const httpOptions = {
 export class GroupsService {
     private selectedGroup: ExistGroupModel = null;
     /* tslint:disable:no-string-literal */
-    private baseURL = window['cfgApiBaseUrl'] + '/groups/';
+    private baseURL = window['cfgApiBaseUrl'] + '/groupManager/';
     private baseUrlforUsers = window['cfgApiBaseUrl'] + '/userManager/';
     /* tslint:enable:no-string-literal */
     constructor(private http: HttpClient) {

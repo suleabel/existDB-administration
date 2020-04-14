@@ -25,10 +25,8 @@ export class ExistAddGroupComponent implements OnInit {
         this.addGroupForm = this.formBuilder.group({
             groupName: [null, Validators.required],
             groupManager: [null],
-            groupMembers: [null, Validators.required],
             desc: []
         });
-        console.log(this.addGroupForm);
     }
 
     getUsersNames() {
@@ -57,9 +55,5 @@ export class ExistAddGroupComponent implements OnInit {
 
     get desc() {
         return this.addGroupForm.get('desc');
-    }
-
-    get groupMembers() {
-        return this.addGroupForm.get('groupMembers');
     }
 }

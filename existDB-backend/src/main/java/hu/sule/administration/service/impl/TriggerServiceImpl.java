@@ -50,7 +50,7 @@ public class TriggerServiceImpl implements TriggerService {
 
     public void InitTriggerDir() {
         String triggerDir = "triggerQueries";
-        if(!Arrays.asList(existDbCollectionManagerQueries.getCollectionContent(ExistDbCredentialsServiceImpl.getDetails()
+        if(!Arrays.asList(existDbCollectionManagerQueries.getCollectionContentNoData(ExistDbCredentialsServiceImpl.getDetails()
                 , "/db").split("\n")).contains(triggerDir)){
             existDbCollectionManagerQueries.createCollection(ExistDbCredentialsServiceImpl.getDetails(), new ForStoreResourceAndColl("/db", triggerDir));
             logger.info("Trigger Root Directory initializing");
@@ -69,7 +69,6 @@ public class TriggerServiceImpl implements TriggerService {
                 testedPath.append("/").append(part);
             }
         }
-        System.out.println(path);
         return existDBTriggerQueries.initTriggerConfig(ExistDbCredentialsServiceImpl.getDetails(), path);
     }
 
@@ -89,7 +88,6 @@ public class TriggerServiceImpl implements TriggerService {
             throw new CustomException(e.getMessage(),"addTriggerToConfiguration","IOException", e.getStackTrace());
         }
         if(doc != null) {
-
             Element collection = doc.getRootElement();
             List<Element> triggers = collection.getChildren().get(0).getChildren();
             Element parameterQuery = new Element("parameter").setNamespace(ns);

@@ -43,21 +43,8 @@ export class CollectionManagerComponent implements OnInit {
         this.fileExplorerService.getCollection(path)
             .subscribe(
                 res => {
-                    // const backElement: Credentials = {
-                    //     name: '..',
-                    //     path: '',
-                    //     owner: '',
-                    //     group: '',
-                    //     mode: '',
-                    //     date: '',
-                    //     mime: '',
-                    //     locked: '',
-                    //     resource: false,
-                    //     triggerConfigAvailable: false
-                    // };
                     this.collections = new MatTableDataSource(res);
                     this.collections.sort = this.sort;
-                    // this.collections.data.unshift(backElement);
                     this.isLoading$.next(false);
                 },
                 error => {
@@ -146,7 +133,9 @@ export class CollectionManagerComponent implements OnInit {
                 this.notificationService.warn('Not created');
             } else {
                 const saveData: StoreResourceModel = result;
-                saveData.isBinary = false;
+                saveData.isBinary = true;
+                saveData.mime = 'application/xquery';
+                console.log(saveData);
                 this.fileExplorerService.saveResource(saveData)
                     .subscribe(
                         data => {
@@ -169,9 +158,9 @@ export class CollectionManagerComponent implements OnInit {
                 if (result === '' || result === null || result === undefined) {
                     this.notificationService.warn('Not created');
                 } else {
-                    console.log(result);
                     const saveData: StoreResourceModel = result;
                     saveData.isBinary = false;
+                    console.log(saveData);
                     this.fileExplorerService.saveResource(saveData)
                         .subscribe(
                             data => {

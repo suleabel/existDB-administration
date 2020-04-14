@@ -21,7 +21,7 @@ public class ExistDbCollectionManagerQueries {
     @Autowired
     private Util util;
 
-    public String getCollectionContent(ExistDetails details, String collection) {
+    public String getCollectionContentNoData(ExistDetails details, String collection) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"/db\",\"" + details.getUsername() + "\", \"" + details.getPassword() + "\" ,false())) then\n" +
@@ -31,7 +31,7 @@ public class ExistDbCollectionManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String getCollectionContent2(ExistDetails details, String url) {
+    public String getCollectionContent(ExistDetails details, String url) {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $url := \"" + url + "\";\n" +
                 "declare variable $collections := xmldb:get-child-collections($url);\n" +
@@ -140,7 +140,7 @@ public class ExistDbCollectionManagerQueries {
                 "false()";
         return util.stringResultQuery(details, query);
     }
-    public String readFile(ExistDetails details, String resUrl) {
+    public String readResource(ExistDetails details, String resUrl) {
         String query = "xquery version \"3.1\";\n" +
                 "declare variable $file := xs:string(\"" + resUrl + "\");\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +

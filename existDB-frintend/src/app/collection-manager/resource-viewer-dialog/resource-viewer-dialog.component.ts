@@ -34,7 +34,6 @@ export class ResourceViewerDialogComponent implements OnInit {
     ngOnInit() {
         this.fullPath = this.data.fileData.path + '/' + this.data.fileData.name;
         this.readFile(this.fullPath);
-        console.log(this.fullPath);
     }
 
     readFile(path: string) {

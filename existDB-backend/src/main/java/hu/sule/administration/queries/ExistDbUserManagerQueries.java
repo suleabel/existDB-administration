@@ -102,7 +102,7 @@ public class ExistDbUserManagerQueries {
         return util.stringResultQuery(details, query);
     }
 
-    public String getUsersData(ExistDetails details) {
+    public String readUsers(ExistDetails details) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "declare variable $METADATA_FULLNAME_KEY := xs:anyURI(\"http://axschema.org/namePerson\");\n" +

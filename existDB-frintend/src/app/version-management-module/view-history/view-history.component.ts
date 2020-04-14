@@ -50,7 +50,11 @@ export class ViewHistoryComponent implements OnInit {
                 this.isLoading$.next(false);
             },
             error => {
-                this.notificationService.Error(error.error);
+                if (error.error.message.toLowerCase().includes('SOURCE NOT FOUND'.toLowerCase())) {
+                   this.notificationService.Error2('Version management module is not installed, please install it first.');
+                } else {
+                    this.notificationService.Error(error.error);
+                }
             }
         );
     }

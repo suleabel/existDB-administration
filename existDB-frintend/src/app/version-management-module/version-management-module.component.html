@@ -5,11 +5,11 @@
                 <div class="card-header font-weight-bold">
                     Version Management (VERY BUGGY)
                 </div>
-                <div class="card-body infoText" *ngIf="versionIsAvailable$ | async">
+                <div class="card-body infoText" *ngIf="versionIsAvailable$ | async else elseBlock">
                     <h3>Version management is enabled</h3>
                     <!--                    <h5><a (click)="deactivateVersionManagement()">Would you like to deactivate it?</a></h5>-->
                 </div>
-                <ng-template *ngIf="!(versionIsAvailable$ | async)">
+                <ng-template #elseBlock>
                     <div class="card-body infoText">
                         <h3>Version management is disabled</h3>
                         <div class="loading" *ngIf="isLoading$ | async">
@@ -67,7 +67,7 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                    <div class="loading" *ngIf="isLoading$ | async">
+                    <div class="loading" *ngIf="isLoading2$ | async">
                         <div class="text-center">
                             <div class="spinner-border" role="status">
                                 <span class="sr-only">Loading...</span>

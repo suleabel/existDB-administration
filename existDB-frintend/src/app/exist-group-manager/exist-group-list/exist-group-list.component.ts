@@ -68,7 +68,8 @@ export class ExistGroupListComponent implements OnInit {
     addGroup() {
         const dialogRef = this.dialog.open(ExistAddGroupComponent, {
             width: '800px',
-            height: '800px',
+            height: 'auto',
+            maxHeight: '70%'
         });
         dialogRef.afterClosed().subscribe(result => {
             this.addGroupData = result;
@@ -79,9 +80,11 @@ export class ExistGroupListComponent implements OnInit {
                 this.groupService.addGroupToExist(this.addGroupData).subscribe(
                     data => {
                         this.notificationService.success('Success');
+                        this.RenderGroupList();
                     },
                     error => {
                         this.notificationService.Error(error.error);
+                        this.RenderGroupList();
                     }
                 );
             }

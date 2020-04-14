@@ -29,5 +29,5 @@ public class QueryServiceImpl implements QueryService {
 
     public String evalXqueryAsPath(String query) throws IOException, JDOMException {
         return new XMLOutputter(Format.getPrettyFormat()).outputString(new SAXBuilder().build(new StringReader(existDbExecuteQueries.evalXqueryasPath(ExistDbCredentialsServiceImpl.getDetails(),query))));
-    }
+        }
 }
