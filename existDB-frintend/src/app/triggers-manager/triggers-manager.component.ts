@@ -1,5 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatSort, MatTableDataSource} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CollectionsDialogComponent} from './collections-dialog/collections-dialog.component';
 import {TriggersService} from './service/triggers.service';
 import {XmlFileViewerComponent} from './xml-file-viewer/xml-file-viewer.component';
@@ -7,6 +6,8 @@ import {NotificationService} from '../error-notification-module/service/notifica
 import {BehaviorSubject} from 'rxjs';
 import {Credentials} from '../collection-manager/model/Credentials';
 import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-triggers-manager',

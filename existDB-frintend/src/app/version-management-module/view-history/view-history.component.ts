@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Credentials} from '../../collection-manager/model/Credentials';
 import {VersionManagementService} from '../service/version-management.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
@@ -8,6 +7,8 @@ import {GetDiffByRevModel} from '../model/GetDiffByRevModel';
 import {ViewChangesDialogComponent} from '../view-changes-dialog/view-changes-dialog.component';
 import {BehaviorSubject} from 'rxjs';
 import {ErrorModel} from '../../error-notification-module/model/ErrorModel';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-view-history',

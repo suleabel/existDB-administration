@@ -10,32 +10,8 @@ import {TopBarComponent} from './top-bar-module/top-bar.component';
 import {HttpClientModule} from '@angular/common/http';
 import {HighlightModule} from 'ngx-highlightjs';
 import {CommonModule, HashLocationStrategy, LocationStrategy} from '@angular/common';
-import {
-    _MatMenuDirectivesModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatPaginatorModule,
-    MatSidenavModule,
-    MatSortModule,
-    MatTableModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatProgressSpinnerModule,
-    MatTabsModule,
-    MatTooltipModule,
-} from '@angular/material';
-
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxEditorModule } from 'ngx-editor';
 import { UserManagerComponent } from './user-manager-module/user-manager.component';
 import {httpInterceptorProvider} from './auth-module/auth-interceptor';
 import {AuthGuardService} from './auth-module/auth-guard.service';
@@ -72,7 +48,6 @@ import { BrowseXqueryFileComponent } from './triggers-manager/browse-xquery-file
 import { EvalResultViewerComponent } from './collection-manager/eval-result-viewer/eval-result-viewer.component';
 import { ErrorDialogComponent } from './error-notification-module/error-dialog/error-dialog.component';
 import { FooterComponent } from './footer/footer.component';
-import {TypeaheadModule} from 'ngx-bootstrap';
 import { ViewChangesDialogComponent } from './version-management-module/view-changes-dialog/view-changes-dialog.component';
 import { MakeDirDialogComponent } from './file-manager/make-dir-dialog/make-dir-dialog.component';
 import { CreateNewFileComponent } from './file-manager/create-new-file/create-new-file.component';
@@ -80,6 +55,24 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { QueryResultDialogComponent } from './error-notification-module/query-result-dialog/query-result-dialog.component';
 import { QueryExecuteComponent } from './query-execute/query-execute.component';
 import { ListViewsComponent } from './view-manager/list-views/list-views.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import {_MatMenuDirectivesModule, MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,7 +136,6 @@ import { ListViewsComponent } from './view-manager/list-views/list-views.compone
         BrowserAnimationsModule,
         MatListModule,
         FormsModule,
-        NgxEditorModule,
         _MatMenuDirectivesModule,
         MatMenuModule,
         MatButtonModule,
@@ -158,7 +150,10 @@ import { ListViewsComponent } from './view-manager/list-views/list-views.compone
         MatProgressSpinnerModule,
         MatTabsModule,
         TypeaheadModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatDialogModule,
+        MatTableModule,
+        MatSelectModule
     ],
   providers: [
       httpInterceptorProvider,

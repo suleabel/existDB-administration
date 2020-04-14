@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {XmlParserService} from '../../collection-manager/service/xml-parser.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {SerializeFileModel} from '../model/SerializeFileModel';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-create-new-file',

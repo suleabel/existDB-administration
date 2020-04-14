@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../../exist-group-manager/service/groups.service';
 import {UserService} from '../../user-manager-module/service/user.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FileExplorerService} from '../service/file-explorer.service';
 
 @Component({

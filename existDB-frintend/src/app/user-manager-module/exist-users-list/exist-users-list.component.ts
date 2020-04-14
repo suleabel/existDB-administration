@@ -1,12 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
-import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {DialogService} from '../../error-notification-module/service/dialog.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {ExistUserModel} from '../model/existUser.model';
 import {ExistAddUserComponent} from '../exist-add-user/exist-add-user.component';
 import {BehaviorSubject} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-exist-users-list',
@@ -29,7 +31,6 @@ export class ExistUsersListComponent implements OnInit {
 
     constructor(private userService: UserService,
                 private router: Router,
-                private snackBar: MatSnackBar,
                 private dialog: MatDialog,
                 private dialogService: DialogService,
                 private notificationService: NotificationService) {

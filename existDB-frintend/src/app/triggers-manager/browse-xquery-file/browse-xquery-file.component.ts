@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
-import {MatDialogRef} from '@angular/material';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {BrowseSaveLocationComponent} from '../../xml-to-xsd/browse-save-location/browse-save-location.component';
 import {Credentials} from '../../collection-manager/model/Credentials';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-browse-xquery-file',

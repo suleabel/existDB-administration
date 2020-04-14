@@ -2,10 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {VersionManagementService} from './service/version-management.service';
 import {NotificationService} from '../error-notification-module/service/notification.service';
 import {BehaviorSubject} from 'rxjs';
-import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {Credentials} from '../collection-manager/model/Credentials';
 import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
 import {ViewHistoryComponent} from './view-history/view-history.component';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-version-management-module',

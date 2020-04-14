@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {DialogService} from './dialog.service';
 import {ErrorModel} from '../model/ErrorModel';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 
 @Injectable({
     providedIn: 'root'

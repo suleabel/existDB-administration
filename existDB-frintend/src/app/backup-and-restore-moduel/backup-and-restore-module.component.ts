@@ -3,7 +3,7 @@ import {BackupRestoreService} from './service/backup-restore.service';
 import {BehaviorSubject} from 'rxjs';
 import {BackupEntity} from './model/BackupEntity';
 import {CreateBackupEntity} from './model/CreateBackupEntity';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {InformationDialogComponent} from './information-dialog/information-dialog.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../error-notification-module/service/notification.service';

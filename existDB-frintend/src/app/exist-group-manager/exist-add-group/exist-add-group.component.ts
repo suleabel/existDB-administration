@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroupsService} from '../service/groups.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
-import {MatDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-exist-add-group',

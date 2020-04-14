@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
-import {MatDialogRef, MatSnackBar} from '@angular/material';
+import {MatDialogRef} from '@angular/material/dialog';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 
 @Component({
@@ -16,7 +16,6 @@ export class ExistAddUserComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private userService: UserService,
-      private snackBar: MatSnackBar,
       private notificationService: NotificationService,
       private dialogRef: MatDialogRef<ExistAddUserComponent>) {}
 

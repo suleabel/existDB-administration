@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileExplorerService} from './service/file-explorer.service';
 import {Router} from '@angular/router';
 import {Credentials} from './model/Credentials';
-import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {ResourceViewerDialogComponent} from './resource-viewer-dialog/resource-viewer-dialog.component';
 import {NotificationService} from '../error-notification-module/service/notification.service';
 import {StoreResourceModel} from './model/StoreResourceModel';
@@ -11,6 +11,7 @@ import {BehaviorSubject} from 'rxjs';
 import {CreateNewResourceComponent} from './create-new-resource/create-new-resource.component';
 import {CreateXqueryComponent} from './create-xquery/create-xquery.component';
 import {FileCredentialsComponent} from './file-credentials/file-credentials.component';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-collection-manager',

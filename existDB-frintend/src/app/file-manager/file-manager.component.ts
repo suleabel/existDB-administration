@@ -2,12 +2,13 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileManagerEntity} from './model/FileManagerEntity';
 import {FileManagerService} from './service/file-manager.service';
 import {BehaviorSubject} from 'rxjs';
-import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {FileViewerDialogComponent} from './file-viewer-dialog/file-viewer-dialog.component';
 import {MakeDirDialogComponent} from './make-dir-dialog/make-dir-dialog.component';
 import {StoreDirOrFileModel} from './model/StoreDirOrFileModel';
 import {CreateNewFileComponent} from './create-new-file/create-new-file.component';
 import {NotificationService} from '../error-notification-module/service/notification.service';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-file-manager',

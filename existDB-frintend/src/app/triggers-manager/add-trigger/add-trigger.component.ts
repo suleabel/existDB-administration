@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {EditTriggerModel} from '../model/EditTriggerModel';
 import {DialogService} from '../../error-notification-module/service/dialog.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -8,6 +7,7 @@ import {NotificationService} from '../../error-notification-module/service/notif
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 import {BrowseXqueryFileComponent} from '../browse-xquery-file/browse-xquery-file.component';
 import {BehaviorSubject} from 'rxjs';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-add-trigger',

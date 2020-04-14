@@ -1,12 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {GroupsService} from '../service/groups.service';
 import {DialogService} from '../../error-notification-module/service/dialog.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {ExistGroupModel} from '../model/existGroup.model';
 import {ExistAddGroupComponent} from '../exist-add-group/exist-add-group.component';
 import {BehaviorSubject} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-exist-group-list',

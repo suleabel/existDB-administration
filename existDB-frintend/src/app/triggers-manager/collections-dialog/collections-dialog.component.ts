@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialogRef, MatSort, MatTableDataSource} from '@angular/material';
 import {TriggersService} from '../service/triggers.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {Credentials} from '../../collection-manager/model/Credentials';
 import {FileExplorerService} from '../../collection-manager/service/file-explorer.service';
 import {BehaviorSubject} from 'rxjs';
+import {MatDialogRef} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-collections-dialog',

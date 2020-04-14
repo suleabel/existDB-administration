@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ViewServiceService} from '../service/view-service.service';
 import {BehaviorSubject} from 'rxjs';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {CreatedViewModel} from '../model/CreatedViewModel';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-list-views',

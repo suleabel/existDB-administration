@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {DialogService} from '../../error-notification-module/service/dialog.service';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {AddTriggerComponent} from '../add-trigger/add-trigger.component';
@@ -8,8 +8,7 @@ import {FileExplorerService} from '../../collection-manager/service/file-explore
 import {StoreResourceModel} from '../../collection-manager/model/StoreResourceModel';
 import {BehaviorSubject} from 'rxjs';
 import {XmlParserService} from '../../collection-manager/service/xml-parser.service';
-import {ResourceViewerDialogComponent} from "../../collection-manager/resource-viewer-dialog/resource-viewer-dialog.component";
-import {Credentials} from "../../collection-manager/model/Credentials";
+import {Credentials} from '../../collection-manager/model/Credentials';
 
 @Component({
     selector: 'app-xml-file-viewer',

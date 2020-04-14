@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {MatDialog} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {ErrorDialogComponent} from '../error-dialog/error-dialog.component';
-import {QueryResultDialogComponent} from "../query-result-dialog/query-result-dialog.component";
-
+import {MatDialog} from '@angular/material/dialog';
+import {QueryResultDialogComponent} from '../query-result-dialog/query-result-dialog.component';
 @Injectable({
     providedIn: 'root'
 })

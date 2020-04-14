@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FileExplorerService} from '../service/file-explorer.service';
 import {StoreResourceModel} from '../model/StoreResourceModel';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
