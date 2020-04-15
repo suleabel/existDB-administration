@@ -1,18 +1,18 @@
 package hu.sule.administration.exceptions;
 
-public class CustomException extends RuntimeException {
+public class ApiException extends RuntimeException {
 
     private String location;
     private String subType;
     private StackTraceElement[] stackTraceElement;
 
-    public CustomException(String message, String location, String subType){
+    public ApiException(String message, String location, String subType){
         super(message);
         this.location = location;
         this.subType = subType;
     }
 
-    public CustomException(String message, String location, String subType, StackTraceElement[] stackTraceElement){
+    public ApiException(String message, String location, String subType, StackTraceElement[] stackTraceElement){
         super(message);
         this.location = location;
         this.subType = subType;

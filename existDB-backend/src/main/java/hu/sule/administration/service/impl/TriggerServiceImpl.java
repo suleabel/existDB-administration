@@ -1,5 +1,5 @@
 package hu.sule.administration.service.impl;
-import hu.sule.administration.exceptions.CustomException;
+import hu.sule.administration.exceptions.ApiException;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ExistCollectionManagerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
@@ -83,9 +83,9 @@ public class TriggerServiceImpl implements TriggerService {
         try{
             doc = saxBuilder.build(new InputSource(new StringReader(collectionServiceImpl.readFile(url + "/collection.xconf").getContent())));
         }catch (JDOMException e){
-            throw new CustomException(e.getMessage(),"addTriggerToConfiguration","JDOMException", e.getStackTrace());
+            throw new ApiException(e.getMessage(),"addTriggerToConfiguration","JDOMException", e.getStackTrace());
         }catch (IOException e){
-            throw new CustomException(e.getMessage(),"addTriggerToConfiguration","IOException", e.getStackTrace());
+            throw new ApiException(e.getMessage(),"addTriggerToConfiguration","IOException", e.getStackTrace());
         }
         if(doc != null) {
             Element collection = doc.getRootElement();

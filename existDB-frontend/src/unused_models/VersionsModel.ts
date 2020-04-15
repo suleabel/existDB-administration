@@ -1,4 +1,4 @@
-import {ReversionsModel} from './ReversionsModel';
+import {ReversionsModel} from '../app/version-management-module/model/ReversionsModel';
 
 export class VersionsModel {
     doc: string;

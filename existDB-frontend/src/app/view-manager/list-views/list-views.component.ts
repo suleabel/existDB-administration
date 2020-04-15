@@ -4,6 +4,8 @@ import {BehaviorSubject} from 'rxjs';
 import {NotificationService} from '../../error-notification-module/service/notification.service';
 import {CreatedViewModel} from '../model/CreatedViewModel';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
     selector: 'app-list-views',
@@ -20,9 +22,7 @@ export class ListViewsComponent implements OnInit {
                 private notificationService: NotificationService) {
     }
 
-    // @ts-ignore
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {

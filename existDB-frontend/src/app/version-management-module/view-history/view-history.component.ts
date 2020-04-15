@@ -9,6 +9,8 @@ import {BehaviorSubject} from 'rxjs';
 import {ErrorModel} from '../../error-notification-module/model/ErrorModel';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
     selector: 'app-view-history',
@@ -30,9 +32,7 @@ export class ViewHistoryComponent implements OnInit {
                 private dialog: MatDialog) {
     }
 
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
-    // @ts-ignore
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     ngOnInit() {

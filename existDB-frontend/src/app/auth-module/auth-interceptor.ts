@@ -39,6 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
         // console.log('Service Response thr Interceptor');
       }
     }, (err: any) => {
+      console.log(err);
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401 || err.status === 403) {
           if (err.error.message === 'Username or password is incorrect') {

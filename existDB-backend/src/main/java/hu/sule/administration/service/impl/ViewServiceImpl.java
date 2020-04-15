@@ -1,26 +1,20 @@
 package hu.sule.administration.service.impl;
 
-import hu.sule.administration.exceptions.CustomException;
+import hu.sule.administration.exceptions.ApiException;
 import hu.sule.administration.model.CreatedViewModel;
 import hu.sule.administration.model.EditTriggerModel;
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.model.ViewCreateModel;
 import hu.sule.administration.queries.ExistDbViewQueries;
 import hu.sule.administration.service.CollectionService;
-import hu.sule.administration.service.ExistDbCredentialsService;
 import hu.sule.administration.service.TriggerService;
 import hu.sule.administration.service.ViewService;
 import hu.sule.administration.util.Mappers;
-import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xml.sax.InputSource;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +45,6 @@ public class ViewServiceImpl implements ViewService {
 
     @Override
     public void createViewTrigger(ViewCreateModel viewCreateModel) {
-        //TODO meg lehetne keresni a meneneti doc ok legkissebb közös kollekcióját de nincs rá ötletem, hogy hogyan
         String trigger_name = "/db/view_triggers/trigger_for_" + viewCreateModel.getViewName().replace(".xml", ".xql");
         createAndSaveViewQuery(viewCreateModel, trigger_name);
         addTriggerToConfiguration(trigger_name);
@@ -76,7 +69,7 @@ public class ViewServiceImpl implements ViewService {
         if(collectionServiceImpl.resourceIsAvailable(triggerConfigLocation + "/collection.xconf")) {
             triggerServiceImpl.addTrigger(new EditTriggerModel(triggerConfigLocation,"collection.xconf", events, "org.exist.collections.triggers.XQueryTrigger", "url",trigger_name));
         } else {
-            throw new CustomException("Target collection.xconf is not available, Please initialize it in trigger manager","createViewTrigger","null");
+            throw new ApiException("Target collection.xconf is not available, Please initialize it in trigger manager","createViewTrigger","null");
         }
     }
     @Override
@@ -85,7 +78,7 @@ public class ViewServiceImpl implements ViewService {
         Date date = new Date();
         String triggerConfigLocation = "/db/system/config/db";
         if(!existDbViewQueries.logViewCreation(ExistDbCredentialsServiceImpl.getDetails() ,viewCreateModel, triggerConfigLocation, trigger_name, ExistDbCredentialsServiceImpl.getDetails().getUsername(), dateFormat.format(date))){
-            throw new CustomException("view creation log is not succeeded","createViewTrigger","null");
+            throw new ApiException("view creation log is not succeeded","createViewTrigger","null");
         }
     }
 

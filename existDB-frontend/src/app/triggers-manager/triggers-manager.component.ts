@@ -8,6 +8,7 @@ import {Credentials} from '../collection-manager/model/Credentials';
 import {FileExplorerService} from '../collection-manager/service/file-explorer.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
     selector: 'app-triggers-manager',
@@ -28,7 +29,6 @@ export class TriggersManagerComponent implements OnInit {
         private notificationService: NotificationService) {
     }
 
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {

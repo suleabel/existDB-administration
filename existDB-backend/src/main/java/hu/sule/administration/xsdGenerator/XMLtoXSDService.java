@@ -46,7 +46,7 @@ public class XMLtoXSDService {
     }
 
 
-    public String saveXsd(ForStoreResourceAndColl storeResource) throws XMLDBException {
+    public String saveXsd(ForStoreResourceAndColl storeResource) {
         return collectionServiceImpl.Store(storeResource);
     }
 

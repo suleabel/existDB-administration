@@ -9,6 +9,7 @@ import {StoreDirOrFileModel} from './model/StoreDirOrFileModel';
 import {CreateNewFileComponent} from './create-new-file/create-new-file.component';
 import {NotificationService} from '../error-notification-module/service/notification.service';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
     selector: 'app-file-manager',
@@ -30,7 +31,6 @@ export class FileManagerComponent implements OnInit {
                 private notificationService: NotificationService) {
     }
 
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {

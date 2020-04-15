@@ -1,13 +1,12 @@
 package hu.sule.administration.security;
 
-import hu.sule.administration.exceptions.CustomException;
+import hu.sule.administration.exceptions.ApiException;
 import hu.sule.administration.service.UserManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.base.XMLDBException;
 
@@ -33,7 +32,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                         BadCredentialsException("Authentication failed!!");
             }
         }catch (XMLDBException e){
-            throw new CustomException(e.getMessage(),"authenticate","XMLDBException", e.getStackTrace());
+            throw new ApiException(e.getMessage(),"authenticate","XMLDBException", e.getStackTrace());
         }catch (Exception e){
             throw new BadCredentialsException("Authentication failed!!");
         }

@@ -3,6 +3,7 @@ package hu.sule.administration.controller;
 
 import hu.sule.administration.model.BackupEntity;
 import hu.sule.administration.model.CreateBackupEntity;
+import hu.sule.administration.model.ResourceReadModel;
 import hu.sule.administration.service.BackupService;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,13 @@ public class BackupsController {
     }
 
     @RequestMapping("/createBackup")
-    public ResponseEntity<String> createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws JDOMException, IOException{
-        return new ResponseEntity<>("{\"response\":\"" + backupServiceImpl.createBackup(createBackupEntity) + "\"}",HttpStatus.OK);
+    public ResponseEntity<ResourceReadModel> createBackup(@RequestBody CreateBackupEntity createBackupEntity) throws JDOMException, IOException{
+        return new ResponseEntity<>(new ResourceReadModel(backupServiceImpl.createBackup(createBackupEntity), false),HttpStatus.OK);
     }
 
     @RequestMapping("/restoreBackup")
-    public ResponseEntity<String> restoreBackup(HttpEntity<String> httpEntity) throws JDOMException, IOException{
-        return new ResponseEntity<>("{\"response\":\"" + backupServiceImpl.restoreBackup(httpEntity.getBody()) + "\"}", HttpStatus.OK);
+    public ResponseEntity<ResourceReadModel> restoreBackup(HttpEntity<String> httpEntity) throws JDOMException, IOException{
+        return new ResponseEntity<>(new ResourceReadModel(backupServiceImpl.restoreBackup(httpEntity.getBody()),false), HttpStatus.OK);
     }
 
 }

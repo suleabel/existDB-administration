@@ -1,26 +1,16 @@
 package hu.sule.administration.util;
 
-import hu.sule.administration.exceptions.CustomException;
+import hu.sule.administration.exceptions.ApiException;
 import hu.sule.administration.model.ExistDetails;
-import hu.sule.administration.xsdGenerator.SimpleErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XQueryService;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
-import java.io.IOException;
-import java.io.StringReader;
 
 @Component
 public class Util {
@@ -45,9 +35,9 @@ public class Util {
             result = execXQuery(query, collection);
         } catch (Exception e) {
             if(e.getMessage().equals("")){
-                throw new CustomException("no error message","stringResultQuery","XMLDBException", e.getStackTrace());
+                throw new ApiException("no error message","stringResultQuery","XMLDBException", e.getStackTrace());
             } else {
-                throw new CustomException(e.getMessage(),"stringResultQuery","XMLDBException", e.getStackTrace());
+                throw new ApiException(e.getMessage(),"stringResultQuery","XMLDBException", e.getStackTrace());
             }
         } finally {
             try {
@@ -68,9 +58,9 @@ public class Util {
             result = !execXQuery(query, collection).equals("false");
         } catch (XMLDBException e) {
             if(e.getMessage().equals("")){
-                throw new CustomException("no error message","booleanResultQuery","XMLDBException", e.getStackTrace());
+                throw new ApiException("no error message","booleanResultQuery","XMLDBException", e.getStackTrace());
             }
-            throw new CustomException(e.getMessage(),"booleanResultQuery","XMLDBException", e.getStackTrace());
+            throw new ApiException(e.getMessage(),"booleanResultQuery","XMLDBException", e.getStackTrace());
         } finally {
             try {
                 closeCollection(collection);
@@ -101,10 +91,10 @@ public class Util {
             }
         } catch (XMLDBException e) {
             if(e.getMessage().equals("")){
-                throw new CustomException("no error message","execXQuery","XMLDBException", e.getStackTrace());
+                throw new ApiException("no error message","execXQuery","XMLDBException", e.getStackTrace());
             } else {
                 System.out.println("failed method: \n" + query);
-                throw new CustomException(e.getMessage(),"execXQuery","XMLDBException", e.getStackTrace());
+                throw new ApiException(e.getMessage(),"execXQuery","XMLDBException", e.getStackTrace());
             }
         }
         return sb.toString().trim();

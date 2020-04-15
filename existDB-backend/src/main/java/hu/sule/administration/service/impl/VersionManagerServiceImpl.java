@@ -1,6 +1,6 @@
 package hu.sule.administration.service.impl;
 
-import hu.sule.administration.exceptions.CustomException;
+import hu.sule.administration.exceptions.ApiException;
 import hu.sule.administration.model.*;
 import hu.sule.administration.queries.ExistDbVersionManagementQueries;
 import hu.sule.administration.service.CollectionService;
@@ -53,10 +53,10 @@ public class VersionManagerServiceImpl implements VersionManagerService {
         try {
             String confContent = collectionServiceImpl.readFile("/db/system/config/db/collection.xconf").getContent();
             if("".equals(confContent))
-                throw new CustomException("root collection.xconf is not exist, Please initialize it in the Trigger manager","","ERROR MESSAGE");
+                throw new ApiException("root collection.xconf is not exist, Please initialize it in the Trigger manager","","ERROR MESSAGE");
             doc = saxBuilder.build(new InputSource(new StringReader(confContent)));
         } catch(JDOMException e){
-            throw new CustomException(e.getMessage(),"isEnabled in VersionManagerService","JDOMException", e.getStackTrace());
+            throw new ApiException(e.getMessage(),"isEnabled in VersionManagerService","JDOMException", e.getStackTrace());
         }
             if (doc != null) {
             Element collection = doc.getRootElement();

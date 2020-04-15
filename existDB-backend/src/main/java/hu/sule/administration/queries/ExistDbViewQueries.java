@@ -35,10 +35,10 @@ public class ExistDbViewQueries {
                 "    let $view_content := " + viewCreateModel.getQueryExpression() + "\n" +
                 "    return\n" +
                 "        (\n" +
+                "        local:log-event($view_full_path),\n"+
                 "        if (not(doc-available($view_full_path))) then\n" +
                 "            xmldb:store($collection, $doc-name, <view>{$view_content}</view>)\n" +
                 "        else (\n" +
-                "            local:log-event($view_full_path),\n"+
                 "            xmldb:remove($collection, $doc-name),\n" +
                 "            xmldb:store($collection, $doc-name, <view>{$view_content}</view>)\n" +
                 "            )\n" +

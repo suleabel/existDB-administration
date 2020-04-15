@@ -2,6 +2,7 @@ package hu.sule.administration.controller;
 
 import hu.sule.administration.model.ForStoreResourceAndColl;
 import hu.sule.administration.exceptions.XMLIsNotValidException;
+import hu.sule.administration.model.ResourceReadModel;
 import hu.sule.administration.xsdGenerator.XMLtoXSDService;
 import org.jdom2.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,12 @@ public class XmlToXsdController {
     private XMLtoXSDService xmLtoXSDService;
 
     @RequestMapping("/createXsd")
-    public ResponseEntity<String> genXsd(HttpEntity<String> httpEntity) throws SAXException, IOException, XMLIsNotValidException, JDOMException {
-        System.out.println(xmLtoXSDService.convert(httpEntity.getBody()));
-        return new ResponseEntity<>("{\"response\":\"" + xmLtoXSDService.convert(httpEntity.getBody()) + "\"}", HttpStatus.OK);
+    public ResponseEntity<ResourceReadModel> genXsd(HttpEntity<String> httpEntity) throws SAXException, IOException, XMLIsNotValidException, JDOMException {
+        return new ResponseEntity<>(new ResourceReadModel(xmLtoXSDService.convert(httpEntity.getBody()), false), HttpStatus.OK);
     }
 
     @RequestMapping("/saveXsd")
-    public ResponseEntity<String> saveXsd(@RequestBody ForStoreResourceAndColl storeResource) throws XMLDBException{
+    public ResponseEntity<String> saveXsd(@RequestBody ForStoreResourceAndColl storeResource){
         return new ResponseEntity<>("{\"response\":\"" + xmLtoXSDService.saveXsd(storeResource) + "\"}",HttpStatus.OK);
     }
 

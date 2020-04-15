@@ -12,6 +12,7 @@ import {CreateNewResourceComponent} from './create-new-resource/create-new-resou
 import {CreateXqueryComponent} from './create-xquery/create-xquery.component';
 import {FileCredentialsComponent} from './file-credentials/file-credentials.component';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
     selector: 'app-collection-manager',
@@ -32,7 +33,6 @@ export class CollectionManagerComponent implements OnInit {
                 private notificationService: NotificationService) {
     }
 
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {

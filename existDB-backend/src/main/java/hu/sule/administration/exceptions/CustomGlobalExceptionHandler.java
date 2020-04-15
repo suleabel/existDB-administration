@@ -29,10 +29,10 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler({CustomException.class})
-    public ResponseEntity<CustomErrorResponse> customExceptionHandle(CustomException e, HttpServletRequest request) {
-        CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"CustomException", e.getSubType(),e.getLocation(),e.getMessage(),request.getRequestURL().toString());
-        logger.error("CustomException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
+    @ExceptionHandler({ApiException.class})
+    public ResponseEntity<CustomErrorResponse> customExceptionHandle(ApiException e, HttpServletRequest request) {
+        CustomErrorResponse errors = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),"ApiException", e.getSubType(),e.getLocation(),e.getMessage(),request.getRequestURL().toString());
+        logger.error("ApiException: " + errors.toString() + "\n" + ExceptionUtils.getStackTrace(e));
         return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

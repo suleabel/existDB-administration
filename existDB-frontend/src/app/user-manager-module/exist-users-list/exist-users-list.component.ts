@@ -6,9 +6,10 @@ import {NotificationService} from '../../error-notification-module/service/notif
 import {ExistUserModel} from '../model/existUser.model';
 import {ExistAddUserComponent} from '../exist-add-user/exist-add-user.component';
 import {BehaviorSubject} from 'rxjs';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
     selector: 'app-exist-users-list',
@@ -35,9 +36,7 @@ export class ExistUsersListComponent implements OnInit {
                 private dialogService: DialogService,
                 private notificationService: NotificationService) {
     }
-    // @ts-ignore
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {

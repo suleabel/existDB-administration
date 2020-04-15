@@ -6,6 +6,7 @@ import {FileExplorerService} from '../../collection-manager/service/file-explore
 import {BehaviorSubject} from 'rxjs';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
     selector: 'app-collections-dialog',
@@ -25,7 +26,6 @@ export class CollectionsDialogComponent implements OnInit {
                 private notificationService: NotificationService) {
     }
 
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {

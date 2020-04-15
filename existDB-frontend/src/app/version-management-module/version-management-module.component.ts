@@ -7,6 +7,7 @@ import {FileExplorerService} from '../collection-manager/service/file-explorer.s
 import {ViewHistoryComponent} from './view-history/view-history.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
     selector: 'app-version-management-module',
@@ -28,7 +29,6 @@ export class VersionManagementModuleComponent implements OnInit {
                 private dialog: MatDialog) {
     }
 
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {

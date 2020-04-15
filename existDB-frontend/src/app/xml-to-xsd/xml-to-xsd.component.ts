@@ -59,10 +59,9 @@ export class XmlToXsdComponent implements OnInit {
         });
     }
 
-    sendText(value: string): void {
-        console.log(value);
+    sendText() {
         this.xmlService.sendXml(this.textValue).subscribe(data => {
-            this.generatedXSD = data.response;
+            this.generatedXSD = data.content;
         }, error => {
             this.notificationService.Error(error.error);
         });

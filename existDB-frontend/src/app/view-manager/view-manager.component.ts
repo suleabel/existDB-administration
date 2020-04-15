@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ViewServiceService} from './service/view-service.service';
-import {CreateViewModel} from './model/CreateViewModel';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationService} from '../error-notification-module/service/notification.service';
 import {QueryService} from '../query-execute/service/query.service';
@@ -14,7 +13,6 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class ViewManagerComponent implements OnInit {
     public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public viewData: CreateViewModel;
     public viewForm: FormGroup;
     public queryIsChecked = false;
 

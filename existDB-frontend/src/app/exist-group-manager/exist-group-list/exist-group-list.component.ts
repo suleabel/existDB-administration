@@ -8,6 +8,8 @@ import {ExistAddGroupComponent} from '../exist-add-group/exist-add-group.compone
 import {BehaviorSubject} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
     selector: 'app-exist-group-list',
@@ -35,9 +37,7 @@ export class ExistGroupListComponent implements OnInit {
                 private notificationService: NotificationService) {
     }
 
-    // @ts-ignore
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
