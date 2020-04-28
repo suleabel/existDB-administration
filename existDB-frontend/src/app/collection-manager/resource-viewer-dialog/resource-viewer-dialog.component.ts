@@ -97,7 +97,7 @@ export class ResourceViewerDialogComponent implements OnInit {
                     this.notificationService.success('Success');
                     const dialogRef = this.dialog.open(EvalResultViewerComponent, {
                         width: '80%',
-                        height: 'auto',
+                        height: '80%',
                         data: {res: result}
                     });
                     dialogRef.afterClosed().subscribe();

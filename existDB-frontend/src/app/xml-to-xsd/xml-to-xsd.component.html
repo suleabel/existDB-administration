@@ -8,7 +8,7 @@
             <div class="card-body">
                 <textarea ref-textarea [(ngModel)]="textValue" rows="4"></textarea>
                 <button [disabled]="(textValue == '') ? 'disabled' : ''" class="btn btn-primary font-weight-bold"
-                        (click)="sendText(textarea.value)">Generate XSD
+                        (click)="sendText()">Generate XSD
                 </button>
             </div>
         </div>

@@ -66,7 +66,8 @@ export class ViewHistoryComponent implements OnInit {
             result => {
                 const dialogRef = this.dialog.open(ViewChangesDialogComponent, {
                     width: '60%',
-                    height: '50%',
+                    height: 'auto',
+                    maxHeight: '80%',
                     data: {res: result}
                 });
                 dialogRef.afterClosed().subscribe();
@@ -89,7 +90,8 @@ export class ViewHistoryComponent implements OnInit {
                 this.notificationService.success('Success');
             },
             error => {
-                this.notificationService.Error(error.error);
+                const jsonError: ErrorModel = JSON.parse(error.error);
+                this.notificationService.Error(jsonError);
             }
         );
     }

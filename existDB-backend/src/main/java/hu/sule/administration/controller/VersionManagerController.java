@@ -44,12 +44,15 @@ public class VersionManagerController {
 
     @RequestMapping("/getDiffByRev")
     public ResponseEntity<String> getDiffByRev(@RequestBody VersionByRevModel versionByRevModel) throws IOException, JDOMException{
-        //TODO direkt ilyen ne piszkáld
+        //direkt ilyen ne piszkáld
         return new ResponseEntity<>(versionManagerServiceImpl.getDiffByRev(versionByRevModel).replaceAll("\"", "'"), HttpStatus.OK);
     }
 
     @RequestMapping("/restoreResByRev")
     public ResponseEntity<String> restoreResByRev(@RequestBody VersionByRevModel versionByRevModel) throws IOException, JDOMException{
-        return new ResponseEntity<>("{\"response\":\"" + versionManagerServiceImpl.restoreResByRev(versionByRevModel) + "\"}", HttpStatus.OK);
+        System.out.println("/restoreResByRev");
+        String result = versionManagerServiceImpl.restoreResByRev(versionByRevModel);
+        System.out.println(result);
+        return new ResponseEntity<>("{\"response\":\"" + result + "\"}", HttpStatus.OK);
     }
 }

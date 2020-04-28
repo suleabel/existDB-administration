@@ -3,6 +3,7 @@ package hu.sule.administration.model;
 import lombok.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString

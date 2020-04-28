@@ -1,25 +1,12 @@
-<h1>Home page</h1>
+<h1>eXist-DB administration home page</h1>
 <div class="home_page">
   <div>
-    <h5 class="text-primary">Your Information</h5>
+<!--    <h5 class="text-primary">Your Information</h5>-->
+    <h2>Welcome {{info.username}} in the eXist-DB administration program</h2>
     <p>
-      <strong>Username:</strong> {{info.username}}<br/>
-      <strong>Token:</strong> {{info.token}}
+<!--      <strong>Username:</strong> {{info.username}}<br/>-->
+<!--      <strong>Token:</strong> {{info.token}}-->
     </p>
   </div>
   <h2>All function tested in eXist-DB 4.6 version</h2>
-
-<!--  <div class="card">-->
-<!--    <div class="card-header">Connect to existDB server:</div>-->
-<!--    <div class="card-body">-->
-<!--          <label for="URL" class="control-label"></label>-->
-<!--          <input matInput id="URL" type="text" class="form-control" placeholder="URL"-->
-<!--                 formControlName="URL">-->
-<!--          <button (click)="connectToDb()">Connect</button>-->
-<!--    </div>-->
-<!--  </div>-->
-
-  <ng-template #loggedOut>
-    Please login.
-  </ng-template>
 </div>

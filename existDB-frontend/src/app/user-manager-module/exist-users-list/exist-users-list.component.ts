@@ -87,8 +87,8 @@ export class ExistUsersListComponent implements OnInit {
 
     addUser() {
         const dialogRef = this.dialog.open(ExistAddUserComponent, {
-            width: '800px',
-            height: '800px',
+            width: '60%',
+            height: '90%',
         });
         dialogRef.afterClosed().subscribe(result => {
             this.addUserData = result;

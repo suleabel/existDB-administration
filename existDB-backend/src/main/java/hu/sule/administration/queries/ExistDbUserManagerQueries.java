@@ -129,7 +129,9 @@ public class ExistDbUserManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details, query);
+        String result = util.stringResultQuery(details, query);
+        System.out.println(result);
+        return result;
     }
 
     public String getUsersNames(ExistDetails details) {

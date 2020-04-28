@@ -36,7 +36,7 @@ export class VersionManagementService {
     }
 
     public restoreResByRev(data: GetDiffByRevModel): Observable<any> {
-        return this.http.post(this.baseUrlForExist + 'restoreResByRev', data, httpOptions);
+        return this.http.post(this.baseUrlForExist + 'restoreResByRev', data, {responseType: 'text'});
     }
 
 }
