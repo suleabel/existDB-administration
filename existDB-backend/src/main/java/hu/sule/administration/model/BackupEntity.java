@@ -4,14 +4,11 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class BackupEntity {
     private String fileName;
     private String nrInSequence;
     private String date;
     private String incremental;
-    private String previous;
-    private boolean downloadable;
+    private int previous;
 }

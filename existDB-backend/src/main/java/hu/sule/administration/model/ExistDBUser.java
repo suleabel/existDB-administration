@@ -8,7 +8,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString
 @Builder
 public class ExistDBUser implements Serializable {
     private String username;
@@ -21,12 +20,13 @@ public class ExistDBUser implements Serializable {
     private boolean Default;
     private boolean enabled = true;
 
-    public ExistDBUser(String username, String umask, String primaryGroup, String fullName, String desc, boolean aDefault, boolean enabled) {
+    public ExistDBUser(String username, String umask, String primaryGroup, String fullName, String desc, String password, boolean aDefault, boolean enabled) {
         this.username = username;
         this.umask = umask;
         this.primaryGroup = primaryGroup;
         this.fullName = fullName;
         this.desc = desc;
+        this.password = password;
         this.Default = aDefault;
         this.enabled = enabled;
     }

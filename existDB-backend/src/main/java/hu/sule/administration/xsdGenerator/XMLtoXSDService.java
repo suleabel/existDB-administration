@@ -24,12 +24,10 @@ import java.io.*;
 @Service
 public class XMLtoXSDService {
 
-    private static final Logger logger = LoggerFactory.getLogger(XMLtoXSDService.class);
-
     @Autowired
     private CollectionService collectionServiceImpl;
 
-    public String convert(String xml) throws JDOMException, IOException, XMLIsNotValidException, SAXException  {
+    public String convert(String xml) throws JDOMException, IOException, XMLIsNotValidException, SAXException {
         XMLInstance2Schema xmlInstance2Schema = new XMLInstance2Schema();
         Writer writer = new StringWriter();
         String generatedXSD = "";
@@ -44,7 +42,6 @@ public class XMLtoXSDService {
         doc = new SAXBuilder().build(new StringReader(generatedXSD));
         return new XMLOutputter(Format.getPrettyFormat()).outputString(doc);
     }
-
 
     public String saveXsd(ForStoreResourceAndColl storeResource) {
         return collectionServiceImpl.Store(storeResource);

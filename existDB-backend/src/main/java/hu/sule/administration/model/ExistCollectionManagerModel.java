@@ -4,9 +4,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class ExistCollectionManagerModel {
     private String name;
     private String path;
@@ -15,7 +13,6 @@ public class ExistCollectionManagerModel {
     private String mode;
     private String date;
     private String mime;
-    private String locked;
+    private boolean locked;
     private boolean resource;
-    private boolean triggerConfigAvailable = false;
 }

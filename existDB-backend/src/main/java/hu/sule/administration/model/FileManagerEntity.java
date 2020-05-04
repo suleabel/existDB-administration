@@ -5,9 +5,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class FileManagerEntity {
     private boolean isFile;
     private String name;

@@ -50,7 +50,6 @@ public class Mappers {
                 List<Element> details = backup.getChildren();
                 BackupEntity backupEntity = new BackupEntity();
                 backupEntity.setFileName(backup.getAttributeValue("file"));
-                backupEntity.setDownloadable(backupEntity.getFileName().contains(".zip"));
                 for (Element detail: details) {
                     switch(detail.getName()){
                         case "nr-in-sequence":
@@ -60,7 +59,7 @@ public class Mappers {
                             backupEntity.setDate(detail.getValue());
                             break;
                         case "previous":
-                            backupEntity.setPrevious(detail.getValue());
+                            backupEntity.setPrevious(Integer.parseInt(detail.getValue()));
                             break;
                         case "incremental":
                             backupEntity.setIncremental(detail.getValue());
@@ -83,13 +82,14 @@ public class Mappers {
             List<Element> exist = result.getChildren();
             for (Element element: exist) {
                 if(element.getName().equals("collection")){
-                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),null,element.getAttributeValue("resource").equals("true"), false);
+                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),false,element.getAttributeValue("resource").equals("true"));
                 }else if(element.getName().equals("resource")){
-                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),element.getAttributeValue("locked"),element.getAttributeValue("resource").equals("true"), false);
+                    model = new ExistCollectionManagerModel(element.getAttributeValue("name"),element.getAttributeValue("path"),element.getAttributeValue("owner"),element.getAttributeValue("group"), element.getAttributeValue("mode"),element.getAttributeValue("date"),element.getAttributeValue("mime"),element.getAttributeValue("locked").equals("true"),element.getAttributeValue("resource").equals("true"));
                 }
                 collectionManagerModels.add(model);
             }
         }
+
         return collectionManagerModels;
     }
 
@@ -132,7 +132,7 @@ public class Mappers {
                 userGroups = new ArrayList<>();
                 existDBUser = new ExistDBUser(
                         user.getChildText("username"), user.getChildText("umask"), user.getChildText("primaryGroups"),
-                        user.getChildText("fullName"), user.getChildText("desc"), false, true);
+                        user.getChildText("fullName"), user.getChildText("desc"),"nan",false, true);
                 Element groups = user.getChild("groups");
                 List<Element> groupList = groups.getChildren();
                 for (Element group : groupList) {
