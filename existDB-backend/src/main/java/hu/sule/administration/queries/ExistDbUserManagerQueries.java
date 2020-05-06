@@ -78,7 +78,7 @@ public class ExistDbUserManagerQueries {
     }
 
 
-    public String removeUserFromGroup(ExistDetails details, String user, String group) {
+    public void removeUserFromGroup(ExistDetails details, String user, String group) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -87,10 +87,10 @@ public class ExistDbUserManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details, query);
+        util.stringResultQuery(details, query);
     }
 
-    public String addUserToGroup(ExistDetails details, String user, String group) {
+    public void addUserToGroup(ExistDetails details, String user, String group) {
         String query = "xquery version \"3.1\";\n" +
                 "import module namespace sm=\"http://exist-db.org/xquery/securitymanager\";\n" +
                 "if(xmldb:login(\"" + details.getCollection() + "\",\"" + details.getUsername() + "\",\"" + details.getPassword() + "\")) then\n" +
@@ -99,7 +99,7 @@ public class ExistDbUserManagerQueries {
                 "    )\n" +
                 "else\n" +
                 "false()";
-        return util.stringResultQuery(details, query);
+        util.stringResultQuery(details, query);
     }
 
     public String readUsers(ExistDetails details) {

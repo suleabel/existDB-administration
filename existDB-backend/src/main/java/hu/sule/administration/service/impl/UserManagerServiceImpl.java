@@ -22,7 +22,7 @@ public class UserManagerServiceImpl implements UserManagerService {
     @Autowired
     private ExistDbUserManagerQueries existDbUserManagerQueries;
 
-    private static final Logger logger = LoggerFactory.getLogger(ExistDbCredentialsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserManagerServiceImpl.class);
 
     @Override
     public ArrayList<ExistDBUser> listUsers() throws JDOMException, IOException {
@@ -35,7 +35,6 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     @Override
     public String createUser(ExistDBUser user) {
-        logger.info("try to create user:" + user.toString());
         return existDbUserManagerQueries.createUser(ExistDbCredentialsServiceImpl.getDetails(), user);
     }
 
