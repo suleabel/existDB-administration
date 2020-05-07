@@ -1,11 +1,8 @@
 package hu.sule.administration.service;
 
-import hu.sule.administration.model.ExistDBGroup;
 import hu.sule.administration.model.ExistDBUser;
-import hu.sule.administration.model.ExistDetails;
 import hu.sule.administration.queries.ExistDbUserManagerQueries;
 import hu.sule.administration.service.impl.UserManagerServiceImpl;
-import hu.sule.administration.util.Mappers;
 import org.jdom2.JDOMException;
 import org.jdom2.input.JDOMParseException;
 import org.junit.Test;

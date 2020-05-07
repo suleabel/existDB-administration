@@ -27,7 +27,9 @@ public class BackupServiceImpl implements BackupService {
     private ExistDbBackupsAndRestoreQueries existDbBackupsAndRestoreQueries;
 
     public ArrayList<BackupEntity> getBackups(String url) throws IOException, JDOMException {
-        return Mappers.mapBackups(existDbBackupsAndRestoreQueries.getBackups(ExistDbCredentialsServiceImpl.getDetails(), url));
+        String asd = existDbBackupsAndRestoreQueries.getBackups(ExistDbCredentialsServiceImpl.getDetails(), url);
+        System.out.println(asd);
+        return Mappers.mapBackups(asd);
     }
 
     public String createBackup(CreateBackupEntity createBackupEntity) throws JDOMException, IOException {
