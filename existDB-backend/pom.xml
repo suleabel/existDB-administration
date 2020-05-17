@@ -151,7 +151,7 @@
 				<version>2.2</version>
 				<configuration>
 					<server>tomcat-server</server>
-					<url>http://yolozsefa.asuscomm.com:8080/manager/text</url>
+					<url>http://192.168.1.111:8080/manager/text</url>
 					<path>/existDB-Administration</path>
 					<!--mvn install tomcat7:deploy-->
 				</configuration>

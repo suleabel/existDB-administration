@@ -45,7 +45,7 @@ public class CollectionManagerController {
     }
 
     @RequestMapping("/getFileContent")
-    public ResponseEntity<ResourceReadModel> getFileContent(HttpEntity<String> httpEntity) throws JDOMException, IOException{
+    public ResponseEntity<ResourceReadModel> readFileContent(HttpEntity<String> httpEntity) throws JDOMException, IOException{
         return new ResponseEntity<>(collectionServiceImpl.readFile(httpEntity.getBody()),HttpStatus.OK);
     }
 
