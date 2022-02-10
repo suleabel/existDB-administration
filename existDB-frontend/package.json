@@ -34,7 +34,7 @@
     "ngx-highlightjs": "^4.1.0-beta",
     "ngx-monaco-editor": "^8.1.1",
     "rxjs": "^6.5.5",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sass": "^1.26.1",
     "tslib": "^1.11.1",
     "zone.js": "^0.10.3",
