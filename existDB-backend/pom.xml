@@ -72,7 +72,7 @@
 		<dependency>
 			<groupId>org.exist-db</groupId>
 			<artifactId>exist-core</artifactId>
-			<version>RELEASE</version>
+			<version>5.1.0</version>
 		</dependency>
 
 		<dependency>
